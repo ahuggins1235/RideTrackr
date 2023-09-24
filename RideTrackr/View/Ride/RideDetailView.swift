@@ -13,9 +13,6 @@ struct RideDetailView: View {
 
     // MARK: - Properties
     @State var ride: Ride
-    @Binding var show: Bool
-    @State private var showingAlert = false
-    @State var recentRide = false
     @Environment(\.displayScale) private var displayScale: CGFloat
     
     @MainActor
@@ -26,52 +23,10 @@ struct RideDetailView: View {
         renderer.scale = displayScale
         
         guard let image = renderer.uiImage else {
-            showingAlert = true
             return Image(uiImage: UIImage())
         }
         
         return Image(uiImage: image)
-    }
-    
-    var test: some View {
-        
-        VStack(alignment: .leading) {
-            
-            
-            // map
-            RideRouteMap(ride: $ride)
-            
-            // ride preview
-            LargeRidePreview(ride: $ride, showDate: false, queryingHealthKit: .constant(false))
-                .padding()
-            
-            ChartCardView(samples: ride.hrSamples,
-                          title: "Heart Rate",
-                          unit: "BPM",
-                          color: .red,
-                          average: ride.heartRate.rounded(),
-                          rightText: "AVG"
-            ).padding(.bottom)
-            
-            ChartCardView(samples: ride.speedSamples,
-                          title: "Speed",
-                          unit: "KM/H",
-                          color: .blue,
-                          average: ride.speed.rounded(),
-                          rightText: "AVG"
-            ).padding(.bottom)
-            
-            ChartCardView(samples: ride.altitdueSamples,
-                          title: "Altitude",
-                          unit: "m",
-                          color: .mint,
-                          average: ride.altitudeGained.rounded(),
-                          rightText: "GAIN"
-            ).padding(.bottom)
-            
-            
-        }
-        
     }
     
     // MARK: - Body
@@ -80,7 +35,41 @@ struct RideDetailView: View {
         ZStack {
             ScrollView {
                 
-                test
+                VStack(alignment: .leading) {
+                    
+                    // map
+                    RideRouteMap(ride: $ride)
+                    
+                    // ride preview
+                    LargeRidePreview(ride: $ride, showDate: false, queryingHealthKit: .constant(false))
+                        .padding()
+                    
+                    ChartCardView(samples: ride.hrSamples,
+                                  title: "Heart Rate",
+                                  unit: "BPM",
+                                  color: .heartRate,
+                                  average: ride.heartRate.rounded(),
+                                  rightText: "AVG"
+                    ).padding(.bottom)
+                    
+                    ChartCardView(samples: ride.speedSamples,
+                                  title: "Speed",
+                                  unit: "KM/H",
+                                  color: .speed,
+                                  average: ride.speed.rounded(),
+                                  rightText: "AVG"
+                    ).padding(.bottom)
+                    
+                    ChartCardView(samples: ride.altitdueSamples,
+                                  title: "Altitude",
+                                  unit: "m",
+                                  color: .altitude,
+                                  average: ride.altitudeGained.rounded(),
+                                  rightText: "GAIN"
+                    ).padding(.bottom)
+                    
+                    
+                }
 
             }
             
@@ -94,53 +83,6 @@ struct RideDetailView: View {
                 
             }
         }
-        .alert("Error sharing ride", isPresented: $showingAlert) {
-            Button("OK", role: .cancel) { }
-        }
-        
-//            .overlay {
-//
-//            if recentRide {
-//                VStack {
-//                    HStack {
-//
-//                        Spacer()
-//
-//                        // ride date
-//                        Text(ride.dateString)
-//                            .font(.headline)
-//                            .bold()
-//                            .padding()
-//
-//                        Spacer()
-//
-//
-//                    }
-//                    // close button
-//                    .overlay {
-//                        HStack {
-//                            Spacer()
-//                            Button {
-//                                withAnimation(.spring(response: 0.6, dampingFraction: 0.8)) {
-//                                    show.toggle()
-//                                }
-//
-//                            } label: {
-//                                Image(systemName: "xmark")
-//                                    .bold()
-//                                    .foregroundColor(.secondary)
-//                                    .padding(7)
-//                                    .background(.background, in: Circle())
-//                            }
-//                                .padding(.horizontal)
-//                        }
-//                    }
-//                        .background(.ultraThinMaterial)
-//                    Spacer()
-//                }
-//            }
-//        }
-            
     }
 }
 
@@ -182,12 +124,7 @@ struct ChartCardView: View {
                             y: .value(unit, (sample.max + sample.min) / 2)
                         )
                         .interpolationMethod(.catmullRom)
-//                            .symbol() {
-//                            Circle()
-//                                .frame(width: 5)
-//                        }
                     }
-//                    .chartYScale(domain: 50...200)
                     .foregroundStyle(color)
                         .padding()
 
@@ -268,8 +205,8 @@ struct RideDetailView_Previews: PreviewProvider {
 
     static var previews: some View {
 
-        RideDetailView(ride: PreviewRide, show: .constant(false), recentRide: false)
-        RideDetailView(ride: PreviewRide, show: .constant(false), recentRide: true)
+        RideDetailView(ride: PreviewRide)
+        RideDetailView(ride: PreviewRide)
         ChartCardView(samples: PreviewRide.hrSamples, title: "Heart Rate", unit: "BPM", color: .red, average: 167, rightText: "AVG")
     }
 }

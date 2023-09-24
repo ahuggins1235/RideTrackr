@@ -11,7 +11,6 @@ struct RideListView: View {
 
     // MARK: - Properties
     @EnvironmentObject var navigationManager: NavigationManager
-    @State var show = true
     @EnvironmentObject var healthManager: HealthManager
     @State var dateFilter = Date()
 
@@ -61,18 +60,10 @@ struct RideListView: View {
                 }
             }
                 .navigationDestination(for: Ride.self) { ride in
-                RideDetailView(ride: ride, show: $show)
+                RideDetailView(ride: ride)
 
             }
                 .toolbar {
-
-//                ToolbarItem(placement: .topBarTrailing) {
-//                    Button {
-//                        healthManager.syncWithHK()
-//                    } label: {
-//                        Label("Sync", systemImage: "arrow.triangle.2.circlepath")
-//                    }
-//                }
 
                 ToolbarItemGroup {
 

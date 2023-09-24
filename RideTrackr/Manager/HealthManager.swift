@@ -25,10 +25,7 @@ class HealthManager: ObservableObject {
     @Published var queryingHealthKit: Bool = true
 
     /// how often samples should be taken for things like heart rate and speed
-    private let sampleInterval = DateComponents(second: 1)
-    
-    /// how many samples should be requested from healthkit for certain queries
-    private let numberOfSamples = 2
+    private let sampleInterval = DateComponents(second: 5)
 
 
     // MARK: - Init
@@ -84,11 +81,7 @@ class HealthManager: ObservableObject {
                     let sumHRSamples = hrSamples.reduce(0.0) { $0 + (($1.min + $1.max) / 2) }
                     let averageHR = sumHRSamples / Double(hrSamples.count)
                     
-                    //                    var workoutRoute: [CLLocation] = []
-                    
-                    
-                    
-                    getWorkoutRoute(workout: workout, numOfSamples: numberOfSamples) { (locations, error) in
+                    getWorkoutRoute(workout: workout) { (locations, error) in
                         if let error = error {
                             print("Error: \(error.localizedDescription)")
                         } else if let locations = locations {
@@ -272,7 +265,7 @@ class HealthManager: ObservableObject {
         }
     }
     
-    func getWorkoutRoute(workout: HKWorkout, numOfSamples: Int, completion: @escaping ([CLLocation]?, Error?) -> Void) {
+    func getWorkoutRoute(workout: HKWorkout, completion: @escaping ([CLLocation]?, Error?) -> Void) {
         let workoutPredicate = HKQuery.predicateForObjects(from: workout)
         let routeQuery = HKAnchoredObjectQuery(type: HKSeriesType.workoutRoute(), predicate: workoutPredicate, anchor: nil, limit: HKObjectQueryNoLimit) { (query, samples, deletedObjects, newAnchor, error) in
             guard error == nil else {
@@ -300,19 +293,10 @@ class HealthManager: ObservableObject {
                         
                         for locationResult in locationResults {
                             
-                            if locations.isEmpty || locationResult.timestamp.timeIntervalSince(locations.last!.timestamp) >= 5 {
+                            if locations.isEmpty || locationResult.timestamp.timeIntervalSince(locations.last!.timestamp) >= Double(self.sampleInterval.value(for: .second)!) {
                                 locations.append(locationResult)
                             }
                         }
-                        
-//                        locations.append(contentsOf: locationResults)
-//                        // Calculate the interval for even distribution
-//                        let interval = max(locationResults.count / numOfSamples, 1)
-//                        
-//                        // Select samples at regular intervals
-//                        for i in stride(from: 0, to: locationResults.count, by: interval) {
-//                            locations.append(locationResults[i])
-//                        }
                     }
                     
                     if done {

@@ -20,11 +20,6 @@ struct RideShareView: View {
                 .bold()
                 .padding(.top)
             
-            
-            
-            // map
-//            RideRouteMap(ride: $ride)
-            
             // ride preview
             LargeRidePreview(ride: $ride, showDate: false, queryingHealthKit: .constant(false))
                 

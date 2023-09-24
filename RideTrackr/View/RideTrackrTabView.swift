@@ -19,7 +19,7 @@ struct RideTrackrTabView: View {
         TabView(selection: $navigationManager.selectedTab) {
             
             ForEach(ApplicationTab.allCases) { applicationTab in
-                applicationTab.destination.tabItem { applicationTab.label }.tag(applicationTab.rawValue)//.navigationTitle(applicationTab.rawValue)
+                applicationTab.destination.tabItem { applicationTab.label }.tag(applicationTab.rawValue)
             }
         }
         .backgroundStyle(.ultraThinMaterial)

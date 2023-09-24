@@ -22,12 +22,6 @@ struct RideRowView: View {
             // Map
             Circle()
                 .frame(width: 50)
-//            Map(interactionModes: .zoom) {
-//                MapPolyline(coordinates: ride.routeData.map { $0.coordinate })
-//                    .stroke(.blue, lineWidth: 5)
-//            }
-//                .frame(width: 100,height: 100)
-//                .clipShape(Circle())
             
             VStack {
                 
@@ -35,10 +29,8 @@ struct RideRowView: View {
                 HStack {
                     
                     Text(ride.activeEnergyString)
-//                        .foregroundStyle(.orange)
                         
                     Text(ride.durationString)
-//                        .foregroundStyle(.cyan)
                     
                     Spacer()
                     
@@ -54,7 +46,6 @@ struct RideRowView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .font(.title3)
                         .fontWeight(.semibold)
-//                        .foregroundStyle(.green)
                     
                     Text(ride.shortDateString)
                         .font(.headline)

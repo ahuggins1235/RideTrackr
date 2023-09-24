@@ -12,8 +12,6 @@ struct HomeView: View {
     // MARK: - Properties
     @EnvironmentObject var healthManager: HealthManager
     @EnvironmentObject var navigationManager: NavigationManager
-    @State private var show = false
-    @State private var selectedRide = Ride()
 
     private var greetingString: String {
         return GetGreetingString()
@@ -29,10 +27,10 @@ struct HomeView: View {
                     // MARK: - stat views
                     LazyVGrid(columns: Array(repeating: GridItem(spacing: 20), count: 2)) {
 
-                        HomeStatCardView(bgColor: .red, title: "Average Heart Rate", icon: "heart.fill", data: "162 BMP")
-                        HomeStatCardView(bgColor: .blue, title: "Average Speed", icon: "speedometer", data: "14 KM/H")
-                        HomeStatCardView(bgColor: .green, title: "Average Distance", icon: "figure.outdoor.cycle", data: "11.4 KM")
-                        HomeStatCardView(bgColor: .orange, title: "Average Active Energy", icon: "flame.fill", data: "1,042 KJ")
+                        HomeStatCardView(bgColor: .heartRate, title: "Average Heart Rate", icon: "heart.fill", data: "162 BMP")
+                        HomeStatCardView(bgColor: .speed, title: "Average Speed", icon: "speedometer", data: "14 KM/H")
+                        HomeStatCardView(bgColor: .distance, title: "Average Distance", icon: "figure.outdoor.cycle", data: "11.4 KM")
+                        HomeStatCardView(bgColor: .energy, title: "Average Active Energy", icon: "flame.fill", data: "1,042 KJ")
 
                     }
 
@@ -102,36 +100,7 @@ struct HomeView: View {
                                     }
                                 }
                             }
-                            
-//                            HStack {
-//                                // Apply blur effect at the top
-//                                Spacer()
-//                                
-//                                Rectangle()
-//                                    .foregroundColor(.clear)
-//                                    .background(
-//                                        LinearGradient(gradient: Gradient(colors: [.clear, .black.opacity(0.5)]), startPoint: .top, endPoint: .center)
-//                                            .frame(height: 100)
-//                                    )
-//                                    .blur(radius: 10)
-//                                
-//                                Spacer()
-//                                
-//                                // Apply blur effect at the bottom
-//                                Rectangle()
-//                                    .foregroundColor(.clear)
-//                                    .background(
-//                                        LinearGradient(gradient: Gradient(colors: [.black.opacity(0.5), .clear]), startPoint: .center, endPoint: .bottom)
-//                                            .frame(height: 100)
-//                                    )
-//                                    .blur(radius: 10)
-//                                
-//                                Spacer()
-//                            }
-
-                            
                         }
-                        
                     }
                     .padding(.vertical)
                     
@@ -152,21 +121,9 @@ struct HomeView: View {
                     .navigationTitle(greetingString)
             }
             .navigationDestination(for: Ride.self) { ride in
-                RideDetailView(ride: ride, show: $show)
+                RideDetailView(ride: ride)
             }
         }
-//        // MARK: - ride detail view sheet
-//            .sheet(isPresented: $show) {
-//
-////            if let recentRide = healthManager.recentRide {
-//                RideDetailView(ride: PreviewRide, show: $show, recentRide: true)
-//                    .navigationTitle(PreviewRide.dateString)
-//
-////            }
-//        }
-      
-
-
     }
 }
 

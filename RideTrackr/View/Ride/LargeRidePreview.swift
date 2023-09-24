@@ -21,7 +21,6 @@ struct LargeRidePreview: View {
             // MARK: - Background
             RoundedRectangle(cornerRadius: 15)
                 .fill(.cardBackground)
-//                .clipShape(RoundedRectangle(cornerRadius: 15))
                 .shadow(radius: 4, x: 2, y: 2)
 
             // MARK: - Body
@@ -38,12 +37,12 @@ struct LargeRidePreview: View {
                     }
 
                     LazyVGrid(columns: Array(repeating: GridItem(spacing: 8), count: 2)) {
-                        RideStatCardView(color: .red, title: "Avg. Heart Rate", data: Binding(get: { ride.heartRateString }, set: { _ in }), differenceFromAverage: 10)
-                        RideStatCardView(color: .blue, title: "Avg. Speed", data: Binding(get: { ride.speedString }, set: { _ in }), differenceFromAverage: 11)
-                        RideStatCardView(color: .green, title: "Distance", data: Binding(get: { ride.distanceString }, set: { _ in }), differenceFromAverage: -5)
-                        RideStatCardView(color: .orange, title: "Active Energy", data: Binding(get: { ride.activeEnergyString }, set: { _ in }), differenceFromAverage: -11)
-                        RideStatCardView(color: .cyan, title: "Duration", data: Binding(get: { ride.durationString }, set: { _ in }), showDifference: false)
-                        RideStatCardView(color: .mint, title: "Altitude Gained", data: Binding(get: { ride.alitudeString }, set: { _ in }), showDifference: false)
+                        RideStatCardView(color: .heartRate, title: "Avg. Heart Rate", data: Binding(get: { ride.heartRateString }, set: { _ in }), differenceFromAverage: 10)
+                        RideStatCardView(color: .speed, title: "Avg. Speed", data: Binding(get: { ride.speedString }, set: { _ in }), differenceFromAverage: 11)
+                        RideStatCardView(color: .distance, title: "Distance", data: Binding(get: { ride.distanceString }, set: { _ in }), differenceFromAverage: -5)
+                        RideStatCardView(color: .energy, title: "Active Energy", data: Binding(get: { ride.activeEnergyString }, set: { _ in }), differenceFromAverage: -11)
+                        RideStatCardView(color: .duration, title: "Duration", data: Binding(get: { ride.durationString }, set: { _ in }), showDifference: false)
+                        RideStatCardView(color: .altitude, title: "Altitude Gained", data: Binding(get: { ride.alitudeString }, set: { _ in }), showDifference: false)
 
                     }
                         .padding(10)
@@ -75,7 +74,7 @@ struct LargeRidePreview: View {
 //MARK: - Previews
 #Preview {
     @State var previewRide = PreviewRide
-    return LargeRidePreview(ride: $previewRide, queryingHealthKit: .constant(true))//.environmentObject(HealthManager())
+    return LargeRidePreview(ride: $previewRide, queryingHealthKit: .constant(false))
 }
 
 #Preview {

@@ -27,10 +27,10 @@ struct RideCardPreview: View {
                 
                 HStack {
                     Text(ride.distanceString)
-                        .foregroundStyle(.green)
+                        .foregroundStyle(.distance)
                     Spacer()
                     Text(ride.activeEnergyString)
-                        .foregroundStyle(.orange)
+                        .foregroundStyle(.energy)
                 }.bold()
                     .font(.title3)
                 

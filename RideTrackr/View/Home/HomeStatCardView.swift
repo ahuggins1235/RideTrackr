@@ -17,7 +17,8 @@ struct HomeStatCardView: View {
     var body: some View {
         
         ZStack {
-            Color(bgColor)
+            RoundedRectangle(cornerRadius: 15, style: .continuous)
+                .fill(bgColor.gradient)
                 .clipShape(RoundedRectangle(cornerRadius: 15))
                 .shadow(radius: 4, x: 2, y: 2)
                 

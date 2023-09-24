@@ -21,7 +21,7 @@ struct RideShareView: View {
                 .padding(.top)
             
             // ride preview
-            LargeRidePreview(ride: $ride, showDate: false, queryingHealthKit: .constant(false))
+//            LargeRidePreview(ride: $ride, showDate: false, queryingHealthKit: .constant(false))
                 
                 .padding()
                 

@@ -25,7 +25,7 @@ class HealthManager: ObservableObject {
     @Published var queryingHealthKit: Bool = true
 
     /// how often samples should be taken for things like heart rate and speed
-    private let sampleInterval = DateComponents(second: 5)
+    private let sampleInterval = DateComponents(second: 1)
 
 
     // MARK: - Init
@@ -326,6 +326,7 @@ struct StatSample: Identifiable {
     let date: Date
     let min: Double
     let max: Double
+    var animate: Bool = false
 }
 
 let previewStatSample = [

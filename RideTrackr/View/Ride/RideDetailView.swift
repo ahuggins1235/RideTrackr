@@ -14,73 +14,75 @@ struct RideDetailView: View {
     // MARK: - Properties
     @State var ride: Ride
     @Environment(\.displayScale) private var displayScale: CGFloat
-    
+
     @MainActor
     private func generateSharingImage() -> Image {
-        
+
         let renderer = ImageRenderer(content: RideShareView(ride: ride))
-        
+
         renderer.scale = displayScale
-        
+
         guard let image = renderer.uiImage else {
             return Image(uiImage: UIImage())
         }
-        
+
         return Image(uiImage: image)
     }
-    
+
     // MARK: - Body
     var body: some View {
 
         ZStack {
             ScrollView {
-                
+
                 VStack(alignment: .leading) {
-                    
+
                     // map
                     RideRouteMap(ride: $ride)
-                    
+
                     // ride preview
                     LargeRidePreview(ride: $ride, showDate: false, queryingHealthKit: .constant(false))
                         .padding()
-                    
+
                     ChartCardView(samples: ride.hrSamples,
-                                  title: "Heart Rate",
-                                  unit: "BPM",
-                                  color: .heartRate,
-                                  average: ride.heartRate.rounded(),
-                                  rightText: "AVG"
+                        title: "Heart Rate",
+                        unit: "BPM",
+                        color: .heartRate,
+                        average: ride.heartRate.rounded(),
+                        rightText: "AVG"
                     ).padding(.bottom)
-                    
+
                     ChartCardView(samples: ride.speedSamples,
-                                  title: "Speed",
-                                  unit: "KM/H",
-                                  color: .speed,
-                                  average: ride.speed.rounded(),
-                                  rightText: "AVG"
+                        title: "Speed",
+                        unit: "KM/H",
+                        color: .speed,
+                        average: ride.speed.rounded(),
+                        rightText: "AVG"
                     ).padding(.bottom)
-                    
+
                     ChartCardView(samples: ride.altitdueSamples,
-                                  title: "Altitude",
-                                  unit: "m",
-                                  color: .altitude,
-                                  average: ride.altitudeGained.rounded(),
-                                  rightText: "GAIN"
+                        title: "Altitude",
+                        unit: "m",
+                        color: .altitude,
+                        average: ride.altitudeGained.rounded(),
+                        rightText: "GAIN"
                     ).padding(.bottom)
                     
-                    
+
+
                 }
 
             }
             
+
         }
-        .navigationTitle(ride.dateString)
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
+            .navigationTitle(ride.dateString)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
             ToolbarItem {
-                
+
                 ShareLink(item: generateSharingImage(), preview: SharePreview("Ride Data", image: generateSharingImage()))
-                
+
             }
         }
     }
@@ -109,24 +111,51 @@ struct ChartCardView: View {
                 .padding(.horizontal)
 
             ZStack {
-                
+
                 // background
                 Color(.cardBackground)
                     .clipShape(RoundedRectangle(cornerRadius: 15))
                     .shadow(radius: 4, x: 2, y: 2)
 
                 VStack {
+//                    let max = samples.max { sample1, sample2 in
+//                        sample1.max > sample2.max
+//                    }?.max ?? 0
+//                    
                     // chart
                     Chart(samples) { sample in
 
                         LineMark(
                             x: .value(sample.date.formatted(), sample.date, unit: .second),
-                            y: .value(unit, (sample.max + sample.min) / 2)
+                            y: .value(unit, sample.animate ? sample.max : sample.max)
                         )
-                        .interpolationMethod(.catmullRom)
+                            .foregroundStyle(color.gradient)
+                            .interpolationMethod(.catmullRom)
+
+                        AreaMark(
+                            x: .value(sample.date.formatted(), sample.date, unit: .second),
+                            y: .value(unit, sample.animate ? sample.max : sample.max)
+                        )
+                            .foregroundStyle(color.opacity(0.1).gradient)
+                            .interpolationMethod(.catmullRom)
                     }
-                    .foregroundStyle(color)
+//                    .chartYScale (domain: 0...(max + 100))
+
                         .padding()
+                        
+
+//                        .onAppear {
+//                            for (index,_) in samples.enumerated() {
+////                                withAnimation(.interactiveSpring(response: 0.8,
+////                                                                 dampingFraction: 0.8,
+////                                                                 blendDuration: 0.8).delay(Double(index) * 0.05)) {
+////                                    samples[index].animate = true
+////                                }
+//                                withAnimation(.easeInOut(duration:1)) {
+//                                    samples[index].animate = true
+//                                }
+//                            }
+//                        }
 
                     // min max caption
                     HStack {
@@ -144,57 +173,81 @@ struct ChartCardView: View {
                 }
             }.padding(.horizontal)
         }
+        .scrollTransition(.animated(.interactiveSpring(response: 0.8, dampingFraction: 0.75, blendDuration: 0.8)).threshold(.visible(0.3))) { content, phase in
+            
+            content
+                .opacity(phase.isIdentity ? 1.0 : 0.3)
+                .scaleEffect(phase.isIdentity ? 1.0 : 0.3)
+            
+        }
 
 
     }
 }
 
+struct AnimationModifier : ViewModifier{
+    let positionOffset : Double
+    let height = UIScreen.main.bounds.height
+    
+    func body(content: Content) -> some View {
+        GeometryReader { geometry in
+            let position = geometry.frame(in: CoordinateSpace.global).midY
+            ZStack {
+                Color.clear
+                if height >= (position + positionOffset)  {
+                    content
+                }
+            }
+        }
+    }
+}
+
 struct RideRouteMap: View {
-    
+
     @Binding var ride: Ride
-    
+
     var body: some View {
-        
+
         ZStack {
-            
+
             Rectangle()
                 .fill(.secondary)
                 .mask(RoundedRectangle(cornerRadius: 30, style: .continuous))
                 .blur(radius: 15)
                 .padding()
-            
+
             Map(interactionModes: MapInteractionModes.zoom) {
-                
+
                 MapPolyline(coordinates: ride.routeData.map { $0.coordinate }, contourStyle: .geodesic)
                     .stroke(.blue, lineWidth: 5)
-                
+
                 if let firstCoordindate = ride.routeData.first?.coordinate {
-                    
+
                     Annotation("", coordinate: firstCoordindate) {
                         Circle()
                             .fill(.blue)
                             .frame(width: 10)
                     }
                 }
-                
+
                 if let lastCoordindate = ride.routeData.last?.coordinate {
-                    
+
                     Annotation("", coordinate: lastCoordindate) {
                         Circle()
                             .fill(.blue)
                             .frame(width: 10)
                     }
                 }
-                
+
             }
-            .mapStyle(.standard(elevation: .realistic))
-            .frame(height: 300)
-            .clipShape (
+                .mapStyle(.standard(elevation: .realistic))
+                .frame(height: 300)
+                .clipShape (
                 RoundedRectangle(cornerRadius: 25)
-        )
-            .padding()
+            )
+                .padding()
         }
-        
+
     }
 }
 

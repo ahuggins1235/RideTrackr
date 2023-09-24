@@ -62,53 +62,62 @@ struct HomeView: View {
                         }
                     }
                         .padding(.top)
-                    
-                    
+
+
                     // MARK: - recent ride cards
-                    
+
                     VStack(alignment: .leading) {
-                        
+
                         HStack {
                             Text("Recent Rides")
                                 .font(.headline)
                                 .bold()
-                            .foregroundStyle(.accent)
-                            
+                                .foregroundStyle(.accent)
+
                             Spacer()
-                            
+
                             Text("Show more...")
                                 .font(.subheadline)
                                 .fontWeight(.medium)
                                 .foregroundStyle(.accent)
                                 .onTapGesture {
-                                    navigationManager.selectedTab = .RideList
-                                }
-                            
+                                navigationManager.selectedTab = .RideList
+                            }
+
                         }
-                        
-                        ZStack {
-                            ScrollView(.horizontal) {
-                                
-                                HStack {
-//                                    ForEach(previewRideArray.prefix(4).dropFirst()) { ride in
-                                    ForEach(healthManager.rides.prefix(4).dropFirst()) { ride in
-                                        NavigationLink(value: ride) {
-                                            RideCardPreview(ride: ride)
-                                                .padding(.vertical)
-                                        }
+
+                        ScrollView(.horizontal) {
+
+                            HStack() {
+//                                    ForEach(previewRideArray.prefix(5).dropFirst()) { ride in
+                                ForEach(healthManager.rides.prefix(5).dropFirst()) { ride in
+                                    NavigationLink(value: ride) {
+                                        RideCardPreview(ride: ride)
+
+                                    }
                                         .foregroundStyle(Color.primary)
+                                        .scrollTransition(.animated.threshold(.visible(0.3))) { content, phase in
+
+                                        content
+                                            .opacity(phase.isIdentity ? 1.0 : 0.3)
+                                            .scaleEffect(phase.isIdentity ? 1.0 : 0.3)
+
                                     }
                                 }
                             }
+                                .padding()
+                                .scrollTargetLayout(isEnabled: true)
                         }
-                    }
-                    .padding(.vertical)
-                    
+                            .scrollIndicators(.never)
+                            .scrollTargetBehavior(.viewAligned)
+                            .padding(.horizontal, -10)
 
+                    }
+                        .padding(.vertical)
                 }.padding(.horizontal)
-                
+
                 // MARK: - toolbar
-                    .toolbar {
+                .toolbar {
 
                     ToolbarItemGroup(placement: .topBarTrailing) {
                         Button {
@@ -120,7 +129,7 @@ struct HomeView: View {
                 }
                     .navigationTitle(greetingString)
             }
-            .navigationDestination(for: Ride.self) { ride in
+                .navigationDestination(for: Ride.self) { ride in
                 RideDetailView(ride: ride)
             }
         }

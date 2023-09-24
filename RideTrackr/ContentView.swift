@@ -8,17 +8,33 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @EnvironmentObject var healthManager: HealthManager
+    
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            RideTrackrTabView()
+        }.overlay {
+            if healthManager.queryingHealthKit {
+                ZStack {
+                    
+                    Rectangle()
+                        .fill(.background)
+                        .ignoresSafeArea()
+
+                    
+                    ProgressView {
+                        Text("Loading")
+                        
+                    }
+                    .foregroundStyle(.primary)
+                    
+                }
+            }
         }
-        .padding()
     }
 }
 
-#Preview {
-    ContentView()
-}
+//#Preview {
+//    ContentView()
+//}

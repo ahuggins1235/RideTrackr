@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		49022C122A6FCADA00E61F31 /* RideDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49022C112A6FCADA00E61F31 /* RideDetailView.swift */; };
 		490725FD2A69042A0009817F /* RideTrackrApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490725FC2A69042A0009817F /* RideTrackrApp.swift */; };
 		490725FF2A69042A0009817F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490725FE2A69042A0009817F /* ContentView.swift */; };
 		490726012A69042D0009817F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 490726002A69042D0009817F /* Assets.xcassets */; };
@@ -14,6 +15,18 @@
 		4907260E2A69042D0009817F /* RideTrackrTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4907260D2A69042D0009817F /* RideTrackrTests.swift */; };
 		490726182A69042D0009817F /* RideTrackrUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490726172A69042D0009817F /* RideTrackrUITests.swift */; };
 		4907261A2A69042D0009817F /* RideTrackrUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490726192A69042D0009817F /* RideTrackrUITestsLaunchTests.swift */; };
+		490726292A69045F0009817F /* RideTrackrTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490726282A69045F0009817F /* RideTrackrTabView.swift */; };
+		4907262B2A6904710009817F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4907262A2A6904710009817F /* HomeView.swift */; };
+		4907262D2A6904800009817F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4907262C2A6904800009817F /* SettingsView.swift */; };
+		490726302A6907B40009817F /* HomeStatCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4907262F2A6907B40009817F /* HomeStatCardView.swift */; };
+		490726322A690E000009817F /* LargeRidePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490726312A690E000009817F /* LargeRidePreview.swift */; };
+		490726342A6912660009817F /* Ride.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490726332A6912660009817F /* Ride.swift */; };
+		490726372A69521B0009817F /* HealthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490726362A69521B0009817F /* HealthManager.swift */; };
+		4925C2092A74FE9D00761FDA /* RideRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4925C2082A74FE9D00761FDA /* RideRowView.swift */; };
+		4925C20B2A75128900761FDA /* RideListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4925C20A2A75128900761FDA /* RideListView.swift */; };
+		4925C20F2A75130000761FDA /* NavigationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4925C20E2A75130000761FDA /* NavigationManager.swift */; };
+		494B243F2ABE722800B05739 /* RideCardPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494B243E2ABE722800B05739 /* RideCardPreview.swift */; };
+		494B24412ABFD49800B05739 /* RideShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494B24402ABFD49800B05739 /* RideShareView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +47,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		49022C112A6FCADA00E61F31 /* RideDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideDetailView.swift; sourceTree = "<group>"; };
 		490725F92A69042A0009817F /* RideTrackr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RideTrackr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		490725FC2A69042A0009817F /* RideTrackrApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideTrackrApp.swift; sourceTree = "<group>"; };
 		490725FE2A69042A0009817F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -44,6 +58,19 @@
 		490726132A69042D0009817F /* RideTrackrUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RideTrackrUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		490726172A69042D0009817F /* RideTrackrUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideTrackrUITests.swift; sourceTree = "<group>"; };
 		490726192A69042D0009817F /* RideTrackrUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideTrackrUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		490726282A69045F0009817F /* RideTrackrTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideTrackrTabView.swift; sourceTree = "<group>"; };
+		4907262A2A6904710009817F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		4907262C2A6904800009817F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		4907262F2A6907B40009817F /* HomeStatCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeStatCardView.swift; sourceTree = "<group>"; };
+		490726312A690E000009817F /* LargeRidePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeRidePreview.swift; sourceTree = "<group>"; };
+		490726332A6912660009817F /* Ride.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ride.swift; sourceTree = "<group>"; };
+		490726362A69521B0009817F /* HealthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthManager.swift; sourceTree = "<group>"; };
+		490726382A69557F0009817F /* RideTrackr.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RideTrackr.entitlements; sourceTree = "<group>"; };
+		4925C2082A74FE9D00761FDA /* RideRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideRowView.swift; sourceTree = "<group>"; };
+		4925C20A2A75128900761FDA /* RideListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideListView.swift; sourceTree = "<group>"; };
+		4925C20E2A75130000761FDA /* NavigationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationManager.swift; sourceTree = "<group>"; };
+		494B243E2ABE722800B05739 /* RideCardPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideCardPreview.swift; sourceTree = "<group>"; };
+		494B24402ABFD49800B05739 /* RideShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideShareView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +98,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		49022C102A6FCA0500E61F31 /* Ride */ = {
+			isa = PBXGroup;
+			children = (
+				49022C112A6FCADA00E61F31 /* RideDetailView.swift */,
+				4925C2082A74FE9D00761FDA /* RideRowView.swift */,
+				4925C20A2A75128900761FDA /* RideListView.swift */,
+				490726312A690E000009817F /* LargeRidePreview.swift */,
+				494B243E2ABE722800B05739 /* RideCardPreview.swift */,
+				494B24402ABFD49800B05739 /* RideShareView.swift */,
+			);
+			path = Ride;
+			sourceTree = "<group>";
+		};
 		490725F02A69042A0009817F = {
 			isa = PBXGroup;
 			children = (
@@ -94,6 +134,10 @@
 		490725FB2A69042A0009817F /* RideTrackr */ = {
 			isa = PBXGroup;
 			children = (
+				490726382A69557F0009817F /* RideTrackr.entitlements */,
+				490726352A6951830009817F /* Manager */,
+				490726272A69043D0009817F /* Model */,
+				490726262A6904360009817F /* View */,
 				490725FC2A69042A0009817F /* RideTrackrApp.swift */,
 				490725FE2A69042A0009817F /* ContentView.swift */,
 				490726002A69042D0009817F /* Assets.xcassets */,
@@ -125,6 +169,43 @@
 				490726192A69042D0009817F /* RideTrackrUITestsLaunchTests.swift */,
 			);
 			path = RideTrackrUITests;
+			sourceTree = "<group>";
+		};
+		490726262A6904360009817F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				49022C102A6FCA0500E61F31 /* Ride */,
+				4907262E2A6907940009817F /* Home */,
+				490726282A69045F0009817F /* RideTrackrTabView.swift */,
+				4907262C2A6904800009817F /* SettingsView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		490726272A69043D0009817F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				490726332A6912660009817F /* Ride.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		4907262E2A6907940009817F /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				4907262A2A6904710009817F /* HomeView.swift */,
+				4907262F2A6907B40009817F /* HomeStatCardView.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		490726352A6951830009817F /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				490726362A69521B0009817F /* HealthManager.swift */,
+				4925C20E2A75130000761FDA /* NavigationManager.swift */,
+			);
+			path = Manager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,8 +338,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				494B243F2ABE722800B05739 /* RideCardPreview.swift in Sources */,
+				494B24412ABFD49800B05739 /* RideShareView.swift in Sources */,
+				4925C20B2A75128900761FDA /* RideListView.swift in Sources */,
+				490726322A690E000009817F /* LargeRidePreview.swift in Sources */,
+				49022C122A6FCADA00E61F31 /* RideDetailView.swift in Sources */,
+				490726372A69521B0009817F /* HealthManager.swift in Sources */,
+				490726342A6912660009817F /* Ride.swift in Sources */,
+				4907262D2A6904800009817F /* SettingsView.swift in Sources */,
+				490726292A69045F0009817F /* RideTrackrTabView.swift in Sources */,
+				4907262B2A6904710009817F /* HomeView.swift in Sources */,
 				490725FF2A69042A0009817F /* ContentView.swift in Sources */,
 				490725FD2A69042A0009817F /* RideTrackrApp.swift in Sources */,
+				4925C2092A74FE9D00761FDA /* RideRowView.swift in Sources */,
+				4925C20F2A75130000761FDA /* NavigationManager.swift in Sources */,
+				490726302A6907B40009817F /* HomeStatCardView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -419,12 +513,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = RideTrackr/RideTrackr.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"RideTrackr/Preview Content\"";
 				DEVELOPMENT_TEAM = 7PY92KZXV9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Please allow access to enjoy all the features of the applicatiion";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -448,12 +544,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = RideTrackr/RideTrackr.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"RideTrackr/Preview Content\"";
 				DEVELOPMENT_TEAM = 7PY92KZXV9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Please allow access to enjoy all the features of the applicatiion";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

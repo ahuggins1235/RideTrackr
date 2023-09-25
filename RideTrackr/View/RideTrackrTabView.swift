@@ -10,7 +10,6 @@ import SwiftUI
 struct RideTrackrTabView: View {
     
     // MARK: - Properties
-//    @State private var selectedTab = "Home"
     @EnvironmentObject var navigationManager: NavigationManager
     
     // MARK: - Body
@@ -22,8 +21,8 @@ struct RideTrackrTabView: View {
                 applicationTab.destination.tabItem { applicationTab.label }.tag(applicationTab.rawValue)
             }
         }
-        .backgroundStyle(.ultraThinMaterial)
-        .tabViewStyle(.automatic)
+        
+        
     }
 }
 

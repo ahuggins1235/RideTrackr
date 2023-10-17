@@ -13,44 +13,41 @@ struct TrendsTabView: View {
 
     var body: some View {
 
-        NavigationStack {
-            VStack {
 
-                TabView(selection: $navigationManager.selectedTrendsTab) {
+        VStack {
 
-                    ForEach(TrendsTab.allCases) { trendTab in
-                        trendTab.destination.tabItem { trendTab.label }.tag(trendTab.rawValue)
-                    }
+            TabView(selection: $navigationManager.selectedTrendsTab) {
 
+                ForEach(TrendType.allCases) { trendTab in
+                    trendTab.destination.tabItem { trendTab.label }.tag(trendTab.rawValue)
                 }
-                    .padding()
-                    .backgroundStyle(.ultraThinMaterial)
-                    .tabViewStyle(.page(indexDisplayMode: .never))
 
-                ZStack {
+            }
+                .padding()
 
-                    Capsule()
-                        .fill(.ultraThinMaterial)
-                        .frame(width: 200, height: 50)
+                .tabViewStyle(.page(indexDisplayMode: .never))
 
-                    HStack(spacing: 30) {
-                        ForEach(TrendsTab.allCases) { trendTab in
-                            trendTab.label
-                                .foregroundStyle(navigationManager.selectedTrendsTab == trendTab ? trendTab.selectionColour : Color.primary)
-                                .onTapGesture {
-                                navigationManager.selectedTrendsTab = trendTab
-                            }
+            ZStack {
+
+                Capsule()
+                    .fill(.ultraThinMaterial)
+                    .frame(width: 200, height: 50)
+
+                HStack(spacing: 30) {
+                    ForEach(TrendType.allCases) { trendTab in
+                        trendTab.label
+                            .foregroundStyle(navigationManager.selectedTrendsTab == trendTab ? trendTab.selectionColour : Color.primary)
+                            .onTapGesture {
+                            navigationManager.selectedTrendsTab = trendTab
                         }
                     }
                 }
-                    .padding(.bottom)
             }
-                .navigationTitle("Trends")
+                .padding(.bottom)
         }
-
     }
 }
 
 #Preview {
-    TrendsTabView().environmentObject(NavigationManager())
+    TrendsTabView().environmentObject(NavigationManager()).environmentObject(TrendManager())
 }

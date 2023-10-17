@@ -10,14 +10,19 @@ import SwiftUI
 @main
 struct RideTrackrApp: App {
     
+    @StateObject var trendsManager: TrendManager = TrendManager()
     @StateObject var healthManager = HealthManager()
     @StateObject var navigationManager = NavigationManager()
+    
+    
     
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(trendsManager)
                 .environmentObject(healthManager)
                 .environmentObject(navigationManager)
+                
         }
     }
 }

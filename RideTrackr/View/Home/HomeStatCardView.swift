@@ -31,7 +31,7 @@ struct HomeStatCardView: View {
                 }.font(.headline)
                 
                 Text(data)
-                    .font(.title)
+                    .font(.title2)
                     .bold()
                 
             }.foregroundStyle(.white)

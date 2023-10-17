@@ -12,6 +12,7 @@ struct HomeView: View {
     // MARK: - Properties
     @EnvironmentObject var healthManager: HealthManager
     @EnvironmentObject var navigationManager: NavigationManager
+    @EnvironmentObject var trendManager: TrendManager
 
     private var greetingString: String {
         return GetGreetingString()
@@ -27,10 +28,30 @@ struct HomeView: View {
                     // MARK: - stat views
                     LazyVGrid(columns: Array(repeating: GridItem(spacing: 20), count: 2)) {
 
-                        HomeStatCardView(bgColor: .heartRate, title: "Average Heart Rate", icon: "heart.fill", data: "162 BMP")
-                        HomeStatCardView(bgColor: .speed, title: "Average Speed", icon: "speedometer", data: "14 KM/H")
-                        HomeStatCardView(bgColor: .distance, title: "Average Distance", icon: "figure.outdoor.cycle", data: "11.4 KM")
-                        HomeStatCardView(bgColor: .energy, title: "Average Active Energy", icon: "flame.fill", data: "1,042 KJ")
+                        HomeStatCardView(bgColor: .heartRate, title: "Average Heart Rate", icon: "heart.fill", data: "\(trendManager.currentAverageHeartRate.rounded()) BMP")
+                            .onTapGesture {
+                                navigationManager.selectedTrendsTab = .HeartRate
+                                navigationManager.selectedTab = .Trends
+                            }
+                        
+                        HomeStatCardView(bgColor: .speed, title: "Average Speed", icon: "speedometer", data: "\(trendManager.currentAverageSpeed.rounded()) KM/H")
+                            .onTapGesture {
+                                navigationManager.selectedTrendsTab = .Speed
+                                navigationManager.selectedTab = .Trends
+                            }
+                        
+                        HomeStatCardView(bgColor: .distance, title: "Average Distance", icon: "figure.outdoor.cycle", data: "\(trendManager.currentAverageDistance.rounded()) KM")
+                            .onTapGesture {
+                                navigationManager.selectedTrendsTab = .Distance
+                                navigationManager.selectedTab = .Trends
+                            }
+                        
+                        HomeStatCardView(bgColor: .energy, title: "Average Active Energy", icon: "flame.fill", data: "\(trendManager.currentAverageEnergy.rounded()) KJ")
+                            .onTapGesture {
+                                navigationManager.selectedTrendsTab = .Energy
+                                navigationManager.selectedTab = .Trends
+                            }
+                        
 
                     }
 
@@ -155,4 +176,5 @@ func GetGreetingString() -> String {
 // MARK: - Previews
 #Preview("Home View") {
     HomeView().environmentObject(HealthManager())
+        .environmentObject(TrendManager())
 }

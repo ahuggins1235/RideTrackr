@@ -10,6 +10,7 @@ import SwiftUI
 struct LargeRidePreview: View {
 
     // MARK: - Properties
+    @EnvironmentObject var trendManager: TrendManager
 //    @EnvironmentObject var manager: HealthManager
     @Binding var ride: Ride
     @State var showDate = true
@@ -37,12 +38,15 @@ struct LargeRidePreview: View {
                     }
 
                     LazyVGrid(columns: Array(repeating: GridItem(spacing: 8), count: 2)) {
-                        RideStatCardView(color: .heartRate, title: "Avg. Heart Rate", data: Binding(get: { ride.heartRateString }, set: { _ in }), differenceFromAverage: 10)
-                        RideStatCardView(color: .speed, title: "Avg. Speed", data: Binding(get: { ride.speedString }, set: { _ in }), differenceFromAverage: 11)
-                        RideStatCardView(color: .distance, title: "Distance", data: Binding(get: { ride.distanceString }, set: { _ in }), differenceFromAverage: -5)
-                        RideStatCardView(color: .energy, title: "Active Energy", data: Binding(get: { ride.activeEnergyString }, set: { _ in }), differenceFromAverage: -11)
-                        RideStatCardView(color: .duration, title: "Duration", data: Binding(get: { ride.durationString }, set: { _ in }), showDifference: false)
-                        RideStatCardView(color: .altitude, title: "Altitude Gained", data: Binding(get: { ride.alitudeString }, set: { _ in }), showDifference: false)
+                        RideStatCardView(color: .heartRate, title: "Avg. Heart Rate", data: Binding(get: { ride.heartRateString }, set: { _ in }), differenceFromAverage: Binding( get: { ((ride.heartRate - trendManager.currentAverageHeartRate) / ride.heartRate) * 100 }, set: {_ in} ))
+                        RideStatCardView(color: .speed, title: "Avg. Speed", data: Binding(get: { ride.speedString }, set: { _ in }), differenceFromAverage: Binding(get: { ((ride.speed - trendManager.currentAverageSpeed) / trendManager.currentAverageSpeed) * 100 }, set: { _ in }))
+                        RideStatCardView(color: .distance, title: "Distance", data: Binding(get: { ride.distanceString }, set: { _ in }), differenceFromAverage: Binding(get: { ((ride.distance - trendManager.currentAverageDistance) / trendManager.currentAverageDistance) * 100 }, set: { _ in }))
+                        RideStatCardView(color: .energy, title: "Active Energy", data: Binding(get: { ride.activeEnergyString }, set: { _ in }), differenceFromAverage: Binding(get: { ((ride.activeEnergy - trendManager.currentAverageEnergy) / trendManager.currentAverageEnergy) * 100 }, set: { _ in }))
+//                        RideStatCardView(color: .speed, title: "Avg. Speed", data: Binding(get: { ride.speedString }, set: { _ in }), differenceFromAverage: ((ride.speed - trendManager.currentAverageSpeed) / trendManager.currentAverageSpeed) * 100)
+//                        RideStatCardView(color: .distance, title: "Distance", data: Binding(get: { ride.distanceString }, set: { _ in }), differenceFromAverage: ((ride.distance - trendManager.currentAverageDistance) / trendManager.currentAverageDistance) * 100)
+//                        RideStatCardView(color: .energy, title: "Active Energy", data: Binding(get: { ride.activeEnergyString }, set: { _ in }), differenceFromAverage: ((ride.activeEnergy - trendManager.currentAverageEnergy) / trendManager.currentAverageEnergy) * 100)
+                        RideStatCardView(color: .duration, title: "Duration", data: Binding(get: { ride.durationString }, set: { _ in }), differenceFromAverage: Binding(get: {0.0}, set: { _ in} ), showDifference: false)
+                        RideStatCardView(color: .altitude, title: "Altitude Gained", data: Binding(get: { ride.alitudeString }, set: { _ in }), differenceFromAverage: Binding(get: {0.0}, set: { _ in} ), showDifference: false)
 
                     }
                         .padding(10)
@@ -74,11 +78,11 @@ struct LargeRidePreview: View {
 //MARK: - Previews
 #Preview {
     @State var previewRide = PreviewRide
-    return LargeRidePreview(ride: $previewRide, queryingHealthKit: .constant(false))
+    return LargeRidePreview(ride: $previewRide, queryingHealthKit: .constant(false)).environmentObject(TrendManager())
 }
 
 #Preview {
-    StatDifferenceArrow(color: .blue, data: -11)
+    StatDifferenceArrow(color: .blue, data: .constant(-11))
 }
 
 // MARK: - Ride stat card view
@@ -87,7 +91,8 @@ struct RideStatCardView: View {
     @State var color: Color
     @State var title: String
     @Binding var data: String
-    @State var differenceFromAverage: Double = 0
+    @Binding var differenceFromAverage: Double
+
     @State var showDifference: Bool = true
 
     var body: some View {
@@ -102,14 +107,14 @@ struct RideStatCardView: View {
                     .font(.caption)
 
                 HStack {
-                    Text(data)
+                    Text(data).lineLimit(1, reservesSpace: true)
 
                     Spacer()
 
                     if showDifference {
 
-                        Text(String(format: "%.1f", differenceFromAverage) + "%")
-                        StatDifferenceArrow(color: color, data: differenceFromAverage).padding(.horizontal, -5)
+                        Text(String(format: "%.1f", differenceFromAverage) + "%").lineLimit(1, reservesSpace: true)
+                        StatDifferenceArrow(color: color, data: $differenceFromAverage).padding(.horizontal, -5)
                     }
                 }
                     .foregroundStyle(color)
@@ -128,7 +133,7 @@ struct RideStatCardView: View {
 struct StatDifferenceArrow: View {
 
     @State var color: Color
-    @State var data: Double
+    @Binding var data: Double
 
     var body: some View {
 

@@ -23,6 +23,7 @@ class HealthManager: ObservableObject {
     @Published var thisWeekRides: [Ride] = []
     @Published var rides: [Ride] = []
     @Published var queryingHealthKit: Bool = true
+    @EnvironmentObject var trendManager: TrendManager
 
     /// how often samples should be taken for things like heart rate and speed
     private let sampleInterval = DateComponents(second: 1)
@@ -112,13 +113,22 @@ class HealthManager: ObservableObject {
                             }
                             
                             DispatchQueue.main.async {
-                                self.rides.append(Ride(workout: workout,
-                                                                averageHeartRate: averageHR,
-                                                                hrSamples: hrSamples,
-                                                                routeData: locations,
-                                                                altitdueSamples: altitdueData,
-                                                                speedSamples: speedData
-                                                               ))
+                                
+                                let ride = Ride(workout: workout,
+                                                averageHeartRate: averageHR,
+                                                hrSamples: hrSamples,
+                                                routeData: locations,
+                                                altitdueSamples: altitdueData,
+                                                speedSamples: speedData
+                                )
+                                
+                                self.rides.append(ride)
+                                
+                                self.trendManager.distanceTrends.append(TrendItem(value: ride.distance, date: ride.rideDate))
+                                self.trendManager.energyTrends.append(TrendItem(value: ride.activeEnergy, date: ride.rideDate))
+                                self.trendManager.heartRateTrends.append(TrendItem(value: ride.heartRate, date: ride.rideDate))
+                                self.trendManager.speedTrends.append(TrendItem(value: ride.speed, date: ride.rideDate))
+                                
                             }
                         }
                     }

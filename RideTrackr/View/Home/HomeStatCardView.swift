@@ -12,7 +12,7 @@ struct HomeStatCardView: View {
     @State var bgColor: Color
     @State var title: String
     @State var icon: String
-    @State var data: String
+    @Binding var data: String
     
     var body: some View {
         
@@ -30,9 +30,11 @@ struct HomeStatCardView: View {
                     Image(systemName: icon)
                 }.font(.headline)
                 
-                Text(data)
-                    .font(.title2)
-                    .bold()
+                if !data.contains("nan") {
+                    Text(data)
+                        .font(.title2)
+                        .bold()
+                } 
                 
             }.foregroundStyle(.white)
                 .padding()
@@ -42,5 +44,5 @@ struct HomeStatCardView: View {
 }
 
 #Preview {
-    HomeStatCardView(bgColor: .red, title: "Average Heart Rate", icon: "heart.fill", data: "162 BMP")
+    HomeStatCardView(bgColor: .red, title: "Average Heart Rate", icon: "heart.fill", data: Binding(get: { "162 BMP" } ))
 }

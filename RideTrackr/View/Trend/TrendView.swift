@@ -66,8 +66,13 @@ struct TrendView: View {
                     .pickerStyle(.segmented)
                     .padding(.vertical)
 
-                trendChartView(trendData: Binding(get: { return trendData.filter { $0.date > timeFrame.dateOffset } }, set: { _ in })
-                    , colour: statType.selectionColour)
+                if (trendData.isEmpty) {
+                    Text("No ride data found.")
+                    
+                } else {
+                    trendChartView(trendData: Binding(get: { return trendData.filter { $0.date > timeFrame.dateOffset } }, set: { _ in })
+                                   , colour: statType.selectionColour)
+                }
                 
 
                 Divider()

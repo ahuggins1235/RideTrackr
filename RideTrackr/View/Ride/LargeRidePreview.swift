@@ -38,15 +38,12 @@ struct LargeRidePreview: View {
                     }
 
                     LazyVGrid(columns: Array(repeating: GridItem(spacing: 8), count: 2)) {
-                        RideStatCardView(color: .heartRate, title: "Avg. Heart Rate", data: Binding(get: { ride.heartRateString }, set: { _ in }), differenceFromAverage: Binding( get: { ((ride.heartRate - trendManager.currentAverageHeartRate) / ride.heartRate) * 100 }, set: {_ in} ))
-                        RideStatCardView(color: .speed, title: "Avg. Speed", data: Binding(get: { ride.speedString }, set: { _ in }), differenceFromAverage: Binding(get: { ((ride.speed - trendManager.currentAverageSpeed) / trendManager.currentAverageSpeed) * 100 }, set: { _ in }))
-                        RideStatCardView(color: .distance, title: "Distance", data: Binding(get: { ride.distanceString }, set: { _ in }), differenceFromAverage: Binding(get: { ((ride.distance - trendManager.currentAverageDistance) / trendManager.currentAverageDistance) * 100 }, set: { _ in }))
-                        RideStatCardView(color: .energy, title: "Active Energy", data: Binding(get: { ride.activeEnergyString }, set: { _ in }), differenceFromAverage: Binding(get: { ((ride.activeEnergy - trendManager.currentAverageEnergy) / trendManager.currentAverageEnergy) * 100 }, set: { _ in }))
-//                        RideStatCardView(color: .speed, title: "Avg. Speed", data: Binding(get: { ride.speedString }, set: { _ in }), differenceFromAverage: ((ride.speed - trendManager.currentAverageSpeed) / trendManager.currentAverageSpeed) * 100)
-//                        RideStatCardView(color: .distance, title: "Distance", data: Binding(get: { ride.distanceString }, set: { _ in }), differenceFromAverage: ((ride.distance - trendManager.currentAverageDistance) / trendManager.currentAverageDistance) * 100)
-//                        RideStatCardView(color: .energy, title: "Active Energy", data: Binding(get: { ride.activeEnergyString }, set: { _ in }), differenceFromAverage: ((ride.activeEnergy - trendManager.currentAverageEnergy) / trendManager.currentAverageEnergy) * 100)
-                        RideStatCardView(color: .duration, title: "Duration", data: Binding(get: { ride.durationString }, set: { _ in }), differenceFromAverage: Binding(get: {0.0}, set: { _ in} ), showDifference: false)
-                        RideStatCardView(color: .altitude, title: "Altitude Gained", data: Binding(get: { ride.alitudeString }, set: { _ in }), differenceFromAverage: Binding(get: {0.0}, set: { _ in} ), showDifference: false)
+                        RideStatCardView(color: .heartRate, title: "Avg. Heart Rate", displayString: Binding(get: { ride.heartRateString }), trendAverage: Binding( get: { trendManager.currentAverageHeartRate } ), data: $ride.heartRate)
+                        RideStatCardView(color: .speed, title: "Avg. Speed", displayString: Binding(get: { ride.speedString }), trendAverage: Binding(get: { trendManager.currentAverageSpeed }), data: $ride.speed)
+                        RideStatCardView(color: .distance, title: "Distance", displayString: Binding(get: { ride.distanceString }), trendAverage: Binding(get: { trendManager.currentAverageDistance }), data: $ride.distance)
+                        RideStatCardView(color: .energy, title: "Active Energy", displayString: Binding( get: { ride.activeEnergyString }), trendAverage: Binding(get: { trendManager.currentAverageEnergy }), data: $ride.activeEnergy)
+                        RideStatCardView(color: .duration, title: "Duration", displayString: Binding(get: { ride.durationString }), trendAverage: Binding(get: {0.0}), data: Binding(get: { 0.0 }) , showDifference: false)
+                        RideStatCardView(color: .altitude, title: "Altitude Gained", displayString: Binding(get: { ride.alitudeString }), trendAverage: Binding(get: {0.0}), data: Binding(get: { 0.0 }), showDifference: false)
 
                     }
                         .padding(10)
@@ -90,8 +87,11 @@ struct RideStatCardView: View {
 
     @State var color: Color
     @State var title: String
-    @Binding var data: String
-    @Binding var differenceFromAverage: Double
+    @Binding var displayString: String
+    @Binding var trendAverage: Double
+    @Binding var data: Double
+    
+    @State private var animateArrow = false
 
     @State var showDifference: Bool = true
 
@@ -107,25 +107,53 @@ struct RideStatCardView: View {
                     .font(.caption)
 
                 HStack {
-                    Text(data).lineLimit(1, reservesSpace: true)
+                    Text(displayString).lineLimit(1)
 
                     Spacer()
 
-                    if showDifference {
-
-                        Text(String(format: "%.1f", differenceFromAverage) + "%").lineLimit(1, reservesSpace: true)
-                        StatDifferenceArrow(color: color, data: $differenceFromAverage).padding(.horizontal, -5)
+                    
+                    
+                    if showDifference && !trendAverage.isNaN {
+                        
+                        Text(String(format: "%.1f", GetDifferenceFromAverage(trendAverage, data)) + "%").lineLimit(1, reservesSpace: true)
+                    
+                            
+                        StatDifferenceArrow(color: color,
+                                                data: Binding(get: { GetDifferenceFromAverage(trendAverage, data) })
+                            )
+                        .opacity(animateArrow ? 1 : 0)
+                        .offset(y: animateArrow ? 0 : 10)
+                            .padding(.horizontal, -7)
                     }
                 }
                     .foregroundStyle(color)
-                    .font(.subheadline)
+                    .font(.footnote)
                     .bold()
+                    .onAppear {
+                        
+                        withAnimation(.easeInOut(duration: 0.8)) {
+                            animateArrow = true
+                        }
+                        
+                    }
 
             }
                 .padding()
 
         }
 
+    }
+    
+    
+    /// Calculates the difference between two numbers expressed as a percentage of the first number.
+    /// - Parameters:
+    ///   - num1: The first number
+    ///   - num2: The second number
+    /// - Returns: The difference between the two numbers expressed as a percentage of the first number.
+    func GetDifferenceFromAverage(_ num1: Double , _ num2: Double) -> Double {
+        let difference = num2 - num1
+        let percentageDifference = (difference / num1) * 100
+        return percentageDifference
     }
 }
 
@@ -134,12 +162,18 @@ struct StatDifferenceArrow: View {
 
     @State var color: Color
     @Binding var data: Double
+    
 
     var body: some View {
 
         ZStack {
 
             switch data {
+//            
+//                case 0: {
+//                    
+//                }
+                    
             case let x where x > 10:
 
                 ZStack {

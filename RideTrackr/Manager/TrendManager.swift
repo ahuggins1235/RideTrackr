@@ -93,6 +93,11 @@ class TrendManager: ObservableObject {
                 list = self.energyTrends
         }
         
+        // check if the list is empty and if it is return early
+        if list.isEmpty {
+            return 0.0
+        }
+        
         // filter the list by the given time frame
         list = list.filter {$0.date > timeFrame.dateOffset}
         

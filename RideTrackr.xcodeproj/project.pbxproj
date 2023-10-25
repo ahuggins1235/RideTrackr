@@ -22,6 +22,7 @@
 		490726322A690E000009817F /* LargeRidePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490726312A690E000009817F /* LargeRidePreview.swift */; };
 		490726342A6912660009817F /* Ride.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490726332A6912660009817F /* Ride.swift */; };
 		490726372A69521B0009817F /* HealthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490726362A69521B0009817F /* HealthManager.swift */; };
+		492124952AE9027500889575 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492124942AE9027500889575 /* Extensions.swift */; };
 		4925C2092A74FE9D00761FDA /* RideRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4925C2082A74FE9D00761FDA /* RideRowView.swift */; };
 		4925C20B2A75128900761FDA /* RideListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4925C20A2A75128900761FDA /* RideListView.swift */; };
 		4925C20F2A75130000761FDA /* NavigationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4925C20E2A75130000761FDA /* NavigationManager.swift */; };
@@ -70,6 +71,7 @@
 		490726332A6912660009817F /* Ride.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ride.swift; sourceTree = "<group>"; };
 		490726362A69521B0009817F /* HealthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthManager.swift; sourceTree = "<group>"; };
 		490726382A69557F0009817F /* RideTrackr.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RideTrackr.entitlements; sourceTree = "<group>"; };
+		492124942AE9027500889575 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		4925C2082A74FE9D00761FDA /* RideRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideRowView.swift; sourceTree = "<group>"; };
 		4925C20A2A75128900761FDA /* RideListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideListView.swift; sourceTree = "<group>"; };
 		4925C20E2A75130000761FDA /* NavigationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationManager.swift; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 		490725FB2A69042A0009817F /* RideTrackr */ = {
 			isa = PBXGroup;
 			children = (
+				492124932AE9026700889575 /* Extensions */,
 				490726382A69557F0009817F /* RideTrackr.entitlements */,
 				490726352A6951830009817F /* Manager */,
 				490726272A69043D0009817F /* Model */,
@@ -217,6 +220,14 @@
 				49E71F452AC1515A00900477 /* TrendManager.swift */,
 			);
 			path = Manager;
+			sourceTree = "<group>";
+		};
+		492124932AE9026700889575 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				492124942AE9027500889575 /* Extensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		49E71F3E2AC1372C00900477 /* Trend */ = {
@@ -373,6 +384,7 @@
 				490725FF2A69042A0009817F /* ContentView.swift in Sources */,
 				490725FD2A69042A0009817F /* RideTrackrApp.swift in Sources */,
 				4925C2092A74FE9D00761FDA /* RideRowView.swift in Sources */,
+				492124952AE9027500889575 /* Extensions.swift in Sources */,
 				4925C20F2A75130000761FDA /* NavigationManager.swift in Sources */,
 				490726302A6907B40009817F /* HomeStatCardView.swift in Sources */,
 				49E71F462AC1515A00900477 /* TrendManager.swift in Sources */,

@@ -9,6 +9,7 @@ import Foundation
 import SwiftData
 import HealthKit
 import MapKit
+import SwiftUI
 
 
 class Ride: ObservableObject, Identifiable, Hashable {
@@ -40,6 +41,9 @@ class Ride: ObservableObject, Identifiable, Hashable {
     var altitdueSamples: [StatSample] = []
     /// the speed data of this ride
     var speedSamples: [StatSample] = []
+    
+    @AppStorage("distanceUnit") private var distanceUnit: DistanceUnit = .Kilometer
+    @AppStorage("energyUnit") private var energyUnit: EnergyUnit = .Kilojule
 
 
 
@@ -49,11 +53,11 @@ class Ride: ObservableObject, Identifiable, Hashable {
     }
 
     var speedString: String {
-        return String(format: "%.1f", speed) + "KM/H"
+        return String(format: "%.1f", speed * distanceUnit.conversionValue) + " \(distanceUnit.abr)/H"
     }
 
     var distanceString: String {
-        return String(format: "%.2f", distance) + " KM"
+        return String(format: "%.2f", distance * distanceUnit.conversionValue) + " \(distanceUnit.abr)"
     }
 
     var activeEnergyString: String {
@@ -61,7 +65,7 @@ class Ride: ObservableObject, Identifiable, Hashable {
         numberFormatter.numberStyle = .decimal
         numberFormatter.maximumFractionDigits = 0
 
-        return numberFormatter.string (from: NSNumber(value: activeEnergy))! + " KJ"
+        return numberFormatter.string (from: NSNumber(value: activeEnergy * energyUnit.conversionValue))! + " \(energyUnit.abr)"
     }
 
     var durationString: String {

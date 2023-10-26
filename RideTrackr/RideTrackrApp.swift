@@ -13,6 +13,12 @@ struct RideTrackrApp: App {
     @StateObject var trendsManager: TrendManager = TrendManager()
     @StateObject var healthManager = HealthManager()
     @StateObject var navigationManager = NavigationManager()
+    @StateObject var settingsManager = SettingsManager()
+    
+    
+    init() {
+        
+    }
     
     var body: some Scene {
         WindowGroup {
@@ -20,6 +26,7 @@ struct RideTrackrApp: App {
                 .environmentObject(trendsManager)
                 .environmentObject(healthManager)
                 .environmentObject(navigationManager)
+                .environmentObject(settingsManager)
                 .onAppear {
                     
 //                    Task {

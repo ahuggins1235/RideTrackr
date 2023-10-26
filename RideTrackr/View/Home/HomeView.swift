@@ -13,6 +13,7 @@ struct HomeView: View {
     @EnvironmentObject var healthManager: HealthManager
     @EnvironmentObject var navigationManager: NavigationManager
     @EnvironmentObject var trendManager: TrendManager
+    @EnvironmentObject var settingsManager: SettingsManager
 
     private var greetingString: String {
         return GetGreetingString()
@@ -28,30 +29,50 @@ struct HomeView: View {
                     // MARK: - stat views
                     LazyVGrid(columns: Array(repeating: GridItem(spacing: 20), count: 2)) {
 
-                        HomeStatCardView(bgColor: .heartRate, title: "Average Heart Rate", icon: "heart.fill", data: Binding( get: { "\(trendManager.currentAverageHeartRate.rounded()) BMP" } ))
+                        HomeStatCardView(
+                            bgColor: .heartRate,
+                            title: "Average Heart Rate",
+                            icon: "heart.fill",
+                            data: Binding(get: { "\(String(format: "%.0f", trendManager.currentAverageHeartRate)) BMP" })
+                        )
                             .onTapGesture {
-                                navigationManager.selectedTrendsTab = .HeartRate
-                                navigationManager.selectedTab = .Trends
-                            }
-                        
-                        HomeStatCardView(bgColor: .speed, title: "Average Speed", icon: "speedometer", data: Binding( get: { "\(trendManager.currentAverageSpeed.rounded()) KM/H" } ))
+                            navigationManager.selectedTrendsTab = .HeartRate
+                            navigationManager.selectedTab = .Trends
+                        }
+
+                        HomeStatCardView(
+                            bgColor: .speed,
+                            title: "Average Speed",
+                            icon: "speedometer",
+                            data: Binding(get: { "\((trendManager.currentAverageSpeed * settingsManager.distanceUnit.conversionValue).rounded()) \(settingsManager.distanceUnit.abr)/H" })
+                        )
                             .onTapGesture {
-                                navigationManager.selectedTrendsTab = .Speed
-                                navigationManager.selectedTab = .Trends
-                            }
-                        
-                        HomeStatCardView(bgColor: .distance, title: "Average Distance", icon: "figure.outdoor.cycle", data: Binding ( get: { "\(trendManager.currentAverageDistance.rounded()) KM" } ))
+                            navigationManager.selectedTrendsTab = .Speed
+                            navigationManager.selectedTab = .Trends
+                        }
+
+                        HomeStatCardView(
+                            bgColor: .distance,
+                            title: "Average Distance",
+                            icon: "figure.outdoor.cycle",
+                            data: Binding (get: { "\((trendManager.currentAverageDistance * settingsManager.distanceUnit.conversionValue).rounded()) \(settingsManager.distanceUnit.abr)" })
+                        )
                             .onTapGesture {
-                                navigationManager.selectedTrendsTab = .Distance
-                                navigationManager.selectedTab = .Trends
-                            }
-                        
-                        HomeStatCardView(bgColor: .energy, title: "Average Active Energy", icon: "flame.fill", data: Binding ( get: { "\(trendManager.currentAverageEnergy.rounded()) KJ" } ))
+                            navigationManager.selectedTrendsTab = .Distance
+                            navigationManager.selectedTab = .Trends
+                        }
+
+                        HomeStatCardView(
+                            bgColor: .energy,
+                            title: "Average Active Energy",
+                            icon: "flame.fill",
+                            data: Binding (get: { "\((trendManager.currentAverageEnergy * settingsManager.energyUnit.conversionValue).rounded()) \(settingsManager.energyUnit.abr)" })
+                        )
                             .onTapGesture {
-                                navigationManager.selectedTrendsTab = .Energy
-                                navigationManager.selectedTab = .Trends
-                            }
-                        
+                            navigationManager.selectedTrendsTab = .Energy
+                            navigationManager.selectedTab = .Trends
+                        }
+
 
                     }
 
@@ -179,4 +200,6 @@ func GetGreetingString() -> String {
 #Preview("Home View") {
     HomeView().environmentObject(HealthManager())
         .environmentObject(TrendManager())
+        .environmentObject(SettingsManager())
+        .environmentObject(NavigationManager())
 }

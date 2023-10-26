@@ -45,6 +45,10 @@ class TrendManager: ObservableObject {
 //        energyTrends = []
     }
     
+    
+    /// Calculates the current average value for a given trend type based on the currently selected time frame
+    /// - Parameter trendType: The trend type to calculate the average for
+    /// - Returns: The current average value for a given trend type
     func calculateCurrentAverage(_ trendType: TrendType) -> Double {
         
         var list: [TrendItem]

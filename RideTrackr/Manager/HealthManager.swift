@@ -12,41 +12,59 @@ import Combine
 import SwiftUI
 
 
+/// responsible for managing all healthkit related activites in the app
 class HealthManager: ObservableObject {
 
     // MARK: - Properties
-
+    
     private let healthStore = HKHealthStore()
-
+    
+    /// the users most recent ride
     @Published var recentRide: Ride? = Ride()
+    /// all of the ride the user has been on this month
     @Published var thisMonthRide: [Ride] = []
+    /// all of the rides the user has been on this week
     @Published var thisWeekRides: [Ride] = []
+    /// all of the rides the user has been on
     @Published var rides: [Ride] = []
+    /// true if an active query to health kit is being performed false if not
     @Published var queryingHealthKit: Bool = true
-    @EnvironmentObject var trendManager: TrendManager
 
     /// how often samples should be taken for things like heart rate and speed
     private let sampleInterval = DateComponents(second: 1)
 
 
     // MARK: - Init
+    
+    /// initialises the health manager
     init() {
 
         queryingHealthKit = true
-
-
         
         Task {
-            await authoriseHealthKit()
-            await syncWithHK()
-
+            
+            let healthKitAuthorised = await authoriseHealthKit()
+            
+            if !healthKitAuthorised {
+                print("An error occured when authorising with HealthKit")
+                return
+            }
+            
+            let sucessfullSync = await syncWithHK()
+            
+            if !sucessfullSync {
+                print("error fetching health data")
+                return
+            }
         }
-
     }
 
-    func authoriseHealthKit() async {
-
-        queryingHealthKit = true
+    // MARK: - Setup functions
+    
+    
+    /// attempts to attain authorisation from the user to access their healthkit data
+    /// - Returns: true if the request to authorise with health kit was successfull, false if there was an error
+    func authoriseHealthKit() async -> Bool  {
 
         // the type of data we are trying to access
         let workout = HKObjectType.workoutType()
@@ -59,16 +77,19 @@ class HealthManager: ObservableObject {
             do {
                 try await healthStore.requestAuthorization(toShare: [], read: healhTypes)
 
-
             } catch {
-                print("Error authorising with health kit")
+                return false
             }
+            return true
         }
-        
-        queryingHealthKit = false
+        return true
     }
 
-    func syncWithHK() async {
+    
+    /// attempts to query the user's healthstore to get all of their rides within the given timeframe and assemble them into ride objects for the appropriate properties
+    /// - Parameter queryDate: the start of the date range for the healthkit query
+    /// - Returns: true if the sync was successfull, false if there was an error
+    func syncWithHK(queryDate: Date = .oneYearAgo) async -> Bool {
 
         Task {
 
@@ -77,7 +98,7 @@ class HealthManager: ObservableObject {
                 queryingHealthKit = true
 
                 // query the workout data for this month's rides from healthkit
-                let workouts = try await fetchCyclingWorkouts(startDate: .oneYearAgo, endDate: Date())
+                let workouts = try await fetchCyclingWorkouts(startDate: queryDate, endDate: Date())
 
                 // iterare through the returned workouts
                 for workout in workouts {
@@ -85,12 +106,11 @@ class HealthManager: ObservableObject {
                     // get the heart rate data for this workout
                     let hrSamples = try await fetchHeartRateSamples(for: workout, interval: sampleInterval)
 
-                    //
                     // get the average heart rate of this workout
                     let sumHRSamples = hrSamples.reduce(0.0) { $0 + (($1.min + $1.max) / 2) }
                     let averageHR = sumHRSamples / Double(hrSamples.count)
 
-                    getWorkoutRoute(workout: workout) { (locations, error) in
+                    fetchWorkouRoute(workout: workout) { (locations, error) in
                         if let error = error {
                             print("Error: \(error.localizedDescription)")
                         } else if let locations = locations {
@@ -113,7 +133,7 @@ class HealthManager: ObservableObject {
                                 let distance = endLocation.distance(from: startLocation)
                                 let timeInterval = endLocation.timestamp.timeIntervalSince(startLocation.timestamp)
 
-                                // claculate average speed
+                                // calculate average speed
                                 let averageSpeed = (distance / timeInterval) * 3.6
 
                                 let speedSample = StatSample(date: locations[i].timestamp, min: averageSpeed, max: averageSpeed)
@@ -139,49 +159,67 @@ class HealthManager: ObservableObject {
                     }
                 }
 
-                DispatchQueue.main.async {
-
-                    let calendar = Calendar.current
-                    let today = Date()
-
-                    self.recentRide = self.rides.first
-
-                    self.thisWeekRides = self.rides.filter { ride in
-
-
-                        let startOfWeek = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: today))!
-                        let endOfWeek = calendar.date(byAdding: .weekOfYear, value: 1, to: startOfWeek)!
-
-
-                        return ride.rideDate >= startOfWeek && ride.rideDate < endOfWeek
-                    }
-
-                    self.thisMonthRide = self.rides.filter { ride in
-
-                        let startOfMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: calendar.startOfDay(for: today)))!
-                        let endOfMonth = calendar.date(byAdding: DateComponents(month: 1, day: -1), to: startOfMonth)!
-
-                        return ride.rideDate >= startOfMonth && ride.rideDate <= endOfMonth
-
-                    }
-
-                    withAnimation {
-                        self.queryingHealthKit = false
-                    }
-
+                dateFilterRideLists()
+                
+                withAnimation {
+                    self.queryingHealthKit = false
                 }
+                
+                return true
 
             } catch {
-                print("error fetching health data")
 
                 queryingHealthKit = false
+                
+                return false
             }
 
 
         }
-
+        return true
+    }
+    
+    
+    /// filters the rides list by week and by month and assigns those values to the appropriate properties
+    private func dateFilterRideLists() {
+        DispatchQueue.main.async {
+            
+            let calendar = Calendar.current
+            let today = Date()
+            
+            // get the most recent ride
+            self.recentRide = self.rides.first
+            
+            // filter the rides to only contain rides this week
+            self.thisWeekRides = self.rides.filter { ride in
+                
+                let startOfWeek = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: today))!
+                let endOfWeek = calendar.date(byAdding: .weekOfYear, value: 1, to: startOfWeek)!
+                
+                
+                return ride.rideDate >= startOfWeek && ride.rideDate < endOfWeek
+            }
+            
+            // filter the rides to only contain rides this month
+            self.thisMonthRide = self.rides.filter { ride in
+                
+                let startOfMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: calendar.startOfDay(for: today)))!
+                let endOfMonth = calendar.date(byAdding: DateComponents(month: 1, day: -1), to: startOfMonth)!
+                
+                return ride.rideDate >= startOfMonth && ride.rideDate <= endOfMonth
+                
+            }
+        }
     }
 
+    // MARK: - HealthKit Query functions
+    
+    
+    /// fetch cycling workouts that were completed within the given date range
+    /// - Parameters:
+    ///   - startDate: The start of the date range
+    ///   - endDate: the end of the date range
+    /// - Returns: all of the `HKWorkout` objects that are within the specified date range
     func fetchCyclingWorkouts(startDate: Date, endDate: Date) async throws -> [HKWorkout] {
 
         // Define the workout type
@@ -216,33 +254,12 @@ class HealthManager: ObservableObject {
         }
     }
 
-    func fetchAverageHeartRate(for workout: HKWorkout) async throws -> Double {
-
-        // Define the heart rate type
-        let heartRateType = HKObjectType.quantityType(forIdentifier: .heartRate)!
-
-        // Create a predicate to only fetch heart rate samples associated with the workout
-        let workoutPredicate = HKQuery.predicateForObjects(from: workout)
-
-        // Create a Task to handle the async query
-        return try await withCheckedThrowingContinuation { continuation in
-            let query = HKStatisticsQuery(quantityType: heartRateType, quantitySamplePredicate: workoutPredicate, options: .discreteAverage) { (query, statistics, error) in
-                if let error = error {
-                    continuation.resume(throwing: error)
-                } else if let quantity = statistics?.averageQuantity() {
-                    let heartRateUnit = HKUnit(from: "count/min")
-                    let averageHeartRate = quantity.doubleValue(for: heartRateUnit)
-                    continuation.resume(returning: averageHeartRate)
-                } else {
-                    continuation.resume(throwing: NSError(domain: "com.example", code: 1, userInfo: [NSLocalizedDescriptionKey: "Unable to fetch average heart rate"]))
-                }
-            }
-
-            // Execute the query
-            healthStore.execute(query)
-        }
-    }
-
+    
+    /// Fetch all of the heart rate samples that were recorded during the user's workout
+    /// - Parameters:
+    ///   - workout: The workout that is being queried
+    ///   - interval: how often we should collect samples
+    /// - Returns: an array of ``StatSample`` that represents all of the heart rate samples recorded during the workout
     func fetchHeartRateSamples(for workout: HKWorkout, interval: DateComponents) async throws -> [StatSample] {
 
         // Define the heart rate type
@@ -279,8 +296,14 @@ class HealthManager: ObservableObject {
             healthStore.execute(query)
         }
     }
-
-    func getWorkoutRoute(workout: HKWorkout, completion: @escaping ([CLLocation]?, Error?) -> Void) {
+    
+    
+    /// Fetches the route the user took on the given workout
+    /// - Parameters:
+    ///   - workout: the wokrout that is being queried
+    ///   - completion: _
+    func fetchWorkouRoute(workout: HKWorkout, completion: @escaping ([CLLocation]?, Error?) -> Void) {
+        
         let workoutPredicate = HKQuery.predicateForObjects(from: workout)
         let routeQuery = HKAnchoredObjectQuery(type: HKSeriesType.workoutRoute(), predicate: workoutPredicate, anchor: nil, limit: HKObjectQueryNoLimit) { (query, samples, deletedObjects, newAnchor, error) in
             guard error == nil else {
@@ -330,60 +353,24 @@ class HealthManager: ObservableObject {
         healthStore.execute(routeQuery)
     }
 
-
-
 }
 
-// MARK: - HRSample
+// MARK: - StatSample
 
+
+/// represents a sample recorded during a workout
 struct StatSample: Identifiable {
     let id = UUID()
-    let date: Date
-    let min: Double
-    let max: Double
-    var animate: Bool = false
-}
-
-let previewStatSample = [
-
-    StatSample(date: Date().addingTimeInterval(-172800), min: 72.0, max: 92.0),
-    StatSample(date: Date().addingTimeInterval(-172740), min: 78.0, max: 98.0),
-    StatSample(date: Date().addingTimeInterval(-172680), min: 83.0, max: 103.0),
-    StatSample(date: Date().addingTimeInterval(-172620), min: 75.0, max: 95.0),
-    StatSample(date: Date().addingTimeInterval(-172560), min: 80.0, max: 100.0),
-    StatSample(date: Date().addingTimeInterval(-172500), min: 87.0, max: 106.0),
-    StatSample(date: Date().addingTimeInterval(-172440), min: 90.0, max: 109.0),
-    StatSample(date: Date().addingTimeInterval(-172380), min: 82.0, max: 102.0)
-]
-
-// MARK: - Extensions
-extension Date {
-    static var startOfDay: Date {
-        Calendar.current.startOfDay(for: Date())
-    }
-
-    static var startOfWeekMonday: Date? {
-
-        let calendar = Calendar.current
-        let currentDate = Date()
-
-        var startOfTheWeek: Date = Date()
-        var interval: TimeInterval = 0
-
-        let _ = calendar.dateInterval(of: .weekOfYear, start: &startOfTheWeek, interval: &interval, for: currentDate)
-
-        return startOfTheWeek
-    }
-
-    static var oneMonthAgo: Date {
-        let calendar = Calendar.current
-        let oneMonth = Calendar.current.date(byAdding: .month, value: -1, to: Date())
-        return calendar.startOfDay(for: oneMonth!)
-    }
     
-    static var oneYearAgo: Date {
-        let calendar = Calendar.current
-        let oneYear = Calendar.current.date(byAdding: .year, value: -1, to: Date())
-        return calendar.startOfDay(for: oneYear!)
-    }
+    /// when the sample was taken
+    let date: Date
+    
+    /// the minimum value recorded during the sample
+    let min: Double
+    
+    /// the maximuim value recored during the sample
+    let max: Double
+    
+    /// used to animated this sample
+    var animate: Bool = false
 }

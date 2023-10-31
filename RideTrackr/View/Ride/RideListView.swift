@@ -21,22 +21,32 @@ struct RideListView: View {
 
             List {
                 if healthManager.rides.count > 0 {
-                    Section("This Week") {
+                    
+                    if healthManager.thisWeekRides.count != 0 {
+                        Section("This Week") {
 
-                        ForEach(healthManager.thisWeekRides) { ride in
-                            NavigationLink(value: ride) {
-                                RideRowView(ride: ride)
+                            ForEach(healthManager.thisWeekRides) { ride in
+                                NavigationLink(value: ride) {
+                                    RideRowView(ride: ride)
+                                }
                             }
                         }
+                    } else {
+                        Text("No rides found this week")
                     }
 
-                    Section("This Month") {
-                        ForEach (healthManager.thisMonthRide) { ride in
 
-                            NavigationLink(value: ride) {
-                                RideRowView(ride: ride)
+                    if healthManager.thisMonthRide.count != 0 {
+                        Section("This Month") {
+                            ForEach (healthManager.thisMonthRide) { ride in
+
+                                NavigationLink(value: ride) {
+                                    RideRowView(ride: ride)
+                                }
                             }
                         }
+                    } else {
+                        Text("No ride found this month")
                     }
 
                     Section("Older") {

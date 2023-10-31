@@ -11,10 +11,16 @@ import SwiftUI
 /// Holds all the data for the user cycling trends
 class TrendManager: ObservableObject {
     
+    
+    /// An array of `TrendItem` objects representing the user's heart rate trends over time.
     @Published var heartRateTrends: [TrendItem] = []
+    /// An array of `TrendItem` objects representing the user's distance trends over time.
     @Published var distanceTrends: [TrendItem] = []
+    /// An array of `TrendItem` objects representing the user's speed trends over time.
     @Published var speedTrends: [TrendItem] = []
+    /// An array of `TrendItem` objects representing the user's energy trends over time.
     @Published var energyTrends: [TrendItem] = []
+    ///
     @AppStorage("timeFrame") var timeFrame: TrendTimeFrame = .Month
     
     
@@ -33,17 +39,7 @@ class TrendManager: ObservableObject {
     var currentAverageEnergy: Double {
         return calculateCurrentAverage(.Energy)
     }
-    
-    init() {
-//        heartRateTrends = sampleTrendMaker.generateSampleData()
-//        distanceTrends = sampleTrendMaker.generateSampleData()
-//        speedTrends = sampleTrendMaker.generateSampleData()
-//        energyTrends = sampleTrendMaker.generateSampleData()
-//        heartRateTrends = [TrendItem(value: 1, date: Date()),TrendItem(value: 2, date: Date()),TrendItem(value: 3, date: Date()),TrendItem(value: 4, date: Date()),TrendItem(value: 5, date: Date())]
-//        distanceTrends = []
-//        speedTrends = []
-//        energyTrends = []
-    }
+
     
     
     /// Calculates the current average value for a given trend type based on the currently selected time frame
@@ -65,6 +61,7 @@ class TrendManager: ObservableObject {
         }
         
         let filteredList = list.filter { $0.date > timeFrame.dateOffset }
+//        let filteredList = list
         
         let sum = filteredList.reduce(0) { (currentSum, nextNumber) in
             return currentSum + nextNumber.value

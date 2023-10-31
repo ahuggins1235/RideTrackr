@@ -77,7 +77,7 @@ class HealthManager: ObservableObject {
                 queryingHealthKit = true
 
                 // query the workout data for this month's rides from healthkit
-                let workouts = try await fetchCyclingWorkouts(startDate: .oneMonthAgo, endDate: Date())
+                let workouts = try await fetchCyclingWorkouts(startDate: .oneYearAgo, endDate: Date())
 
                 // iterare through the returned workouts
                 for workout in workouts {
@@ -379,5 +379,11 @@ extension Date {
         let calendar = Calendar.current
         let oneMonth = Calendar.current.date(byAdding: .month, value: -1, to: Date())
         return calendar.startOfDay(for: oneMonth!)
+    }
+    
+    static var oneYearAgo: Date {
+        let calendar = Calendar.current
+        let oneYear = Calendar.current.date(byAdding: .year, value: -1, to: Date())
+        return calendar.startOfDay(for: oneYear!)
     }
 }

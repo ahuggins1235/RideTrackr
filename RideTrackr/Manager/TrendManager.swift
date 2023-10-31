@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  TrendManager.swift
 //  RideTrackr
 //
 //  Created by Andrew Huggins on 25/9/2023.
@@ -11,6 +11,7 @@ import SwiftUI
 /// Holds all the data for the user cycling trends
 class TrendManager: ObservableObject {
     
+    // MARK: - properties
     
     /// An array of `TrendItem` objects representing the user's heart rate trends over time.
     @Published var heartRateTrends: [TrendItem] = []
@@ -20,27 +21,32 @@ class TrendManager: ObservableObject {
     @Published var speedTrends: [TrendItem] = []
     /// An array of `TrendItem` objects representing the user's energy trends over time.
     @Published var energyTrends: [TrendItem] = []
-    ///
+    /// the current trends timeframe that the user is viewing
     @AppStorage("timeFrame") var timeFrame: TrendTimeFrame = .Month
     
     
+    /// Represents the current rolling average heart rate of the user.
     var currentAverageHeartRate: Double {
         return calculateCurrentAverage(.HeartRate)
     }
     
+    /// Represents the current rolling average speed of the user.
     var currentAverageSpeed: Double {
         return calculateCurrentAverage(.Speed)
     }
     
+    /// Represents the current rolling average distance traveled by the user.
     var currentAverageDistance: Double {
         return calculateCurrentAverage(.Distance)
     }
     
+    /// Represents the current rolling average energy expenditure of the user.
     var currentAverageEnergy: Double {
         return calculateCurrentAverage(.Energy)
     }
 
-    
+
+    // MARK: - methods
     
     /// Calculates the current average value for a given trend type based on the currently selected time frame
     /// - Parameter trendType: The trend type to calculate the average for
@@ -49,6 +55,7 @@ class TrendManager: ObservableObject {
         
         var list: [TrendItem]
         
+        // get the correct list
         switch trendType {
             case .HeartRate:
                 list = self.heartRateTrends
@@ -60,13 +67,15 @@ class TrendManager: ObservableObject {
                 list = self.energyTrends
         }
         
+        // filter the list so that it only contains values within the current timeframe
         let filteredList = list.filter { $0.date > timeFrame.dateOffset }
-//        let filteredList = list
         
+        // calculate the sum of the list
         let sum = filteredList.reduce(0) { (currentSum, nextNumber) in
             return currentSum + nextNumber.value
         }
         
+        // calulate average
         let average = sum / Double(filteredList.count)
         
         return average
@@ -102,15 +111,18 @@ class TrendManager: ObservableObject {
         // filter the list by the given time frame
         list = list.filter {$0.date > timeFrame.dateOffset}
         
-        // Initialize an empty list to store the results
         var averages: [Double] = []
-        // Loop over the list from index 0 to index n-2, where n is the length of the list
+        
+        
         for i in 0..<list.count - 1 {
+        
             // Get the current value and the next value in the list
             let currentValue = list[i].value
             let nextValue = list[i + 1].value
+            
             // Calculate the percentage change between them
             let change = (nextValue - currentValue) / currentValue * 100
+            
             // Append the result to the result list
             averages.append(change)
         }
@@ -127,45 +139,16 @@ class TrendManager: ObservableObject {
 }
 
 
+
+/// A struct representing a single data point for a trend over time.
 struct TrendItem: Identifiable {
-    
+
     var id = UUID()
+    /// The value of the trend item.
     var value: Double
+    /// The date associated with the trend item.
     var date: Date
+    /// A Boolean value indicating whether the trend item should be animated.
     var animate: Bool = false
-    
 }
 
-struct sampleTrendMaker {
-    
-    static func generateSampleData() -> [TrendItem] {
-        let currentDate = Date()
-        let calendar = Calendar.current
-        var data: [TrendItem] = []
-        
-        // Start from the date one month ago
-        if let oneMonthAgo = calendar.date(byAdding: .month, value: -1, to: currentDate) {
-            
-            // Generate trend items for each day over the past month
-            var date = oneMonthAgo
-            
-            while date <= currentDate {
-                
-                // Generate a random heart rate value for the current date
-                let randomValue = Double.random(in: 60...100)
-                
-                // Create a trend item with the current date and random value
-                let trendItem = TrendItem(value: randomValue, date: date)
-                
-                // Append the trend item to the array
-                data.append(trendItem)
-                
-                // Move to the next day
-                date = calendar.date(byAdding: .day, value: 1, to: date) ?? date
-            }
-        }
-        
-        return data
-
-    }
-}

@@ -226,13 +226,13 @@ struct RideRouteMap: View {
             Map(interactionModes: []) {
 
                 MapPolyline(coordinates: ride.routeData.map { $0.coordinate }, contourStyle: .geodesic)
-                    .stroke(.blue, lineWidth: 5)
+                    .stroke(.accent, lineWidth: 5)
 
                 if let firstCoordindate = ride.routeData.first?.coordinate {
 
                     Annotation("", coordinate: firstCoordindate) {
                         Circle()
-                            .fill(.blue)
+                            .fill(.accent)
                             .frame(width: 10)
                     }
                 }
@@ -241,7 +241,7 @@ struct RideRouteMap: View {
 
                     Annotation("", coordinate: lastCoordindate) {
                         Circle()
-                            .fill(.blue)
+                            .fill(.accent)
                             .frame(width: 10)
                     }
                 }

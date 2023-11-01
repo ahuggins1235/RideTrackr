@@ -108,54 +108,9 @@ struct HomeView: View {
 
                     // MARK: - recent ride cards
 
-                    VStack(alignment: .leading) {
-
-                        HStack {
-                            Text("Recent Rides")
-                                .font(.headline)
-                                .bold()
-                                .foregroundStyle(.accent)
-
-                            Spacer()
-
-                            Text("Show more...")
-                                .font(.subheadline)
-                                .fontWeight(.medium)
-                                .foregroundStyle(.accent)
-                                .onTapGesture {
-                                navigationManager.selectedTab = .RideList
-                            }
-
-                        }
-
-                        ScrollView(.horizontal) {
-
-                            HStack() {
-//                                    ForEach(previewRideArray.prefix(5).dropFirst()) { ride in
-                                ForEach(healthManager.rides.prefix(5).dropFirst()) { ride in
-                                    NavigationLink(value: ride) {
-                                        RideCardPreview(ride: ride)
-
-                                    }
-                                        .foregroundStyle(Color.primary)
-                                        .scrollTransition(.animated.threshold(.visible(0.3))) { content, phase in
-
-                                        content
-                                            .opacity(phase.isIdentity ? 1.0 : 0.3)
-                                            .scaleEffect(phase.isIdentity ? 1.0 : 0.3)
-
-                                    }
-                                }
-                            }
-                                .padding()
-                                .scrollTargetLayout(isEnabled: true)
-                        }
-                            .scrollIndicators(.never)
-                            .scrollTargetBehavior(.viewAligned)
-                            .padding(.horizontal, -10)
-
-                    }
-                        .padding(.vertical)
+                    RecentRidesCardList()
+                        .frame(height: 300)
+                        
                 }.padding(.horizontal)
 
                 // MARK: - toolbar
@@ -203,3 +158,4 @@ func GetGreetingString() -> String {
         .environmentObject(SettingsManager())
         .environmentObject(NavigationManager())
 }
+

@@ -89,7 +89,7 @@ class HealthManager: ObservableObject {
     /// attempts to query the user's healthstore to get all of their rides within the given timeframe and assemble them into ride objects for the appropriate properties
     /// - Parameter queryDate: the start of the date range for the healthkit query
     /// - Returns: true if the sync was successfull, false if there was an error
-    func syncWithHK(queryDate: Date = .oneYearAgo) async -> Bool {
+    func syncWithHK(queryDate: Date = .threeMonthsAgo) async -> Bool {
 
         Task {
 
@@ -151,9 +151,6 @@ class HealthManager: ObservableObject {
                                 )
 
                                 self.rides.append(ride)
-
-
-
                             }
                         }
                     }
@@ -173,8 +170,6 @@ class HealthManager: ObservableObject {
                 
                 return false
             }
-
-
         }
         return true
     }
@@ -261,7 +256,7 @@ class HealthManager: ObservableObject {
     ///   - interval: how often we should collect samples
     /// - Returns: an array of ``StatSample`` that represents all of the heart rate samples recorded during the workout
     func fetchHeartRateSamples(for workout: HKWorkout, interval: DateComponents) async throws -> [StatSample] {
-
+        
         // Define the heart rate type
         let heartRateType = HKObjectType.quantityType(forIdentifier: .heartRate)!
 

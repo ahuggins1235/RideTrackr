@@ -270,6 +270,31 @@ let previewRideArray: [Ride] = [
             StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
             StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
             StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+        ],
+        routeData: [
+            CLLocation(latitude: 37.7749, longitude: -122.4194),
+            CLLocation(latitude: 37.7739, longitude: -122.4222),
+            CLLocation(latitude: 37.7729, longitude: -122.4250)
+        ],
+        altitdueSamples: [
+            StatSample(date: Date(), min: 70.0, max: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+        ],
+        speedSamples: [
+            StatSample(date: Date(), min: 70.0, max: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
         ]
     ),
     Ride(
@@ -289,6 +314,31 @@ let previewRideArray: [Ride] = [
             StatSample(date: Date().addingTimeInterval(-86100), min: 82.0, max: 100.0),
             StatSample(date: Date().addingTimeInterval(-86040), min: 85.0, max: 103.0),
             StatSample(date: Date().addingTimeInterval(-85980), min: 77.0, max: 97.0)
+        ],
+        routeData: [
+            CLLocation(latitude: 37.7749, longitude: -122.4194),
+            CLLocation(latitude: 37.7739, longitude: -122.4222),
+            CLLocation(latitude: 37.7729, longitude: -122.4250)
+        ],
+        altitdueSamples: [
+            StatSample(date: Date(), min: 70.0, max: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+        ],
+        speedSamples: [
+            StatSample(date: Date(), min: 70.0, max: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
         ]
     ),
     Ride(
@@ -308,6 +358,31 @@ let previewRideArray: [Ride] = [
             StatSample(date: Date().addingTimeInterval(-172500), min: 87.0, max: 106.0),
             StatSample(date: Date().addingTimeInterval(-172440), min: 90.0, max: 109.0),
             StatSample(date: Date().addingTimeInterval(-172380), min: 82.0, max: 102.0)
+        ],
+        routeData: [
+            CLLocation(latitude: 37.7749, longitude: -122.4194),
+            CLLocation(latitude: 37.7739, longitude: -122.4222),
+            CLLocation(latitude: 37.7729, longitude: -122.4250)
+        ],
+        altitdueSamples: [
+            StatSample(date: Date(), min: 70.0, max: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+        ],
+        speedSamples: [
+            StatSample(date: Date(), min: 70.0, max: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
         ]
     ),
     Ride(
@@ -327,6 +402,31 @@ let previewRideArray: [Ride] = [
             StatSample(date: Date().addingTimeInterval(-258900), min: 81.0, max: 101.0),
             StatSample(date: Date().addingTimeInterval(-258840), min: 84.0, max: 104.0),
             StatSample(date: Date().addingTimeInterval(-258780), min: 76.0, max: 96.0)
+        ],
+        routeData: [
+            CLLocation(latitude: 37.7749, longitude: -122.4194),
+            CLLocation(latitude: 37.7739, longitude: -122.4222),
+            CLLocation(latitude: 37.7729, longitude: -122.4250)
+        ],
+        altitdueSamples: [
+            StatSample(date: Date(), min: 70.0, max: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+        ],
+        speedSamples: [
+            StatSample(date: Date(), min: 70.0, max: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
         ]
     )
 ]

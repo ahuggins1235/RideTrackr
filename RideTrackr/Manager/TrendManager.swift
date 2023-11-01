@@ -68,7 +68,8 @@ class TrendManager: ObservableObject {
         }
         
         // filter the list so that it only contains values within the current timeframe
-        let filteredList = list.filter { $0.date > timeFrame.dateOffset }
+//        let filteredList = list.filter { $0.date > timeFrame.dateOffset }
+        let filteredList = list
         
         // calculate the sum of the list
         let sum = filteredList.reduce(0) { (currentSum, nextNumber) in

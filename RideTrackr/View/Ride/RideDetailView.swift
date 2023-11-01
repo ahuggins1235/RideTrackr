@@ -38,7 +38,19 @@ struct RideDetailView: View {
                 VStack(alignment: .leading) {
 
                     // map
-                    RideRouteMap(ride: $ride)
+                    ZStack {
+                        
+                        Rectangle()
+                            .fill(.secondary)
+                            .mask(RoundedRectangle(cornerRadius: 30, style: .continuous))
+                            .blur(radius: 15)
+                            .padding()
+
+                        
+                        RideRouteMap(ride: $ride)
+                            .padding()
+                            .frame(height: 300)
+                    }
 
                     // ride preview
                     LargeRidePreview(ride: $ride, showDate: false, queryingHealthKit: .constant(false))
@@ -210,13 +222,8 @@ struct RideRouteMap: View {
 
         ZStack {
 
-            Rectangle()
-                .fill(.secondary)
-                .mask(RoundedRectangle(cornerRadius: 30, style: .continuous))
-                .blur(radius: 15)
-                .padding()
-
-            Map(interactionModes: MapInteractionModes.zoom) {
+            
+            Map(interactionModes: []) {
 
                 MapPolyline(coordinates: ride.routeData.map { $0.coordinate }, contourStyle: .geodesic)
                     .stroke(.blue, lineWidth: 5)
@@ -241,11 +248,10 @@ struct RideRouteMap: View {
 
             }
                 .mapStyle(.standard(elevation: .realistic))
-                .frame(height: 300)
                 .clipShape (
                 RoundedRectangle(cornerRadius: 25)
             )
-                .padding()
+                
         }
 
     }

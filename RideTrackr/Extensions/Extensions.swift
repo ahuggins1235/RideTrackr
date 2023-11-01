@@ -46,6 +46,21 @@ extension Date {
         return calendar.startOfDay(for: oneMonth!)
     }
     
+    
+    /// gets the date of the day three months ago
+    static var threeMonthsAgo: Date {
+        let calendar = Calendar.current
+        let oneMonth = Calendar.current.date(byAdding: .month, value: -3, to: Date())
+        return calendar.startOfDay(for: oneMonth!)
+    }
+    
+    /// gets the date of the day six months ago
+    static var sixMonthsAgo: Date {
+        let calendar = Calendar.current
+        let oneMonth = Calendar.current.date(byAdding: .month, value: -6, to: Date())
+        return calendar.startOfDay(for: oneMonth!)
+    }
+    
     /// gets the date of the day one year ago
     static var oneYearAgo: Date {
         let calendar = Calendar.current

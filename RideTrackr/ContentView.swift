@@ -22,12 +22,24 @@ struct ContentView: View {
                 ZStack {
 
                     Rectangle()
-                        .fill(.background)
+                        .fill(.appIconColour.gradient)
                         .ignoresSafeArea()
-
-                    ProgressView {
-                        Text("Loading data from healthkit...")
-
+                    
+                    VStack(spacing: 100) {
+                        
+                        Image("AppIconBike")
+                            .resizable()
+                            .frame(width: 242.4, height: 138.6)
+                            .clipShape(RoundedRectangle(cornerRadius: 15, style: .continuous))
+                            .shadow(radius: 10)
+                        
+                        ProgressView {
+                            Text("Loading data from HealthKit...")
+                                .bold()
+                                
+                            
+                        }
+                        .foregroundStyle(.background)
                     }
                         .foregroundStyle(.primary)
                 }
@@ -47,5 +59,5 @@ struct ContentView: View {
 }
 
 //#Preview {
-//    ContentView()
+//    ContentView().environmentObject(HealthManager()).environmentObject(TrendManager())
 //}

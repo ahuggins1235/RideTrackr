@@ -6,8 +6,11 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct RideShareView: View {
+    
+    @EnvironmentObject var trendManager: TrendManager
     
     @State var ride: Ride
     
@@ -20,10 +23,12 @@ struct RideShareView: View {
                 .bold()
                 .padding(.top)
             
+//            MapSnapshotView(location: ride.routeData.first!.coordinate, route: ride.routeData.map({ $0.coordinate }))
+            
             // ride preview
-//            LargeRidePreview(ride: $ride, showDate: false, queryingHealthKit: .constant(false))
-                
-                .padding()
+//            LargeRidePreview(ride: $ride, showDate: false, queryingHealthKit: .constant(false)).environmentObject(trendManager)
+            
+
                 
         }
         .frame(height: 200)
@@ -32,5 +37,5 @@ struct RideShareView: View {
 }
 
 #Preview {
-    RideShareView(ride: PreviewRide)
+    RideShareView(ride: PreviewRide).environmentObject(TrendManager())
 }

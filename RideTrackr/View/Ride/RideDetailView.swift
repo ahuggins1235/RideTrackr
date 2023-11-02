@@ -14,11 +14,12 @@ struct RideDetailView: View {
     // MARK: - Properties
     @State var ride: Ride
     @Environment(\.displayScale) private var displayScale: CGFloat
+    @EnvironmentObject var trendManager: TrendManager
 
     @MainActor
     private func generateSharingImage() -> Image {
 
-        let renderer = ImageRenderer(content: RideShareView(ride: ride))
+        let renderer = ImageRenderer(content: RideShareView(ride: ride).environmentObject(trendManager))
 
         renderer.scale = displayScale
 
@@ -79,14 +80,8 @@ struct RideDetailView: View {
                         average: ride.altitudeGained.rounded(),
                         rightText: "GAIN"
                     ).padding(.bottom)
-                    
-
-
                 }
-
             }
-            
-
         }
             .navigationTitle(ride.dateString)
             .navigationBarTitleDisplayMode(.inline)
@@ -264,8 +259,8 @@ struct RideDetailView_Previews: PreviewProvider {
 
     static var previews: some View {
 
-        RideDetailView(ride: PreviewRide)
-        RideDetailView(ride: PreviewRide)
+        RideDetailView(ride: PreviewRide).environmentObject(TrendManager())
+        RideDetailView(ride: PreviewRide).environmentObject(TrendManager())
         ChartCardView(samples: PreviewRide.hrSamples, title: "Heart Rate", unit: "BPM", color: .red, average: 167, rightText: "AVG")
     }
 }

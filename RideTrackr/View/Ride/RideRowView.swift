@@ -20,8 +20,14 @@ struct RideRowView: View {
         HStack {
             
             // Map
-            Circle()
-                .frame(width: 50)
+//            Circle()
+//                .frame(width: 50)
+            MapSnapshotView(location: ride.routeData.first!.coordinate, route: ride.routeData.map({ $0.coordinate }))
+//                .clipShape(RoundedRectangle(cornerRadius: 15, style: .continuous))
+                .clipShape(Circle())
+                .padding(5)
+                .frame(width: 100, height: 100)
+                .shadow(radius: 3)
             
             VStack {
                 

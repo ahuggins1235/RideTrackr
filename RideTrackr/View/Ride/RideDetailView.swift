@@ -41,6 +41,8 @@ struct RideDetailView: View {
                     // map
                     ZStack {
                         
+                        if let location = ride.routeData.first {
+                        
                         Rectangle()
                             .fill(.secondary)
                             .mask(RoundedRectangle(cornerRadius: 30, style: .continuous))
@@ -48,38 +50,61 @@ struct RideDetailView: View {
                             .padding()
 
                         
-                        RideRouteMap(ride: $ride)
-                            .padding()
-                            .frame(height: 300)
+                            MapSnapshotView(location: location.coordinate, route: ride.routeData.map { $0.coordinate } )
+                                .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
+                                .padding()
+                                .frame(height: 300)
+                            
+                        } else {
+                            HStack {
+                                Spacer()
+                                Text("No route data found")
+                                    .bold()
+                                    .padding(.top)
+                                Spacer()
+                            }
+                        }
+                        
                     }
 
                     // ride preview
                     LargeRidePreview(ride: $ride, showDate: false, queryingHealthKit: .constant(false))
                         .padding()
+                    
+                    if ride.hrSamples.count != 0 {
+                        
+                        ChartCardView(samples: ride.hrSamples,
+                                      title: "Heart Rate",
+                                      unit: "BPM",
+                                      color: .heartRate,
+                                      average: ride.heartRate.rounded(),
+                                      rightText: "AVG"
+                        ).padding(.bottom)
+                        
+                    }
+                    
+                    if ride.speedSamples.count != 0 {
+                        
+                        ChartCardView(samples: ride.speedSamples,
+                                      title: "Speed",
+                                      unit: "KM/H",
+                                      color: .speed,
+                                      average: ride.speed.rounded(),
+                                      rightText: "AVG"
+                        ).padding(.bottom)
+                        
+                    }
 
-                    ChartCardView(samples: ride.hrSamples,
-                        title: "Heart Rate",
-                        unit: "BPM",
-                        color: .heartRate,
-                        average: ride.heartRate.rounded(),
-                        rightText: "AVG"
-                    ).padding(.bottom)
-
-                    ChartCardView(samples: ride.speedSamples,
-                        title: "Speed",
-                        unit: "KM/H",
-                        color: .speed,
-                        average: ride.speed.rounded(),
-                        rightText: "AVG"
-                    ).padding(.bottom)
-
-                    ChartCardView(samples: ride.altitdueSamples,
-                        title: "Altitude",
-                        unit: "m",
-                        color: .altitude,
-                        average: ride.altitudeGained.rounded(),
-                        rightText: "GAIN"
-                    ).padding(.bottom)
+                    if ride.altitdueSamples.count != 0 {
+                        
+                        ChartCardView(samples: ride.altitdueSamples,
+                                      title: "Altitude",
+                                      unit: "m",
+                                      color: .altitude,
+                                      average: ride.altitudeGained.rounded(),
+                                      rightText: "GAIN"
+                        ).padding(.bottom)
+                    }
                 }
             }
         }
@@ -209,48 +234,48 @@ struct AnimationModifier : ViewModifier{
     }
 }
 
-struct RideRouteMap: View {
-
-    @Binding var ride: Ride
-
-    var body: some View {
-
-        ZStack {
-
-            
-            Map(interactionModes: []) {
-
-                MapPolyline(coordinates: ride.routeData.map { $0.coordinate }, contourStyle: .geodesic)
-                    .stroke(.accent, lineWidth: 5)
-
-                if let firstCoordindate = ride.routeData.first?.coordinate {
-
-                    Annotation("", coordinate: firstCoordindate) {
-                        Circle()
-                            .fill(.accent)
-                            .frame(width: 10)
-                    }
-                }
-
-                if let lastCoordindate = ride.routeData.last?.coordinate {
-
-                    Annotation("", coordinate: lastCoordindate) {
-                        Circle()
-                            .fill(.accent)
-                            .frame(width: 10)
-                    }
-                }
-
-            }
-                .mapStyle(.standard(elevation: .realistic))
-                .clipShape (
-                RoundedRectangle(cornerRadius: 25)
-            )
-                
-        }
-
-    }
-}
+//struct RideRouteMap: View {
+//
+//    @Binding var ride: Ride
+//
+//    var body: some View {
+//
+//        ZStack {
+//
+//            
+//            Map(interactionModes: []) {
+//
+//                MapPolyline(coordinates: ride.routeData.map { $0.coordinate }, contourStyle: .geodesic)
+//                    .stroke(.accent, lineWidth: 5)
+//
+//                if let firstCoordindate = ride.routeData.first?.coordinate {
+//
+//                    Annotation("", coordinate: firstCoordindate) {
+//                        Circle()
+//                            .fill(.accent)
+//                            .frame(width: 10)
+//                    }
+//                }
+//
+//                if let lastCoordindate = ride.routeData.last?.coordinate {
+//
+//                    Annotation("", coordinate: lastCoordindate) {
+//                        Circle()
+//                            .fill(.accent)
+//                            .frame(width: 10)
+//                    }
+//                }
+//
+//            }
+//                .mapStyle(.standard(elevation: .realistic))
+//                .clipShape (
+//                RoundedRectangle(cornerRadius: 25)
+//            )
+//                
+//        }
+//
+//    }
+//}
 
 // MARK: - Previews
 struct RideDetailView_Previews: PreviewProvider {
@@ -260,7 +285,7 @@ struct RideDetailView_Previews: PreviewProvider {
     static var previews: some View {
 
         RideDetailView(ride: PreviewRide).environmentObject(TrendManager())
-        RideDetailView(ride: PreviewRide).environmentObject(TrendManager())
-        ChartCardView(samples: PreviewRide.hrSamples, title: "Heart Rate", unit: "BPM", color: .red, average: 167, rightText: "AVG")
+        RideDetailView(ride: PreviewRideNoRouteData).environmentObject(TrendManager())
+//        ChartCardView(samples: PreviewRide.hrSamples, title: "Heart Rate", unit: "BPM", color: .red, average: 167, rightText: "AVG")
     }
 }

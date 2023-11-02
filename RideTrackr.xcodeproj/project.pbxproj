@@ -79,6 +79,7 @@
 		4925C20A2A75128900761FDA /* RideListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideListView.swift; sourceTree = "<group>"; };
 		4925C20E2A75130000761FDA /* NavigationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationManager.swift; sourceTree = "<group>"; };
 		494B24402ABFD49800B05739 /* RideShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideShareView.swift; sourceTree = "<group>"; };
+		494F67062AF3760D001163B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		49932F5B2AF1FD3700A45D14 /* RecentRidesCardList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentRidesCardList.swift; sourceTree = "<group>"; };
 		49932F5D2AF211BC00A45D14 /* ViewModifers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifers.swift; sourceTree = "<group>"; };
 		49E71F3F2AC1374200900477 /* TrendsTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsTabView.swift; sourceTree = "<group>"; };
@@ -147,6 +148,7 @@
 		490725FB2A69042A0009817F /* RideTrackr */ = {
 			isa = PBXGroup;
 			children = (
+				494F67062AF3760D001163B3 /* Info.plist */,
 				492124932AE9026700889575 /* Extensions */,
 				490726382A69557F0009817F /* RideTrackr.entitlements */,
 				490726352A6951830009817F /* Manager */,
@@ -572,12 +574,15 @@
 				DEVELOPMENT_TEAM = 7PY92KZXV9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = RideTrackr/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = RideTrackr;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "Please allow access to enjoy all the features of the applicatiion";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -603,12 +608,15 @@
 				DEVELOPMENT_TEAM = 7PY92KZXV9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = RideTrackr/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = RideTrackr;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "Please allow access to enjoy all the features of the applicatiion";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct RideListView: View {
 
@@ -13,13 +14,24 @@ struct RideListView: View {
     @EnvironmentObject var navigationManager: NavigationManager
     @EnvironmentObject var healthManager: HealthManager
     @State var dateFilter = Date()
+    @Environment(\.modelContext) private var context
+    @Query var rides: [Ride]
 
+   
     // MARK: - Body
     var body: some View {
 
         NavigationStack(path: $navigationManager.rideListNavPath) {
 
             List {
+                
+                ForEach(rides) { ride in
+                    
+                    NavigationLink(value: ride) {
+                        RideRowView(ride: ride)
+                    }
+                }
+                
                 if healthManager.rides.count > 0 {
                     
                     if healthManager.thisWeekRides.count != 0 {
@@ -50,7 +62,8 @@ struct RideListView: View {
                     }
 
                     Section("Older") {
-
+                        
+                        
                         ForEach (healthManager.rides.filter { ride in
                             let calendar = Calendar.current
                             let today = Date()

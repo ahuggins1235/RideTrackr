@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 import MapKit
+import HealthKit
 
 extension Binding {
     
@@ -128,3 +129,53 @@ extension MKCoordinateRegion {
         return CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: fixedLng)
     }
 }
+
+// Define a custom value transformer for [CLLocation]
+@objc(CLLocationArrayTransformer)
+public class CLLocationArrayTransformer: ValueTransformer {
+    // Convert [CLLocation] to string
+    public override func transformedValue(_ value: Any?) -> Any? {
+        guard let locations = value as? [CLLocation] else { return nil }
+        return locations.map { "\($0.coordinate.latitude),\($0.coordinate.longitude)" }.joined(separator: ";")
+    }
+    
+    // Convert string to [CLLocation]
+    public override func reverseTransformedValue(_ value: Any?) -> Any? {
+        guard let string = value as? String else { return nil }
+        let components = string.components(separatedBy: ";")
+        return components.map { component -> CLLocation in
+            let subcomponents = component.components(separatedBy: ",")
+            guard let latitude = Double(subcomponents[0]), let longitude = Double(subcomponents[1]) else { return CLLocation() }
+            return CLLocation(latitude: latitude, longitude: longitude)
+        }
+    }
+    
+    override public class func allowsReverseTransformation() -> Bool {
+        return true
+    }
+}
+
+extension DateFormatter {
+    
+    /// Returns an ordinal suffix to depending on what day of the month is passed in
+    func ordinalSuffix(for day: Int) -> String {
+        
+        switch day {
+            case 1, 21, 31:
+                return "st"
+            case 2, 22:
+                return "nd"
+            case 3, 23:
+                return "rd"
+            default:
+                return "th"
+        }
+    }
+}
+
+extension HKWorkout {
+    
+    static let emptyWorkout = HKWorkout(activityType: .cycling, start: Date(), end: Date())
+    
+}
+

@@ -6,11 +6,14 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ContentView: View {
 
     @EnvironmentObject var healthManager: HealthManager
     @EnvironmentObject var trendManager: TrendManager
+    @Environment(\.modelContext) private var context
+    @Query private var rides: [Ride]
 
     var body: some View {
 
@@ -45,6 +48,17 @@ struct ContentView: View {
                 }
             }
         }
+        .onAppear {
+            if rides.count == 0 {
+                Task {
+                    
+                    await healthManager.syncWithHK(queryDate: .oneYearAgo)
+                    
+                }
+            }
+            
+            healthManager.queryingHealthKit = false
+        }
             .onChange(of: healthManager.rides) { oldValue, newValue in
                 
             for ride in newValue {
@@ -52,7 +66,8 @@ struct ContentView: View {
                 trendManager.energyTrends.append(TrendItem(value: ride.activeEnergy, date: ride.rideDate))
                 trendManager.heartRateTrends.append(TrendItem(value: ride.heartRate, date: ride.rideDate))
                 trendManager.speedTrends.append(TrendItem(value: ride.speed, date: ride.rideDate))
-
+                
+                context.insert(ride)
             }
         }
     }

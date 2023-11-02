@@ -10,13 +10,14 @@ import HealthKit
 import MapKit
 import Combine
 import SwiftUI
-
+import SwiftData
 
 /// responsible for managing all healthkit related activites in the app
 class HealthManager: ObservableObject {
 
     // MARK: - Properties
     
+//    @Environment(\.modelContext) private var context
     private let healthStore = HKHealthStore()
     
     /// the users most recent ride
@@ -50,12 +51,12 @@ class HealthManager: ObservableObject {
                 return
             }
             
-            let sucessfullSync = await syncWithHK()
+//            let sucessfullSync = await syncWithHK()
             
-            if !sucessfullSync {
-                print("error fetching health data")
-                return
-            }
+//            if !sucessfullSync {
+//                print("error fetching health data")
+//                return
+//            }
         }
     }
 
@@ -109,49 +110,46 @@ class HealthManager: ObservableObject {
                     // get the average heart rate of this workout
                     let sumHRSamples = hrSamples.reduce(0.0) { $0 + (($1.min + $1.max) / 2) }
                     let averageHR = sumHRSamples / Double(hrSamples.count)
+                    
+                    if let locations = try await fetchWorkoutRoute(workout: workout) {
 
-                    fetchWorkouRoute(workout: workout) { (locations, error) in
-                        if let error = error {
-                            print("Error: \(error.localizedDescription)")
-                        } else if let locations = locations {
-
-                            var altitdueData: [StatSample] = []
-                            var speedData: [StatSample] = []
-
-                            // get alituide data
-                            for location in locations {
-
-                                let altitudeSample = StatSample(date: location.timestamp, min: location.altitude, max: location.altitude)
-                                altitdueData.append(altitudeSample)
-                            }
-
-                            // get speed data
-                            for i in 0..<locations.count - 1 {
-                                let startLocation = locations[i]
-                                let endLocation = locations[i + 1]
-
-                                let distance = endLocation.distance(from: startLocation)
-                                let timeInterval = endLocation.timestamp.timeIntervalSince(startLocation.timestamp)
-
-                                // calculate average speed
-                                let averageSpeed = (distance / timeInterval) * 3.6
-
-                                let speedSample = StatSample(date: locations[i].timestamp, min: averageSpeed, max: averageSpeed)
-                                speedData.append(speedSample)
-                            }
-
-                            DispatchQueue.main.async {
-
-                                let ride = Ride(workout: workout,
-                                    averageHeartRate: averageHR,
-                                    hrSamples: hrSamples,
-                                    routeData: locations,
-                                    altitdueSamples: altitdueData,
-                                    speedSamples: speedData
-                                )
-
-                                self.rides.append(ride)
-                            }
+                        DispatchQueue.main.async {
+                            
+                        var altitdueData: [StatSample] = []
+                        var speedData: [StatSample] = []
+                        
+                        // get alituide data
+                        for location in locations {
+                            
+                            let altitudeSample = StatSample(date: location.timestamp, min: location.altitude, max: location.altitude)
+                            altitdueData.append(altitudeSample)
+                        }
+                        
+                        // get speed data
+                        for i in 0..<locations.count - 1 {
+                            let startLocation = locations[i]
+                            let endLocation = locations[i + 1]
+                            
+                            let distance = endLocation.distance(from: startLocation)
+                            let timeInterval = endLocation.timestamp.timeIntervalSince(startLocation.timestamp)
+                            
+                            // calculate average speed
+                            let averageSpeed = (distance / timeInterval) * 3.6
+                            
+                            let speedSample = StatSample(date: locations[i].timestamp, min: averageSpeed, max: averageSpeed)
+                            speedData.append(speedSample)
+                        }
+                        
+                            
+                            let ride = Ride(workout: workout,
+                                            averageHeartRate: averageHR,
+                                            hrSamples: hrSamples,
+                                            routeData: locations,
+                                            altitdueSamples: altitdueData,
+                                            speedSamples: speedData
+                            )
+                            
+                            self.rides.append(ride)
                         }
                     }
                 }
@@ -296,8 +294,23 @@ class HealthManager: ObservableObject {
     /// Fetches the route the user took on the given workout
     /// - Parameters:
     ///   - workout: the wokrout that is being queried
+    func fetchWorkoutRoute(workout: HKWorkout) async throws -> [CLLocation]? {
+        try await withCheckedThrowingContinuation { continuation in
+            fetchWorkouRoute(workout: workout) { (result, error) in
+                if let error = error {
+                    continuation.resume(throwing: error)
+                } else {
+                    continuation.resume(returning: result)
+                }
+            }
+        }
+    }
+    
+    /// Fetches the route the user took on the given workout
+    /// - Parameters:
+    ///   - workout: the wokrout that is being queried
     ///   - completion: _
-    func fetchWorkouRoute(workout: HKWorkout, completion: @escaping ([CLLocation]?, Error?) -> Void) {
+    private func fetchWorkouRoute(workout: HKWorkout, completion: @escaping ([CLLocation]?, Error?) -> Void) {
         
         let workoutPredicate = HKQuery.predicateForObjects(from: workout)
         let routeQuery = HKAnchoredObjectQuery(type: HKSeriesType.workoutRoute(), predicate: workoutPredicate, anchor: nil, limit: HKObjectQueryNoLimit) { (query, samples, deletedObjects, newAnchor, error) in
@@ -354,7 +367,8 @@ class HealthManager: ObservableObject {
 
 
 /// represents a sample recorded during a workout
-struct StatSample: Identifiable {
+@Model
+class StatSample: Identifiable {
     let id = UUID()
     
     /// when the sample was taken
@@ -368,4 +382,11 @@ struct StatSample: Identifiable {
     
     /// used to animated this sample
     var animate: Bool = false
+    
+    init(date: Date, min: Double, max: Double) {
+        self.date = date
+        self.min = min
+        self.max = max
+        self.animate = animate
+    }
 }

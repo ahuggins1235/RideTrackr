@@ -14,8 +14,8 @@
             filePath = "RideTrackr/View/Ride/RideDetailView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "158"
-            endingLineNumber = "158"
+            startingLineNumber = "162"
+            endingLineNumber = "162"
             landmarkName = "body"
             landmarkType = "24">
             <Locations>
@@ -120,10 +120,8 @@
             filePath = "RideTrackr/RideTrackrApp.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "45"
-            endingLineNumber = "45"
-            landmarkName = "body"
-            landmarkType = "24">
+            startingLineNumber = "59"
+            endingLineNumber = "59">
             <Locations>
                <Location
                   uuid = "65A26F67-D94F-4239-83D6-DE9B9A3E8467 - 482a4a94c380f66b"
@@ -169,6 +167,881 @@
                   startingLineNumber = "27"
                   endingLineNumber = "27"
                   offsetFromSymbolStart = "308">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "75B25EC4-7EA0-4567-8291-7C43540604F9"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RideTrackr/Extensions/Extensions.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "140"
+            endingLineNumber = "140"
+            landmarkName = "transformedValue(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "75B25EC4-7EA0-4567-8291-7C43540604F9 - ffce98bb18043890"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "RideTrackr.CLLocationArrayTransformer.transformedValue(Swift.Optional&lt;Any&gt;) -&gt; Swift.Optional&lt;Any&gt;"
+                  moduleName = "RideTrackr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrew/Developer/Projects/RideTrackr/RideTrackr/Extensions/Extensions.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "139"
+                  endingLineNumber = "139"
+                  offsetFromSymbolStart = "260">
+               </Location>
+               <Location
+                  uuid = "75B25EC4-7EA0-4567-8291-7C43540604F9 - 64a119f413302116"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.CLLocation) -&gt; Swift.String in RideTrackr.CLLocationArrayTransformer.transformedValue(Swift.Optional&lt;Any&gt;) -&gt; Swift.Optional&lt;Any&gt;"
+                  moduleName = "RideTrackr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrew/Developer/Projects/RideTrackr/RideTrackr/Extensions/Extensions.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "139"
+                  endingLineNumber = "139"
+                  offsetFromSymbolStart = "44">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A75A08C6-CEB8-4CF2-89B2-D1C0F64507D7"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RideTrackr/Extensions/Extensions.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "155"
+            endingLineNumber = "155"
+            landmarkName = "CLLocationArrayTransformer"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F1D55951-8A66-4510-8652-89E7D32ADE85"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RideTrackr/Extensions/Extensions.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "156"
+            endingLineNumber = "156"
+            landmarkName = "CLLocationArrayTransformer"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "93A5A812-1C34-4694-81EF-35DD96AFC0CD"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RideTrackr/Model/Ride.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "132"
+            endingLineNumber = "132"
+            landmarkName = "init(id:heartRate:speed:distance:activeEnergy:duration:altitudeGained:rideDate:hrSamples:routeData:altitdueSamples:speedSamples:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "56E22A7F-A2CB-408F-94FF-0343600301F8"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../../../var/folders/19/yx3916g96fn44wh3g3w0gp9c0000gn/T/swift-generated-sources/@__swiftmacro_10RideTrackr0A0C9routeData31_TransformablePersistedPropertyfMa_.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "13"
+            endingLineNumber = "13"
+            landmarkName = "unknown"
+            landmarkType = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9381C26D-E7D8-406E-AF1C-2A3DC6CAD8D7"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RideTrackr/Extensions/Extensions.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "164"
+            endingLineNumber = "164"
+            landmarkName = "allowsReverseTransformation()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4DDE6E1D-8211-4F48-BE5A-87BC1968E189"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RideTrackr/Extensions/Extensions.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "160"
+            endingLineNumber = "160"
+            landmarkName = "CLLocationArrayTransformer"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  uuid = "4DDE6E1D-8211-4F48-BE5A-87BC1968E189 - 78a8951751bebee7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.String) -&gt; __C.CLLocation in RideTrackr.CLLocationArrayTransformer.reverseTransformedValue(Swift.Optional&lt;Any&gt;) -&gt; Swift.Optional&lt;Any&gt;"
+                  moduleName = "RideTrackr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrew/Developer/Projects/RideTrackr/RideTrackr/Extensions/Extensions.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "150"
+                  endingLineNumber = "150"
+                  offsetFromSymbolStart = "404">
+               </Location>
+               <Location
+                  uuid = "4DDE6E1D-8211-4F48-BE5A-87BC1968E189 - 64b32db8b6a122d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "RideTrackr.CLLocationArrayTransformer.reverseTransformedValue(Swift.Optional&lt;Any&gt;) -&gt; Swift.Optional&lt;Any&gt;"
+                  moduleName = "RideTrackr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrew/Developer/Projects/RideTrackr/RideTrackr/Extensions/Extensions.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "151"
+                  endingLineNumber = "151"
+                  offsetFromSymbolStart = "56">
+               </Location>
+               <Location
+                  uuid = "4DDE6E1D-8211-4F48-BE5A-87BC1968E189 - 64b32db8b6a122d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "RideTrackr.CLLocationArrayTransformer.reverseTransformedValue(Swift.Optional&lt;Any&gt;) -&gt; Swift.Optional&lt;Any&gt;"
+                  moduleName = "RideTrackr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrew/Developer/Projects/RideTrackr/RideTrackr/Extensions/Extensions.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "151"
+                  endingLineNumber = "151"
+                  offsetFromSymbolStart = "68">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8459BA57-756F-4DEA-8A94-521A73F498F1"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RideTrackr/ContentView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "87"
+            endingLineNumber = "87"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "8459BA57-756F-4DEA-8A94-521A73F498F1 - c03e909173868427"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for closure #1 @Sendable () async -&gt; () in closure #2 @Sendable () async -&gt; () in RideTrackr.ContentView.body.getter : some"
+                  moduleName = "RideTrackr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrew/Developer/Projects/RideTrackr/RideTrackr/ContentView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "59"
+                  endingLineNumber = "59"
+                  offsetFromSymbolStart = "84">
+               </Location>
+               <Location
+                  uuid = "8459BA57-756F-4DEA-8A94-521A73F498F1 - 797e3839c132313"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(2) await resume partial function for closure #1 @Sendable () async -&gt; () in closure #2 @Sendable () async -&gt; () in RideTrackr.ContentView.body.getter : some"
+                  moduleName = "RideTrackr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrew/Developer/Projects/RideTrackr/RideTrackr/ContentView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "59"
+                  endingLineNumber = "59"
+                  offsetFromSymbolStart = "44">
+               </Location>
+               <Location
+                  uuid = "8459BA57-756F-4DEA-8A94-521A73F498F1 - 15e36eb519a04829"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for closure #1 @Sendable () async -&gt; () in closure #2 @Sendable () async -&gt; () in RideTrackr.ContentView.body.getter : some"
+                  moduleName = "RideTrackr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrew/Developer/Projects/RideTrackr/RideTrackr/ContentView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "59"
+                  endingLineNumber = "59"
+                  offsetFromSymbolStart = "152">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E63A008F-F619-4757-9923-6EE6F88C0296"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RideTrackr/ContentView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "89"
+            endingLineNumber = "89"
+            landmarkName = "unknown"
+            landmarkType = "0">
+            <Locations>
+               <Location
+                  uuid = "E63A008F-F619-4757-9923-6EE6F88C0296 - 15e36eb519a0486b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for closure #1 @Sendable () async -&gt; () in closure #2 @Sendable () async -&gt; () in RideTrackr.ContentView.body.getter : some"
+                  moduleName = "RideTrackr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrew/Developer/Projects/RideTrackr/RideTrackr/ContentView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "61"
+                  endingLineNumber = "61"
+                  offsetFromSymbolStart = "208">
+               </Location>
+               <Location
+                  uuid = "E63A008F-F619-4757-9923-6EE6F88C0296 - 15e36eb519a0486b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for closure #1 @Sendable () async -&gt; () in closure #2 @Sendable () async -&gt; () in RideTrackr.ContentView.body.getter : some"
+                  moduleName = "RideTrackr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrew/Developer/Projects/RideTrackr/RideTrackr/ContentView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "61"
+                  endingLineNumber = "61"
+                  offsetFromSymbolStart = "388">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "FE8A6D8B-CA28-49CC-B012-8B13A14F8FBB"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RideTrackr/ContentView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "75"
+            endingLineNumber = "75"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "FE8A6D8B-CA28-49CC-B012-8B13A14F8FBB - 8ac37d87277b661e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #3 (Swift.Array&lt;RideTrackr.Ride&gt;, Swift.Array&lt;RideTrackr.Ride&gt;) -&gt; () in RideTrackr.ContentView.body.getter : some"
+                  moduleName = "RideTrackr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrew/Developer/Projects/RideTrackr/RideTrackr/ContentView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "68"
+                  endingLineNumber = "68"
+                  offsetFromSymbolStart = "516">
+               </Location>
+               <Location
+                  uuid = "FE8A6D8B-CA28-49CC-B012-8B13A14F8FBB - 8ac37d87277b661e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #3 (Swift.Array&lt;RideTrackr.Ride&gt;, Swift.Array&lt;RideTrackr.Ride&gt;) -&gt; () in RideTrackr.ContentView.body.getter : some"
+                  moduleName = "RideTrackr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrew/Developer/Projects/RideTrackr/RideTrackr/ContentView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "68"
+                  endingLineNumber = "68"
+                  offsetFromSymbolStart = "716">
+               </Location>
+               <Location
+                  uuid = "FE8A6D8B-CA28-49CC-B012-8B13A14F8FBB - 8ac37d87277b6124"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #3 (Swift.Array&lt;RideTrackr.Ride&gt;, Swift.Array&lt;RideTrackr.Ride&gt;) -&gt; () in RideTrackr.ContentView.body.getter : some"
+                  moduleName = "RideTrackr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrew/Developer/Projects/RideTrackr/RideTrackr/ContentView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "74"
+                  endingLineNumber = "74"
+                  offsetFromSymbolStart = "516">
+               </Location>
+               <Location
+                  uuid = "FE8A6D8B-CA28-49CC-B012-8B13A14F8FBB - 8ac37d87277b6124"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #3 (Swift.Array&lt;RideTrackr.Ride&gt;, Swift.Array&lt;RideTrackr.Ride&gt;) -&gt; () in RideTrackr.ContentView.body.getter : some"
+                  moduleName = "RideTrackr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrew/Developer/Projects/RideTrackr/RideTrackr/ContentView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "74"
+                  endingLineNumber = "74"
+                  offsetFromSymbolStart = "716">
+               </Location>
+               <Location
+                  uuid = "FE8A6D8B-CA28-49CC-B012-8B13A14F8FBB - 8ac37d87277b6166"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #3 (Swift.Array&lt;RideTrackr.Ride&gt;, Swift.Array&lt;RideTrackr.Ride&gt;) -&gt; () in RideTrackr.ContentView.body.getter : some"
+                  moduleName = "RideTrackr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrew/Developer/Projects/RideTrackr/RideTrackr/ContentView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "76"
+                  endingLineNumber = "76"
+                  offsetFromSymbolStart = "516">
+               </Location>
+               <Location
+                  uuid = "FE8A6D8B-CA28-49CC-B012-8B13A14F8FBB - 8ac37d87277b6166"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #3 (Swift.Array&lt;RideTrackr.Ride&gt;, Swift.Array&lt;RideTrackr.Ride&gt;) -&gt; () in RideTrackr.ContentView.body.getter : some"
+                  moduleName = "RideTrackr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrew/Developer/Projects/RideTrackr/RideTrackr/ContentView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "76"
+                  endingLineNumber = "76"
+                  offsetFromSymbolStart = "716">
+               </Location>
+               <Location
+                  uuid = "FE8A6D8B-CA28-49CC-B012-8B13A14F8FBB - 8ac37d87277b61a8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #3 (Swift.Array&lt;RideTrackr.Ride&gt;, Swift.Array&lt;RideTrackr.Ride&gt;) -&gt; () in RideTrackr.ContentView.body.getter : some"
+                  moduleName = "RideTrackr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrew/Developer/Projects/RideTrackr/RideTrackr/ContentView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "78"
+                  endingLineNumber = "78"
+                  offsetFromSymbolStart = "516">
+               </Location>
+               <Location
+                  uuid = "FE8A6D8B-CA28-49CC-B012-8B13A14F8FBB - 8ac37d87277b61a8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #3 (Swift.Array&lt;RideTrackr.Ride&gt;, Swift.Array&lt;RideTrackr.Ride&gt;) -&gt; () in RideTrackr.ContentView.body.getter : some"
+                  moduleName = "RideTrackr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrew/Developer/Projects/RideTrackr/RideTrackr/ContentView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "78"
+                  endingLineNumber = "78"
+                  offsetFromSymbolStart = "716">
+               </Location>
+               <Location
+                  uuid = "FE8A6D8B-CA28-49CC-B012-8B13A14F8FBB - 8ac37d87277b600d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #3 (Swift.Array&lt;RideTrackr.Ride&gt;, Swift.Array&lt;RideTrackr.Ride&gt;) -&gt; () in RideTrackr.ContentView.body.getter : some"
+                  moduleName = "RideTrackr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrew/Developer/Projects/RideTrackr/RideTrackr/ContentView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "83"
+                  endingLineNumber = "83"
+                  offsetFromSymbolStart = "516">
+               </Location>
+               <Location
+                  uuid = "FE8A6D8B-CA28-49CC-B012-8B13A14F8FBB - 8ac37d87277b600d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #3 (Swift.Array&lt;RideTrackr.Ride&gt;, Swift.Array&lt;RideTrackr.Ride&gt;) -&gt; () in RideTrackr.ContentView.body.getter : some"
+                  moduleName = "RideTrackr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrew/Developer/Projects/RideTrackr/RideTrackr/ContentView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "83"
+                  endingLineNumber = "83"
+                  offsetFromSymbolStart = "716">
+               </Location>
+               <Location
+                  uuid = "FE8A6D8B-CA28-49CC-B012-8B13A14F8FBB - 8ac37d87277b61cb"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #3 (Swift.Array&lt;RideTrackr.Ride&gt;, Swift.Array&lt;RideTrackr.Ride&gt;) -&gt; () in RideTrackr.ContentView.body.getter : some"
+                  moduleName = "RideTrackr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrew/Developer/Projects/RideTrackr/RideTrackr/ContentView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "81"
+                  endingLineNumber = "81"
+                  offsetFromSymbolStart = "432">
+               </Location>
+               <Location
+                  uuid = "FE8A6D8B-CA28-49CC-B012-8B13A14F8FBB - 8ac37d87277b61cb"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #3 (Swift.Array&lt;RideTrackr.Ride&gt;, Swift.Array&lt;RideTrackr.Ride&gt;) -&gt; () in RideTrackr.ContentView.body.getter : some"
+                  moduleName = "RideTrackr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrew/Developer/Projects/RideTrackr/RideTrackr/ContentView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "81"
+                  endingLineNumber = "81"
+                  offsetFromSymbolStart = "632">
+               </Location>
+               <Location
+                  uuid = "FE8A6D8B-CA28-49CC-B012-8B13A14F8FBB - 8ac37d87277b6124"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #3 (Swift.Array&lt;RideTrackr.Ride&gt;, Swift.Array&lt;RideTrackr.Ride&gt;) -&gt; () in RideTrackr.ContentView.body.getter : some"
+                  moduleName = "RideTrackr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrew/Developer/Projects/RideTrackr/RideTrackr/ContentView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "74"
+                  endingLineNumber = "74"
+                  offsetFromSymbolStart = "432">
+               </Location>
+               <Location
+                  uuid = "FE8A6D8B-CA28-49CC-B012-8B13A14F8FBB - 8ac37d87277b6124"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #3 (Swift.Array&lt;RideTrackr.Ride&gt;, Swift.Array&lt;RideTrackr.Ride&gt;) -&gt; () in RideTrackr.ContentView.body.getter : some"
+                  moduleName = "RideTrackr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrew/Developer/Projects/RideTrackr/RideTrackr/ContentView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "74"
+                  endingLineNumber = "74"
+                  offsetFromSymbolStart = "632">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "23721EC3-7DBB-4A0F-842F-C4BA9CB2421D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../../../var/folders/19/yx3916g96fn44wh3g3w0gp9c0000gn/T/swift-generated-sources/@__swiftmacro_10RideTrackr0A0C9routeData18_PersistedPropertyfMa_.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1"
+            endingLineNumber = "1"
+            landmarkName = "routeData"
+            landmarkType = "37">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8192A72B-B9D9-42D3-AB1F-A16BF33B2FF5"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RideTrackr/Manager/HealthManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "347"
+            endingLineNumber = "347"
+            landmarkName = "fetchWorkouRoute(workout:completion:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "8192A72B-B9D9-42D3-AB1F-A16BF33B2FF5 - c3b6bdd4a8f50c12"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.HKWorkoutRouteQuery, Swift.Optional&lt;Swift.Array&lt;__C.CLLocation&gt;&gt;, Swift.Bool, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in closure #1 (__C.HKAnchoredObjectQuery, Swift.Optional&lt;Swift.Array&lt;__C.HKSample&gt;&gt;, Swift.Optional&lt;Swift.Array&lt;__C.HKDeletedObject&gt;&gt;, Swift.Optional&lt;__C.HKQueryAnchor&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in RideTrackr.HealthManager.fetchWorkouRoute(workout: __C.HKWorkout, completion: (Swift.Optional&lt;Swift.Array&lt;__C.CLLocation&gt;&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "RideTrackr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrew/Developer/Projects/RideTrackr/RideTrackr/Manager/HealthManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "347"
+                  endingLineNumber = "347"
+                  offsetFromSymbolStart = "872">
+               </Location>
+               <Location
+                  uuid = "8192A72B-B9D9-42D3-AB1F-A16BF33B2FF5 - c3b6bdd4a8f50c12"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.HKWorkoutRouteQuery, Swift.Optional&lt;Swift.Array&lt;__C.CLLocation&gt;&gt;, Swift.Bool, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in closure #1 (__C.HKAnchoredObjectQuery, Swift.Optional&lt;Swift.Array&lt;__C.HKSample&gt;&gt;, Swift.Optional&lt;Swift.Array&lt;__C.HKDeletedObject&gt;&gt;, Swift.Optional&lt;__C.HKQueryAnchor&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in RideTrackr.HealthManager.fetchWorkouRoute(workout: __C.HKWorkout, completion: (Swift.Optional&lt;Swift.Array&lt;__C.CLLocation&gt;&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "RideTrackr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrew/Developer/Projects/RideTrackr/RideTrackr/Manager/HealthManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "347"
+                  endingLineNumber = "347"
+                  offsetFromSymbolStart = "1076">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "35766591-8114-46EA-B0FA-A778C1516241"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RideTrackr/Manager/HealthManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "357"
+            endingLineNumber = "357"
+            landmarkName = "fetchWorkouRoute(workout:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A87C19E5-36EC-4254-A373-56E8B3361EF5"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RideTrackr/Manager/HealthManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "310"
+            endingLineNumber = "310"
+            landmarkName = "fetchWorkoutRoute(workout:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8468ECAF-1BA0-4148-B241-C840DF733E81"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RideTrackr/Manager/HealthManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "366"
+            endingLineNumber = "366"
+            landmarkName = "fetchWorkouRoute(workout:completion:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "8468ECAF-1BA0-4148-B241-C840DF733E81 - 2328a7b390ecfc20"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 () -&gt; () in closure #1 (__C.HKAnchoredObjectQuery, Swift.Optional&lt;Swift.Array&lt;__C.HKSample&gt;&gt;, Swift.Optional&lt;Swift.Array&lt;__C.HKDeletedObject&gt;&gt;, Swift.Optional&lt;__C.HKQueryAnchor&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in RideTrackr.HealthManager.fetchWorkouRoute(workout: __C.HKWorkout, completion: (Swift.Optional&lt;Swift.Array&lt;__C.CLLocation&gt;&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "RideTrackr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrew/Developer/Projects/RideTrackr/RideTrackr/Manager/HealthManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "410"
+                  endingLineNumber = "410"
+                  offsetFromSymbolStart = "84">
+               </Location>
+               <Location
+                  uuid = "8468ECAF-1BA0-4148-B241-C840DF733E81 - 2328a7b390ecf274"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 () -&gt; () in closure #1 (__C.HKAnchoredObjectQuery, Swift.Optional&lt;Swift.Array&lt;__C.HKSample&gt;&gt;, Swift.Optional&lt;Swift.Array&lt;__C.HKDeletedObject&gt;&gt;, Swift.Optional&lt;__C.HKQueryAnchor&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in RideTrackr.HealthManager.fetchWorkouRoute(workout: __C.HKWorkout, completion: (Swift.Optional&lt;Swift.Array&lt;__C.CLLocation&gt;&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "RideTrackr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrew/Developer/Projects/RideTrackr/RideTrackr/Manager/HealthManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "366"
+                  endingLineNumber = "366"
+                  offsetFromSymbolStart = "84">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0C94CCE2-E2B1-44AB-A8DC-A2B294BA1025"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RideTrackr/Manager/HealthManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "345"
+            endingLineNumber = "345"
+            landmarkName = "fetchWorkouRoute(workout:completion:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "0C94CCE2-E2B1-44AB-A8DC-A2B294BA1025 - b69965eae6464a2e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "RideTrackr.StatSample.init(backingData: any SwiftData.BackingData&lt;Self.SwiftData.BackingData.Model == RideTrackr.StatSample&gt;) -&gt; RideTrackr.StatSample"
+                  moduleName = "RideTrackr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrew/Developer/Projects/RideTrackr/RideTrackr/Manager/HealthManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "393"
+                  endingLineNumber = "393"
+                  offsetFromSymbolStart = "304">
+               </Location>
+               <Location
+                  uuid = "0C94CCE2-E2B1-44AB-A8DC-A2B294BA1025 - c3b6bdd4a8f50978"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.HKWorkoutRouteQuery, Swift.Optional&lt;Swift.Array&lt;__C.CLLocation&gt;&gt;, Swift.Bool, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in closure #1 (__C.HKAnchoredObjectQuery, Swift.Optional&lt;Swift.Array&lt;__C.HKSample&gt;&gt;, Swift.Optional&lt;Swift.Array&lt;__C.HKDeletedObject&gt;&gt;, Swift.Optional&lt;__C.HKQueryAnchor&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in RideTrackr.HealthManager.fetchWorkouRoute(workout: __C.HKWorkout, completion: (Swift.Optional&lt;Swift.Array&lt;__C.CLLocation&gt;&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "RideTrackr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrew/Developer/Projects/RideTrackr/RideTrackr/Manager/HealthManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "389"
+                  endingLineNumber = "389"
+                  offsetFromSymbolStart = "780">
+               </Location>
+               <Location
+                  uuid = "0C94CCE2-E2B1-44AB-A8DC-A2B294BA1025 - c3b6bdd4a8f50978"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.HKWorkoutRouteQuery, Swift.Optional&lt;Swift.Array&lt;__C.CLLocation&gt;&gt;, Swift.Bool, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in closure #1 (__C.HKAnchoredObjectQuery, Swift.Optional&lt;Swift.Array&lt;__C.HKSample&gt;&gt;, Swift.Optional&lt;Swift.Array&lt;__C.HKDeletedObject&gt;&gt;, Swift.Optional&lt;__C.HKQueryAnchor&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in RideTrackr.HealthManager.fetchWorkouRoute(workout: __C.HKWorkout, completion: (Swift.Optional&lt;Swift.Array&lt;__C.CLLocation&gt;&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "RideTrackr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrew/Developer/Projects/RideTrackr/RideTrackr/Manager/HealthManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "389"
+                  endingLineNumber = "389"
+                  offsetFromSymbolStart = "860">
+               </Location>
+               <Location
+                  uuid = "0C94CCE2-E2B1-44AB-A8DC-A2B294BA1025 - c3b6bdd4a8f50cd4"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.HKWorkoutRouteQuery, Swift.Optional&lt;Swift.Array&lt;__C.CLLocation&gt;&gt;, Swift.Bool, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in closure #1 (__C.HKAnchoredObjectQuery, Swift.Optional&lt;Swift.Array&lt;__C.HKSample&gt;&gt;, Swift.Optional&lt;Swift.Array&lt;__C.HKDeletedObject&gt;&gt;, Swift.Optional&lt;__C.HKQueryAnchor&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in RideTrackr.HealthManager.fetchWorkouRoute(workout: __C.HKWorkout, completion: (Swift.Optional&lt;Swift.Array&lt;__C.CLLocation&gt;&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "RideTrackr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrew/Developer/Projects/RideTrackr/RideTrackr/Manager/HealthManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "345"
+                  endingLineNumber = "345"
+                  offsetFromSymbolStart = "780">
+               </Location>
+               <Location
+                  uuid = "0C94CCE2-E2B1-44AB-A8DC-A2B294BA1025 - c3b6bdd4a8f50cd4"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.HKWorkoutRouteQuery, Swift.Optional&lt;Swift.Array&lt;__C.CLLocation&gt;&gt;, Swift.Bool, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in closure #1 (__C.HKAnchoredObjectQuery, Swift.Optional&lt;Swift.Array&lt;__C.HKSample&gt;&gt;, Swift.Optional&lt;Swift.Array&lt;__C.HKDeletedObject&gt;&gt;, Swift.Optional&lt;__C.HKQueryAnchor&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in RideTrackr.HealthManager.fetchWorkouRoute(workout: __C.HKWorkout, completion: (Swift.Optional&lt;Swift.Array&lt;__C.CLLocation&gt;&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "RideTrackr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrew/Developer/Projects/RideTrackr/RideTrackr/Manager/HealthManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "345"
+                  endingLineNumber = "345"
+                  offsetFromSymbolStart = "860">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0879D386-D401-4E08-BC97-EE9AC9EDB096"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RideTrackr/Manager/HealthManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "337"
+            endingLineNumber = "337"
+            landmarkName = "fetchWorkouRoute(workout:completion:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "0879D386-D401-4E08-BC97-EE9AC9EDB096 - 17bc402b9ad7f3a0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "RideTrackr.StatSample.init(date: Foundation.Date, min: Swift.Double, max: Swift.Double) -&gt; RideTrackr.StatSample"
+                  moduleName = "RideTrackr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrew/Developer/Projects/RideTrackr/RideTrackr/Manager/HealthManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "381"
+                  endingLineNumber = "381"
+                  offsetFromSymbolStart = "372">
+               </Location>
+               <Location
+                  uuid = "0879D386-D401-4E08-BC97-EE9AC9EDB096 - b69965eae64644ba"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "RideTrackr.StatSample.init(backingData: any SwiftData.BackingData&lt;Self.SwiftData.BackingData.Model == RideTrackr.StatSample&gt;) -&gt; RideTrackr.StatSample"
+                  moduleName = "RideTrackr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrew/Developer/Projects/RideTrackr/RideTrackr/Manager/HealthManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "381"
+                  endingLineNumber = "381"
+                  offsetFromSymbolStart = "264">
+               </Location>
+               <Location
+                  uuid = "0879D386-D401-4E08-BC97-EE9AC9EDB096 - 2ab69b26247570c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.HKAnchoredObjectQuery, Swift.Optional&lt;Swift.Array&lt;__C.HKSample&gt;&gt;, Swift.Optional&lt;Swift.Array&lt;__C.HKDeletedObject&gt;&gt;, Swift.Optional&lt;__C.HKQueryAnchor&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in RideTrackr.HealthManager.fetchWorkouRoute(workout: __C.HKWorkout, completion: (Swift.Optional&lt;Swift.Array&lt;__C.CLLocation&gt;&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "RideTrackr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrew/Developer/Projects/RideTrackr/RideTrackr/Manager/HealthManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "381"
+                  endingLineNumber = "381"
+                  offsetFromSymbolStart = "1012">
+               </Location>
+               <Location
+                  uuid = "0879D386-D401-4E08-BC97-EE9AC9EDB096 - 2ab69b26247570c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.HKAnchoredObjectQuery, Swift.Optional&lt;Swift.Array&lt;__C.HKSample&gt;&gt;, Swift.Optional&lt;Swift.Array&lt;__C.HKDeletedObject&gt;&gt;, Swift.Optional&lt;__C.HKQueryAnchor&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in RideTrackr.HealthManager.fetchWorkouRoute(workout: __C.HKWorkout, completion: (Swift.Optional&lt;Swift.Array&lt;__C.CLLocation&gt;&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "RideTrackr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrew/Developer/Projects/RideTrackr/RideTrackr/Manager/HealthManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "381"
+                  endingLineNumber = "381"
+                  offsetFromSymbolStart = "1580">
+               </Location>
+               <Location
+                  uuid = "0879D386-D401-4E08-BC97-EE9AC9EDB096 - 2ab69b2624750d0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.HKAnchoredObjectQuery, Swift.Optional&lt;Swift.Array&lt;__C.HKSample&gt;&gt;, Swift.Optional&lt;Swift.Array&lt;__C.HKDeletedObject&gt;&gt;, Swift.Optional&lt;__C.HKQueryAnchor&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in RideTrackr.HealthManager.fetchWorkouRoute(workout: __C.HKWorkout, completion: (Swift.Optional&lt;Swift.Array&lt;__C.CLLocation&gt;&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "RideTrackr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrew/Developer/Projects/RideTrackr/RideTrackr/Manager/HealthManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "337"
+                  endingLineNumber = "337"
+                  offsetFromSymbolStart = "1012">
+               </Location>
+               <Location
+                  uuid = "0879D386-D401-4E08-BC97-EE9AC9EDB096 - 2ab69b2624750d0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.HKAnchoredObjectQuery, Swift.Optional&lt;Swift.Array&lt;__C.HKSample&gt;&gt;, Swift.Optional&lt;Swift.Array&lt;__C.HKDeletedObject&gt;&gt;, Swift.Optional&lt;__C.HKQueryAnchor&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in RideTrackr.HealthManager.fetchWorkouRoute(workout: __C.HKWorkout, completion: (Swift.Optional&lt;Swift.Array&lt;__C.CLLocation&gt;&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "RideTrackr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrew/Developer/Projects/RideTrackr/RideTrackr/Manager/HealthManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "337"
+                  endingLineNumber = "337"
+                  offsetFromSymbolStart = "1580">
                </Location>
             </Locations>
          </BreakpointContent>

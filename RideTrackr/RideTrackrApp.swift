@@ -18,7 +18,8 @@ struct RideTrackrApp: App {
     private let sharedModelContainer: ModelContainer = {
         let schema = Schema([
             Ride.self,
-            StatSample.self
+            StatSample.self,
+            PersistentLocation.self
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
         

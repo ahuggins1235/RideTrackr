@@ -7,12 +7,15 @@
 
 import SwiftUI
 import MapKit
+import SwiftData
 
 struct RecentRidesCardList: View {
 
     @EnvironmentObject var healthManager: HealthManager
     @EnvironmentObject var navigationManager: NavigationManager
-    @State var currentPage = 0
+    @State var currentRide = UUID()
+    @Environment(\.modelContext) var context
+    @Query(sort: \Ride.rideDate, order: .reverse) var rides: [Ride]
 
     var body: some View {
 
@@ -37,15 +40,15 @@ struct RecentRidesCardList: View {
                         navigationManager.selectedTab = .RideList
                     }
 
-                }
+                }.offset(y: 15)
                 // MARK: - Tabview
-                TabView(selection: $currentPage.animation()) {
+                TabView(selection: $currentRide.animation()) {
 
-                    ForEach(0..<healthManager.rides.prefix(5).dropFirst().count) { index in
+                    ForEach(rides.prefix(5).dropFirst()) { ride in
 
-                        NavigationLink(value: healthManager.rides[index]) {
+                        NavigationLink(value: ride) {
 
-                            RideCardPreview(ride: healthManager.rides[index]).padding(.horizontal).tag(index)
+                            RideCardPreview(ride: ride).padding(.horizontal).tag(ride.id)
                                 .foregroundStyle(Color.primary)
                                 .containerRelativeFrame(.vertical)
                         }
@@ -55,14 +58,14 @@ struct RecentRidesCardList: View {
                 // MARK: - page indicator
                 HStack(spacing: -5) {
 
-                    ForEach(0..<healthManager.rides.prefix(5).dropFirst().count) { index in
+                    ForEach(rides.prefix(5).dropFirst()) { ride in
 
-                        Circle().foregroundStyle(index == currentPage ? Color.primary : Color.secondary)
-                            .frame(height: index == currentPage ? 10 : 7)
+                        Circle().foregroundStyle(ride.id == currentRide ? Color.primary : Color.secondary)
+                            .frame(height: ride.id == currentRide ? 10 : 7)
                             .padding(7)
                             .onTapGesture {
                             withAnimation {
-                                currentPage = index
+                                currentRide = ride.id
                             }
                         }
 
@@ -123,7 +126,7 @@ struct RideCardPreview: View {
                 }
                     .padding(.leading)
 
-                MapSnapshotView(location: ride.routeData[0].coordinate, route: ride.routeData.map({ $0.coordinate }))
+                MapSnapshotView(location: CLLocationCoordinate2D(latitude: ride.routeData.first!.latitude, longitude: ride.routeData.first!.longitude), route: ride.routeData.map({ CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude) }))
                     .clipShape(RoundedRectangle(cornerRadius: 15, style: .continuous))
                     .padding()
                     

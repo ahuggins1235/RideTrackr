@@ -14,6 +14,7 @@ struct ContentView: View {
     @EnvironmentObject var trendManager: TrendManager
     @Environment(\.modelContext) private var context
     @Query private var rides: [Ride]
+    @State var showAlert: Bool = true
 
     var body: some View {
 
@@ -52,7 +53,17 @@ struct ContentView: View {
             if rides.count == 0 {
                 Task {
                     
-                    await healthManager.syncWithHK(queryDate: .oneYearAgo)
+                    
+                        
+                        let syncedRides = await healthManager.syncRides(queryDate: .oneMonthAgo)
+                    healthManager.rides = syncedRides
+//                        for ride in syncedRides {
+//                            print(ride.rideDate)
+//                            context.insert(ride)
+//                            
+//                        }
+//                    showAlert = true
+//                    print(syncedRides.first!.routeData.count)
                     
                 }
             }
@@ -70,6 +81,9 @@ struct ContentView: View {
                 context.insert(ride)
             }
         }
+//            .alert("\(healthManager.rides.first?.routeData.count ?? 0)", isPresented: $showAlert) {
+                
+//            }
     }
 }
 

@@ -15,7 +15,7 @@ struct RideListView: View {
     @EnvironmentObject var healthManager: HealthManager
     @State var dateFilter = Date()
     @Environment(\.modelContext) private var context
-    @Query var rides: [Ride]
+    @Query(sort: \Ride.rideDate, order: .reverse) var rides: [Ride]
 
    
     // MARK: - Body

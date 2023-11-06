@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 import MapKit
 import HealthKit
+import SwiftData
 
 extension Binding {
     
@@ -139,21 +140,74 @@ public class CLLocationArrayTransformer: ValueTransformer {
         return locations.map { "\($0.coordinate.latitude),\($0.coordinate.longitude)" }.joined(separator: ";")
     }
     
-    // Convert string to [CLLocation]
     public override func reverseTransformedValue(_ value: Any?) -> Any? {
         guard let string = value as? String else { return nil }
         let components = string.components(separatedBy: ";")
-        return components.map { component -> CLLocation in
+        return components.compactMap { component -> CLLocation? in
             let subcomponents = component.components(separatedBy: ",")
-            guard let latitude = Double(subcomponents[0]), let longitude = Double(subcomponents[1]) else { return CLLocation() }
+            guard let latitude = Double(subcomponents[0]), let longitude = Double(subcomponents[1]) else { return nil }
             return CLLocation(latitude: latitude, longitude: longitude)
         }
     }
+    // Convert string to [CLLocation]
+//    public override func reverseTransformedValue(_ value: Any?) -> Any? {
+////        guard let string = value as? String else { return nil }
+////        let components = string.components(separatedBy: ";")
+////        return components.map { component -> CLLocation in
+////            let subcomponents = component.components(separatedBy: ",")
+////            guard let latitude = Double(subcomponents[0]), let longitude = Double(subcomponents[1]) else { return CLLocation() }
+////            return CLLocation(latitude: latitude, longitude: longitude)
+////        }
+//        return [CLLocation()]
+//    }
     
     override public class func allowsReverseTransformation() -> Bool {
         return true
     }
 }
+
+@Model
+class PersistentLocation: Identifiable, Hashable {
+    @Attribute(.unique)
+    var id = UUID()
+    
+    var latitude: Double
+    var longitude: Double
+    
+//    enum CodingKeys: CodingKey {
+//        case id, latitude, longitude
+//    }
+    
+    init(location: CLLocation) {
+        self.latitude = location.coordinate.latitude
+        self.longitude = location.coordinate.longitude
+    }
+    
+    init(latitude: Double, longitude: Double) {
+        self.latitude = latitude
+        self.longitude = longitude
+    }
+    
+//    required init(from decoder: Decoder) throws {
+//        let container = try decoder.container(keyedBy: CodingKeys.self)
+//        id = try container.decode(UUID.self, forKey: .id)
+//        latitude = try container.decode(Double.self, forKey: .latitude)
+//        longitude = try container.decode(Double.self, forKey: .longitude)
+//    }
+//    
+//    func encode(to encoder: Encoder) throws {
+//        var container = encoder.container(keyedBy: CodingKeys.self)
+//        try container.encode(id, forKey: .id)
+//        try container.encode(latitude, forKey: .latitude)
+//        try container.encode(longitude, forKey: .longitude)
+//    }
+    
+    func toCLLocation() -> CLLocation {
+        return CLLocation(latitude: self.latitude, longitude: self.longitude)
+    }
+}
+
+
 
 extension DateFormatter {
     

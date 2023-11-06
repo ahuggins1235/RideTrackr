@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct HomeView: View {
 
@@ -14,6 +15,9 @@ struct HomeView: View {
     @EnvironmentObject var navigationManager: NavigationManager
     @EnvironmentObject var trendManager: TrendManager
     @EnvironmentObject var settingsManager: SettingsManager
+    
+    @Environment(\.modelContext) private var context
+    @Query(sort: \Ride.rideDate, order: .reverse) var rides: [Ride]
 
     private var greetingString: String {
         return GetGreetingString()
@@ -94,13 +98,13 @@ struct HomeView: View {
                                 .foregroundStyle(.accent)
                         }
 
-                        if let recentRide = healthManager.recentRide {
+                        if let recentRide = rides.first {
                             NavigationLink(value: recentRide) {
                                 LargeRidePreview(ride: Binding(get: { recentRide }, set: { _ in }), queryingHealthKit: $healthManager.queryingHealthKit)
                             }.foregroundStyle(Color.primary)
 
                         } else {
-                            LargeRidePreview(ride: Binding(get: { PreviewRide }, set: { _ in }), queryingHealthKit: $healthManager.queryingHealthKit)
+                            LargeRidePreview(ride: Binding(get: { Ride() }, set: { _ in }), queryingHealthKit: $healthManager.queryingHealthKit)
                         }
                     }
                         .padding(.top)
@@ -119,7 +123,7 @@ struct HomeView: View {
                     ToolbarItemGroup(placement: .topBarTrailing) {
                         Button {
                             Task {
-                                await healthManager.syncWithHK()
+                                healthManager.rides = await healthManager.syncRides(queryDate: .oneMonthAgo)
                             }
                         } label: {
                             Label("Sync", systemImage: "arrow.triangle.2.circlepath")

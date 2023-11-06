@@ -22,7 +22,7 @@ struct RideRowView: View {
             // Map
 //            Circle()
 //                .frame(width: 50)
-            MapSnapshotView(location: ride.routeData.first!.coordinate, route: ride.routeData.map({ $0.coordinate }))
+            MapSnapshotView(location: CLLocationCoordinate2D(latitude: ride.routeData.first!.latitude, longitude: ride.routeData.first!.longitude), route: ride.routeData.map({ CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude) }))
 //                .clipShape(RoundedRectangle(cornerRadius: 15, style: .continuous))
                 .clipShape(Circle())
                 .padding(5)

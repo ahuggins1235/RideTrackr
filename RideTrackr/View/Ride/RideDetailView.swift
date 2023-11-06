@@ -49,11 +49,12 @@ struct RideDetailView: View {
                             .blur(radius: 15)
                             .padding()
 
-                        
-                            MapSnapshotView(location: location.coordinate, route: ride.routeData.map { $0.coordinate } )
+                            
+                            MapSnapshotView(location: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude), route: ride.routeData.map({ CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude) }))
                                 .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
                                 .padding()
                                 .frame(height: 300)
+                            Text(String(ride.routeData.count))
                             
                         } else {
                             HStack {
@@ -107,6 +108,9 @@ struct RideDetailView: View {
                     }
                 }
             }
+        }
+        .onAppear {
+            print(ride.routeData.count)
         }
             .navigationTitle(ride.dateString)
             .navigationBarTitleDisplayMode(.inline)
@@ -245,21 +249,21 @@ struct AnimationModifier : ViewModifier{
 //            
 //            Map(interactionModes: []) {
 //
-//                MapPolyline(coordinates: ride.routeData.map { $0.coordinate }, contourStyle: .geodesic)
+//                MapPolyline(coordinates: ride.routeData.map { CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude) }, contourStyle: .geodesic)
 //                    .stroke(.accent, lineWidth: 5)
 //
-//                if let firstCoordindate = ride.routeData.first?.coordinate {
+//                if let firstCoordindate = ride.routeData.first {
 //
-//                    Annotation("", coordinate: firstCoordindate) {
+//                    Annotation("", coordinate: CLLocationCoordinate2D(latitude: firstCoordindate.latitude, longitude: firstCoordindate.longitude)) {
 //                        Circle()
 //                            .fill(.accent)
 //                            .frame(width: 10)
 //                    }
 //                }
 //
-//                if let lastCoordindate = ride.routeData.last?.coordinate {
+//                if let lastCoordindate = ride.routeData.last {
 //
-//                    Annotation("", coordinate: lastCoordindate) {
+//                    Annotation("", coordinate: CLLocationCoordinate2D(latitude: lastCoordindate.latitude, longitude: lastCoordindate.longitude)) {
 //                        Circle()
 //                            .fill(.accent)
 //                            .frame(width: 10)

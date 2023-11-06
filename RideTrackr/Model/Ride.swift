@@ -39,8 +39,8 @@ class Ride: Identifiable, Hashable {
     
     // Use Attribute macro to store [CLLocation] as a string
     /// the location data of the route of this ride
-    @Attribute(.transformable(by: CLLocationArrayTransformer.self))
-    var routeData: [CLLocation] = []
+//    @Attribute(.transformable(by: CLLocationArrayTransformer.self))
+    var routeData: [PersistentLocation] = []
     /// the alititude data of this ride
     var altitdueSamples: [StatSample] = []
     /// the speed data of this ride
@@ -116,7 +116,7 @@ class Ride: Identifiable, Hashable {
         altitudeGained: Double = 0,
         rideDate: Date = Date(),
         hrSamples: [StatSample] = [],
-        routeData: [CLLocation] = [],
+        routeData: [PersistentLocation] = [],
         altitdueSamples: [StatSample] = [],
          speedSamples: [StatSample] = []
     ) {
@@ -138,7 +138,7 @@ class Ride: Identifiable, Hashable {
     init(workout: HKWorkout,
         averageHeartRate: Double,
         hrSamples: [StatSample] = [],
-        routeData: [CLLocation] = [],
+        routeData: [PersistentLocation] = [],
         altitdueSamples: [StatSample] = [],
         speedSamples: [StatSample] = []
     ) {
@@ -239,9 +239,9 @@ let PreviewRide = Ride(
         StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
     ],
     routeData: [
-        CLLocation(latitude: 37.7749, longitude: -122.4194),
-        CLLocation(latitude: 37.7739, longitude: -122.4222),
-        CLLocation(latitude: 37.7729, longitude: -122.4250)
+        PersistentLocation(latitude: 37.7749, longitude: -122.4194),
+        PersistentLocation(latitude: 37.7739, longitude: -122.4222),
+        PersistentLocation(latitude: 37.7729, longitude: -122.4250)
     ],
     altitdueSamples: [
         StatSample(date: Date(), min: 70.0, max: 90.0),
@@ -326,9 +326,9 @@ let previewRideArray: [Ride] = [
             StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
         ],
         routeData: [
-            CLLocation(latitude: 37.7749, longitude: -122.4194),
-            CLLocation(latitude: 37.7739, longitude: -122.4222),
-            CLLocation(latitude: 37.7729, longitude: -122.4250)
+            PersistentLocation(latitude: 37.7749, longitude: -122.4194),
+            PersistentLocation(latitude: 37.7739, longitude: -122.4222),
+            PersistentLocation(latitude: 37.7729, longitude: -122.4250)
         ],
         altitdueSamples: [
             StatSample(date: Date(), min: 70.0, max: 90.0),
@@ -370,9 +370,9 @@ let previewRideArray: [Ride] = [
             StatSample(date: Date().addingTimeInterval(-85980), min: 77.0, max: 97.0)
         ],
         routeData: [
-            CLLocation(latitude: 37.7749, longitude: -122.4194),
-            CLLocation(latitude: 37.7739, longitude: -122.4222),
-            CLLocation(latitude: 37.7729, longitude: -122.4250)
+            PersistentLocation(latitude: 37.7749, longitude: -122.4194),
+            PersistentLocation(latitude: 37.7739, longitude: -122.4222),
+            PersistentLocation(latitude: 37.7729, longitude: -122.4250)
         ],
         altitdueSamples: [
             StatSample(date: Date(), min: 70.0, max: 90.0),
@@ -414,9 +414,9 @@ let previewRideArray: [Ride] = [
             StatSample(date: Date().addingTimeInterval(-172380), min: 82.0, max: 102.0)
         ],
         routeData: [
-            CLLocation(latitude: 37.7749, longitude: -122.4194),
-            CLLocation(latitude: 37.7739, longitude: -122.4222),
-            CLLocation(latitude: 37.7729, longitude: -122.4250)
+            PersistentLocation(latitude: 37.7749, longitude: -122.4194),
+            PersistentLocation(latitude: 37.7739, longitude: -122.4222),
+            PersistentLocation(latitude: 37.7729, longitude: -122.4250)
         ],
         altitdueSamples: [
             StatSample(date: Date(), min: 70.0, max: 90.0),
@@ -458,9 +458,9 @@ let previewRideArray: [Ride] = [
             StatSample(date: Date().addingTimeInterval(-258780), min: 76.0, max: 96.0)
         ],
         routeData: [
-            CLLocation(latitude: 37.7749, longitude: -122.4194),
-            CLLocation(latitude: 37.7739, longitude: -122.4222),
-            CLLocation(latitude: 37.7729, longitude: -122.4250)
+            PersistentLocation(latitude: 37.7749, longitude: -122.4194),
+            PersistentLocation(latitude: 37.7739, longitude: -122.4222),
+            PersistentLocation(latitude: 37.7729, longitude: -122.4250)
         ],
         altitdueSamples: [
             StatSample(date: Date(), min: 70.0, max: 90.0),

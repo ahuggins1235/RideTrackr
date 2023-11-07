@@ -47,77 +47,68 @@ struct ContentView: View {
                 }
             }
         }
-        .onAppear(perform: initializeRides)
-//            .onAppear {
-//
-//            var syncedRides: [Ride] = rides
-//
-//            // if there are no rides found, fetch them from healthkit
-//            if syncedRides.count == 0 {
-//                Task {
-//
-//                    syncedRides = await healthManager.syncRides(queryDate: .oneMonthAgo)
-//                    print(syncedRides.count)
-//                }
-//            }
-//
-//            // ensure the array properties of each ride are properly sorted
-//            syncedRides.forEach { $0.sortArrays() }
-//
-//            healthManager.rides = syncedRides
-//            healthManager.queryingHealthKit = false
-//
-//        }
-        .onChange(of: healthManager.rides) { oldValue, newValue in
+            .onAppear(perform: initializeRides)
+            .onChange(of: healthManager.rides) { oldValue, newValue in
+            withAnimation {
+                for ride in newValue {
+                    trendManager.distanceTrends.append(TrendItem(value: ride.distance, date: ride.rideDate))
+                    trendManager.energyTrends.append(TrendItem(value: ride.activeEnergy, date: ride.rideDate))
+                    trendManager.heartRateTrends.append(TrendItem(value: ride.heartRate, date: ride.rideDate))
+                    trendManager.speedTrends.append(TrendItem(value: ride.speed, date: ride.rideDate))
 
-            for ride in newValue {
-                trendManager.distanceTrends.append(TrendItem(value: ride.distance, date: ride.rideDate))
-                trendManager.energyTrends.append(TrendItem(value: ride.activeEnergy, date: ride.rideDate))
-                trendManager.heartRateTrends.append(TrendItem(value: ride.heartRate, date: ride.rideDate))
-                trendManager.speedTrends.append(TrendItem(value: ride.speed, date: ride.rideDate))
-
-                context.insert(ride)
+                    context.insert(ride)
+                }
             }
         }
     }
 
     func initializeRides() {
-        
+
+//        Task {
+//            let rides = await healthManager.syncRides(queryDate: .threeMonthsAgo)
+//
+////            DispatchQueue.main.async {
+//                healthManager.rides = rides
+////            }
+//        }
+        healthManager.queryingHealthKit = false
         Task {
-            
+
             // Fetch rides from SwiftData
-            let swiftDataRides = rides
-            
+            var swiftDataRides = rides
+
             // Check if there are zero rides in SwiftData
             if swiftDataRides.count == 0 {
                 // Fetch rides from HealthKit
-                let healthKitRides = await healthManager.syncRides(queryDate: .oneMonthAgo)
-                
+                swiftDataRides = await healthManager.syncRides(queryDate: .oneMonthAgo)
+
                 // Store rides in SwiftData for persistence
                 // Assuming saveRides is a function that saves rides to SwiftData
                 //            saveRides(healthKitRides)
-                
-                DispatchQueue.main.async {
-                    // Put rides into healthManager rides property
-                    healthManager.rides = healthKitRides
-                }
+
+//                DispatchQueue.main.async {
+//                    // Put rides into healthManager rides property
+                healthManager.rides = swiftDataRides
+//                }
             } else {
                 // If there are already rides in SwiftData
                 // Call each ride's sortArrays function
-                for index in 0..<swiftDataRides.count {
-                    let ride = swiftDataRides[index]
-//                    ride.sortArrays()
-                    swiftDataRides[index].routeData = ride.routeData.sorted(by: { $0.timeStamp < $1.timeStamp })
-                    swiftDataRides[index].hrSamples = ride.hrSamples.sorted(by: { $0.date < $1.date })
-                    swiftDataRides[index].speedSamples = ride.speedSamples.sorted(by: { $0.date < $1.date })
-                    swiftDataRides[index].altitdueSamples = ride.altitdueSamples.sorted(by: { $0.date < $1.date })
-                }
-                
+//                for index in 0..<swiftDataRides.count {
+//                    let ride = swiftDataRides[index]
+////                    ride.sortArrays()
+//                    swiftDataRides[index].routeData = ride.routeData.sorted(by: { $0.timeStamp < $1.timeStamp })
+//                    swiftDataRides[index].hrSamples = ride.hrSamples.sorted(by: { $0.date < $1.date })
+//                    swiftDataRides[index].speedSamples = ride.speedSamples.sorted(by: { $0.date < $1.date })
+//                    swiftDataRides[index].altitdueSamples = ride.altitdueSamples.sorted(by: { $0.date < $1.date })
+//                }
+
                 // Put rides into healthManager rides property
                 healthManager.rides = swiftDataRides
             }
         }
         healthManager.queryingHealthKit = false
+
+
     }
 
 }

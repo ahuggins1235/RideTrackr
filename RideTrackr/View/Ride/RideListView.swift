@@ -32,55 +32,55 @@ struct RideListView: View {
                     }
                 }
                 
-                if healthManager.rides.count > 0 {
-                    
-                    if healthManager.thisWeekRides.count != 0 {
-                        Section("This Week") {
-
-                            ForEach(healthManager.thisWeekRides) { ride in
-                                NavigationLink(value: ride) {
-                                    RideRowView(ride: ride)
-                                }
-                            }
-                        }
-                    } else {
-                        Text("No rides found this week")
-                    }
-
-
-                    if healthManager.thisMonthRide.count != 0 {
-                        Section("This Month") {
-                            ForEach (healthManager.thisMonthRide) { ride in
-
-                                NavigationLink(value: ride) {
-                                    RideRowView(ride: ride)
-                                }
-                            }
-                        }
-                    } else {
-                        Text("No ride found this month")
-                    }
-
-                    Section("Older") {
-                        
-                        
-                        ForEach (healthManager.rides.filter { ride in
-                            let calendar = Calendar.current
-                            let today = Date()
-                            let startOfMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: calendar.startOfDay(for: today)))!
-
-                            return ride.rideDate < startOfMonth
-
-                        }) { ride in
-                            NavigationLink(value: ride) {
-                                RideRowView(ride: ride)
-                            }
-                        }
-
-                    }
-                } else {
-                    Text("No rides found ☹️")
-                }
+//                if healthManager.rides.count > 0 {
+//                    
+//                    if healthManager.thisWeekRides.count != 0 {
+//                        Section("This Week") {
+//
+//                            ForEach(healthManager.thisWeekRides) { ride in
+//                                NavigationLink(value: ride) {
+//                                    RideRowView(ride: ride)
+//                                }
+//                            }
+//                        }
+//                    } else {
+//                        Text("No rides found this week")
+//                    }
+//
+//
+//                    if healthManager.thisMonthRide.count != 0 {
+//                        Section("This Month") {
+//                            ForEach (healthManager.thisMonthRide) { ride in
+//
+//                                NavigationLink(value: ride) {
+//                                    RideRowView(ride: ride)
+//                                }
+//                            }
+//                        }
+//                    } else {
+//                        Text("No ride found this month")
+//                    }
+//
+//                    Section("Older") {
+//                        
+//                        
+//                        ForEach (healthManager.rides.filter { ride in
+//                            let calendar = Calendar.current
+//                            let today = Date()
+//                            let startOfMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: calendar.startOfDay(for: today)))!
+//
+//                            return ride.rideDate < startOfMonth
+//
+//                        }) { ride in
+//                            NavigationLink(value: ride) {
+//                                RideRowView(ride: ride)
+//                            }
+//                        }
+//
+//                    }
+//                } else {
+//                    Text("No rides found ☹️")
+//                }
             }
                 .navigationDestination(for: Ride.self) { ride in
                 RideDetailView(ride: ride)

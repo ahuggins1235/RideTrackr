@@ -45,21 +45,21 @@ class Ride: Identifiable, Hashable {
     
     // MARK: - computed properties
     
-//    @Transient var sortedRouteData: [PersistentLocation] {
-//        return routeData.sorted(by: { $0.timeStamp < $1.timeStamp })
-//    }
-//    
-//    @Transient var sortedHRSamples: [StatSample] {
-//        return hrSamples.sorted(by: { $0.date < $1.date })
-//    }
-//    
-//    @Transient var sortedAltitudeSamples: [StatSample] {
-//        return altitdueSamples.sorted(by: { $0.date < $1.date })
-//    }
-//    
-//    @Transient var sortedSpeedSamples: [StatSample] {
-//        return speedSamples.sorted(by: { $0.date < $1.date })
-//    }
+    @Transient var sortedRouteData: [PersistentLocation] {
+        return routeData.sorted(by: { $0.timeStamp < $1.timeStamp })
+    }
+    
+    @Transient var sortedHRSamples: [StatSample] {
+        return hrSamples.sorted(by: { $0.date < $1.date })
+    }
+    
+    @Transient var sortedAltitudeSamples: [StatSample] {
+        return altitdueSamples.sorted(by: { $0.date < $1.date })
+    }
+    
+    @Transient var sortedSpeedSamples: [StatSample] {
+        return speedSamples.sorted(by: { $0.date < $1.date })
+    }
 
     @Transient var heartRateString: String {
         return String(format: "%.0f", heartRate) + " BMP"

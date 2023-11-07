@@ -50,7 +50,7 @@ struct RideDetailView: View {
                             .padding()
 
                             
-                            MapSnapshotView(location: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude), route: ride.routeData.map({ CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude) }))
+                            MapSnapshotView(location: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude), route: ride.sortedRouteData.map({ CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude) }))
                                 .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
                                 .padding()
                                 .frame(height: 300)

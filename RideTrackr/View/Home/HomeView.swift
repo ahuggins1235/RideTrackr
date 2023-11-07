@@ -15,7 +15,7 @@ struct HomeView: View {
     @EnvironmentObject var navigationManager: NavigationManager
     @EnvironmentObject var trendManager: TrendManager
     @EnvironmentObject var settingsManager: SettingsManager
-    
+
     @Environment(\.modelContext) private var context
     @Query(sort: \Ride.rideDate, order: .reverse) var rides: [Ride]
 
@@ -99,8 +99,8 @@ struct HomeView: View {
                         }
 
                         if let recentRide = rides.first {
-                            
-                            
+
+
                             NavigationLink(value: recentRide) {
                                 LargeRidePreview(ride: Binding(get: { recentRide }), queryingHealthKit: $healthManager.queryingHealthKit)
                             }.foregroundStyle(Color.primary)
@@ -114,9 +114,11 @@ struct HomeView: View {
 
                     // MARK: - recent ride cards
 
+
                     RecentRidesCardList()
                         .frame(height: 300)
-                        
+
+
                 }.padding(.horizontal)
 
                 // MARK: - toolbar
@@ -126,7 +128,7 @@ struct HomeView: View {
                         Button {
                             Task {
                                 var syncedRides = await healthManager.syncRides(queryDate: .oneMonthAgo)
-                                syncedRides.forEach { $0.sortArrays() }
+//                                syncedRides.forEach { $0.sortArrays() }
                                 healthManager.rides = syncedRides
                             }
                         } label: {

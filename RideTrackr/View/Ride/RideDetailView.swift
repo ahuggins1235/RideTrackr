@@ -54,7 +54,6 @@ struct RideDetailView: View {
                                 .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
                                 .padding()
                                 .frame(height: 300)
-                            Text(String(ride.routeData.count))
                             
                         } else {
                             HStack {
@@ -109,9 +108,7 @@ struct RideDetailView: View {
                 }
             }
         }
-        .onAppear {
-            print(ride.routeData.count)
-        }
+        
             .navigationTitle(ride.dateString)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

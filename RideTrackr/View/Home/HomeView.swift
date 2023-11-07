@@ -99,12 +99,14 @@ struct HomeView: View {
                         }
 
                         if let recentRide = rides.first {
+                            
+                            
                             NavigationLink(value: recentRide) {
-                                LargeRidePreview(ride: Binding(get: { recentRide }, set: { _ in }), queryingHealthKit: $healthManager.queryingHealthKit)
+                                LargeRidePreview(ride: Binding(get: { recentRide }), queryingHealthKit: $healthManager.queryingHealthKit)
                             }.foregroundStyle(Color.primary)
 
                         } else {
-                            LargeRidePreview(ride: Binding(get: { Ride() }, set: { _ in }), queryingHealthKit: $healthManager.queryingHealthKit)
+                            LargeRidePreview(ride: Binding(get: { Ride() }), queryingHealthKit: $healthManager.queryingHealthKit)
                         }
                     }
                         .padding(.top)
@@ -123,7 +125,9 @@ struct HomeView: View {
                     ToolbarItemGroup(placement: .topBarTrailing) {
                         Button {
                             Task {
-                                healthManager.rides = await healthManager.syncRides(queryDate: .oneMonthAgo)
+                                var syncedRides = await healthManager.syncRides(queryDate: .oneMonthAgo)
+                                syncedRides.forEach { $0.sortArrays() }
+                                healthManager.rides = syncedRides
                             }
                         } label: {
                             Label("Sync", systemImage: "arrow.triangle.2.circlepath")

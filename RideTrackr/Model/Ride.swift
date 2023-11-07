@@ -29,24 +29,38 @@ class Ride: Identifiable, Hashable {
     /// the amount of alitude gained during this ride
     var altitudeGained: Double = 0
     /// when this ride started
+    @Attribute(.unique)
     var rideDate: Date = Date()
     /// the hkworkout this ride is based upon
-//    var hkWorkout: HKWorkout = HKWorkout.emptyWorkout
     /// the duration of this ride
     var duration: TimeInterval = 0
+    /// the location data of the route of this ride
+    var routeData: [PersistentLocation] = []
     /// the heart rate data recorded for this ride
     var hrSamples: [StatSample] = []
-    
-    // Use Attribute macro to store [CLLocation] as a string
-    /// the location data of the route of this ride
-//    @Attribute(.transformable(by: CLLocationArrayTransformer.self))
-    var routeData: [PersistentLocation] = []
     /// the alititude data of this ride
     var altitdueSamples: [StatSample] = []
     /// the speed data of this ride
     var speedSamples: [StatSample] = []
     
     // MARK: - computed properties
+    
+//    @Transient var sortedRouteData: [PersistentLocation] {
+//        return routeData.sorted(by: { $0.timeStamp < $1.timeStamp })
+//    }
+//    
+//    @Transient var sortedHRSamples: [StatSample] {
+//        return hrSamples.sorted(by: { $0.date < $1.date })
+//    }
+//    
+//    @Transient var sortedAltitudeSamples: [StatSample] {
+//        return altitdueSamples.sorted(by: { $0.date < $1.date })
+//    }
+//    
+//    @Transient var sortedSpeedSamples: [StatSample] {
+//        return speedSamples.sorted(by: { $0.date < $1.date })
+//    }
+
     @Transient var heartRateString: String {
         return String(format: "%.0f", heartRate) + " BMP"
     }
@@ -206,18 +220,20 @@ class Ride: Identifiable, Hashable {
         return lhs.id == rhs.id
     }
 
-
+    // MARK: - functions
+    
+    /// sorts the routeData, hrSamples, speedSamples and altitudeSamples arrays by their time properties.
+    /// Used because of swiftdata complications
+    func sortArrays() {
+        
+        self.routeData = self.routeData.sorted(by: { $0.timeStamp < $1.timeStamp })
+        self.hrSamples = self.hrSamples.sorted(by: { $0.date < $1.date })
+        self.speedSamples = self.speedSamples.sorted(by: { $0.date < $1.date })
+        self.altitdueSamples = self.altitdueSamples.sorted(by: { $0.date < $1.date })
+        
+    }
 
 }
-
-//@Model()
-//extension Ride {
-//    
-//    // Use Attribute macro to store [CLLocation] as a string
-//    @Attribute(.transformedValueName("CLLocationArrayTransformer"), originalName: "routeData")
-//    var routeData: [CLLocation] = []
-//    
-//}
 
 // MARK: - Sample data
 let PreviewRide = Ride(
@@ -239,9 +255,9 @@ let PreviewRide = Ride(
         StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
     ],
     routeData: [
-        PersistentLocation(latitude: 37.7749, longitude: -122.4194),
-        PersistentLocation(latitude: 37.7739, longitude: -122.4222),
-        PersistentLocation(latitude: 37.7729, longitude: -122.4250)
+        PersistentLocation(latitude: 37.7749, longitude: -122.4194, timeStamp: Date().addingTimeInterval(60)),
+        PersistentLocation(latitude: 37.7739, longitude: -122.4222, timeStamp: Date().addingTimeInterval(120)),
+        PersistentLocation(latitude: 37.7729, longitude: -122.4250, timeStamp: Date().addingTimeInterval(180))
     ],
     altitdueSamples: [
         StatSample(date: Date(), min: 70.0, max: 90.0),
@@ -305,7 +321,6 @@ let PreviewRideNoRouteData = Ride(
     ]
 )
 
-
 let previewRideArray: [Ride] = [
     Ride(
         heartRate: 167.2,
@@ -326,9 +341,9 @@ let previewRideArray: [Ride] = [
             StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
         ],
         routeData: [
-            PersistentLocation(latitude: 37.7749, longitude: -122.4194),
-            PersistentLocation(latitude: 37.7739, longitude: -122.4222),
-            PersistentLocation(latitude: 37.7729, longitude: -122.4250)
+            PersistentLocation(latitude: 37.7749, longitude: -122.4194, timeStamp: Date().addingTimeInterval(60)),
+            PersistentLocation(latitude: 37.7739, longitude: -122.4222, timeStamp: Date().addingTimeInterval(120)),
+            PersistentLocation(latitude: 37.7729, longitude: -122.4250, timeStamp: Date().addingTimeInterval(180))
         ],
         altitdueSamples: [
             StatSample(date: Date(), min: 70.0, max: 90.0),
@@ -370,9 +385,9 @@ let previewRideArray: [Ride] = [
             StatSample(date: Date().addingTimeInterval(-85980), min: 77.0, max: 97.0)
         ],
         routeData: [
-            PersistentLocation(latitude: 37.7749, longitude: -122.4194),
-            PersistentLocation(latitude: 37.7739, longitude: -122.4222),
-            PersistentLocation(latitude: 37.7729, longitude: -122.4250)
+            PersistentLocation(latitude: 37.7749, longitude: -122.4194, timeStamp: Date().addingTimeInterval(60)),
+            PersistentLocation(latitude: 37.7739, longitude: -122.4222, timeStamp: Date().addingTimeInterval(120)),
+            PersistentLocation(latitude: 37.7729, longitude: -122.4250, timeStamp: Date().addingTimeInterval(180))
         ],
         altitdueSamples: [
             StatSample(date: Date(), min: 70.0, max: 90.0),
@@ -414,9 +429,9 @@ let previewRideArray: [Ride] = [
             StatSample(date: Date().addingTimeInterval(-172380), min: 82.0, max: 102.0)
         ],
         routeData: [
-            PersistentLocation(latitude: 37.7749, longitude: -122.4194),
-            PersistentLocation(latitude: 37.7739, longitude: -122.4222),
-            PersistentLocation(latitude: 37.7729, longitude: -122.4250)
+            PersistentLocation(latitude: 37.7749, longitude: -122.4194, timeStamp: Date().addingTimeInterval(60)),
+            PersistentLocation(latitude: 37.7739, longitude: -122.4222, timeStamp: Date().addingTimeInterval(120)),
+            PersistentLocation(latitude: 37.7729, longitude: -122.4250, timeStamp: Date().addingTimeInterval(180))
         ],
         altitdueSamples: [
             StatSample(date: Date(), min: 70.0, max: 90.0),
@@ -458,9 +473,9 @@ let previewRideArray: [Ride] = [
             StatSample(date: Date().addingTimeInterval(-258780), min: 76.0, max: 96.0)
         ],
         routeData: [
-            PersistentLocation(latitude: 37.7749, longitude: -122.4194),
-            PersistentLocation(latitude: 37.7739, longitude: -122.4222),
-            PersistentLocation(latitude: 37.7729, longitude: -122.4250)
+            PersistentLocation(latitude: 37.7749, longitude: -122.4194, timeStamp: Date().addingTimeInterval(60)),
+            PersistentLocation(latitude: 37.7739, longitude: -122.4222, timeStamp: Date().addingTimeInterval(120)),
+            PersistentLocation(latitude: 37.7729, longitude: -122.4250, timeStamp: Date().addingTimeInterval(180))
         ],
         altitdueSamples: [
             StatSample(date: Date(), min: 70.0, max: 90.0),

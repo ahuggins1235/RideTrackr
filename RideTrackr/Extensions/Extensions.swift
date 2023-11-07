@@ -173,6 +173,7 @@ class PersistentLocation: Identifiable, Hashable {
     
     var latitude: Double
     var longitude: Double
+    var timeStamp: Date
     
 //    enum CodingKeys: CodingKey {
 //        case id, latitude, longitude
@@ -181,11 +182,13 @@ class PersistentLocation: Identifiable, Hashable {
     init(location: CLLocation) {
         self.latitude = location.coordinate.latitude
         self.longitude = location.coordinate.longitude
+        self.timeStamp = location.timestamp
     }
     
-    init(latitude: Double, longitude: Double) {
+    init(latitude: Double, longitude: Double, timeStamp: Date) {
         self.latitude = latitude
         self.longitude = longitude
+        self.timeStamp = timeStamp
     }
     
 //    required init(from decoder: Decoder) throws {
@@ -203,7 +206,8 @@ class PersistentLocation: Identifiable, Hashable {
 //    }
     
     func toCLLocation() -> CLLocation {
-        return CLLocation(latitude: self.latitude, longitude: self.longitude)
+//        return CLLocation(latitude: self.latitude, longitude: self.longitude)
+        return CLLocation(coordinate: CLLocationCoordinate2D(latitude: self.latitude, longitude: self.longitude), altitude: 0, horizontalAccuracy: 0, verticalAccuracy: 0, timestamp: self.timeStamp)
     }
 }
 

@@ -10,7 +10,7 @@ import SwiftUI
 
 class SettingsManager: ObservableObject {
     
-    @AppStorage("distanceUnit") var distanceUnit: DistanceUnit = Locale.current.measurementSystem == Locale.MeasurementSystem.metric ? DistanceUnit.Kilometer : DistanceUnit.Miles
+    @AppStorage("distanceUnit") var distanceUnit: DistanceUnit = Locale.current.measurementSystem == Locale.MeasurementSystem.metric ? DistanceUnit.Metric : DistanceUnit.Imperial
     @AppStorage("energyUnit") var energyUnit: EnergyUnit = Locale.current.measurementSystem == Locale.MeasurementSystem.metric ? EnergyUnit.Kilojule : EnergyUnit.Calorie
 
 }
@@ -20,29 +20,59 @@ class SettingsManager: ObservableObject {
 enum DistanceUnit: String, CaseIterable, Identifiable {
     
     /// The unit for kilometers.
-    case Kilometer = "Kilometers"
+    case Metric = "Metric"
     /// The unit for miles.
-    case Miles = "Miles"
+    case Imperial = "Imperial"
     
     var id: DistanceUnit { self }
     
     /// The conversion value of the distance unit. Used for converting values between the two units
-    var conversionValue: Double {
+    var distanceConversion: Double {
         switch self {
-            case .Kilometer:
+            case .Metric:
                 return 1
-            case .Miles:
+            case .Imperial:
                 return 0.621371
         }
     }
     
     /// The abbreviation of the distance unit.
-    var abr: String {
+    var distAbr: String {
         switch self {
-            case .Kilometer:
+            case .Metric:
                 return "km"
-            case .Miles:
+            case .Imperial:
                 return "mi"
+        }
+    }
+    
+    /// The abbreviation of the speed unit used
+    var speedAbr: String {
+        switch self {
+            case .Metric:
+                return "KM/H"
+            case .Imperial:
+                return "mph"
+        }
+    }
+        
+    /// The conversion value of the small distance unit. Used for converting values between the two units
+    var smallDistanceConversion: Double {
+        switch self {
+            case .Metric:
+                return 1
+            case .Imperial:
+                return 3.28084
+        }
+    }
+
+    /// The abbreviation of the small distance unit
+    var smallDistanceAbr: String {
+        switch self {
+            case .Metric:
+                return "m"
+            case .Imperial:
+                return "ft"
         }
     }
 }

@@ -38,7 +38,7 @@ struct ContentView: View {
                             .shadow(radius: 10)
 
                         ProgressView {
-                            Text("Loading data from HealthKit...")
+                            Text("Loading data from Apple Health...")
                                 .bold()
                         }
                             .foregroundStyle(.background)

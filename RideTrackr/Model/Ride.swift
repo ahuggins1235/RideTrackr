@@ -66,15 +66,13 @@ class Ride: Identifiable, Hashable {
     }
     
     @Transient var speedString: String {
-//        @AppStorage("distanceUnit") var distanceUnit: DistanceUnit = .Kilometer
-        let distanceUnit: DistanceUnit = .Kilometer
-        return String(format: "%.1f", speed * distanceUnit.conversionValue) + " \(distanceUnit.abr)/H"
+        @AppStorage("distanceUnit") var distanceUnit: DistanceUnit = .Metric
+        return String(format: "%.1f", speed * distanceUnit.distanceConversion) + " \(distanceUnit.speedAbr)"
     }
 
     @Transient var distanceString: String {
-//        @AppStorage("distanceUnit") var distanceUnit: DistanceUnit = .Kilometer
-        let distanceUnit: DistanceUnit = .Kilometer
-        return String(format: "%.2f", distance * distanceUnit.conversionValue) + " \(distanceUnit.abr)"
+        @AppStorage("distanceUnit") var distanceUnit: DistanceUnit = .Metric
+        return String(format: "%.2f", distance * distanceUnit.distanceConversion) + " \(distanceUnit.distAbr)"
     }
     
     @Transient var activeEnergyString: String {
@@ -82,8 +80,7 @@ class Ride: Identifiable, Hashable {
         numberFormatter.numberStyle = .decimal
         numberFormatter.maximumFractionDigits = 0
         
-//        @AppStorage("energyUnit") var energyUnit: EnergyUnit = .Kilojule
-        let energyUnit: EnergyUnit = .Kilojule
+        @AppStorage("energyUnit") var energyUnit: EnergyUnit = .Kilojule
         return numberFormatter.string (from: NSNumber(value: activeEnergy * energyUnit.conversionValue))! + " \(energyUnit.abr)"
     }
 
@@ -98,7 +95,8 @@ class Ride: Identifiable, Hashable {
     }
     
     @Transient var alitudeString: String {
-        return String(format: "%.1f", altitudeGained) + "m"
+        @AppStorage("distanceUnit") var distanceUnit: DistanceUnit = .Metric
+        return String(format: "%.1f", altitudeGained * distanceUnit.smallDistanceConversion) + " \(distanceUnit.smallDistanceAbr)"
     }
     
     @Transient var dateString: String {

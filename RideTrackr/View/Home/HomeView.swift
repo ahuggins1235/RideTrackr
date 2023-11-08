@@ -48,7 +48,7 @@ struct HomeView: View {
                             bgColor: .speed,
                             title: "Average Speed",
                             icon: "speedometer",
-                            data: Binding(get: { "\((trendManager.currentAverageSpeed * settingsManager.distanceUnit.conversionValue).rounded()) \(settingsManager.distanceUnit.abr)/H" })
+                            data: Binding(get: { "\((trendManager.currentAverageSpeed * settingsManager.distanceUnit.distanceConversion).rounded()) \(settingsManager.distanceUnit.speedAbr)" })
                         )
                             .onTapGesture {
                             navigationManager.selectedTrendsTab = .Speed
@@ -59,7 +59,7 @@ struct HomeView: View {
                             bgColor: .distance,
                             title: "Average Distance",
                             icon: "figure.outdoor.cycle",
-                            data: Binding (get: { "\((trendManager.currentAverageDistance * settingsManager.distanceUnit.conversionValue).rounded()) \(settingsManager.distanceUnit.abr)" })
+                            data: Binding (get: { "\((trendManager.currentAverageDistance * settingsManager.distanceUnit.distanceConversion).rounded()) \(settingsManager.distanceUnit.distAbr)" })
                         )
                             .onTapGesture {
                             navigationManager.selectedTrendsTab = .Distance

@@ -15,6 +15,7 @@ struct RideDetailView: View {
     @State var ride: Ride
     @Environment(\.displayScale) private var displayScale: CGFloat
     @EnvironmentObject var trendManager: TrendManager
+    @AppStorage("distanceUnit") private var distanceUnit: DistanceUnit = .Metric
 
     @MainActor
     private func generateSharingImage() -> Image {
@@ -50,7 +51,7 @@ struct RideDetailView: View {
                             .padding()
 
                             
-                            MapSnapshotView(location: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude), route: ride.sortedRouteData.map({ CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude) }))
+                            MapSnapshotView(location: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude), route: ride.sortedRouteData.map({ CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude) }) )
                                 .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
                                 .padding()
                                 .frame(height: 300)
@@ -73,11 +74,11 @@ struct RideDetailView: View {
                     
                     if ride.hrSamples.count != 0 {
                         
-                        ChartCardView(samples: ride.hrSamples,
+                        ChartCardView(samples: $ride.hrSamples,
                                       title: "Heart Rate",
-                                      unit: "BPM",
+                                      unit: .constant("BPM"),
                                       color: .heartRate,
-                                      average: ride.heartRate.rounded(),
+                                      average: .constant(ride.heartRate.rounded()),
                                       rightText: "AVG"
                         ).padding(.bottom)
                         
@@ -85,11 +86,11 @@ struct RideDetailView: View {
                     
                     if ride.speedSamples.count != 0 {
                         
-                        ChartCardView(samples: ride.speedSamples,
+                        ChartCardView(samples: Binding(get: { ride.speedSamples.map({ stat in StatSample(date: stat.date, min: stat.min * distanceUnit.distanceConversion , max: stat.max * distanceUnit.distanceConversion  ) } ) } ),
                                       title: "Speed",
-                                      unit: "KM/H",
+                                      unit: Binding(get: { "\(distanceUnit.speedAbr)" }),
                                       color: .speed,
-                                      average: ride.speed.rounded(),
+                                      average: Binding(get: { (ride.speed * distanceUnit.distanceConversion).rounded() } ),
                                       rightText: "AVG"
                         ).padding(.bottom)
                         
@@ -97,11 +98,11 @@ struct RideDetailView: View {
 
                     if ride.altitdueSamples.count != 0 {
                         
-                        ChartCardView(samples: ride.altitdueSamples,
+                        ChartCardView(samples: Binding(get: { ride.altitdueSamples.map({ stat in StatSample(date: stat.date, min: stat.min * distanceUnit.smallDistanceConversion , max: stat.max * distanceUnit.smallDistanceConversion  ) } ) } ) ,
                                       title: "Altitude",
-                                      unit: "m",
+                                      unit: Binding(get: { "\(distanceUnit.smallDistanceAbr)" }),
                                       color: .altitude,
-                                      average: ride.altitudeGained.rounded(),
+                                      average: Binding(get: { (ride.altitudeGained * distanceUnit.smallDistanceConversion).rounded() } ),
                                       rightText: "GAIN"
                         ).padding(.bottom)
                     }
@@ -124,11 +125,11 @@ struct RideDetailView: View {
 // MARK: - ChartCard
 struct ChartCardView: View {
 
-    @State var samples: [StatSample]
+    @Binding var samples: [StatSample]
     @State var title: String
-    @State var unit: String
+    @Binding var unit: String
     @State var color: Color
-    @State var average: Double
+    @Binding var average: Double
     @State var rightText: String
 
 

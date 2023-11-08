@@ -22,7 +22,7 @@ struct SettingsView: View {
                     Picker("Distance", selection: $settingsManager.distanceUnit) {
                         
                         ForEach(DistanceUnit.allCases) { unit in
-                            Text("\(unit.rawValue)  (\(unit.abr))").tag(unit.rawValue)
+                            Text("\(unit.rawValue)  (\(unit.distAbr)/\(unit.smallDistanceAbr)").tag(unit.rawValue)
                         }
                     }
                     

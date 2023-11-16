@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import CoreData
 
 struct HomeView: View {
 
@@ -127,12 +128,19 @@ struct HomeView: View {
                     ToolbarItemGroup(placement: .topBarTrailing) {
                         Button {
                             Task {
+
+                                try! context.delete(model: Ride.self)
                                 var syncedRides = await healthManager.syncRides(queryDate: .oneMonthAgo)
 //                                syncedRides.forEach { $0.sortArrays() }
                                 healthManager.rides = syncedRides
                             }
                         } label: {
                             Label("Sync", systemImage: "arrow.triangle.2.circlepath")
+                        }
+                        
+                        Button("Test") {
+//                            healthManager.testsdsf()
+                            NotificationManager.shared.sendNotificaiton()
                         }
                     }
                 }

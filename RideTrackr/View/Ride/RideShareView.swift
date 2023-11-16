@@ -10,7 +10,7 @@ import MapKit
 
 struct RideShareView: View {
     
-    @EnvironmentObject var trendManager: TrendManager
+//    @EnvironmentObject var trendManager: TrendManager
     
     @State var ride: Ride
     
@@ -26,7 +26,7 @@ struct RideShareView: View {
 //            MapSnapshotView(location: ride.routeData.first!.coordinate, route: ride.routeData.map({ $0.coordinate }))
             
             // ride preview
-//            LargeRidePreview(ride: $ride, showDate: false, queryingHealthKit: .constant(false)).environmentObject(trendManager)
+            LargeRidePreview(ride: $ride, showDate: false, queryingHealthKit: .constant(false)).environmentObject(TrendManager())
             
 
                 

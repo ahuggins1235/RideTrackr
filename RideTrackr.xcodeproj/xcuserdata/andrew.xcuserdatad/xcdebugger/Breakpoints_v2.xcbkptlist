@@ -14,8 +14,8 @@
             filePath = "RideTrackr/View/Ride/RideDetailView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "160"
-            endingLineNumber = "160"
+            startingLineNumber = "168"
+            endingLineNumber = "168"
             landmarkName = "body"
             landmarkType = "24">
             <Locations>
@@ -254,22 +254,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "93A5A812-1C34-4694-81EF-35DD96AFC0CD"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "RideTrackr/Model/Ride.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "144"
-            endingLineNumber = "144"
-            landmarkName = "init(id:heartRate:speed:distance:activeEnergy:duration:altitudeGained:rideDate:hrSamples:routeData:altitdueSamples:speedSamples:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "56E22A7F-A2CB-408F-94FF-0343600301F8"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -372,8 +356,8 @@
             filePath = "RideTrackr/Manager/HealthManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "356"
-            endingLineNumber = "356"
+            startingLineNumber = "443"
+            endingLineNumber = "443"
             landmarkName = "fetchWorkouRoute(workout:completion:)"
             landmarkType = "7">
             <Locations>
@@ -420,8 +404,8 @@
             filePath = "RideTrackr/Manager/HealthManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "366"
-            endingLineNumber = "366"
+            startingLineNumber = "453"
+            endingLineNumber = "453"
             landmarkName = "fetchWorkouRoute(workout:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -436,8 +420,8 @@
             filePath = "RideTrackr/Manager/HealthManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "354"
-            endingLineNumber = "354"
+            startingLineNumber = "441"
+            endingLineNumber = "441"
             landmarkName = "fetchWorkouRoute(workout:completion:)"
             landmarkType = "7">
             <Locations>
@@ -589,8 +573,8 @@
             filePath = "RideTrackr/Manager/HealthManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "346"
-            endingLineNumber = "346"
+            startingLineNumber = "433"
+            endingLineNumber = "433"
             landmarkName = "fetchWorkouRoute(workout:completion:)"
             landmarkType = "7">
             <Locations>
@@ -841,6 +825,242 @@
                   offsetFromSymbolStart = "120">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1C98BF90-D489-466A-B677-15061A29AE0A"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RideTrackr/Model/Ride.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "209"
+            endingLineNumber = "209"
+            landmarkName = "init(workout:averageHeartRate:hrSamples:routeData:altitdueSamples:speedSamples:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "1C98BF90-D489-466A-B677-15061A29AE0A - bc5a47e7facc94ac"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "RideTrackr.Ride.init(workout: __C.HKWorkout, averageHeartRate: Swift.Double, hrSamples: Swift.Array&lt;RideTrackr.StatSample&gt;, routeData: Swift.Array&lt;RideTrackr.PersistentLocation&gt;, altitdueSamples: Swift.Array&lt;RideTrackr.StatSample&gt;, speedSamples: Swift.Array&lt;RideTrackr.StatSample&gt;) -&gt; RideTrackr.Ride"
+                  moduleName = "RideTrackr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrew/Developer/Projects/RideTrackr/RideTrackr/Model/Ride.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "191"
+                  endingLineNumber = "191"
+                  offsetFromSymbolStart = "3312">
+               </Location>
+               <Location
+                  uuid = "1C98BF90-D489-466A-B677-15061A29AE0A - bc5a47e7facc94ac"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "RideTrackr.Ride.init(workout: __C.HKWorkout, averageHeartRate: Swift.Double, hrSamples: Swift.Array&lt;RideTrackr.StatSample&gt;, routeData: Swift.Array&lt;RideTrackr.PersistentLocation&gt;, altitdueSamples: Swift.Array&lt;RideTrackr.StatSample&gt;, speedSamples: Swift.Array&lt;RideTrackr.StatSample&gt;) -&gt; RideTrackr.Ride"
+                  moduleName = "RideTrackr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrew/Developer/Projects/RideTrackr/RideTrackr/Model/Ride.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "191"
+                  endingLineNumber = "191"
+                  offsetFromSymbolStart = "3596">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A1320BD9-1BBE-4A7C-8098-0FF76EEDBB99"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RideTrackr/ContentView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A2F8F273-C929-4496-9068-96EB6219D681"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RideTrackr/Manager/HealthManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "194"
+            endingLineNumber = "194"
+            landmarkName = "startObservingCyclingWorkouts()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "A2F8F273-C929-4496-9068-96EB6219D681 - fb78dbf57c3cd6fc"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for closure #1 @Sendable () async -&gt; () in closure #2 (__C.HKObserverQuery, () -&gt; (), Swift.Optional&lt;Swift.Error&gt;) -&gt; () in RideTrackr.HealthManager.startObservingCyclingWorkouts() -&gt; ()"
+                  moduleName = "RideTrackr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrew/Developer/Projects/RideTrackr/RideTrackr/Manager/HealthManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "200"
+                  endingLineNumber = "200"
+                  offsetFromSymbolStart = "60">
+               </Location>
+               <Location
+                  uuid = "A2F8F273-C929-4496-9068-96EB6219D681 - 7ae636636f0034fd"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for closure #1 @Sendable () async -&gt; () in closure #2 (__C.HKObserverQuery, () -&gt; (), Swift.Optional&lt;Swift.Error&gt;) -&gt; () in RideTrackr.HealthManager.startObservingCyclingWorkouts() -&gt; ()"
+                  moduleName = "RideTrackr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrew/Developer/Projects/RideTrackr/RideTrackr/Manager/HealthManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "200"
+                  endingLineNumber = "200"
+                  offsetFromSymbolStart = "20">
+               </Location>
+               <Location
+                  uuid = "A2F8F273-C929-4496-9068-96EB6219D681 - fa0d6cd1421392fe"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(5) suspend resume partial function for closure #1 @Sendable () async -&gt; () in closure #2 (__C.HKObserverQuery, () -&gt; (), Swift.Optional&lt;Swift.Error&gt;) -&gt; () in RideTrackr.HealthManager.startObservingCyclingWorkouts() -&gt; ()"
+                  moduleName = "RideTrackr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrew/Developer/Projects/RideTrackr/RideTrackr/Manager/HealthManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "200"
+                  endingLineNumber = "200"
+                  offsetFromSymbolStart = "36">
+               </Location>
+               <Location
+                  uuid = "A2F8F273-C929-4496-9068-96EB6219D681 - fb78dbf57c3cd660"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for closure #1 @Sendable () async -&gt; () in closure #2 (__C.HKObserverQuery, () -&gt; (), Swift.Optional&lt;Swift.Error&gt;) -&gt; () in RideTrackr.HealthManager.startObservingCyclingWorkouts() -&gt; ()"
+                  moduleName = "RideTrackr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrew/Developer/Projects/RideTrackr/RideTrackr/Manager/HealthManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "196"
+                  endingLineNumber = "196"
+                  offsetFromSymbolStart = "60">
+               </Location>
+               <Location
+                  uuid = "A2F8F273-C929-4496-9068-96EB6219D681 - 7ae636636f003461"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for closure #1 @Sendable () async -&gt; () in closure #2 (__C.HKObserverQuery, () -&gt; (), Swift.Optional&lt;Swift.Error&gt;) -&gt; () in RideTrackr.HealthManager.startObservingCyclingWorkouts() -&gt; ()"
+                  moduleName = "RideTrackr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrew/Developer/Projects/RideTrackr/RideTrackr/Manager/HealthManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "196"
+                  endingLineNumber = "196"
+                  offsetFromSymbolStart = "20">
+               </Location>
+               <Location
+                  uuid = "A2F8F273-C929-4496-9068-96EB6219D681 - fa0d6cd142139262"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(5) suspend resume partial function for closure #1 @Sendable () async -&gt; () in closure #2 (__C.HKObserverQuery, () -&gt; (), Swift.Optional&lt;Swift.Error&gt;) -&gt; () in RideTrackr.HealthManager.startObservingCyclingWorkouts() -&gt; ()"
+                  moduleName = "RideTrackr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrew/Developer/Projects/RideTrackr/RideTrackr/Manager/HealthManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "196"
+                  endingLineNumber = "196"
+                  offsetFromSymbolStart = "20">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4C7C1255-336C-4759-8678-3783C577F90A"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RideTrackr/Manager/NotificationManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
+            landmarkName = "sendNotificaiton()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "4C7C1255-336C-4759-8678-3783C577F90A - c4223732f6247e14"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "RideTrackr.NotificationManager.sendNotificaiton() -&gt; ()"
+                  moduleName = "RideTrackr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrew/Developer/Projects/RideTrackr/RideTrackr/Manager/NotificationManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "31"
+                  endingLineNumber = "31"
+                  offsetFromSymbolStart = "196">
+               </Location>
+               <Location
+                  uuid = "4C7C1255-336C-4759-8678-3783C577F90A - c4223732f6247e14"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "RideTrackr.NotificationManager.sendNotificaiton() -&gt; ()"
+                  moduleName = "RideTrackr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrew/Developer/Projects/RideTrackr/RideTrackr/Manager/NotificationManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "31"
+                  endingLineNumber = "31"
+                  offsetFromSymbolStart = "192">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "EAB9F0E7-A6D5-4690-8D84-00683EA8ABC4"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RideTrackr/Manager/NotificationManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "42"
+            endingLineNumber = "42"
+            landmarkName = "sendNotificaiton()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

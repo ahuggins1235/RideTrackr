@@ -31,9 +31,10 @@ class Ride: Identifiable, Hashable {
     /// when this ride started
     @Attribute(.unique)
     var rideDate: Date = Date()
-    /// the hkworkout this ride is based upon
     /// the duration of this ride
     var duration: TimeInterval = 0
+    /// the temperature recorded during this ride
+    var temperature: Double? = 0
     /// the location data of the route of this ride
     var routeData: [PersistentLocation] = []
     /// the heart rate data recorded for this ride
@@ -42,21 +43,21 @@ class Ride: Identifiable, Hashable {
     var altitdueSamples: [StatSample] = []
     /// the speed data of this ride
     var speedSamples: [StatSample] = []
-    
+
     // MARK: - computed properties
-    
+
     @Transient var sortedRouteData: [PersistentLocation] {
         return routeData.sorted(by: { $0.timeStamp < $1.timeStamp })
     }
-    
+
     @Transient var sortedHRSamples: [StatSample] {
         return hrSamples.sorted(by: { $0.date < $1.date })
     }
-    
+
     @Transient var sortedAltitudeSamples: [StatSample] {
         return altitdueSamples.sorted(by: { $0.date < $1.date })
     }
-    
+
     @Transient var sortedSpeedSamples: [StatSample] {
         return speedSamples.sorted(by: { $0.date < $1.date })
     }
@@ -64,7 +65,7 @@ class Ride: Identifiable, Hashable {
     @Transient var heartRateString: String {
         return String(format: "%.0f", heartRate) + " BMP"
     }
-    
+
     @Transient var speedString: String {
         @AppStorage("distanceUnit") var distanceUnit: DistanceUnit = .Metric
         return String(format: "%.1f", speed * distanceUnit.distanceConversion) + " \(distanceUnit.speedAbr)"
@@ -74,12 +75,12 @@ class Ride: Identifiable, Hashable {
         @AppStorage("distanceUnit") var distanceUnit: DistanceUnit = .Metric
         return String(format: "%.2f", distance * distanceUnit.distanceConversion) + " \(distanceUnit.distAbr)"
     }
-    
+
     @Transient var activeEnergyString: String {
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .decimal
         numberFormatter.maximumFractionDigits = 0
-        
+
         @AppStorage("energyUnit") var energyUnit: EnergyUnit = .Kilojule
         return numberFormatter.string (from: NSNumber(value: activeEnergy * energyUnit.conversionValue))! + " \(energyUnit.abr)"
     }
@@ -93,12 +94,12 @@ class Ride: Identifiable, Hashable {
 
         return formatter.string(from: duration)!
     }
-    
+
     @Transient var alitudeString: String {
         @AppStorage("distanceUnit") var distanceUnit: DistanceUnit = .Metric
         return String(format: "%.1f", altitudeGained * distanceUnit.smallDistanceConversion) + " \(distanceUnit.smallDistanceAbr)"
     }
-    
+
     @Transient var dateString: String {
 
         let dateFormatter = DateFormatter()
@@ -106,7 +107,7 @@ class Ride: Identifiable, Hashable {
         dateFormatter.dateFormat = "E, d'\(dateFormatter.ordinalSuffix(for: dateFormatter.calendar.component(.day, from: rideDate)))' MMM h:mma"
         return dateFormatter.string(from: rideDate)
     }
-    
+
 
     @Transient var shortDateString: String {
 
@@ -114,6 +115,22 @@ class Ride: Identifiable, Hashable {
 
         dateFormatter.dateFormat = "E, d'\(dateFormatter.ordinalSuffix(for: dateFormatter.calendar.component(.day, from: rideDate)))' MMM"
         return dateFormatter.string(from: rideDate)
+    }
+    
+    @Transient var temperatureString: String {
+        
+        // set up a temperature formater
+        let temperatureFormatter = MeasurementFormatter()
+        temperatureFormatter.unitStyle = .medium
+        temperatureFormatter.numberFormatter.maximumFractionDigits = 0
+        
+        // guess the user's preference based on their localisation settings
+        let perferredUnit = Locale.current.measurementSystem == .metric ? UnitTemperature.celsius : UnitTemperature.fahrenheit
+        
+        let celsius = Measurement(value: self.temperature!, unit: UnitTemperature.celsius)
+        let fahrenheit = celsius.converted(to: .fahrenheit)
+        
+        return temperatureFormatter.string(from: perferredUnit == UnitTemperature.celsius ? celsius : fahrenheit )
     }
 
     // MARK: - Inits
@@ -127,10 +144,11 @@ class Ride: Identifiable, Hashable {
         duration: TimeInterval = 0,
         altitudeGained: Double = 0,
         rideDate: Date = Date(),
+        temperature: Double = 0,
         hrSamples: [StatSample] = [],
         routeData: [PersistentLocation] = [],
         altitdueSamples: [StatSample] = [],
-         speedSamples: [StatSample] = []
+        speedSamples: [StatSample] = []
     ) {
         self.id = id
         self.heartRate = heartRate
@@ -140,6 +158,7 @@ class Ride: Identifiable, Hashable {
         self.duration = duration
         self.altitudeGained = altitudeGained
         self.rideDate = rideDate
+        self.temperature = temperature
         self.hrSamples = hrSamples
         self.routeData = routeData
         self.altitdueSamples = altitdueSamples
@@ -164,7 +183,6 @@ class Ride: Identifiable, Hashable {
         for (quantityType, statistic) in activeEnergyStatistics {
 
             switch quantityType {
-                // print hello
 
                 // active energy
             case HKObjectType.quantityType(forIdentifier: .activeEnergyBurned):
@@ -187,6 +205,10 @@ class Ride: Identifiable, Hashable {
 
                 workoutAlitudeGained = workoutElevation.doubleValue(for: HKUnit.meter())
             }
+
+            if let quantityTemperature = workoutMetadata[HKMetadataKeyWeatherTemperature] as? HKQuantity {
+                self.temperature = quantityTemperature.doubleValue(for: HKUnit.degreeCelsius())
+            }
         }
 
         // calculate averaege speed by dividing distance by time
@@ -201,7 +223,6 @@ class Ride: Identifiable, Hashable {
         self.altitudeGained = workoutAlitudeGained
         self.rideDate = workout.startDate
         self.hrSamples = hrSamples
-//        self.hkWorkout = workout
         self.routeData = routeData
         self.altitdueSamples = altitdueSamples
         self.speedSamples = speedSamples
@@ -219,16 +240,16 @@ class Ride: Identifiable, Hashable {
     }
 
     // MARK: - functions
-    
+
     /// sorts the routeData, hrSamples, speedSamples and altitudeSamples arrays by their time properties.
     /// Used because of swiftdata complications
     func sortArrays() {
-        
+
         self.routeData = self.routeData.sorted(by: { $0.timeStamp < $1.timeStamp })
         self.hrSamples = self.hrSamples.sorted(by: { $0.date < $1.date })
         self.speedSamples = self.speedSamples.sorted(by: { $0.date < $1.date })
         self.altitdueSamples = self.altitdueSamples.sorted(by: { $0.date < $1.date })
-        
+
     }
 
 }
@@ -242,6 +263,7 @@ let PreviewRide = Ride(
     duration: 1000,
     altitudeGained: 13.7,
     rideDate: Date(),
+    temperature: 23,
     hrSamples: [
         StatSample(date: Date(), min: 70.0, max: 90.0),
         StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),

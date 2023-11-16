@@ -41,7 +41,7 @@ struct ContentView: View {
                             Text("Loading data from Apple Health...")
                                 .bold()
                         }
-                            .foregroundStyle(.background)
+                        .foregroundStyle(.white)
                     }
                         .foregroundStyle(.primary)
                 }
@@ -80,7 +80,7 @@ struct ContentView: View {
             // Check if there are zero rides in SwiftData
             if swiftDataRides.count == 0 {
                 // Fetch rides from HealthKit
-                swiftDataRides = await healthManager.syncRides(queryDate: .oneMonthAgo)
+                swiftDataRides = await healthManager.syncRides(queryDate: .threeMonthsAgo)
 
                 // Store rides in SwiftData for persistence
                 // Assuming saveRides is a function that saves rides to SwiftData

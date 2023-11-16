@@ -7,9 +7,13 @@
 
 import SwiftUI
 import SwiftData
+import CoreData
 
 @main
 struct RideTrackrApp: App {
+    
+    @StateObject var dataManager = DataManager.shared
+    @StateObject var healthManager = HealthManager()
     
     init() {
         ValueTransformer.setValueTransformer(CLLocationArrayTransformer(), forName: NSValueTransformerName(rawValue: String(describing: CLLocationArrayTransformer.self)))
@@ -30,19 +34,14 @@ struct RideTrackrApp: App {
         }
     }()
     
-//    @StateObject var trendsManager =  TrendManager()
-//    @StateObject var healthManager = HealthManager()
-//    @StateObject var navigationManager = NavigationManager()
-//    @StateObject var settingsManager = SettingsManager()
-    
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environmentObject(TrendManager())
-                .environmentObject(HealthManager())
+                .environmentObject(healthManager)
                 .environmentObject(NavigationManager())
                 .environmentObject(SettingsManager())
         }
-        .modelContainer(sharedModelContainer)
+        .modelContainer(dataManager.container)
     }
 }

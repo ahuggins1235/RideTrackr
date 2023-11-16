@@ -12,7 +12,7 @@ import MapKit
 struct RideDetailView: View {
 
     // MARK: - Properties
-    @State var ride: Ride
+    @State var ride: Ride = Ride()
     @Environment(\.displayScale) private var displayScale: CGFloat
     @EnvironmentObject var trendManager: TrendManager
     @AppStorage("distanceUnit") private var distanceUnit: DistanceUnit = .Metric
@@ -42,7 +42,7 @@ struct RideDetailView: View {
                     // map
                     ZStack {
                         
-                        if let location = ride.routeData.first {
+                         if let location = ride.routeData.first {
                         
                         Rectangle()
                             .fill(.secondary)
@@ -50,11 +50,20 @@ struct RideDetailView: View {
                             .blur(radius: 15)
                             .padding()
 
-                            
-                            MapSnapshotView(location: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude), route: ride.sortedRouteData.map({ CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude) }) )
+                            MapSnapshotView(location: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude), route: ride.routeData.map({ CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude) }) )
                                 .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
                                 .padding()
                                 .frame(height: 300)
+                            
+                            if let _ = ride.temperature {
+                                VStack {
+                                    Spacer()
+                                    HStack {
+                                        Spacer()
+                                        TemperatureView(temperature: ride.temperatureString).padding().padding(.top)
+                                    }
+                                }
+                            }
                             
                         } else {
                             HStack {
@@ -65,7 +74,6 @@ struct RideDetailView: View {
                                 Spacer()
                             }
                         }
-                        
                     }
 
                     // ride preview
@@ -236,48 +244,6 @@ struct AnimationModifier : ViewModifier{
     }
 }
 
-//struct RideRouteMap: View {
-//
-//    @Binding var ride: Ride
-//
-//    var body: some View {
-//
-//        ZStack {
-//
-//            
-//            Map(interactionModes: []) {
-//
-//                MapPolyline(coordinates: ride.routeData.map { CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude) }, contourStyle: .geodesic)
-//                    .stroke(.accent, lineWidth: 5)
-//
-//                if let firstCoordindate = ride.routeData.first {
-//
-//                    Annotation("", coordinate: CLLocationCoordinate2D(latitude: firstCoordindate.latitude, longitude: firstCoordindate.longitude)) {
-//                        Circle()
-//                            .fill(.accent)
-//                            .frame(width: 10)
-//                    }
-//                }
-//
-//                if let lastCoordindate = ride.routeData.last {
-//
-//                    Annotation("", coordinate: CLLocationCoordinate2D(latitude: lastCoordindate.latitude, longitude: lastCoordindate.longitude)) {
-//                        Circle()
-//                            .fill(.accent)
-//                            .frame(width: 10)
-//                    }
-//                }
-//
-//            }
-//                .mapStyle(.standard(elevation: .realistic))
-//                .clipShape (
-//                RoundedRectangle(cornerRadius: 25)
-//            )
-//                
-//        }
-//
-//    }
-//}
 
 // MARK: - Previews
 struct RideDetailView_Previews: PreviewProvider {
@@ -285,9 +251,9 @@ struct RideDetailView_Previews: PreviewProvider {
     @Namespace static var namespace
 
     static var previews: some View {
-
+        
         RideDetailView(ride: PreviewRide).environmentObject(TrendManager())
-        RideDetailView(ride: PreviewRideNoRouteData).environmentObject(TrendManager())
+//        RideDetailView(ride: PreviewRideNoRouteData).environmentObject(TrendManager())
 //        ChartCardView(samples: PreviewRide.hrSamples, title: "Heart Rate", unit: "BPM", color: .red, average: 167, rightText: "AVG")
     }
 }

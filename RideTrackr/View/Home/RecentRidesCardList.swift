@@ -12,11 +12,12 @@ import CoreData
 
 struct RecentRidesCardList: View {
 
-    @EnvironmentObject var healthManager: HealthManager
+    @ObservedObject var healthManager: HKManager = .shared
+    @ObservedObject var dataManager: DataManager = .shared
     @EnvironmentObject var navigationManager: NavigationManager
     @State var currentRide = UUID()
     @Environment(\.modelContext) var context
-    @Query(sort: \Ride.rideDate, order: .reverse) var rides: [Ride]
+//    @Query(sort: \Ride.rideDate, order: .reverse) var rides: [Ride]
 
     var body: some View {
 
@@ -43,47 +44,46 @@ struct RecentRidesCardList: View {
 
                 }.offset(y: 15)
                 // MARK: - Tabview
-                
-                if rides.count >= 2 {
-                    
+
+                if dataManager.rides.count >= 2 {
+
                     TabView(selection: $currentRide.animation()) {
-                        
-                        ForEach(rides.prefix(5).dropFirst()) { ride in
-                            
+
+                        ForEach(dataManager.rides.prefix(5).dropFirst()) { ride in
+
                             NavigationLink(value: ride) {
-                                
+
                                 RideCardPreview(ride: ride).padding(.horizontal).tag(ride.id)
                                     .foregroundStyle(Color.primary)
                                     .containerRelativeFrame(.vertical)
                             }
                         }
                     }.tabViewStyle(.page(indexDisplayMode: .never))
-                    
+
                     // MARK: - page indicator
                     HStack(spacing: -5) {
-                        
-                        ForEach(rides.prefix(5).dropFirst()) { ride in
-                            
+
+                        ForEach(dataManager.rides.prefix(5).dropFirst()) { ride in
+
                             Circle().foregroundStyle(ride.id == currentRide ? Color.primary : Color.secondary)
                                 .frame(height: ride.id == currentRide ? 10 : 7)
                                 .padding(7)
                                 .onTapGesture {
-                                    withAnimation {
-                                        currentRide = ride.id
-                                    }
+                                withAnimation {
+                                    currentRide = ride.id
                                 }
-                            
+                            }
                         }
                     }.background {
                         Capsule()
                             .foregroundStyle(.ultraThinMaterial)
-                        
+
                     }
                     // set the idicator to the second ride
                     .onAppear {
-                        
-                        currentRide = rides[1].id
-                        
+
+                        currentRide = dataManager.rides[1].id
+
                     }
                 } else {
                     Text("No recent rides found")

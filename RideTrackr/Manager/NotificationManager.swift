@@ -8,7 +8,7 @@
 import Foundation
 import UserNotifications
 
-final class NotificationManager: ObservableObject {
+final class NotificationManager: ObservableObject, @unchecked Sendable {
     static let shared = NotificationManager()
 
     @Published var permissionGranted: Bool = false

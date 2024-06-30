@@ -14,7 +14,7 @@ import SwiftData
 import CoreData
 
 /// responsible for managing all healthkit related activites in the app
-class HealthManager: ObservableObject {
+final class HealthManager: ObservableObject, @unchecked Sendable {
 
     // MARK: - Properties
 
@@ -31,11 +31,8 @@ class HealthManager: ObservableObject {
     @Published var rides: [Ride] = []
     /// true if an active query to health kit is being performed false if not
     @Published var queryingHealthKit: Bool = true
-
-//    private var persistentContainer: NSPersistentContainer
-
     /// how often samples should be taken for things like heart rate and route data
-    private let sampleInterval = DateComponents(second: 1)
+    private let sampleInterval = DateComponents(second: 100)
 
 
     // MARK: - Init
@@ -60,17 +57,6 @@ class HealthManager: ObservableObject {
 
         }
         queryingHealthKit = false
-    }
-
-    func testsdsf() {
-        Task {
-//            let rides = try await DataManager.shared.container.mainContext.fetch(FetchDescriptor<Ride>())
-//            if let ride = rides.first {
-//                print(ride.dateString)
-//            }
-//            await DataManager.shared.container.mainContext.insert(PreviewRideNoRouteData)
-
-        }
     }
 
 // MARK: - Setup functions
@@ -158,9 +144,6 @@ class HealthManager: ObservableObject {
             return rides
 
         } catch {
-
-            queryingHealthKit = false
-
             return rides
         }
     }
@@ -513,29 +496,4 @@ class HealthManager: ObservableObject {
 // MARK: - StatSample
 
 
-/// represents a sample recorded during a workout
-@Model
-class StatSample: Identifiable {
-    let id = UUID()
 
-    /// when the sample was taken
-    let date: Date
-
-    /// the minimum value recorded during the sample
-    let min: Double
-
-    /// the maximuim value recored during the sample
-    let max: Double
-
-    /// used to animated this sample
-    var animate: Bool = false
-    
-    var ride: Ride?
-
-    init(date: Date, min: Double, max: Double) {
-        self.date = date
-        self.min = min
-        self.max = max
-        self.animate = animate
-    }
-}

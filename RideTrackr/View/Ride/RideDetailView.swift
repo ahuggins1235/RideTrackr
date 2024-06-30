@@ -9,6 +9,7 @@ import SwiftUI
 import Charts
 import MapKit
 
+
 struct RideDetailView: View {
 
     // MARK: - Properties
@@ -131,6 +132,7 @@ struct RideDetailView: View {
 }
 
 // MARK: - ChartCard
+@MainActor
 struct ChartCardView: View {
 
     @Binding var samples: [StatSample]
@@ -169,14 +171,14 @@ struct ChartCardView: View {
 
                         LineMark(
                             x: .value(sample.date.formatted(), sample.date, unit: .second),
-                            y: .value(unit, sample.animate ? sample.max : sample.max)
+                            y: .value(unit, sample.max)
                         )
                             .foregroundStyle(color.gradient)
                             .interpolationMethod(.catmullRom)
 
                         AreaMark(
                             x: .value(sample.date.formatted(), sample.date, unit: .second),
-                            y: .value(unit, sample.animate ? sample.max : sample.max)
+                            y: .value(unit, sample.max)
                         )
                             .foregroundStyle(color.opacity(0.1).gradient)
                             .interpolationMethod(.catmullRom)

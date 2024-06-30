@@ -15,7 +15,7 @@ extension Binding {
     
     /// Creates a one-way binding for situations where you only need to be able to get data but never set it
     /// - Parameter get: The data that will act as a base for the binding
-    init(get: @escaping () -> Value) {
+    init(get: @Sendable @escaping () -> Value) {
         self.init(get: get, set: { _ in })
     }
     
@@ -166,47 +166,29 @@ public class CLLocationArrayTransformer: ValueTransformer {
     }
 }
 
-@Model
-class PersistentLocation: Identifiable, Hashable {
-    @Attribute(.unique)
-    var id = UUID()
+
+struct PersistentLocation: Identifiable, Hashable, Codable {
     
+    var id = UUID()
     var latitude: Double
     var longitude: Double
     var timeStamp: Date
     
-//    enum CodingKeys: CodingKey {
-//        case id, latitude, longitude
-//    }
-    
+ 
     init(location: CLLocation) {
         self.latitude = location.coordinate.latitude
         self.longitude = location.coordinate.longitude
         self.timeStamp = location.timestamp
     }
     
-    init(latitude: Double, longitude: Double, timeStamp: Date) {
+    init(id: UUID = UUID(), latitude: Double, longitude: Double, timeStamp: Date) {
+        self.id = id
         self.latitude = latitude
         self.longitude = longitude
         self.timeStamp = timeStamp
     }
-    
-//    required init(from decoder: Decoder) throws {
-//        let container = try decoder.container(keyedBy: CodingKeys.self)
-//        id = try container.decode(UUID.self, forKey: .id)
-//        latitude = try container.decode(Double.self, forKey: .latitude)
-//        longitude = try container.decode(Double.self, forKey: .longitude)
-//    }
-//    
-//    func encode(to encoder: Encoder) throws {
-//        var container = encoder.container(keyedBy: CodingKeys.self)
-//        try container.encode(id, forKey: .id)
-//        try container.encode(latitude, forKey: .latitude)
-//        try container.encode(longitude, forKey: .longitude)
-//    }
-    
+
     func toCLLocation() -> CLLocation {
-//        return CLLocation(latitude: self.latitude, longitude: self.longitude)
         return CLLocation(coordinate: CLLocationCoordinate2D(latitude: self.latitude, longitude: self.longitude), altitude: 0, horizontalAccuracy: 0, verticalAccuracy: 0, timestamp: self.timeStamp)
     }
 }
@@ -233,7 +215,7 @@ extension DateFormatter {
 
 extension HKWorkout {
     
-    static let emptyWorkout = HKWorkout(activityType: .cycling, start: Date(), end: Date())
+    nonisolated(unsafe) static let emptyWorkout = HKWorkout(activityType: .cycling, start: Date(), end: Date())
     
 }
 

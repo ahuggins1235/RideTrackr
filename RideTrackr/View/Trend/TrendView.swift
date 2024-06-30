@@ -8,6 +8,7 @@
 import SwiftUI
 import Charts
 
+@MainActor
 struct TrendView: View {
 
     // MARK: - properties
@@ -91,6 +92,7 @@ struct TrendView: View {
     }
 }
 
+@MainActor
 struct trendChartView: View {
 
     @Binding var trendData: [TrendItem]

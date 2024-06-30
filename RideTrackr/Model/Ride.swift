@@ -10,12 +10,12 @@ import SwiftData
 import HealthKit
 import MapKit
 import SwiftUI
+import FMDB
 
-@Model
-class Ride: Identifiable, Hashable {
+
+struct Ride: Identifiable, Hashable, Sendable, Decodable {
 
     // MARK: - Base properties
-    @Attribute(.unique)
     var id = UUID()
 
     /// the average heart rate recorded for this ride
@@ -29,7 +29,6 @@ class Ride: Identifiable, Hashable {
     /// the amount of alitude gained during this ride
     var altitudeGained: Double = 0
     /// when this ride started
-    @Attribute(.unique)
     var rideDate: Date = Date()
     /// the duration of this ride
     var duration: TimeInterval = 0
@@ -44,94 +43,7 @@ class Ride: Identifiable, Hashable {
     /// the speed data of this ride
     var speedSamples: [StatSample] = []
 
-    // MARK: - computed properties
 
-    @Transient var sortedRouteData: [PersistentLocation] {
-        return routeData.sorted(by: { $0.timeStamp < $1.timeStamp })
-    }
-
-    @Transient var sortedHRSamples: [StatSample] {
-        return hrSamples.sorted(by: { $0.date < $1.date })
-    }
-
-    @Transient var sortedAltitudeSamples: [StatSample] {
-        return altitdueSamples.sorted(by: { $0.date < $1.date })
-    }
-
-    @Transient var sortedSpeedSamples: [StatSample] {
-        return speedSamples.sorted(by: { $0.date < $1.date })
-    }
-
-    @Transient var heartRateString: String {
-        return String(format: "%.0f", heartRate) + " BMP"
-    }
-
-    @Transient var speedString: String {
-        @AppStorage("distanceUnit") var distanceUnit: DistanceUnit = .Metric
-        return String(format: "%.1f", speed * distanceUnit.distanceConversion) + " \(distanceUnit.speedAbr)"
-    }
-
-    @Transient var distanceString: String {
-        @AppStorage("distanceUnit") var distanceUnit: DistanceUnit = .Metric
-        return String(format: "%.2f", distance * distanceUnit.distanceConversion) + " \(distanceUnit.distAbr)"
-    }
-
-    @Transient var activeEnergyString: String {
-        let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = .decimal
-        numberFormatter.maximumFractionDigits = 0
-
-        @AppStorage("energyUnit") var energyUnit: EnergyUnit = .Kilojule
-        return numberFormatter.string (from: NSNumber(value: activeEnergy * energyUnit.conversionValue))! + " \(energyUnit.abr)"
-    }
-
-    @Transient var durationString: String {
-
-        let formatter = DateComponentsFormatter()
-        formatter.unitsStyle = .positional
-        formatter.zeroFormattingBehavior = .pad
-        formatter.allowedUnits = [.hour, .minute, .second]
-
-        return formatter.string(from: duration)!
-    }
-
-    @Transient var alitudeString: String {
-        @AppStorage("distanceUnit") var distanceUnit: DistanceUnit = .Metric
-        return String(format: "%.1f", altitudeGained * distanceUnit.smallDistanceConversion) + " \(distanceUnit.smallDistanceAbr)"
-    }
-
-    @Transient var dateString: String {
-
-        let dateFormatter = DateFormatter()
-
-        dateFormatter.dateFormat = "E, d'\(dateFormatter.ordinalSuffix(for: dateFormatter.calendar.component(.day, from: rideDate)))' MMM h:mma"
-        return dateFormatter.string(from: rideDate)
-    }
-
-
-    @Transient var shortDateString: String {
-
-        let dateFormatter = DateFormatter()
-
-        dateFormatter.dateFormat = "E, d'\(dateFormatter.ordinalSuffix(for: dateFormatter.calendar.component(.day, from: rideDate)))' MMM"
-        return dateFormatter.string(from: rideDate)
-    }
-    
-    @Transient var temperatureString: String {
-        
-        // set up a temperature formater
-        let temperatureFormatter = MeasurementFormatter()
-        temperatureFormatter.unitStyle = .medium
-        temperatureFormatter.numberFormatter.maximumFractionDigits = 0
-        
-        // guess the user's preference based on their localisation settings
-        let perferredUnit = Locale.current.measurementSystem == .metric ? UnitTemperature.celsius : UnitTemperature.fahrenheit
-        
-        let celsius = Measurement(value: self.temperature!, unit: UnitTemperature.celsius)
-        let fahrenheit = celsius.converted(to: .fahrenheit)
-        
-        return temperatureFormatter.string(from: perferredUnit == UnitTemperature.celsius ? celsius : fahrenheit )
-    }
 
     // MARK: - Inits
 
@@ -229,6 +141,43 @@ class Ride: Identifiable, Hashable {
 
     }
 
+    init?(from result: FMResultSet) {
+
+        if let id = result.string(forColumn: "id") {
+            self.id = UUID(uuidString: id)!
+            self.heartRate = result.double(forColumn: "heartRate")
+            self.speed = result.double(forColumn: "speed")
+            self.distance = result.double(forColumn: "distance")
+            self.activeEnergy = result.double(forColumn: "activeEnergy")
+            self.altitudeGained = result.double(forColumn: "altitudeGained")
+            self.rideDate = DateFormatter().date(from: result.string(forColumn: "rideDate")!)!
+            self.duration = result.double(forColumn: "duration")
+            self.temperature = result.double(forColumn: "temperature")
+
+            if let routeData = result.data(forColumn: "routeData") {
+                let decodedRouteData = try! JSONDecoder().decode([PersistentLocation].self, from: routeData)
+                self.routeData = decodedRouteData
+            }
+            
+            if let hrSamples = result.data(forColumn: "hrSamples") {
+                let decodedHRSamples = try! JSONDecoder().decode([StatSample].self, from: hrSamples)
+                self.hrSamples = decodedHRSamples
+            }
+            
+            if let altitudeSamples = result.data(forColumn: "altitudeSamples") {
+                let decodedAltitudeSamples = try! JSONDecoder().decode([StatSample].self, from: altitudeSamples)
+                self.altitdueSamples = decodedAltitudeSamples
+            }
+            
+            if let speedSamples = result.data(forColumn: "speedSamples") {
+                let decodedSpeedSamples = try! JSONDecoder().decode([StatSample].self, from: speedSamples)
+                self.speedSamples = decodedSpeedSamples
+            }
+        } else {
+            return nil
+        }
+    }
+
     // MARK: - Hashable Conformance
 
     func hash(into hasher: inout Hasher) {
@@ -241,15 +190,108 @@ class Ride: Identifiable, Hashable {
 
     // MARK: - functions
 
-    /// sorts the routeData, hrSamples, speedSamples and altitudeSamples arrays by their time properties.
-    /// Used because of swiftdata complications
-    func sortArrays() {
+//    /// sorts the routeData, hrSamples, speedSamples and altitudeSamples arrays by their time properties.
+//    /// Used because of swiftdata complications
+//    func sortArrays() {
+//
+//        self.routeData = self.routeData.sorted(by: { $0.timeStamp < $1.timeStamp })
+//        self.hrSamples = self.hrSamples.sorted(by: { $0.date < $1.date })
+//        self.speedSamples = self.speedSamples.sorted(by: { $0.date < $1.date })
+//        self.altitdueSamples = self.altitdueSamples.sorted(by: { $0.date < $1.date })
+//
+//    }
 
-        self.routeData = self.routeData.sorted(by: { $0.timeStamp < $1.timeStamp })
-        self.hrSamples = self.hrSamples.sorted(by: { $0.date < $1.date })
-        self.speedSamples = self.speedSamples.sorted(by: { $0.date < $1.date })
-        self.altitdueSamples = self.altitdueSamples.sorted(by: { $0.date < $1.date })
+}
 
+extension Ride {
+
+    // MARK: - computed properties
+
+    @Transient var sortedRouteData: [PersistentLocation] {
+        return routeData.sorted(by: { $0.timeStamp < $1.timeStamp })
+    }
+
+    @Transient var sortedHRSamples: [StatSample] {
+        return hrSamples.sorted(by: { $0.date < $1.date })
+    }
+
+    @Transient var sortedAltitudeSamples: [StatSample] {
+        return altitdueSamples.sorted(by: { $0.date < $1.date })
+    }
+
+    @Transient var sortedSpeedSamples: [StatSample] {
+        return speedSamples.sorted(by: { $0.date < $1.date })
+    }
+
+    @Transient var heartRateString: String {
+        return String(format: "%.0f", heartRate) + " BMP"
+    }
+
+    @Transient var speedString: String {
+        @AppStorage("distanceUnit") var distanceUnit: DistanceUnit = .Metric
+        return String(format: "%.1f", speed * distanceUnit.distanceConversion) + " \(distanceUnit.speedAbr)"
+    }
+
+    @Transient var distanceString: String {
+        @AppStorage("distanceUnit") var distanceUnit: DistanceUnit = .Metric
+        return String(format: "%.2f", distance * distanceUnit.distanceConversion) + " \(distanceUnit.distAbr)"
+    }
+
+    @Transient var activeEnergyString: String {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        numberFormatter.maximumFractionDigits = 0
+
+        @AppStorage("energyUnit") var energyUnit: EnergyUnit = .Kilojule
+        return numberFormatter.string (from: NSNumber(value: activeEnergy * energyUnit.conversionValue))! + " \(energyUnit.abr)"
+    }
+
+    @Transient var durationString: String {
+
+        let formatter = DateComponentsFormatter()
+        formatter.unitsStyle = .positional
+        formatter.zeroFormattingBehavior = .pad
+        formatter.allowedUnits = [.hour, .minute, .second]
+
+        return formatter.string(from: duration)!
+    }
+
+    @Transient var alitudeString: String {
+        @AppStorage("distanceUnit") var distanceUnit: DistanceUnit = .Metric
+        return String(format: "%.1f", altitudeGained * distanceUnit.smallDistanceConversion) + " \(distanceUnit.smallDistanceAbr)"
+    }
+
+    @Transient var dateString: String {
+
+        let dateFormatter = DateFormatter()
+
+        dateFormatter.dateFormat = "E, d'\(dateFormatter.ordinalSuffix(for: dateFormatter.calendar.component(.day, from: rideDate)))' MMM h:mma"
+        return dateFormatter.string(from: rideDate)
+    }
+
+
+    @Transient var shortDateString: String {
+
+        let dateFormatter = DateFormatter()
+
+        dateFormatter.dateFormat = "E, d'\(dateFormatter.ordinalSuffix(for: dateFormatter.calendar.component(.day, from: rideDate)))' MMM"
+        return dateFormatter.string(from: rideDate)
+    }
+
+    @Transient var temperatureString: String {
+
+        // set up a temperature formater
+        let temperatureFormatter = MeasurementFormatter()
+        temperatureFormatter.unitStyle = .medium
+        temperatureFormatter.numberFormatter.maximumFractionDigits = 0
+
+        // guess the user's preference based on their localisation settings
+        let perferredUnit = Locale.current.measurementSystem == .metric ? UnitTemperature.celsius : UnitTemperature.fahrenheit
+
+        let celsius = Measurement(value: self.temperature!, unit: UnitTemperature.celsius)
+        let fahrenheit = celsius.converted(to: .fahrenheit)
+
+        return temperatureFormatter.string(from: perferredUnit == UnitTemperature.celsius ? celsius : fahrenheit)
     }
 
 }

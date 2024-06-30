@@ -16,6 +16,7 @@ enum TrendType: String, CaseIterable, Identifiable {
     
     var id: TrendType { self }
     
+    @MainActor
     var destination: AnyView {
         
         switch self {
@@ -31,6 +32,7 @@ enum TrendType: String, CaseIterable, Identifiable {
         
     }
     
+    @MainActor
     var label: AnyView {
         switch self {
             case .HeartRate:

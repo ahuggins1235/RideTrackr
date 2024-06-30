@@ -8,6 +8,7 @@
 import SwiftUI
 import Foundation
 
+@MainActor
 struct SettingsView: View {
     
     @EnvironmentObject var settingsManager: SettingsManager

@@ -8,6 +8,7 @@
 import SwiftUI
 import MapKit
 
+@MainActor
 struct RideShareView: View {
     
 //    @EnvironmentObject var trendManager: TrendManager

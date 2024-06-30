@@ -9,16 +9,19 @@ import SwiftUI
 import SwiftData
 import CoreData
 
+@MainActor
 struct HomeView: View {
 
     // MARK: - Properties
-    @EnvironmentObject var healthManager: HealthManager
+    @ObservedObject var healthManager: HKManager = HKManager.shared
+    @ObservedObject var dataManager: DataManager = DataManager.shared
     @EnvironmentObject var navigationManager: NavigationManager
     @EnvironmentObject var trendManager: TrendManager
     @EnvironmentObject var settingsManager: SettingsManager
 
     @Environment(\.modelContext) private var context
-    @Query(sort: \Ride.rideDate, order: .reverse) var rides: [Ride]
+    @Namespace private var namespace
+//    @Query(sort: \Ride.rideDate, order: .reverse) var rides: [Ride]
 
     private var greetingString: String {
         return GetGreetingString()
@@ -99,11 +102,13 @@ struct HomeView: View {
                                 .foregroundStyle(.accent)
                         }
 
-                        if let recentRide = rides.first {
+                        if let recentRide = dataManager.rides.first {
 
 
                             NavigationLink(value: recentRide) {
                                 LargeRidePreview(ride: Binding(get: { recentRide }), queryingHealthKit: $healthManager.queryingHealthKit)
+                                    
+                                    .matchedTransitionSource(id: "preview", in: namespace)
                             }.foregroundStyle(Color.primary)
 
                         } else {
@@ -129,25 +134,29 @@ struct HomeView: View {
                         Button {
                             Task {
 
-                                try! context.delete(model: Ride.self)
-                                var syncedRides = await healthManager.syncRides(queryDate: .oneMonthAgo)
+//                                try! context.delete(model: Ride.self)
+                                let syncedRides = await healthManager.getRides(numRides: 5)
 //                                syncedRides.forEach { $0.sortArrays() }
                                 healthManager.rides = syncedRides
+                                
+                                
+                                
                             }
                         } label: {
                             Label("Sync", systemImage: "arrow.triangle.2.circlepath")
                         }
                         
-                        Button("Test") {
-//                            healthManager.testsdsf()
-                            NotificationManager.shared.sendNotificaiton()
-                        }
+//                        Button("Test") {
+////                            healthManager.testsdsf()
+//                            NotificationManager.shared.sendNotificaiton()
+//                        }
                     }
                 }
                     .navigationTitle(greetingString)
             }
                 .navigationDestination(for: Ride.self) { ride in
                 RideDetailView(ride: ride)
+                        .navigationTransition(.zoom(sourceID: "preview", in: namespace))
             }
         }
     }

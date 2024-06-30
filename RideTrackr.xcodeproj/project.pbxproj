@@ -29,7 +29,11 @@
 		4925C2092A74FE9D00761FDA /* RideRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4925C2082A74FE9D00761FDA /* RideRowView.swift */; };
 		4925C20B2A75128900761FDA /* RideListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4925C20A2A75128900761FDA /* RideListView.swift */; };
 		4925C20F2A75130000761FDA /* NavigationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4925C20E2A75130000761FDA /* NavigationManager.swift */; };
+		49313AEB2C1AB27C00AA5789 /* HKManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49313AEA2C1AB27C00AA5789 /* HKManager.swift */; };
 		494B24412ABFD49800B05739 /* RideShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494B24402ABFD49800B05739 /* RideShareView.swift */; };
+		494DAA862C255D78001E0D4B /* FMDB in Frameworks */ = {isa = PBXBuildFile; productRef = 494DAA852C255D78001E0D4B /* FMDB */; };
+		494DAA8A2C256F8D001E0D4B /* mainSchema.sql in Resources */ = {isa = PBXBuildFile; fileRef = 494DAA892C256F86001E0D4B /* mainSchema.sql */; };
+		494DAA8C2C25768D001E0D4B /* StatSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494DAA8B2C25768D001E0D4B /* StatSample.swift */; };
 		49932F5C2AF1FD3700A45D14 /* RecentRidesCardList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49932F5B2AF1FD3700A45D14 /* RecentRidesCardList.swift */; };
 		49932F5E2AF211BC00A45D14 /* ViewModifers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49932F5D2AF211BC00A45D14 /* ViewModifers.swift */; };
 		49E63A0B2B05DEF1005451D1 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E63A0A2B05DEF1005451D1 /* DataManager.swift */; };
@@ -84,7 +88,10 @@
 		4925C2082A74FE9D00761FDA /* RideRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideRowView.swift; sourceTree = "<group>"; };
 		4925C20A2A75128900761FDA /* RideListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideListView.swift; sourceTree = "<group>"; };
 		4925C20E2A75130000761FDA /* NavigationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationManager.swift; sourceTree = "<group>"; };
+		49313AEA2C1AB27C00AA5789 /* HKManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HKManager.swift; sourceTree = "<group>"; };
 		494B24402ABFD49800B05739 /* RideShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideShareView.swift; sourceTree = "<group>"; };
+		494DAA892C256F86001E0D4B /* mainSchema.sql */ = {isa = PBXFileReference; lastKnownFileType = text; path = mainSchema.sql; sourceTree = "<group>"; };
+		494DAA8B2C25768D001E0D4B /* StatSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatSample.swift; sourceTree = "<group>"; };
 		494F67062AF3760D001163B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		49932F5B2AF1FD3700A45D14 /* RecentRidesCardList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentRidesCardList.swift; sourceTree = "<group>"; };
 		49932F5D2AF211BC00A45D14 /* ViewModifers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifers.swift; sourceTree = "<group>"; };
@@ -101,6 +108,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				494DAA862C255D78001E0D4B /* FMDB in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -156,6 +164,7 @@
 		490725FB2A69042A0009817F /* RideTrackr */ = {
 			isa = PBXGroup;
 			children = (
+				494DAA882C256F7A001E0D4B /* Schema */,
 				494F67062AF3760D001163B3 /* Info.plist */,
 				492124932AE9026700889575 /* Extensions */,
 				490726382A69557F0009817F /* RideTrackr.entitlements */,
@@ -213,6 +222,7 @@
 			children = (
 				49E71F432AC1509E00900477 /* TrendType.swift */,
 				490726332A6912660009817F /* Ride.swift */,
+				494DAA8B2C25768D001E0D4B /* StatSample.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -236,6 +246,7 @@
 				4921249B2AE9E73800889575 /* SettingsManager.swift */,
 				49E63A0A2B05DEF1005451D1 /* DataManager.swift */,
 				49E63A0C2B0610CB005451D1 /* NotificationManager.swift */,
+				49313AEA2C1AB27C00AA5789 /* HKManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -266,6 +277,14 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		494DAA882C256F7A001E0D4B /* Schema */ = {
+			isa = PBXGroup;
+			children = (
+				494DAA892C256F86001E0D4B /* mainSchema.sql */,
+			);
+			path = Schema;
+			sourceTree = "<group>";
+		};
 		49E71F3E2AC1372C00900477 /* Trend */ = {
 			isa = PBXGroup;
 			children = (
@@ -291,6 +310,9 @@
 			dependencies = (
 			);
 			name = RideTrackr;
+			packageProductDependencies = (
+				494DAA852C255D78001E0D4B /* FMDB */,
+			);
 			productName = RideTrackr;
 			productReference = 490725F92A69042A0009817F /* RideTrackr.app */;
 			productType = "com.apple.product-type.application";
@@ -339,7 +361,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1500;
-				LastUpgradeCheck = 1500;
+				LastUpgradeCheck = 1600;
 				TargetAttributes = {
 					490725F82A69042A0009817F = {
 						CreatedOnToolsVersion = 15.0;
@@ -363,6 +385,9 @@
 				Base,
 			);
 			mainGroup = 490725F02A69042A0009817F;
+			packageReferences = (
+				494DAA842C255D11001E0D4B /* XCRemoteSwiftPackageReference "fmdb" */,
+			);
 			productRefGroup = 490725FA2A69042A0009817F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -381,6 +406,7 @@
 			files = (
 				490726042A69042D0009817F /* Preview Assets.xcassets in Resources */,
 				490726012A69042D0009817F /* Assets.xcassets in Resources */,
+				494DAA8A2C256F8D001E0D4B /* mainSchema.sql in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -410,6 +436,7 @@
 				49E71F402AC1374200900477 /* TrendsTabView.swift in Sources */,
 				4925C20B2A75128900761FDA /* RideListView.swift in Sources */,
 				49932F5E2AF211BC00A45D14 /* ViewModifers.swift in Sources */,
+				49313AEB2C1AB27C00AA5789 /* HKManager.swift in Sources */,
 				49188F4D2AFB680A000C1E68 /* MapSnapShotView.swift in Sources */,
 				49E63A0D2B0610CB005451D1 /* NotificationManager.swift in Sources */,
 				490726322A690E000009817F /* LargeRidePreview.swift in Sources */,
@@ -429,6 +456,7 @@
 				4921249C2AE9E73800889575 /* SettingsManager.swift in Sources */,
 				49E63A0B2B05DEF1005451D1 /* DataManager.swift in Sources */,
 				490726302A6907B40009817F /* HomeStatCardView.swift in Sources */,
+				494DAA8C2C25768D001E0D4B /* StatSample.swift in Sources */,
 				49E71F462AC1515A00900477 /* TrendManager.swift in Sources */,
 				49E71F442AC1509E00900477 /* TrendType.swift in Sources */,
 			);
@@ -607,6 +635,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -615,6 +644,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "Andrew-Huggins.RideTrackr";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = minimal;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -641,6 +671,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -649,6 +680,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "Andrew-Huggins.RideTrackr";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = minimal;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -657,7 +689,6 @@
 		490726212A69042D0009817F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -677,7 +708,6 @@
 		490726222A69042D0009817F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -697,7 +727,6 @@
 		490726242A69042D0009817F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7PY92KZXV9;
@@ -715,7 +744,6 @@
 		490726252A69042D0009817F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7PY92KZXV9;
@@ -770,6 +798,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		494DAA842C255D11001E0D4B /* XCRemoteSwiftPackageReference "fmdb" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ccgus/fmdb.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.7.11;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		494DAA852C255D78001E0D4B /* FMDB */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 494DAA842C255D11001E0D4B /* XCRemoteSwiftPackageReference "fmdb" */;
+			productName = FMDB;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 490725F12A69042A0009817F /* Project object */;
 }

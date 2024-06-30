@@ -6,3 +6,295 @@
 //
 
 import Foundation
+import HealthKit
+import MapKit
+import Combine
+import SwiftUI
+
+
+final class HKManager: ObservableObject, @unchecked Sendable {
+    
+    // MARK: - public properties
+    static let shared = HKManager()
+    /// the users most recent ride
+    @Published var recentRide: Ride = Ride()
+    /// all of the ride the user has been on this month
+    @Published var thisMonthRide: [Ride] = []
+    /// all of the rides the user has been on this week
+    @Published var thisWeekRides: [Ride] = []
+    /// all of the rides the user has been on
+    @Published var rides: [Ride] = []
+    /// Whether or not to display an alert to the user
+    @Published var showAlert = false
+    @Published var alertMessage = ""
+    @Published var queryingHealthKit = false
+    
+    // MARK: - private properties
+    private let healthStore = HKHealthStore()
+    private let sampleInterval = DateComponents(second: 30)
+    private let recentRidesSynced = 5
+    
+    // MARK: - Init
+    init() {
+        requestAuthorization()
+//        print(hkAuth)
+    }
+    
+    // MARK: HK Queries
+    func getRides(numRides: Int) async -> [Ride] {
+        
+        var rides: [Ride] = []
+        
+        do {
+            
+            let workouts = try await fetchCyclingWorkouts(numRides: numRides)
+            
+            // iterare through the returned workouts
+            for workout in workouts {
+                
+                // get the heart rate data for this workout
+                let hrSamples = try await fetchHeartRateSamples(for: workout, interval: sampleInterval)
+                
+                // calculate the average heart rate of this workout
+                let sumHRSamples = hrSamples.reduce(0.0) { $0 + (($1.min + $1.max) / 2) }
+                let averageHR = sumHRSamples / Double(hrSamples.count)
+                
+                
+                // get workoutroute
+                if let locations = try await fetchWorkoutRoute(workout: workout) {
+                    
+                    let (speedData, altitdueData) = calculateSpeedAndAltitude(locations: locations)
+                    
+                    let ride = Ride(workout: workout,
+                                    averageHeartRate: averageHR,
+                                    hrSamples: hrSamples,
+                                    routeData: locations.map({ PersistentLocation(location: $0) }),
+                                    altitdueSamples: altitdueData.sorted(by: { $0.date < $1.date }),
+                                    speedSamples: speedData.sorted(by: { $0.date < $1.date })
+                    )
+                    
+                    rides.append(ride)
+                }
+            }
+                
+            
+            
+        } catch {
+            DispatchQueue.main.async {
+                print("Error while getting rides: \(error.localizedDescription)")
+                self.alertMessage = "Error while getting rides."
+                self.showAlert = true
+            }
+        }
+        
+        
+        return rides
+    }
+    
+    
+    func fetchCyclingWorkouts(numRides: Int) async throws -> [HKWorkout] {
+        
+        // Define the workout type
+        let workoutType = HKObjectType.workoutType()
+        
+        // Create a predicate to only fetch cycling workouts
+        let predicate = HKQuery.predicateForWorkouts(with: .cycling)
+        
+        // Define the sort descriptor to sort workouts by end date
+        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)
+        
+        // Create a Task to handle the async query
+        return try await withCheckedThrowingContinuation { continuation in
+            let query = HKSampleQuery(sampleType: workoutType, predicate: predicate, limit: numRides, sortDescriptors: [sortDescriptor]) { (query, samples, error) in
+                if let error = error {
+                    continuation.resume(throwing: error)
+                } else if let samples = samples as? [HKWorkout] {
+                    continuation.resume(returning: samples)
+                } else {
+                    continuation.resume(throwing: NSError(domain: "com.example", code: 1, userInfo: [NSLocalizedDescriptionKey: "Unable to fetch workouts"]))
+                }
+            }
+            
+            // Execute the query
+            healthStore.execute(query)
+        }
+    }
+    
+    /// Fetch all of the heart rate samples that were recorded during the user's workout
+    /// - Parameters:
+    ///   - workout: The workout that is being queried
+    ///   - interval: how often we should collect samples
+    /// - Returns: an array of ``StatSample`` that represents all of the heart rate samples recorded during the workout
+    func fetchHeartRateSamples(for workout: HKWorkout, interval: DateComponents) async throws -> [StatSample] {
+        
+        // Define the heart rate type
+        let heartRateType = HKObjectType.quantityType(forIdentifier: .heartRate)!
+        
+        // Create a predicate to only fetch heart rate samples associated with the workout
+        let workoutPredicate = HKQuery.predicateForObjects(from: workout)
+        
+        // Create a statistics collection query with the specified interval
+        let query = HKStatisticsCollectionQuery(quantityType: heartRateType, quantitySamplePredicate: workoutPredicate, options: [.discreteAverage, .separateBySource], anchorDate: workout.startDate, intervalComponents: interval)
+        
+        // Create a Task to handle the async query
+        return try await withCheckedThrowingContinuation { continuation in
+            query.initialResultsHandler = { query, statisticsCollection, error in
+                if let error = error {
+                    continuation.resume(throwing: error)
+                } else if let statisticsCollection = statisticsCollection {
+                    var samples = [StatSample]()
+                    statisticsCollection.enumerateStatistics(from: workout.startDate, to: workout.endDate) { statistics, _ in
+                        if let quantity = statistics.averageQuantity() {
+                            let heartRateUnit = HKUnit(from: "count/min")
+                            let averageHeartRate = quantity.doubleValue(for: heartRateUnit)
+                            let sample = StatSample(date: statistics.startDate, min: averageHeartRate, max: averageHeartRate)
+                            samples.append(sample)
+                        }
+                    }
+                    continuation.resume(returning: samples)
+                } else {
+                    continuation.resume(throwing: NSError(domain: "com.example", code: 1, userInfo: [NSLocalizedDescriptionKey: "Unable to fetch heart rate samples"]))
+                }
+            }
+            
+            // Execute the query
+            healthStore.execute(query)
+        }
+    }
+    
+    /// Fetches the route the user took on the given workout
+    /// - Parameters:
+    ///   - workout: the wokrout that is being queried
+    func fetchWorkoutRoute(workout: HKWorkout) async throws -> [CLLocation]? {
+        try await withCheckedThrowingContinuation { continuation in
+            fetchWorkouRoute(workout: workout) { (result, error) in
+                if let error = error {
+                    continuation.resume(throwing: error)
+                } else {
+                    continuation.resume(returning: result)
+                }
+            }
+        }
+    }
+    
+    /// Fetches the route the user took on the given workout
+    /// - Parameters:
+    ///   - workout: the wokrout that is being queried
+    ///   - completion: _
+    private func fetchWorkouRoute(workout: HKWorkout, completion: @escaping ([CLLocation]?, Error?) -> Void) {
+        
+        let workoutPredicate = HKQuery.predicateForObjects(from: workout)
+        let routeQuery = HKAnchoredObjectQuery(type: HKSeriesType.workoutRoute(), predicate: workoutPredicate, anchor: nil, limit: HKObjectQueryNoLimit) { (query, samples, deletedObjects, newAnchor, error) in
+            guard error == nil else {
+                completion(nil, error)
+                return
+            }
+            
+            guard let routes = samples as? [HKWorkoutRoute] else {
+                completion(nil, nil)
+                return
+            }
+            
+            var locations: [CLLocation] = []
+            let dispatchGroup = DispatchGroup()
+            
+            for route in routes {
+                dispatchGroup.enter()
+                let locationQuery = HKWorkoutRouteQuery(route: route) { (query, locationResults, done, error) in
+                    guard error == nil else {
+                        dispatchGroup.leave()
+                        return
+                    }
+                    
+                    if let locationResults = locationResults {
+                        
+                        for locationResult in locationResults {
+                            
+                            if locations.isEmpty || locationResult.timestamp.timeIntervalSince(locations.last!.timestamp) > Double(self.sampleInterval.value(for: .second)!) {
+                                
+                                locations.append(locationResult)
+                                
+                            }
+                        }
+                    }
+                    
+                    if done {
+                        dispatchGroup.leave()
+                    }
+                }
+                
+                self.healthStore.execute(locationQuery)
+            }
+            
+            dispatchGroup.notify(queue: .main) {
+                completion(locations, nil)
+            }
+        }
+        
+        healthStore.execute(routeQuery)
+    }
+    
+    // MARK: - Helpers
+    
+    /// attemps to attain authorisation from the user to access their health data
+    /// - Returns: true if the request to authorise with health kit was successfull, false if there was an error
+    func requestAuthorization() {
+        
+        let heartRateType = HKObjectType.quantityType(forIdentifier: .heartRate)!
+        let workoutType = HKObjectType.workoutType()
+        let workoutRouteType = HKSeriesType.workoutRoute()
+        
+        
+        healthStore.requestAuthorization(toShare: nil, read: [heartRateType, workoutType, workoutRouteType]) { (success, error) in
+            if success {
+                // Authorization granted
+                print("Authorization successful")
+            } else {
+                // Handle the error
+                print("Error requesting authorization")
+
+            }
+
+        }
+        
+        
+    }
+    
+    /// caluclates the speed and altitude samples of a ride using the location data
+    /// - Parameter locations: the route data of a ride
+    /// - Returns: a tuple containing and array of speed samples and altituide samples
+    func calculateSpeedAndAltitude(locations: [CLLocation]) -> (speedSamples: [StatSample], altitudeSamples: [StatSample]) {
+        
+        var altitdueData: [StatSample] = []
+        var speedData: [StatSample] = []
+        
+        // get alituide data
+        for location in locations {
+            
+            let altitudeSample = StatSample(date: location.timestamp, min: location.altitude, max: location.altitude)
+            altitdueData.append(altitudeSample)
+        }
+        
+        // get speed data
+        if locations.count != 0 {
+            
+            for i in 0..<locations.count - 1 {
+                
+                let startLocation = locations[i]
+                let endLocation = locations[i + 1]
+                
+                let distance = endLocation.distance(from: startLocation)
+                let timeInterval = endLocation.timestamp.timeIntervalSince(startLocation.timestamp)
+                
+                // calculate average speed
+                let averageSpeed = (distance / timeInterval) * 3.6
+                
+                let speedSample = StatSample(date: locations[i].timestamp, min: averageSpeed, max: averageSpeed)
+                speedData.append(speedSample)
+            }
+        }
+        
+        return (speedData, altitdueData)
+        
+    }
+}

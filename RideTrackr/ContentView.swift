@@ -8,12 +8,14 @@
 import SwiftUI
 import SwiftData
 
+@MainActor
 struct ContentView: View {
 
-    @EnvironmentObject var healthManager: HealthManager
+    @ObservedObject var healthManager: HKManager = HKManager.shared
+    @ObservedObject var dataManager: DataManager = DataManager.shared
     @EnvironmentObject var trendManager: TrendManager
-    @Environment(\.modelContext) private var context
-    @Query private var rides: [Ride]
+//    @Environment(\.modelContext) private var context
+//    @Query private var rides: [Ride]
     @State var showAlert: Bool = true
 
     var body: some View {
@@ -56,7 +58,7 @@ struct ContentView: View {
                     trendManager.heartRateTrends.append(TrendItem(value: ride.heartRate, date: ride.rideDate))
                     trendManager.speedTrends.append(TrendItem(value: ride.speed, date: ride.rideDate))
 
-                    context.insert(ride)
+//                    context.insert(ride)
                 }
             }
         }
@@ -64,53 +66,21 @@ struct ContentView: View {
 
     func initializeRides() {
 
-//        Task {
-//            let rides = await healthManager.syncRides(queryDate: .threeMonthsAgo)
-//
-////            DispatchQueue.main.async {
-//                healthManager.rides = rides
-////            }
-//        }
+
         healthManager.queryingHealthKit = false
         Task {
-
-            // Fetch rides from SwiftData
-            var swiftDataRides = rides
-
-            // Check if there are zero rides in SwiftData
-            if swiftDataRides.count == 0 {
-                // Fetch rides from HealthKit
-                swiftDataRides = await healthManager.syncRides(queryDate: .threeMonthsAgo)
-
-                // Store rides in SwiftData for persistence
-                // Assuming saveRides is a function that saves rides to SwiftData
-                //            saveRides(healthKitRides)
-
-//                DispatchQueue.main.async {
-//                    // Put rides into healthManager rides property
-                healthManager.rides = swiftDataRides
-//                }
-            } else {
-                // If there are already rides in SwiftData
-                // Call each ride's sortArrays function
-//                for index in 0..<swiftDataRides.count {
-//                    let ride = swiftDataRides[index]
-////                    ride.sortArrays()
-//                    swiftDataRides[index].routeData = ride.routeData.sorted(by: { $0.timeStamp < $1.timeStamp })
-//                    swiftDataRides[index].hrSamples = ride.hrSamples.sorted(by: { $0.date < $1.date })
-//                    swiftDataRides[index].speedSamples = ride.speedSamples.sorted(by: { $0.date < $1.date })
-//                    swiftDataRides[index].altitdueSamples = ride.altitdueSamples.sorted(by: { $0.date < $1.date })
-//                }
-
-                // Put rides into healthManager rides property
-                healthManager.rides = swiftDataRides
+            
+            print(dataManager.getAllRides().count)
+            
+            healthManager.rides = await healthManager.getRides(numRides: 5)
+            healthManager.queryingHealthKit = false
+            
+            for ride in healthManager.rides {
+                
+                dataManager.insertRide(ride)
             }
         }
-        healthManager.queryingHealthKit = false
-
-
     }
-
 }
 
 //#Preview {

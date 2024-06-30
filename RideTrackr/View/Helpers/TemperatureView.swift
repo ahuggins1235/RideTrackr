@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@MainActor
 struct TemperatureView: View {
 
     @State var temperature: String

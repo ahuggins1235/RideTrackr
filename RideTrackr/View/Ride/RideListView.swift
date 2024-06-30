@@ -9,82 +9,41 @@ import SwiftUI
 import SwiftData
 import CoreData
 
+@MainActor
 struct RideListView: View {
 
     // MARK: - Properties
     @EnvironmentObject var navigationManager: NavigationManager
-    @EnvironmentObject var healthManager: HealthManager
+    @ObservedObject var healthManager: HKManager = HKManager.shared
+    @ObservedObject var dataManager: DataManager = DataManager.shared
     @State var dateFilter = Date()
     @Environment(\.modelContext) private var context
-    @Query(sort: \Ride.rideDate, order: .reverse) var rides: [Ride]
+//    @Query(sort: \Ride.rideDate, order: .reverse) var rides: [Ride]
 
-   
+
     // MARK: - Body
     var body: some View {
 
         NavigationStack(path: $navigationManager.rideListNavPath) {
 
-            List {
-                
-                ForEach(rides) { ride in
-                    
-                    NavigationLink(value: ride) {
-                        RideRowView(ride: ride)
+            VStack {
+                List {
+
+                    ForEach(dataManager.rides) { ride in
+
+                        NavigationLink(value: ride) {
+                            RideRowView(ride: ride)
+                        }
                     }
                 }
-                
-//                if healthManager.rides.count > 0 {
-//                    
-//                    if healthManager.thisWeekRides.count != 0 {
-//                        Section("This Week") {
-//
-//                            ForEach(healthManager.thisWeekRides) { ride in
-//                                NavigationLink(value: ride) {
-//                                    RideRowView(ride: ride)
-//                                }
-//                            }
-//                        }
-//                    } else {
-//                        Text("No rides found this week")
-//                    }
-//
-//
-//                    if healthManager.thisMonthRide.count != 0 {
-//                        Section("This Month") {
-//                            ForEach (healthManager.thisMonthRide) { ride in
-//
-//                                NavigationLink(value: ride) {
-//                                    RideRowView(ride: ride)
-//                                }
-//                            }
-//                        }
-//                    } else {
-//                        Text("No ride found this month")
-//                    }
-//
-//                    Section("Older") {
-//                        
-//                        
-//                        ForEach (healthManager.rides.filter { ride in
-//                            let calendar = Calendar.current
-//                            let today = Date()
-//                            let startOfMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: calendar.startOfDay(for: today)))!
-//
-//                            return ride.rideDate < startOfMonth
-//
-//                        }) { ride in
-//                            NavigationLink(value: ride) {
-//                                RideRowView(ride: ride)
-//                            }
-//                        }
-//
-//                    }
-//                } else {
-//                    Text("No rides found ☹️")
-//                }
-            }
-                .navigationDestination(for: Ride.self) { ride in
-                RideDetailView(ride: ride)
+                    .navigationDestination(for: Ride.self) { ride in
+                    RideDetailView(ride: ride)
+                }
+                Button {
+                    dataManager.insertRide(healthManager.rides.first!)
+                } label: {
+                    Text("Add Ride to DB")
+                }
 
             }
                 .toolbar {
@@ -104,6 +63,7 @@ struct RideListView: View {
                 .navigationTitle("Your Rides")
                 .toolbar {
             }
+
 
         }
 

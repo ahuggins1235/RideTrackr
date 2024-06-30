@@ -17,7 +17,8 @@ enum ApplicationTab: String, CaseIterable, Identifiable {
     
 
     var id: ApplicationTab { self }
-
+    
+    @MainActor
     var destination: AnyView {
         switch self {
         case .Home:

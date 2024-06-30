@@ -15,7 +15,8 @@ struct LargeRidePreview: View {
     @Binding var ride: Ride
     @State var showDate = true
     @Binding var queryingHealthKit: Bool
-
+    
+ 
     var body: some View {
 
         ZStack {
@@ -83,6 +84,7 @@ struct LargeRidePreview: View {
 }
 
 // MARK: - Ride stat card view
+
 struct RideStatCardView: View {
 
     @State var color: Color
@@ -142,6 +144,7 @@ struct RideStatCardView: View {
     ///   - num1: The first number
     ///   - num2: The second number
     /// - Returns: The difference between the two numbers expressed as a percentage of the first number.
+    
     func GetDifferenceFromAverage(_ num1: Double, _ num2: Double) -> Double {
         let difference = num2 - num1
         let percentageDifference = (difference / num1) * 100
@@ -150,6 +153,7 @@ struct RideStatCardView: View {
 }
 
 // MARK: - Stat difference Arrow
+@MainActor
 struct StatDifferenceArrow: View {
 
     @State var color: Color
@@ -161,10 +165,6 @@ struct StatDifferenceArrow: View {
         ZStack {
 
             switch data {
-//
-//                case 0: {
-//
-//                }
 
             case let x where x > 10:
 

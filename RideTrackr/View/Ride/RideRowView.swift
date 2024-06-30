@@ -8,6 +8,7 @@
 import SwiftUI
 import MapKit
 
+@MainActor
 struct RideRowView: View {
 
     //MARK:  - properties

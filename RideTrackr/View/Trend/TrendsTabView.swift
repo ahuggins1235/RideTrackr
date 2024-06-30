@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@MainActor
 struct TrendsTabView: View {
 
     @EnvironmentObject var navigationManager: NavigationManager

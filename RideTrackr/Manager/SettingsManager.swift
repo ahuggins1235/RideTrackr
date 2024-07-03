@@ -8,7 +8,11 @@
 import Foundation
 import SwiftUI
 
+
+/// handles the settings of the app
 class SettingsManager: ObservableObject {
+    
+    public static var shared = SettingsManager()
     
     @AppStorage("distanceUnit") var distanceUnit: DistanceUnit = Locale.current.measurementSystem == Locale.MeasurementSystem.metric ? DistanceUnit.Metric : DistanceUnit.Imperial
     @AppStorage("energyUnit") var energyUnit: EnergyUnit = Locale.current.measurementSystem == Locale.MeasurementSystem.metric ? EnergyUnit.Kilojule : EnergyUnit.Calorie

@@ -10,7 +10,7 @@ import SwiftUI
 struct RideTrackrTabView: View {
     
     // MARK: - Properties
-    @EnvironmentObject var navigationManager: NavigationManager
+    @ObservedObject var navigationManager: NavigationManager = .shared
     
     // MARK: - Body
     var body: some View {
@@ -21,13 +21,10 @@ struct RideTrackrTabView: View {
                 applicationTab.destination.tabItem { applicationTab.label }.tag(applicationTab.rawValue)
             }
         }
-        
-        
     }
 }
 
 // MARK: - Previews
 #Preview {
     RideTrackrTabView()
-        .environmentObject(NavigationManager())
 }

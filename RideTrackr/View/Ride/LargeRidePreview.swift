@@ -10,12 +10,11 @@ import SwiftUI
 struct LargeRidePreview: View {
 
     // MARK: - Properties
-    @EnvironmentObject var trendManager: TrendManager
-//    @EnvironmentObject var manager: HealthManager
+    @ObservedObject var trendManager: TrendManager = .shared
     @Binding var ride: Ride
     @State var showDate = true
     @Binding var queryingHealthKit: Bool
-    
+
  
     var body: some View {
 
@@ -61,9 +60,6 @@ struct LargeRidePreview: View {
 
                             ProgressView("Loading")
                                 .ignoresSafeArea()
-
-
-
                         }
                     }
                 }
@@ -75,7 +71,7 @@ struct LargeRidePreview: View {
 
 //MARK: - Previews
 #Preview {
-    @State var previewRide = PreviewRide
+    @Previewable @State var previewRide = PreviewRide
     return LargeRidePreview(ride: $previewRide, queryingHealthKit: .constant(false)).environmentObject(TrendManager())
 }
 
@@ -144,7 +140,6 @@ struct RideStatCardView: View {
     ///   - num1: The first number
     ///   - num2: The second number
     /// - Returns: The difference between the two numbers expressed as a percentage of the first number.
-    
     func GetDifferenceFromAverage(_ num1: Double, _ num2: Double) -> Double {
         let difference = num2 - num1
         let percentageDifference = (difference / num1) * 100

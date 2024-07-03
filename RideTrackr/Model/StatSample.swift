@@ -8,7 +8,6 @@
 import Foundation
 
 /// represents a sample recorded during a workout
-
 struct StatSample: Identifiable, Codable {
     let id: UUID
     

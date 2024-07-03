@@ -15,13 +15,11 @@ struct HomeView: View {
     // MARK: - Properties
     @ObservedObject var healthManager: HKManager = HKManager.shared
     @ObservedObject var dataManager: DataManager = DataManager.shared
-    @EnvironmentObject var navigationManager: NavigationManager
-    @EnvironmentObject var trendManager: TrendManager
-    @EnvironmentObject var settingsManager: SettingsManager
+    @ObservedObject var navigationManager: NavigationManager = NavigationManager.shared
+    @ObservedObject var trendManager: TrendManager = TrendManager.shared
+    @ObservedObject var settingsManager: SettingsManager = SettingsManager.shared
 
-    @Environment(\.modelContext) private var context
     @Namespace private var namespace
-//    @Query(sort: \Ride.rideDate, order: .reverse) var rides: [Ride]
 
     private var greetingString: String {
         return GetGreetingString()
@@ -35,54 +33,7 @@ struct HomeView: View {
                 VStack(alignment: .leading) {
 
                     // MARK: - stat views
-                    LazyVGrid(columns: Array(repeating: GridItem(spacing: 20), count: 2)) {
-
-                        HomeStatCardView(
-                            bgColor: .heartRate,
-                            title: "Average Heart Rate",
-                            icon: "heart.fill",
-                            data: Binding(get: { "\(String(format: "%.0f", trendManager.currentAverageHeartRate)) BMP" })
-                        )
-                            .onTapGesture {
-                            navigationManager.selectedTrendsTab = .HeartRate
-                            navigationManager.selectedTab = .Trends
-                        }
-
-                        HomeStatCardView(
-                            bgColor: .speed,
-                            title: "Average Speed",
-                            icon: "speedometer",
-                            data: Binding(get: { "\((trendManager.currentAverageSpeed * settingsManager.distanceUnit.distanceConversion).rounded()) \(settingsManager.distanceUnit.speedAbr)" })
-                        )
-                            .onTapGesture {
-                            navigationManager.selectedTrendsTab = .Speed
-                            navigationManager.selectedTab = .Trends
-                        }
-
-                        HomeStatCardView(
-                            bgColor: .distance,
-                            title: "Average Distance",
-                            icon: "figure.outdoor.cycle",
-                            data: Binding (get: { "\((trendManager.currentAverageDistance * settingsManager.distanceUnit.distanceConversion).rounded()) \(settingsManager.distanceUnit.distAbr)" })
-                        )
-                            .onTapGesture {
-                            navigationManager.selectedTrendsTab = .Distance
-                            navigationManager.selectedTab = .Trends
-                        }
-
-                        HomeStatCardView(
-                            bgColor: .energy,
-                            title: "Average Active Energy",
-                            icon: "flame.fill",
-                            data: Binding (get: { "\((trendManager.currentAverageEnergy * settingsManager.energyUnit.conversionValue).rounded()) \(settingsManager.energyUnit.abr)" })
-                        )
-                            .onTapGesture {
-                            navigationManager.selectedTrendsTab = .Energy
-                            navigationManager.selectedTab = .Trends
-                        }
-
-
-                    }
+                    TrendPreviewView()
 
 
                     // MARK: - recent ride preview
@@ -104,11 +55,10 @@ struct HomeView: View {
 
                         if let recentRide = dataManager.rides.first {
 
-
                             NavigationLink(value: recentRide) {
                                 LargeRidePreview(ride: Binding(get: { recentRide }), queryingHealthKit: $healthManager.queryingHealthKit)
-                                    
-                                    .matchedTransitionSource(id: "preview", in: namespace)
+
+//                                    .matchedTransitionSource(id: "preview", in: namespace)
                             }.foregroundStyle(Color.primary)
 
                         } else {
@@ -117,46 +67,25 @@ struct HomeView: View {
                     }
                         .padding(.top)
 
-
                     // MARK: - recent ride cards
-
-
                     RecentRidesCardList()
                         .frame(height: 300)
 
-
                 }.padding(.horizontal)
-
-                // MARK: - toolbar
-                .toolbar {
-
-                    ToolbarItemGroup(placement: .topBarTrailing) {
-                        Button {
-                            Task {
-
-//                                try! context.delete(model: Ride.self)
-                                let syncedRides = await healthManager.getRides(numRides: 5)
-//                                syncedRides.forEach { $0.sortArrays() }
-                                healthManager.rides = syncedRides
-                                
-                                
-                                
-                            }
-                        } label: {
-                            Label("Sync", systemImage: "arrow.triangle.2.circlepath")
-                        }
-                        
-//                        Button("Test") {
-////                            healthManager.testsdsf()
-//                            NotificationManager.shared.sendNotificaiton()
-//                        }
-                    }
-                }
-                    .navigationTitle(greetingString)
+                .navigationTitle(greetingString)
             }
-                .navigationDestination(for: Ride.self) { ride in
+            .navigationDestination(for: Ride.self) { ride in
                 RideDetailView(ride: ride)
-                        .navigationTransition(.zoom(sourceID: "preview", in: namespace))
+            }
+            
+            .refreshable {
+//                healthManager.queryingHealthKit = true
+                withAnimation {
+                    dataManager.refreshRides()
+                }
+                    
+//                healthManager.queryingHealthKit = false
+                
             }
         }
     }
@@ -180,9 +109,6 @@ func GetGreetingString() -> String {
 
 // MARK: - Previews
 #Preview("Home View") {
-    HomeView().environmentObject(HealthManager())
-        .environmentObject(TrendManager())
-        .environmentObject(SettingsManager())
-        .environmentObject(NavigationManager())
+    HomeView()
 }
 

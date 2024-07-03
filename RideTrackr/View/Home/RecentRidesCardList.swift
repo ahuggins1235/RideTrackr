@@ -14,10 +14,8 @@ struct RecentRidesCardList: View {
 
     @ObservedObject var healthManager: HKManager = .shared
     @ObservedObject var dataManager: DataManager = .shared
-    @EnvironmentObject var navigationManager: NavigationManager
+    @ObservedObject var navigationManager: NavigationManager = .shared
     @State var currentRide = UUID()
-    @Environment(\.modelContext) var context
-//    @Query(sort: \Ride.rideDate, order: .reverse) var rides: [Ride]
 
     var body: some View {
 
@@ -81,9 +79,10 @@ struct RecentRidesCardList: View {
                     }
                     // set the idicator to the second ride
                     .onAppear {
-
-                        currentRide = dataManager.rides[1].id
-
+                        
+                        if dataManager.rides.count >= 2 {
+                            currentRide = dataManager.rides[1].id
+                        }
                     }
                 } else {
                     Text("No recent rides found")
@@ -101,7 +100,7 @@ struct RecentRidesCardList: View {
 
 
 #Preview {
-    RecentRidesCardList().environmentObject(HealthManager()).environmentObject(NavigationManager()).padding()
+    RecentRidesCardList().padding()
 }
 
 struct RideCardPreview: View {

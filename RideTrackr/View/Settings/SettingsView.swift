@@ -11,8 +11,9 @@ import Foundation
 @MainActor
 struct SettingsView: View {
     
-    @EnvironmentObject var settingsManager: SettingsManager
-    
+    @ObservedObject var settingsManager: SettingsManager = .shared
+    @ObservedObject var dataManager: DataManager = .shared
+    @State var showResyncAlert = false
     
     var body: some View {
 
@@ -23,7 +24,7 @@ struct SettingsView: View {
                     Picker("Distance", selection: $settingsManager.distanceUnit) {
                         
                         ForEach(DistanceUnit.allCases) { unit in
-                            Text("\(unit.rawValue)  (\(unit.distAbr)/\(unit.smallDistanceAbr)").tag(unit.rawValue)
+                            Text("\(unit.rawValue)  (\(unit.distAbr)/\(unit.smallDistanceAbr))").tag(unit.rawValue)
                         }
                     }
                     
@@ -32,17 +33,32 @@ struct SettingsView: View {
                         ForEach(EnergyUnit.allCases) { unit in
                             Text("\(unit.rawValue)  (\(unit.abr))").tag(unit.rawValue)
                         }
-                        
+                    }
+                    
+                    Text("Cadence or speed")
+                }
+                
+                Section("Data") {
+                    
+                    Button("Resync Data With Apple Health") {
+                        showResyncAlert.toggle()
+                    }
+                    .alert("Resync With Apple Health", isPresented: $showResyncAlert) {
+                        Button("Cancel", role: .cancel) {}
+                        Button("Sync") {
+                            DataManager.shared.reyncData()
+                        }
+                    } message: {
+                        Text("This will reset RideTrackr's database and resync it with Apple Health. Are you sure?")
                     }
                 }
             }.navigationTitle("Settings")
         }
-
     }
 }
 
 #Preview {
-    SettingsView().environmentObject(SettingsManager())
+    SettingsView()
 }
 
 

@@ -15,13 +15,13 @@ struct RideDetailView: View {
     // MARK: - Properties
     @State var ride: Ride = Ride()
     @Environment(\.displayScale) private var displayScale: CGFloat
-    @EnvironmentObject var trendManager: TrendManager
+    @ObservedObject var trendManager: TrendManager = .shared
     @AppStorage("distanceUnit") private var distanceUnit: DistanceUnit = .Metric
 
     @MainActor
     private func generateSharingImage() -> Image {
 
-        let renderer = ImageRenderer(content: RideShareView(ride: ride).environmentObject(trendManager))
+        let renderer = ImageRenderer(content: RideShareView(ride: ride))
 
         renderer.scale = displayScale
 

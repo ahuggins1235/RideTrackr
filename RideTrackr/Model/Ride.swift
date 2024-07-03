@@ -12,12 +12,11 @@ import MapKit
 import SwiftUI
 import FMDB
 
-
+/// Represents a ride the user recorded
 struct Ride: Identifiable, Hashable, Sendable, Decodable {
 
     // MARK: - Base properties
     var id = UUID()
-
     /// the average heart rate recorded for this ride
     var heartRate: Double = 0
     /// the average speed recorded for this ride
@@ -42,8 +41,6 @@ struct Ride: Identifiable, Hashable, Sendable, Decodable {
     var altitdueSamples: [StatSample] = []
     /// the speed data of this ride
     var speedSamples: [StatSample] = []
-
-
 
     // MARK: - Inits
 
@@ -141,7 +138,9 @@ struct Ride: Identifiable, Hashable, Sendable, Decodable {
 
     }
 
+    /// used for creating  a ride from an ``FMResultSet``
     init?(from result: FMResultSet) {
+
 
         if let id = result.string(forColumn: "id") {
             self.id = UUID(uuidString: id)!
@@ -150,7 +149,12 @@ struct Ride: Identifiable, Hashable, Sendable, Decodable {
             self.distance = result.double(forColumn: "distance")
             self.activeEnergy = result.double(forColumn: "activeEnergy")
             self.altitudeGained = result.double(forColumn: "altitudeGained")
-            self.rideDate = DateFormatter().date(from: result.string(forColumn: "rideDate")!)!
+            if let test = result.string(forColumn: "rideDate") {
+                if let timestamp = Double(test) {
+                    let date = Date(timeIntervalSince1970: timestamp)
+                    self.rideDate = date
+                }
+            }
             self.duration = result.double(forColumn: "duration")
             self.temperature = result.double(forColumn: "temperature")
 
@@ -158,17 +162,17 @@ struct Ride: Identifiable, Hashable, Sendable, Decodable {
                 let decodedRouteData = try! JSONDecoder().decode([PersistentLocation].self, from: routeData)
                 self.routeData = decodedRouteData
             }
-            
+
             if let hrSamples = result.data(forColumn: "hrSamples") {
                 let decodedHRSamples = try! JSONDecoder().decode([StatSample].self, from: hrSamples)
                 self.hrSamples = decodedHRSamples
             }
-            
-            if let altitudeSamples = result.data(forColumn: "altitudeSamples") {
+
+            if let altitudeSamples = result.data(forColumn: "altitdueSamples") {
                 let decodedAltitudeSamples = try! JSONDecoder().decode([StatSample].self, from: altitudeSamples)
                 self.altitdueSamples = decodedAltitudeSamples
             }
-            
+
             if let speedSamples = result.data(forColumn: "speedSamples") {
                 let decodedSpeedSamples = try! JSONDecoder().decode([StatSample].self, from: speedSamples)
                 self.speedSamples = decodedSpeedSamples
@@ -178,8 +182,48 @@ struct Ride: Identifiable, Hashable, Sendable, Decodable {
         }
     }
 
-    // MARK: - Hashable Conformance
+    // MARK: - Helpers
+    func getDBValues() throws -> [Any] {
 
+        var values: [Any] = []
+
+        do {
+
+            let routeDataData = try JSONEncoder().encode(self.routeData)
+            let routeDataBlob = NSData(data: routeDataData)
+
+            let hrSamplesData = try JSONEncoder().encode(self.hrSamples)
+            let hrSamplesBlob = NSData(data: hrSamplesData)
+
+            let altitudeSamplesData = try JSONEncoder().encode(self.altitdueSamples)
+            let altitudeSamplesBlob = NSData(data: altitudeSamplesData)
+
+            let speedSamplesData = try JSONEncoder().encode(self.speedSamples)
+            let speedSamplesBlob = NSData(data: speedSamplesData)
+
+            values = [
+                self.id,
+                self.heartRate,
+                self.speed,
+                self.distance,
+                self.activeEnergy,
+                self.altitudeGained,
+                self.rideDate,
+                self.duration,
+                self.temperature!,
+                routeDataBlob,
+                hrSamplesBlob,
+                altitudeSamplesBlob,
+                speedSamplesBlob
+            ]
+        } catch {
+            throw error
+        }
+
+        return values
+    }
+
+    // MARK: - Hashable Conformance
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
@@ -187,57 +231,43 @@ struct Ride: Identifiable, Hashable, Sendable, Decodable {
     static func == (lhs: Ride, rhs: Ride) -> Bool {
         return lhs.id == rhs.id
     }
-
-    // MARK: - functions
-
-//    /// sorts the routeData, hrSamples, speedSamples and altitudeSamples arrays by their time properties.
-//    /// Used because of swiftdata complications
-//    func sortArrays() {
-//
-//        self.routeData = self.routeData.sorted(by: { $0.timeStamp < $1.timeStamp })
-//        self.hrSamples = self.hrSamples.sorted(by: { $0.date < $1.date })
-//        self.speedSamples = self.speedSamples.sorted(by: { $0.date < $1.date })
-//        self.altitdueSamples = self.altitdueSamples.sorted(by: { $0.date < $1.date })
-//
-//    }
-
 }
 
 extension Ride {
 
     // MARK: - computed properties
 
-    @Transient var sortedRouteData: [PersistentLocation] {
+    public var sortedRouteData: [PersistentLocation] {
         return routeData.sorted(by: { $0.timeStamp < $1.timeStamp })
     }
 
-    @Transient var sortedHRSamples: [StatSample] {
+    public var sortedHRSamples: [StatSample] {
         return hrSamples.sorted(by: { $0.date < $1.date })
     }
 
-    @Transient var sortedAltitudeSamples: [StatSample] {
+    public var sortedAltitudeSamples: [StatSample] {
         return altitdueSamples.sorted(by: { $0.date < $1.date })
     }
 
-    @Transient var sortedSpeedSamples: [StatSample] {
+    public var sortedSpeedSamples: [StatSample] {
         return speedSamples.sorted(by: { $0.date < $1.date })
     }
 
-    @Transient var heartRateString: String {
+    public var heartRateString: String {
         return String(format: "%.0f", heartRate) + " BMP"
     }
 
-    @Transient var speedString: String {
+    public var speedString: String {
         @AppStorage("distanceUnit") var distanceUnit: DistanceUnit = .Metric
         return String(format: "%.1f", speed * distanceUnit.distanceConversion) + " \(distanceUnit.speedAbr)"
     }
 
-    @Transient var distanceString: String {
+    public var distanceString: String {
         @AppStorage("distanceUnit") var distanceUnit: DistanceUnit = .Metric
         return String(format: "%.2f", distance * distanceUnit.distanceConversion) + " \(distanceUnit.distAbr)"
     }
 
-    @Transient var activeEnergyString: String {
+    public var activeEnergyString: String {
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .decimal
         numberFormatter.maximumFractionDigits = 0
@@ -246,7 +276,7 @@ extension Ride {
         return numberFormatter.string (from: NSNumber(value: activeEnergy * energyUnit.conversionValue))! + " \(energyUnit.abr)"
     }
 
-    @Transient var durationString: String {
+    public var durationString: String {
 
         let formatter = DateComponentsFormatter()
         formatter.unitsStyle = .positional
@@ -256,21 +286,23 @@ extension Ride {
         return formatter.string(from: duration)!
     }
 
-    @Transient var alitudeString: String {
+    public var alitudeString: String {
         @AppStorage("distanceUnit") var distanceUnit: DistanceUnit = .Metric
         return String(format: "%.1f", altitudeGained * distanceUnit.smallDistanceConversion) + " \(distanceUnit.smallDistanceAbr)"
     }
 
-    @Transient var dateString: String {
+    public var dateString: String {
+
+        let yearString: String = Date.areDatesAYearApart(rideDate, Date()) ? "YYYY" : ""
 
         let dateFormatter = DateFormatter()
 
-        dateFormatter.dateFormat = "E, d'\(dateFormatter.ordinalSuffix(for: dateFormatter.calendar.component(.day, from: rideDate)))' MMM h:mma"
+        dateFormatter.dateFormat = "E, d'\(dateFormatter.ordinalSuffix(for: dateFormatter.calendar.component(.day, from: rideDate)))' MMM \(yearString) h:mma"
         return dateFormatter.string(from: rideDate)
     }
 
 
-    @Transient var shortDateString: String {
+    public var shortDateString: String {
 
         let dateFormatter = DateFormatter()
 
@@ -278,7 +310,7 @@ extension Ride {
         return dateFormatter.string(from: rideDate)
     }
 
-    @Transient var temperatureString: String {
+    public var temperatureString: String {
 
         // set up a temperature formater
         let temperatureFormatter = MeasurementFormatter()

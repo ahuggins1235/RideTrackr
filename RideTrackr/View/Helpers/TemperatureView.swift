@@ -16,17 +16,11 @@ struct TemperatureView: View {
 
         if !temperature.isEmpty {
             
-//            ZStack {
-
-//                RoundedRectangle(cornerRadius: 15, style: .continuous)
-//                    .foregroundStyle(.ultraThickMaterial)
-
                 Text(temperature)
                     .foregroundStyle(.gray)
                     .padding(5)
                     .background(RoundedRectangle(cornerRadius: 10, style: .continuous).foregroundStyle(.ultraThickMaterial))
 
-//            }
         }
     }
 }

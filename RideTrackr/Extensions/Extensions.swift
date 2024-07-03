@@ -23,6 +23,22 @@ extension Binding {
 
 extension Date {
     
+    
+    /// Checks if two dates are more than a year apart
+    /// - Parameters:
+    ///   - date1: The first date to check
+    ///   - date2: The second date to check
+    /// - Returns: True if the two dates are more than a year apart, false if they are not
+    static func areDatesAYearApart(_ date1: Date, _ date2: Date) -> Bool {
+        
+        let components = Calendar.current.dateComponents([.month], from: date1, to: date2)
+        
+        if let months = components.month {
+            return abs(months) >= 12
+        }
+        return false
+    }
+    
     /// gets the start of the current day
     static var startOfDay: Date {
         Calendar.current.startOfDay(for: Date())
@@ -131,70 +147,6 @@ extension MKCoordinateRegion {
     }
 }
 
-// Define a custom value transformer for [CLLocation]
-@objc(CLLocationArrayTransformer)
-public class CLLocationArrayTransformer: ValueTransformer {
-    // Convert [CLLocation] to string
-    public override func transformedValue(_ value: Any?) -> Any? {
-        guard let locations = value as? [CLLocation] else { return nil }
-        return locations.map { "\($0.coordinate.latitude),\($0.coordinate.longitude)" }.joined(separator: ";")
-    }
-    
-    public override func reverseTransformedValue(_ value: Any?) -> Any? {
-        guard let string = value as? String else { return nil }
-        let components = string.components(separatedBy: ";")
-        return components.compactMap { component -> CLLocation? in
-            let subcomponents = component.components(separatedBy: ",")
-            guard let latitude = Double(subcomponents[0]), let longitude = Double(subcomponents[1]) else { return nil }
-            return CLLocation(latitude: latitude, longitude: longitude)
-        }
-    }
-    // Convert string to [CLLocation]
-//    public override func reverseTransformedValue(_ value: Any?) -> Any? {
-////        guard let string = value as? String else { return nil }
-////        let components = string.components(separatedBy: ";")
-////        return components.map { component -> CLLocation in
-////            let subcomponents = component.components(separatedBy: ",")
-////            guard let latitude = Double(subcomponents[0]), let longitude = Double(subcomponents[1]) else { return CLLocation() }
-////            return CLLocation(latitude: latitude, longitude: longitude)
-////        }
-//        return [CLLocation()]
-//    }
-    
-    override public class func allowsReverseTransformation() -> Bool {
-        return true
-    }
-}
-
-
-struct PersistentLocation: Identifiable, Hashable, Codable {
-    
-    var id = UUID()
-    var latitude: Double
-    var longitude: Double
-    var timeStamp: Date
-    
- 
-    init(location: CLLocation) {
-        self.latitude = location.coordinate.latitude
-        self.longitude = location.coordinate.longitude
-        self.timeStamp = location.timestamp
-    }
-    
-    init(id: UUID = UUID(), latitude: Double, longitude: Double, timeStamp: Date) {
-        self.id = id
-        self.latitude = latitude
-        self.longitude = longitude
-        self.timeStamp = timeStamp
-    }
-
-    func toCLLocation() -> CLLocation {
-        return CLLocation(coordinate: CLLocationCoordinate2D(latitude: self.latitude, longitude: self.longitude), altitude: 0, horizontalAccuracy: 0, verticalAccuracy: 0, timestamp: self.timeStamp)
-    }
-}
-
-
-
 extension DateFormatter {
     
     /// Returns an ordinal suffix to depending on what day of the month is passed in
@@ -214,8 +166,6 @@ extension DateFormatter {
 }
 
 extension HKWorkout {
-    
-    nonisolated(unsafe) static let emptyWorkout = HKWorkout(activityType: .cycling, start: Date(), end: Date())
-    
+    static let emptyWorkout = HKWorkout(activityType: .cycling, start: Date(), end: Date())
 }
 

@@ -7,9 +7,10 @@
 
 import SwiftUI
 
+@MainActor
 struct TrendsTabView: View {
 
-    @EnvironmentObject var navigationManager: NavigationManager
+    @ObservedObject var navigationManager: NavigationManager = .shared
 
     var body: some View {
 
@@ -49,5 +50,5 @@ struct TrendsTabView: View {
 }
 
 #Preview {
-    TrendsTabView().environmentObject(NavigationManager()).environmentObject(TrendManager())
+    TrendsTabView()
 }

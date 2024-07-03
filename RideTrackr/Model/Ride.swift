@@ -10,13 +10,13 @@ import SwiftData
 import HealthKit
 import MapKit
 import SwiftUI
+import FMDB
 
-
-class Ride: ObservableObject, Identifiable, Hashable {
+/// Represents a ride the user recorded
+struct Ride: Identifiable, Hashable, Sendable, Decodable {
 
     // MARK: - Base properties
     var id = UUID()
-
     /// the average heart rate recorded for this ride
     var heartRate: Double = 0
     /// the average speed recorded for this ride
@@ -29,74 +29,18 @@ class Ride: ObservableObject, Identifiable, Hashable {
     var altitudeGained: Double = 0
     /// when this ride started
     var rideDate: Date = Date()
-    /// the hkworkout this ride is based upon
-    var hkWorkout: HKWorkout = HKWorkout.emptyWorkout
     /// the duration of this ride
     var duration: TimeInterval = 0
+    /// the temperature recorded during this ride
+    var temperature: Double? = 0
+    /// the location data of the route of this ride
+    var routeData: [PersistentLocation] = []
     /// the heart rate data recorded for this ride
     var hrSamples: [StatSample] = []
-    /// the location data of the route of this ride
-    var routeData: [CLLocation] = []
     /// the alititude data of this ride
     var altitdueSamples: [StatSample] = []
     /// the speed data of this ride
     var speedSamples: [StatSample] = []
-    
-    @AppStorage("distanceUnit") private var distanceUnit: DistanceUnit = .Kilometer
-    @AppStorage("energyUnit") private var energyUnit: EnergyUnit = .Kilojule
-
-
-
-    // MARK: - computed properties
-    var heartRateString: String {
-        return String(format: "%.0f", heartRate) + " BMP"
-    }
-
-    var speedString: String {
-        return String(format: "%.1f", speed * distanceUnit.conversionValue) + " \(distanceUnit.abr)/H"
-    }
-
-    var distanceString: String {
-        return String(format: "%.2f", distance * distanceUnit.conversionValue) + " \(distanceUnit.abr)"
-    }
-
-    var activeEnergyString: String {
-        let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = .decimal
-        numberFormatter.maximumFractionDigits = 0
-
-        return numberFormatter.string (from: NSNumber(value: activeEnergy * energyUnit.conversionValue))! + " \(energyUnit.abr)"
-    }
-
-    var durationString: String {
-
-        let formatter = DateComponentsFormatter()
-        formatter.unitsStyle = .positional
-        formatter.zeroFormattingBehavior = .pad
-        formatter.allowedUnits = [.hour, .minute, .second]
-
-        return formatter.string(from: duration)!
-    }
-
-    var alitudeString: String {
-        return String(format: "%.1f", altitudeGained) + "m"
-    }
-
-    var dateString: String {
-
-        let dateFormatter = DateFormatter()
-
-        dateFormatter.dateFormat = "E, d'\(dateFormatter.ordinalSuffix(for: dateFormatter.calendar.component(.day, from: rideDate)))' MMM h:mma"
-        return dateFormatter.string(from: rideDate)
-    }
-
-    var shortDateString: String {
-
-        let dateFormatter = DateFormatter()
-
-        dateFormatter.dateFormat = "E, d'\(dateFormatter.ordinalSuffix(for: dateFormatter.calendar.component(.day, from: rideDate)))' MMM"
-        return dateFormatter.string(from: rideDate)
-    }
 
     // MARK: - Inits
 
@@ -109,10 +53,11 @@ class Ride: ObservableObject, Identifiable, Hashable {
         duration: TimeInterval = 0,
         altitudeGained: Double = 0,
         rideDate: Date = Date(),
+        temperature: Double = 0,
         hrSamples: [StatSample] = [],
-        routeData: [CLLocation] = [],
+        routeData: [PersistentLocation] = [],
         altitdueSamples: [StatSample] = [],
-         speedSamples: [StatSample] = []
+        speedSamples: [StatSample] = []
     ) {
         self.id = id
         self.heartRate = heartRate
@@ -122,6 +67,7 @@ class Ride: ObservableObject, Identifiable, Hashable {
         self.duration = duration
         self.altitudeGained = altitudeGained
         self.rideDate = rideDate
+        self.temperature = temperature
         self.hrSamples = hrSamples
         self.routeData = routeData
         self.altitdueSamples = altitdueSamples
@@ -132,7 +78,7 @@ class Ride: ObservableObject, Identifiable, Hashable {
     init(workout: HKWorkout,
         averageHeartRate: Double,
         hrSamples: [StatSample] = [],
-        routeData: [CLLocation] = [],
+        routeData: [PersistentLocation] = [],
         altitdueSamples: [StatSample] = [],
         speedSamples: [StatSample] = []
     ) {
@@ -146,7 +92,6 @@ class Ride: ObservableObject, Identifiable, Hashable {
         for (quantityType, statistic) in activeEnergyStatistics {
 
             switch quantityType {
-                // print hello
 
                 // active energy
             case HKObjectType.quantityType(forIdentifier: .activeEnergyBurned):
@@ -169,6 +114,10 @@ class Ride: ObservableObject, Identifiable, Hashable {
 
                 workoutAlitudeGained = workoutElevation.doubleValue(for: HKUnit.meter())
             }
+
+            if let quantityTemperature = workoutMetadata[HKMetadataKeyWeatherTemperature] as? HKQuantity {
+                self.temperature = quantityTemperature.doubleValue(for: HKUnit.degreeCelsius())
+            }
         }
 
         // calculate averaege speed by dividing distance by time
@@ -183,15 +132,98 @@ class Ride: ObservableObject, Identifiable, Hashable {
         self.altitudeGained = workoutAlitudeGained
         self.rideDate = workout.startDate
         self.hrSamples = hrSamples
-        self.hkWorkout = workout
         self.routeData = routeData
         self.altitdueSamples = altitdueSamples
         self.speedSamples = speedSamples
 
     }
 
-    // MARK: - Hashable Conformance
+    /// used for creating  a ride from an ``FMResultSet``
+    init?(from result: FMResultSet) {
 
+
+        if let id = result.string(forColumn: "id") {
+            self.id = UUID(uuidString: id)!
+            self.heartRate = result.double(forColumn: "heartRate")
+            self.speed = result.double(forColumn: "speed")
+            self.distance = result.double(forColumn: "distance")
+            self.activeEnergy = result.double(forColumn: "activeEnergy")
+            self.altitudeGained = result.double(forColumn: "altitudeGained")
+            if let test = result.string(forColumn: "rideDate") {
+                if let timestamp = Double(test) {
+                    let date = Date(timeIntervalSince1970: timestamp)
+                    self.rideDate = date
+                }
+            }
+            self.duration = result.double(forColumn: "duration")
+            self.temperature = result.double(forColumn: "temperature")
+
+            if let routeData = result.data(forColumn: "routeData") {
+                let decodedRouteData = try! JSONDecoder().decode([PersistentLocation].self, from: routeData)
+                self.routeData = decodedRouteData
+            }
+
+            if let hrSamples = result.data(forColumn: "hrSamples") {
+                let decodedHRSamples = try! JSONDecoder().decode([StatSample].self, from: hrSamples)
+                self.hrSamples = decodedHRSamples
+            }
+
+            if let altitudeSamples = result.data(forColumn: "altitdueSamples") {
+                let decodedAltitudeSamples = try! JSONDecoder().decode([StatSample].self, from: altitudeSamples)
+                self.altitdueSamples = decodedAltitudeSamples
+            }
+
+            if let speedSamples = result.data(forColumn: "speedSamples") {
+                let decodedSpeedSamples = try! JSONDecoder().decode([StatSample].self, from: speedSamples)
+                self.speedSamples = decodedSpeedSamples
+            }
+        } else {
+            return nil
+        }
+    }
+
+    // MARK: - Helpers
+    func getDBValues() throws -> [Any] {
+
+        var values: [Any] = []
+
+        do {
+
+            let routeDataData = try JSONEncoder().encode(self.routeData)
+            let routeDataBlob = NSData(data: routeDataData)
+
+            let hrSamplesData = try JSONEncoder().encode(self.hrSamples)
+            let hrSamplesBlob = NSData(data: hrSamplesData)
+
+            let altitudeSamplesData = try JSONEncoder().encode(self.altitdueSamples)
+            let altitudeSamplesBlob = NSData(data: altitudeSamplesData)
+
+            let speedSamplesData = try JSONEncoder().encode(self.speedSamples)
+            let speedSamplesBlob = NSData(data: speedSamplesData)
+
+            values = [
+                self.id,
+                self.heartRate,
+                self.speed,
+                self.distance,
+                self.activeEnergy,
+                self.altitudeGained,
+                self.rideDate,
+                self.duration,
+                self.temperature!,
+                routeDataBlob,
+                hrSamplesBlob,
+                altitudeSamplesBlob,
+                speedSamplesBlob
+            ]
+        } catch {
+            throw error
+        }
+
+        return values
+    }
+
+    // MARK: - Hashable Conformance
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
@@ -199,11 +231,102 @@ class Ride: ObservableObject, Identifiable, Hashable {
     static func == (lhs: Ride, rhs: Ride) -> Bool {
         return lhs.id == rhs.id
     }
-
-
-
 }
 
+extension Ride {
+
+    // MARK: - computed properties
+
+    public var sortedRouteData: [PersistentLocation] {
+        return routeData.sorted(by: { $0.timeStamp < $1.timeStamp })
+    }
+
+    public var sortedHRSamples: [StatSample] {
+        return hrSamples.sorted(by: { $0.date < $1.date })
+    }
+
+    public var sortedAltitudeSamples: [StatSample] {
+        return altitdueSamples.sorted(by: { $0.date < $1.date })
+    }
+
+    public var sortedSpeedSamples: [StatSample] {
+        return speedSamples.sorted(by: { $0.date < $1.date })
+    }
+
+    public var heartRateString: String {
+        return String(format: "%.0f", heartRate) + " BMP"
+    }
+
+    public var speedString: String {
+        @AppStorage("distanceUnit") var distanceUnit: DistanceUnit = .Metric
+        return String(format: "%.1f", speed * distanceUnit.distanceConversion) + " \(distanceUnit.speedAbr)"
+    }
+
+    public var distanceString: String {
+        @AppStorage("distanceUnit") var distanceUnit: DistanceUnit = .Metric
+        return String(format: "%.2f", distance * distanceUnit.distanceConversion) + " \(distanceUnit.distAbr)"
+    }
+
+    public var activeEnergyString: String {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        numberFormatter.maximumFractionDigits = 0
+
+        @AppStorage("energyUnit") var energyUnit: EnergyUnit = .Kilojule
+        return numberFormatter.string (from: NSNumber(value: activeEnergy * energyUnit.conversionValue))! + " \(energyUnit.abr)"
+    }
+
+    public var durationString: String {
+
+        let formatter = DateComponentsFormatter()
+        formatter.unitsStyle = .positional
+        formatter.zeroFormattingBehavior = .pad
+        formatter.allowedUnits = [.hour, .minute, .second]
+
+        return formatter.string(from: duration)!
+    }
+
+    public var alitudeString: String {
+        @AppStorage("distanceUnit") var distanceUnit: DistanceUnit = .Metric
+        return String(format: "%.1f", altitudeGained * distanceUnit.smallDistanceConversion) + " \(distanceUnit.smallDistanceAbr)"
+    }
+
+    public var dateString: String {
+
+        let yearString: String = Date.areDatesAYearApart(rideDate, Date()) ? "YYYY" : ""
+
+        let dateFormatter = DateFormatter()
+
+        dateFormatter.dateFormat = "E, d'\(dateFormatter.ordinalSuffix(for: dateFormatter.calendar.component(.day, from: rideDate)))' MMM \(yearString) h:mma"
+        return dateFormatter.string(from: rideDate)
+    }
+
+
+    public var shortDateString: String {
+
+        let dateFormatter = DateFormatter()
+
+        dateFormatter.dateFormat = "E, d'\(dateFormatter.ordinalSuffix(for: dateFormatter.calendar.component(.day, from: rideDate)))' MMM"
+        return dateFormatter.string(from: rideDate)
+    }
+
+    public var temperatureString: String {
+
+        // set up a temperature formater
+        let temperatureFormatter = MeasurementFormatter()
+        temperatureFormatter.unitStyle = .medium
+        temperatureFormatter.numberFormatter.maximumFractionDigits = 0
+
+        // guess the user's preference based on their localisation settings
+        let perferredUnit = Locale.current.measurementSystem == .metric ? UnitTemperature.celsius : UnitTemperature.fahrenheit
+
+        let celsius = Measurement(value: self.temperature!, unit: UnitTemperature.celsius)
+        let fahrenheit = celsius.converted(to: .fahrenheit)
+
+        return temperatureFormatter.string(from: perferredUnit == UnitTemperature.celsius ? celsius : fahrenheit)
+    }
+
+}
 
 // MARK: - Sample data
 let PreviewRide = Ride(
@@ -214,6 +337,7 @@ let PreviewRide = Ride(
     duration: 1000,
     altitudeGained: 13.7,
     rideDate: Date(),
+    temperature: 23,
     hrSamples: [
         StatSample(date: Date(), min: 70.0, max: 90.0),
         StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
@@ -225,9 +349,9 @@ let PreviewRide = Ride(
         StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
     ],
     routeData: [
-        CLLocation(latitude: 37.7749, longitude: -122.4194),
-        CLLocation(latitude: 37.7739, longitude: -122.4222),
-        CLLocation(latitude: 37.7729, longitude: -122.4250)
+        PersistentLocation(latitude: 37.7749, longitude: -122.4194, timeStamp: Date().addingTimeInterval(60)),
+        PersistentLocation(latitude: 37.7739, longitude: -122.4222, timeStamp: Date().addingTimeInterval(120)),
+        PersistentLocation(latitude: 37.7729, longitude: -122.4250, timeStamp: Date().addingTimeInterval(180))
     ],
     altitdueSamples: [
         StatSample(date: Date(), min: 70.0, max: 90.0),
@@ -251,6 +375,45 @@ let PreviewRide = Ride(
     ]
 )
 
+let PreviewRideNoRouteData = Ride(
+    heartRate: 167.2,
+    speed: 14.11111,
+    distance: 7.9,
+    activeEnergy: 1082,
+    duration: 1000,
+    altitudeGained: 13.7,
+    rideDate: Date(),
+    hrSamples: [
+        StatSample(date: Date(), min: 70.0, max: 90.0),
+        StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
+        StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
+        StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
+        StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
+        StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
+        StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
+        StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+    ],
+    altitdueSamples: [
+        StatSample(date: Date(), min: 70.0, max: 90.0),
+        StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
+        StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
+        StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
+        StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
+        StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
+        StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
+        StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+    ],
+    speedSamples: [
+        StatSample(date: Date(), min: 70.0, max: 90.0),
+        StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
+        StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
+        StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
+        StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
+        StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
+        StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
+        StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+    ]
+)
 
 let previewRideArray: [Ride] = [
     Ride(
@@ -272,9 +435,9 @@ let previewRideArray: [Ride] = [
             StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
         ],
         routeData: [
-            CLLocation(latitude: 37.7749, longitude: -122.4194),
-            CLLocation(latitude: 37.7739, longitude: -122.4222),
-            CLLocation(latitude: 37.7729, longitude: -122.4250)
+            PersistentLocation(latitude: 37.7749, longitude: -122.4194, timeStamp: Date().addingTimeInterval(60)),
+            PersistentLocation(latitude: 37.7739, longitude: -122.4222, timeStamp: Date().addingTimeInterval(120)),
+            PersistentLocation(latitude: 37.7729, longitude: -122.4250, timeStamp: Date().addingTimeInterval(180))
         ],
         altitdueSamples: [
             StatSample(date: Date(), min: 70.0, max: 90.0),
@@ -316,9 +479,9 @@ let previewRideArray: [Ride] = [
             StatSample(date: Date().addingTimeInterval(-85980), min: 77.0, max: 97.0)
         ],
         routeData: [
-            CLLocation(latitude: 37.7749, longitude: -122.4194),
-            CLLocation(latitude: 37.7739, longitude: -122.4222),
-            CLLocation(latitude: 37.7729, longitude: -122.4250)
+            PersistentLocation(latitude: 37.7749, longitude: -122.4194, timeStamp: Date().addingTimeInterval(60)),
+            PersistentLocation(latitude: 37.7739, longitude: -122.4222, timeStamp: Date().addingTimeInterval(120)),
+            PersistentLocation(latitude: 37.7729, longitude: -122.4250, timeStamp: Date().addingTimeInterval(180))
         ],
         altitdueSamples: [
             StatSample(date: Date(), min: 70.0, max: 90.0),
@@ -360,9 +523,9 @@ let previewRideArray: [Ride] = [
             StatSample(date: Date().addingTimeInterval(-172380), min: 82.0, max: 102.0)
         ],
         routeData: [
-            CLLocation(latitude: 37.7749, longitude: -122.4194),
-            CLLocation(latitude: 37.7739, longitude: -122.4222),
-            CLLocation(latitude: 37.7729, longitude: -122.4250)
+            PersistentLocation(latitude: 37.7749, longitude: -122.4194, timeStamp: Date().addingTimeInterval(60)),
+            PersistentLocation(latitude: 37.7739, longitude: -122.4222, timeStamp: Date().addingTimeInterval(120)),
+            PersistentLocation(latitude: 37.7729, longitude: -122.4250, timeStamp: Date().addingTimeInterval(180))
         ],
         altitdueSamples: [
             StatSample(date: Date(), min: 70.0, max: 90.0),
@@ -404,9 +567,9 @@ let previewRideArray: [Ride] = [
             StatSample(date: Date().addingTimeInterval(-258780), min: 76.0, max: 96.0)
         ],
         routeData: [
-            CLLocation(latitude: 37.7749, longitude: -122.4194),
-            CLLocation(latitude: 37.7739, longitude: -122.4222),
-            CLLocation(latitude: 37.7729, longitude: -122.4250)
+            PersistentLocation(latitude: 37.7749, longitude: -122.4194, timeStamp: Date().addingTimeInterval(60)),
+            PersistentLocation(latitude: 37.7739, longitude: -122.4222, timeStamp: Date().addingTimeInterval(120)),
+            PersistentLocation(latitude: 37.7729, longitude: -122.4250, timeStamp: Date().addingTimeInterval(180))
         ],
         altitdueSamples: [
             StatSample(date: Date(), min: 70.0, max: 90.0),
@@ -431,28 +594,3 @@ let previewRideArray: [Ride] = [
     )
 ]
 
-
-// MARK: - Helpers
-extension DateFormatter {
-
-    /// Returns an ordinal suffix to depending on what day of the month is passed in
-    func ordinalSuffix(for day: Int) -> String {
-
-        switch day {
-        case 1, 21, 31:
-            return "st"
-        case 2, 22:
-            return "nd"
-        case 3, 23:
-            return "rd"
-        default:
-            return "th"
-        }
-    }
-}
-
-extension HKWorkout {
-
-    static let emptyWorkout = HKWorkout(activityType: .cycling, start: Date(), end: Date())
-
-}

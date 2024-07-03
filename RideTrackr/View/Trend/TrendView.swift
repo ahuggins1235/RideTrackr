@@ -8,11 +8,12 @@
 import SwiftUI
 import Charts
 
+@MainActor
 struct TrendView: View {
 
     // MARK: - properties
     @State var statType: TrendType
-    @EnvironmentObject var trendManager: TrendManager
+    @ObservedObject var trendManager: TrendManager = .shared
     @State var timeFrame = TrendTimeFrame.Month
 
     private var trendData: [TrendItem] {
@@ -91,6 +92,7 @@ struct TrendView: View {
     }
 }
 
+@MainActor
 struct trendChartView: View {
 
     @Binding var trendData: [TrendItem]
@@ -103,25 +105,8 @@ struct trendChartView: View {
                 x: .value(item.date.formatted(), item.date, unit: .day),
                 y: .value("BPM", item.value)
             ).interpolationMethod(.catmullRom)
-            
-//            PointMark(x: .value(item.date.formatted(), item.date, unit: .day),
-//                      y: .value("BPM", item.value))
-
         }
             .foregroundStyle(colour)
-//            .onAppear {
-//                for (index, _) in trendData.enumerated() {
-//                    withAnimation(.interactiveSpring(response: 0.8,
-//                                                     dampingFraction: 0.8,
-//                                                     blendDuration: 0.8).delay(Double(index) * 0.05)) {
-//                        trendData[index].animate = false
-//                    }
-//                    //                withAnimation(.easeInOut(duration: 1)) {
-//                    //                    trendData[index].animate = true
-//                    //                }
-//                }
-//            }
-            
     }
 }
 
@@ -150,5 +135,5 @@ enum TrendTimeFrame: String, CaseIterable, Identifiable {
 
 // MARK: - Previews
 #Preview {
-    TrendView(statType: .HeartRate).environmentObject(TrendManager())
+    TrendView(statType: .HeartRate)
 }

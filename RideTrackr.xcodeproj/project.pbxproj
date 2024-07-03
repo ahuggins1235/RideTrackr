@@ -21,19 +21,31 @@
 		490726302A6907B40009817F /* HomeStatCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4907262F2A6907B40009817F /* HomeStatCardView.swift */; };
 		490726322A690E000009817F /* LargeRidePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490726312A690E000009817F /* LargeRidePreview.swift */; };
 		490726342A6912660009817F /* Ride.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490726332A6912660009817F /* Ride.swift */; };
-		490726372A69521B0009817F /* HealthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490726362A69521B0009817F /* HealthManager.swift */; };
+		49188F4D2AFB680A000C1E68 /* MapSnapShotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49188F4C2AFB680A000C1E68 /* MapSnapShotView.swift */; };
+		49188F4F2AFB6AEE000C1E68 /* TemperatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49188F4E2AFB6AEE000C1E68 /* TemperatureView.swift */; };
 		492124952AE9027500889575 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492124942AE9027500889575 /* Extensions.swift */; };
 		4921249C2AE9E73800889575 /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4921249B2AE9E73800889575 /* SettingsManager.swift */; };
 		4925C2092A74FE9D00761FDA /* RideRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4925C2082A74FE9D00761FDA /* RideRowView.swift */; };
 		4925C20B2A75128900761FDA /* RideListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4925C20A2A75128900761FDA /* RideListView.swift */; };
 		4925C20F2A75130000761FDA /* NavigationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4925C20E2A75130000761FDA /* NavigationManager.swift */; };
+		49313AEB2C1AB27C00AA5789 /* HKManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49313AEA2C1AB27C00AA5789 /* HKManager.swift */; };
 		494B24412ABFD49800B05739 /* RideShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494B24402ABFD49800B05739 /* RideShareView.swift */; };
+		494DAA862C255D78001E0D4B /* FMDB in Frameworks */ = {isa = PBXBuildFile; productRef = 494DAA852C255D78001E0D4B /* FMDB */; };
+		494DAA8A2C256F8D001E0D4B /* mainSchema.sql in Resources */ = {isa = PBXBuildFile; fileRef = 494DAA892C256F86001E0D4B /* mainSchema.sql */; };
+		494DAA8C2C25768D001E0D4B /* StatSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494DAA8B2C25768D001E0D4B /* StatSample.swift */; };
+		498657B62C339A8F00EEF59F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 498657B52C339A8F00EEF59F /* LaunchScreen.storyboard */; };
+		498657BA2C33BFFA00EEF59F /* TrendPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498657B92C33BFFA00EEF59F /* TrendPreviewView.swift */; };
+		498657BC2C33F80A00EEF59F /* DateIntervalPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498657BB2C33F80A00EEF59F /* DateIntervalPickerView.swift */; };
+		498657BE2C352A5700EEF59F /* DateFilterPresetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498657BD2C352A5700EEF59F /* DateFilterPresetView.swift */; };
+		498657C02C3535E200EEF59F /* DateFilterSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498657BF2C3535E200EEF59F /* DateFilterSheetView.swift */; };
 		49932F5C2AF1FD3700A45D14 /* RecentRidesCardList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49932F5B2AF1FD3700A45D14 /* RecentRidesCardList.swift */; };
-		49932F5E2AF211BC00A45D14 /* ViewModifers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49932F5D2AF211BC00A45D14 /* ViewModifers.swift */; };
+		49E63A0B2B05DEF1005451D1 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E63A0A2B05DEF1005451D1 /* DataManager.swift */; };
+		49E63A0D2B0610CB005451D1 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E63A0C2B0610CB005451D1 /* NotificationManager.swift */; };
 		49E71F402AC1374200900477 /* TrendsTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E71F3F2AC1374200900477 /* TrendsTabView.swift */; };
 		49E71F422AC146C200900477 /* TrendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E71F412AC146C200900477 /* TrendView.swift */; };
 		49E71F442AC1509E00900477 /* TrendType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E71F432AC1509E00900477 /* TrendType.swift */; };
 		49E71F462AC1515A00900477 /* TrendManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E71F452AC1515A00900477 /* TrendManager.swift */; };
+		49FDA2C92C311A7E008D61F8 /* PersistentLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FDA2C82C311A7E008D61F8 /* PersistentLocation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,20 +83,32 @@
 		4907262F2A6907B40009817F /* HomeStatCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeStatCardView.swift; sourceTree = "<group>"; };
 		490726312A690E000009817F /* LargeRidePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeRidePreview.swift; sourceTree = "<group>"; };
 		490726332A6912660009817F /* Ride.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ride.swift; sourceTree = "<group>"; };
-		490726362A69521B0009817F /* HealthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthManager.swift; sourceTree = "<group>"; };
 		490726382A69557F0009817F /* RideTrackr.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RideTrackr.entitlements; sourceTree = "<group>"; };
+		49188F4C2AFB680A000C1E68 /* MapSnapShotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSnapShotView.swift; sourceTree = "<group>"; };
+		49188F4E2AFB6AEE000C1E68 /* TemperatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemperatureView.swift; sourceTree = "<group>"; };
 		492124942AE9027500889575 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		4921249B2AE9E73800889575 /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
 		4925C2082A74FE9D00761FDA /* RideRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideRowView.swift; sourceTree = "<group>"; };
 		4925C20A2A75128900761FDA /* RideListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideListView.swift; sourceTree = "<group>"; };
 		4925C20E2A75130000761FDA /* NavigationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationManager.swift; sourceTree = "<group>"; };
+		49313AEA2C1AB27C00AA5789 /* HKManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HKManager.swift; sourceTree = "<group>"; };
 		494B24402ABFD49800B05739 /* RideShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideShareView.swift; sourceTree = "<group>"; };
+		494DAA892C256F86001E0D4B /* mainSchema.sql */ = {isa = PBXFileReference; lastKnownFileType = text; path = mainSchema.sql; sourceTree = "<group>"; };
+		494DAA8B2C25768D001E0D4B /* StatSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatSample.swift; sourceTree = "<group>"; };
+		494F67062AF3760D001163B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		498657B52C339A8F00EEF59F /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		498657B92C33BFFA00EEF59F /* TrendPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendPreviewView.swift; sourceTree = "<group>"; };
+		498657BB2C33F80A00EEF59F /* DateIntervalPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateIntervalPickerView.swift; sourceTree = "<group>"; };
+		498657BD2C352A5700EEF59F /* DateFilterPresetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFilterPresetView.swift; sourceTree = "<group>"; };
+		498657BF2C3535E200EEF59F /* DateFilterSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFilterSheetView.swift; sourceTree = "<group>"; };
 		49932F5B2AF1FD3700A45D14 /* RecentRidesCardList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentRidesCardList.swift; sourceTree = "<group>"; };
-		49932F5D2AF211BC00A45D14 /* ViewModifers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifers.swift; sourceTree = "<group>"; };
+		49E63A0A2B05DEF1005451D1 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		49E63A0C2B0610CB005451D1 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		49E71F3F2AC1374200900477 /* TrendsTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsTabView.swift; sourceTree = "<group>"; };
 		49E71F412AC146C200900477 /* TrendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendView.swift; sourceTree = "<group>"; };
 		49E71F432AC1509E00900477 /* TrendType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendType.swift; sourceTree = "<group>"; };
 		49E71F452AC1515A00900477 /* TrendManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendManager.swift; sourceTree = "<group>"; };
+		49FDA2C82C311A7E008D61F8 /* PersistentLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentLocation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +116,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				494DAA862C255D78001E0D4B /* FMDB in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,15 +172,17 @@
 		490725FB2A69042A0009817F /* RideTrackr */ = {
 			isa = PBXGroup;
 			children = (
+				490726002A69042D0009817F /* Assets.xcassets */,
 				492124932AE9026700889575 /* Extensions */,
-				490726382A69557F0009817F /* RideTrackr.entitlements */,
+				494F67062AF3760D001163B3 /* Info.plist */,
 				490726352A6951830009817F /* Manager */,
 				490726272A69043D0009817F /* Model */,
-				490726262A6904360009817F /* View */,
-				490725FC2A69042A0009817F /* RideTrackrApp.swift */,
-				490725FE2A69042A0009817F /* ContentView.swift */,
-				490726002A69042D0009817F /* Assets.xcassets */,
 				490726022A69042D0009817F /* Preview Content */,
+				490726382A69557F0009817F /* RideTrackr.entitlements */,
+				490725FC2A69042A0009817F /* RideTrackrApp.swift */,
+				494DAA882C256F7A001E0D4B /* Schema */,
+				490726262A6904360009817F /* View */,
+				498657B52C339A8F00EEF59F /* LaunchScreen.storyboard */,
 			);
 			path = RideTrackr;
 			sourceTree = "<group>";
@@ -188,11 +215,12 @@
 		490726262A6904360009817F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				49188F4B2AFB67E1000C1E68 /* Helpers */,
+				4907262E2A6907940009817F /* Home */,
+				49FDA2CA2C311AA5008D61F8 /* Navigation */,
+				49022C102A6FCA0500E61F31 /* Ride */,
 				492124962AE9E11100889575 /* Settings */,
 				49E71F3E2AC1372C00900477 /* Trend */,
-				49022C102A6FCA0500E61F31 /* Ride */,
-				4907262E2A6907940009817F /* Home */,
-				490726282A69045F0009817F /* RideTrackrTabView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -200,8 +228,10 @@
 		490726272A69043D0009817F /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				49E71F432AC1509E00900477 /* TrendType.swift */,
+				49FDA2C82C311A7E008D61F8 /* PersistentLocation.swift */,
 				490726332A6912660009817F /* Ride.swift */,
+				494DAA8B2C25768D001E0D4B /* StatSample.swift */,
+				49E71F432AC1509E00900477 /* TrendType.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -212,6 +242,7 @@
 				4907262A2A6904710009817F /* HomeView.swift */,
 				4907262F2A6907B40009817F /* HomeStatCardView.swift */,
 				49932F5B2AF1FD3700A45D14 /* RecentRidesCardList.swift */,
+				498657B92C33BFFA00EEF59F /* TrendPreviewView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -219,19 +250,32 @@
 		490726352A6951830009817F /* Manager */ = {
 			isa = PBXGroup;
 			children = (
-				490726362A69521B0009817F /* HealthManager.swift */,
+				49E63A0A2B05DEF1005451D1 /* DataManager.swift */,
+				49313AEA2C1AB27C00AA5789 /* HKManager.swift */,
 				4925C20E2A75130000761FDA /* NavigationManager.swift */,
-				49E71F452AC1515A00900477 /* TrendManager.swift */,
+				49E63A0C2B0610CB005451D1 /* NotificationManager.swift */,
 				4921249B2AE9E73800889575 /* SettingsManager.swift */,
+				49E71F452AC1515A00900477 /* TrendManager.swift */,
 			);
 			path = Manager;
+			sourceTree = "<group>";
+		};
+		49188F4B2AFB67E1000C1E68 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				49188F4C2AFB680A000C1E68 /* MapSnapShotView.swift */,
+				49188F4E2AFB6AEE000C1E68 /* TemperatureView.swift */,
+				498657BB2C33F80A00EEF59F /* DateIntervalPickerView.swift */,
+				498657BD2C352A5700EEF59F /* DateFilterPresetView.swift */,
+				498657BF2C3535E200EEF59F /* DateFilterSheetView.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		492124932AE9026700889575 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				492124942AE9027500889575 /* Extensions.swift */,
-				49932F5D2AF211BC00A45D14 /* ViewModifers.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -244,6 +288,14 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		494DAA882C256F7A001E0D4B /* Schema */ = {
+			isa = PBXGroup;
+			children = (
+				494DAA892C256F86001E0D4B /* mainSchema.sql */,
+			);
+			path = Schema;
+			sourceTree = "<group>";
+		};
 		49E71F3E2AC1372C00900477 /* Trend */ = {
 			isa = PBXGroup;
 			children = (
@@ -251,6 +303,15 @@
 				49E71F412AC146C200900477 /* TrendView.swift */,
 			);
 			path = Trend;
+			sourceTree = "<group>";
+		};
+		49FDA2CA2C311AA5008D61F8 /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				490726282A69045F0009817F /* RideTrackrTabView.swift */,
+				490725FE2A69042A0009817F /* ContentView.swift */,
+			);
+			path = Navigation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -269,6 +330,9 @@
 			dependencies = (
 			);
 			name = RideTrackr;
+			packageProductDependencies = (
+				494DAA852C255D78001E0D4B /* FMDB */,
+			);
 			productName = RideTrackr;
 			productReference = 490725F92A69042A0009817F /* RideTrackr.app */;
 			productType = "com.apple.product-type.application";
@@ -317,7 +381,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1500;
-				LastUpgradeCheck = 1500;
+				LastUpgradeCheck = 1600;
 				TargetAttributes = {
 					490725F82A69042A0009817F = {
 						CreatedOnToolsVersion = 15.0;
@@ -341,6 +405,9 @@
 				Base,
 			);
 			mainGroup = 490725F02A69042A0009817F;
+			packageReferences = (
+				494DAA842C255D11001E0D4B /* XCRemoteSwiftPackageReference "fmdb" */,
+			);
 			productRefGroup = 490725FA2A69042A0009817F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -358,7 +425,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				490726042A69042D0009817F /* Preview Assets.xcassets in Resources */,
+				498657B62C339A8F00EEF59F /* LaunchScreen.storyboard in Resources */,
 				490726012A69042D0009817F /* Assets.xcassets in Resources */,
+				494DAA8A2C256F8D001E0D4B /* mainSchema.sql in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -387,22 +456,31 @@
 				49932F5C2AF1FD3700A45D14 /* RecentRidesCardList.swift in Sources */,
 				49E71F402AC1374200900477 /* TrendsTabView.swift in Sources */,
 				4925C20B2A75128900761FDA /* RideListView.swift in Sources */,
-				49932F5E2AF211BC00A45D14 /* ViewModifers.swift in Sources */,
+				49313AEB2C1AB27C00AA5789 /* HKManager.swift in Sources */,
+				49188F4D2AFB680A000C1E68 /* MapSnapShotView.swift in Sources */,
+				49E63A0D2B0610CB005451D1 /* NotificationManager.swift in Sources */,
 				490726322A690E000009817F /* LargeRidePreview.swift in Sources */,
 				49022C122A6FCADA00E61F31 /* RideDetailView.swift in Sources */,
+				49FDA2C92C311A7E008D61F8 /* PersistentLocation.swift in Sources */,
+				498657BC2C33F80A00EEF59F /* DateIntervalPickerView.swift in Sources */,
 				49E71F422AC146C200900477 /* TrendView.swift in Sources */,
-				490726372A69521B0009817F /* HealthManager.swift in Sources */,
 				490726342A6912660009817F /* Ride.swift in Sources */,
 				4907262D2A6904800009817F /* SettingsView.swift in Sources */,
 				490726292A69045F0009817F /* RideTrackrTabView.swift in Sources */,
 				4907262B2A6904710009817F /* HomeView.swift in Sources */,
+				498657BA2C33BFFA00EEF59F /* TrendPreviewView.swift in Sources */,
 				490725FF2A69042A0009817F /* ContentView.swift in Sources */,
 				490725FD2A69042A0009817F /* RideTrackrApp.swift in Sources */,
+				498657BE2C352A5700EEF59F /* DateFilterPresetView.swift in Sources */,
 				4925C2092A74FE9D00761FDA /* RideRowView.swift in Sources */,
+				49188F4F2AFB6AEE000C1E68 /* TemperatureView.swift in Sources */,
 				492124952AE9027500889575 /* Extensions.swift in Sources */,
 				4925C20F2A75130000761FDA /* NavigationManager.swift in Sources */,
 				4921249C2AE9E73800889575 /* SettingsManager.swift in Sources */,
+				49E63A0B2B05DEF1005451D1 /* DataManager.swift in Sources */,
 				490726302A6907B40009817F /* HomeStatCardView.swift in Sources */,
+				494DAA8C2C25768D001E0D4B /* StatSample.swift in Sources */,
+				498657C02C3535E200EEF59F /* DateFilterSheetView.swift in Sources */,
 				49E71F462AC1515A00900477 /* TrendManager.swift in Sources */,
 				49E71F442AC1509E00900477 /* TrendType.swift in Sources */,
 			);
@@ -572,12 +650,17 @@
 				DEVELOPMENT_TEAM = 7PY92KZXV9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = RideTrackr/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = RideTrackr;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "Please allow access to enjoy all the features of the applicatiion";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "This is necessary to display your ride statistics";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -586,6 +669,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "Andrew-Huggins.RideTrackr";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = minimal;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -603,12 +687,17 @@
 				DEVELOPMENT_TEAM = 7PY92KZXV9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = RideTrackr/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = RideTrackr;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "Please allow access to enjoy all the features of the applicatiion";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "This is necessary to display your ride statistics";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -617,6 +706,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "Andrew-Huggins.RideTrackr";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = minimal;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -625,7 +715,6 @@
 		490726212A69042D0009817F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -645,7 +734,6 @@
 		490726222A69042D0009817F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -665,7 +753,6 @@
 		490726242A69042D0009817F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7PY92KZXV9;
@@ -683,7 +770,6 @@
 		490726252A69042D0009817F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7PY92KZXV9;
@@ -738,6 +824,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		494DAA842C255D11001E0D4B /* XCRemoteSwiftPackageReference "fmdb" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ccgus/fmdb.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.7.11;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		494DAA852C255D78001E0D4B /* FMDB */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 494DAA842C255D11001E0D4B /* XCRemoteSwiftPackageReference "fmdb" */;
+			productName = FMDB;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 490725F12A69042A0009817F /* Project object */;
 }

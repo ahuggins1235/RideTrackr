@@ -6,45 +6,16 @@
 //
 
 import SwiftUI
+import SwiftData
+import CoreData
 
 @main
+@MainActor
 struct RideTrackrApp: App {
-    
-    @StateObject var trendsManager: TrendManager = TrendManager()
-    @StateObject var healthManager = HealthManager()
-    @StateObject var navigationManager = NavigationManager()
-    @StateObject var settingsManager = SettingsManager()
-    
-    
-    init() {
-        
-    }
     
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environmentObject(trendsManager)
-                .environmentObject(healthManager)
-                .environmentObject(navigationManager)
-                .environmentObject(settingsManager)
-                .onAppear {
-                    
-//                    Task {
-//                        do {
-//                            await healthManager.syncWithHK()
-//                            
-//                            for ride in healthManager.rides {
-//                                trendsManager.distanceTrends.append(TrendItem(value: ride.distance, date: ride.rideDate))
-//                                trendsManager.energyTrends.append(TrendItem(value: ride.activeEnergy, date: ride.rideDate))
-//                                trendsManager.heartRateTrends.append(TrendItem(value: ride.heartRate, date: ride.rideDate))
-//                                trendsManager.speedTrends.append(TrendItem(value: ride.speed, date: ride.rideDate))
-//                            }
-//                        }
-//                    }
-                    
-                    
-                }
-                
         }
     }
 }

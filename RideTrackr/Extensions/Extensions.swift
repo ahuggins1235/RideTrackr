@@ -8,18 +8,36 @@
 import Foundation
 import SwiftUI
 import MapKit
+import HealthKit
+import SwiftData
 
 extension Binding {
     
     /// Creates a one-way binding for situations where you only need to be able to get data but never set it
     /// - Parameter get: The data that will act as a base for the binding
-    init(get: @escaping () -> Value) {
+    init(get: @Sendable @escaping () -> Value) {
         self.init(get: get, set: { _ in })
     }
     
 }
 
 extension Date {
+    
+    
+    /// Checks if two dates are more than a year apart
+    /// - Parameters:
+    ///   - date1: The first date to check
+    ///   - date2: The second date to check
+    /// - Returns: True if the two dates are more than a year apart, false if they are not
+    static func areDatesAYearApart(_ date1: Date, _ date2: Date) -> Bool {
+        
+        let components = Calendar.current.dateComponents([.month], from: date1, to: date2)
+        
+        if let months = components.month {
+            return abs(months) >= 12
+        }
+        return false
+    }
     
     /// gets the start of the current day
     static var startOfDay: Date {
@@ -128,3 +146,26 @@ extension MKCoordinateRegion {
         return CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: fixedLng)
     }
 }
+
+extension DateFormatter {
+    
+    /// Returns an ordinal suffix to depending on what day of the month is passed in
+    func ordinalSuffix(for day: Int) -> String {
+        
+        switch day {
+            case 1, 21, 31:
+                return "st"
+            case 2, 22:
+                return "nd"
+            case 3, 23:
+                return "rd"
+            default:
+                return "th"
+        }
+    }
+}
+
+extension HKWorkout {
+    static let emptyWorkout = HKWorkout(activityType: .cycling, start: Date(), end: Date())
+}
+

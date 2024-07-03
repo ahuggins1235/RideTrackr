@@ -6,100 +6,152 @@
 //
 
 import SwiftUI
+import SwiftData
+import CoreData
+import UIKit
 
+@MainActor
 struct RideListView: View {
 
     // MARK: - Properties
-    @EnvironmentObject var navigationManager: NavigationManager
-    @EnvironmentObject var healthManager: HealthManager
-    @State var dateFilter = Date()
+    @ObservedObject var navigationManager: NavigationManager = .shared
+//    @ObservedObject var healthManager: HKManager = .shared
+    @ObservedObject var dataManager: DataManager = .shared
+    @State private var dateFilter = DateInterval()
+    @State private var showFilterSheet = false
+    @State private var filterEnabled = false
+    @State private var selectedDetent: PresentationDetent = .fraction(0.15)
+    @State private var selectedFilter: DateFilter?
+
+    private var filteredRides: [Ride] {
+
+        dataManager.rides.filter { ride in
+
+            if !filterEnabled { return true }
+
+            let calendar = Calendar.current
+
+            // Start date at the beginning of the day
+            let startOfDay = calendar.startOfDay(for: dateFilter.start)
+
+            // End date at the end of the day
+            var components = DateComponents()
+            components.day = 1
+            components.second = -1
+            let endOfDay = calendar.date(byAdding: components, to: calendar.startOfDay(for: dateFilter.end))!
+
+            let interval = DateInterval(start: startOfDay, end: endOfDay)
+
+            return interval.contains(ride.rideDate)
+        }
+    }
+
 
     // MARK: - Body
     var body: some View {
 
         NavigationStack(path: $navigationManager.rideListNavPath) {
 
-            List {
-                if healthManager.rides.count > 0 {
-                    
-                    if healthManager.thisWeekRides.count != 0 {
-                        Section("This Week") {
-
-                            ForEach(healthManager.thisWeekRides) { ride in
-                                NavigationLink(value: ride) {
-                                    RideRowView(ride: ride)
+            VStack {
+                
+                ScrollView(.horizontal) {
+                    HStack {
+                        ForEach(DateFilter.allCases) { filter in
+                            DateFilterPresetView(
+                                text: filter.rawValue,
+                                isSelected: filter == selectedFilter
+                            )
+//                            .padding(.vertical)
+                            .onTapGesture {
+                                withAnimation(.snappy(duration: 0.2)) {
+                                    selectedFilter = (selectedFilter == filter) ? nil : filter
+                                    dateFilter = selectedFilter?.interval ?? DateInterval()
                                 }
                             }
                         }
-                    } else {
-                        Text("No rides found this week")
                     }
+                    .padding()
+                }.scrollIndicators(.hidden)
 
+                ZStack {
 
-                    if healthManager.thisMonthRide.count != 0 {
-                        Section("This Month") {
-                            ForEach (healthManager.thisMonthRide) { ride in
+                    ScrollView {
 
-                                NavigationLink(value: ride) {
-                                    RideRowView(ride: ride)
-                                }
-                            }
+                        if filteredRides.count == 0 {
+                            Text("No Rides Found")
                         }
-                    } else {
-                        Text("No ride found this month")
-                    }
 
-                    Section("Older") {
+                        ForEach(filteredRides) { ride in
 
-                        ForEach (healthManager.rides.filter { ride in
-                            let calendar = Calendar.current
-                            let today = Date()
-                            let startOfMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: calendar.startOfDay(for: today)))!
-
-                            return ride.rideDate < startOfMonth
-
-                        }) { ride in
                             NavigationLink(value: ride) {
                                 RideRowView(ride: ride)
+                                    .scrollTransition { content, phase in
+                                        content
+                                            .opacity(phase.isIdentity ? 1 : 0)
+//                                            .scaleEffect(phase.isIdentity ? 1 : 0.75)
+                                            .blur(radius: phase.isIdentity ? 0 : 10)
+                                    }
                             }
                         }
-
                     }
-                } else {
-                    Text("No rides found ☹️")
+                        .refreshable {
+                        withAnimation(.default) {
+                            dataManager.refreshRides()
+                        }
+                    }
+                        .navigationDestination(for: Ride.self) { ride in
+                        RideDetailView(ride: ride)
+                    }
+                    
+//                    VStack {
+//                        Rectangle()
+//                            .fill(.white)
+//                            .frame(height: 15)
+//                            .blur(radius: 10)
+//                        Spacer()
+//                            
+//                    }
+//                    .edgesIgnoringSafeArea(.top) // Optional, if you want the blur to extend to the top edge
+                    
+//                    if healthManager.queryingHealthKit {
+//                        RoundedRectangle(cornerRadius: 15)
+//                            .fill(.background)
+//                            .padding([.horizontal, .bottom])
+//
+//                        ProgressView("Loading")
+//                            .ignoresSafeArea()
+//                    }
                 }
             }
-                .navigationDestination(for: Ride.self) { ride in
-                RideDetailView(ride: ride)
+            // MARK: - Filter sheet
+            .sheet(isPresented: $showFilterSheet) {
 
+                DateFilterSheetView(showFilterSheet: $showFilterSheet, filterEnabled: $filterEnabled, dateFilter: $dateFilter)
+                    .onChange(of: filterEnabled, { oldValue, newValue in
+                    selectedDetent = filterEnabled ? .medium : .fraction(0.15)
+                })
+                    .presentationDetents([.medium, .fraction(0.15)], selection: $selectedDetent)
+                    .presentationDragIndicator(.hidden)
             }
+
                 .toolbar {
 
-                ToolbarItemGroup {
-
-                    DatePicker("Choose Date", selection: $dateFilter)
-                        .datePickerStyle(.compact)
-
-
+                Button {
+                    showFilterSheet.toggle()
                 } label: {
                     Label("Date picker", systemImage: "calendar")
-
                 }
-
             }
                 .navigationTitle("Your Rides")
                 .toolbar {
             }
-
         }
-
-
     }
+    
+    
 }
 
 // MARK:  - Preview
 #Preview {
-    RideListView()
-        .environmentObject(NavigationManager())
-        .environmentObject(HealthManager())
+    RideListView(dataManager: PreviewDataManager())
 }

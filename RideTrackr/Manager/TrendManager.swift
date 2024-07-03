@@ -13,6 +13,8 @@ class TrendManager: ObservableObject {
     
     // MARK: - properties
     
+    public static var shared = TrendManager()
+    
     /// An array of `TrendItem` objects representing the user's heart rate trends over time.
     @Published var heartRateTrends: [TrendItem] = []
     /// An array of `TrendItem` objects representing the user's distance trends over time.

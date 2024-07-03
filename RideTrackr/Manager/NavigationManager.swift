@@ -8,8 +8,10 @@
 import Foundation
 import SwiftUI
 
+
 /// holds the name, destination and label for each view in the main tab view
 enum ApplicationTab: String, CaseIterable, Identifiable {
+    
     case Home = "Home"
     case RideList = "Ride List"
     case Trends = "Trends"
@@ -17,7 +19,9 @@ enum ApplicationTab: String, CaseIterable, Identifiable {
     
 
     var id: ApplicationTab { self }
-
+    
+    /// The view to display for each case
+    @MainActor
     var destination: AnyView {
         switch self {
         case .Home:
@@ -32,6 +36,8 @@ enum ApplicationTab: String, CaseIterable, Identifiable {
         }
     }
 
+    
+    /// the label to display for each case
     var label: AnyView {
         switch self {
         case .Home:
@@ -47,8 +53,11 @@ enum ApplicationTab: String, CaseIterable, Identifiable {
 }
 
 
-class NavigationManager: ObservableObject {
-
+/// handles navigation throughout the app
+final class NavigationManager: ObservableObject {
+    
+    public static var shared = NavigationManager()
+    
     @Published var selectedTab = ApplicationTab.Home
     @Published var selectedTrendsTab = TrendType.HeartRate
     @Published var rideListNavPath = NavigationPath()

@@ -21,6 +21,9 @@
 		490726302A6907B40009817F /* HomeStatCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4907262F2A6907B40009817F /* HomeStatCardView.swift */; };
 		490726322A690E000009817F /* LargeRidePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490726312A690E000009817F /* LargeRidePreview.swift */; };
 		490726342A6912660009817F /* Ride.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490726332A6912660009817F /* Ride.swift */; };
+		490741DE2C37D04200C07C24 /* EffortScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490741DD2C37D04200C07C24 /* EffortScoreView.swift */; };
+		490741E02C37EBF000C07C24 /* LargeMapPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490741DF2C37EBF000C07C24 /* LargeMapPreviewView.swift */; };
+		490741E42C38239A00C07C24 /* PolyKit in Frameworks */ = {isa = PBXBuildFile; productRef = 490741E32C38239A00C07C24 /* PolyKit */; };
 		49188F4D2AFB680A000C1E68 /* MapSnapShotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49188F4C2AFB680A000C1E68 /* MapSnapShotView.swift */; };
 		49188F4F2AFB6AEE000C1E68 /* TemperatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49188F4E2AFB6AEE000C1E68 /* TemperatureView.swift */; };
 		492124952AE9027500889575 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492124942AE9027500889575 /* Extensions.swift */; };
@@ -84,6 +87,8 @@
 		490726312A690E000009817F /* LargeRidePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeRidePreview.swift; sourceTree = "<group>"; };
 		490726332A6912660009817F /* Ride.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ride.swift; sourceTree = "<group>"; };
 		490726382A69557F0009817F /* RideTrackr.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RideTrackr.entitlements; sourceTree = "<group>"; };
+		490741DD2C37D04200C07C24 /* EffortScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffortScoreView.swift; sourceTree = "<group>"; };
+		490741DF2C37EBF000C07C24 /* LargeMapPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeMapPreviewView.swift; sourceTree = "<group>"; };
 		49188F4C2AFB680A000C1E68 /* MapSnapShotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSnapShotView.swift; sourceTree = "<group>"; };
 		49188F4E2AFB6AEE000C1E68 /* TemperatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemperatureView.swift; sourceTree = "<group>"; };
 		492124942AE9027500889575 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -117,6 +122,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				494DAA862C255D78001E0D4B /* FMDB in Frameworks */,
+				490741E42C38239A00C07C24 /* PolyKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -156,6 +162,7 @@
 				4907260C2A69042D0009817F /* RideTrackrTests */,
 				490726162A69042D0009817F /* RideTrackrUITests */,
 				490725FA2A69042A0009817F /* Products */,
+				490741E22C38239A00C07C24 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -260,6 +267,13 @@
 			path = Manager;
 			sourceTree = "<group>";
 		};
+		490741E22C38239A00C07C24 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		49188F4B2AFB67E1000C1E68 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -268,6 +282,8 @@
 				498657BB2C33F80A00EEF59F /* DateIntervalPickerView.swift */,
 				498657BD2C352A5700EEF59F /* DateFilterButton.swift */,
 				498657BF2C3535E200EEF59F /* FilterSheetView.swift */,
+				490741DD2C37D04200C07C24 /* EffortScoreView.swift */,
+				490741DF2C37EBF000C07C24 /* LargeMapPreviewView.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -332,6 +348,7 @@
 			name = RideTrackr;
 			packageProductDependencies = (
 				494DAA852C255D78001E0D4B /* FMDB */,
+				490741E32C38239A00C07C24 /* PolyKit */,
 			);
 			productName = RideTrackr;
 			productReference = 490725F92A69042A0009817F /* RideTrackr.app */;
@@ -407,6 +424,7 @@
 			mainGroup = 490725F02A69042A0009817F;
 			packageReferences = (
 				494DAA842C255D11001E0D4B /* XCRemoteSwiftPackageReference "fmdb" */,
+				490741E12C3822D600C07C24 /* XCRemoteSwiftPackageReference "PolyKit" */,
 			);
 			productRefGroup = 490725FA2A69042A0009817F /* Products */;
 			projectDirPath = "";
@@ -465,11 +483,13 @@
 				498657BC2C33F80A00EEF59F /* DateIntervalPickerView.swift in Sources */,
 				49E71F422AC146C200900477 /* TrendView.swift in Sources */,
 				490726342A6912660009817F /* Ride.swift in Sources */,
+				490741DE2C37D04200C07C24 /* EffortScoreView.swift in Sources */,
 				4907262D2A6904800009817F /* SettingsView.swift in Sources */,
 				490726292A69045F0009817F /* RideTrackrTabView.swift in Sources */,
 				4907262B2A6904710009817F /* HomeView.swift in Sources */,
 				498657BA2C33BFFA00EEF59F /* TrendPreviewView.swift in Sources */,
 				490725FF2A69042A0009817F /* ContentView.swift in Sources */,
+				490741E02C37EBF000C07C24 /* LargeMapPreviewView.swift in Sources */,
 				490725FD2A69042A0009817F /* RideTrackrApp.swift in Sources */,
 				498657BE2C352A5700EEF59F /* DateFilterButton.swift in Sources */,
 				4925C2092A74FE9D00761FDA /* RideRowView.swift in Sources */,
@@ -826,6 +846,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		490741E12C3822D600C07C24 /* XCRemoteSwiftPackageReference "PolyKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/heestand-xyz/PolyKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.2.0;
+			};
+		};
 		494DAA842C255D11001E0D4B /* XCRemoteSwiftPackageReference "fmdb" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ccgus/fmdb.git";
@@ -837,6 +865,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		490741E32C38239A00C07C24 /* PolyKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 490741E12C3822D600C07C24 /* XCRemoteSwiftPackageReference "PolyKit" */;
+			productName = PolyKit;
+		};
 		494DAA852C255D78001E0D4B /* FMDB */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 494DAA842C255D11001E0D4B /* XCRemoteSwiftPackageReference "fmdb" */;

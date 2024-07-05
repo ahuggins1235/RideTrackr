@@ -18,8 +18,8 @@ struct TemperatureView: View {
             
                 Text(temperature)
                     .foregroundStyle(.gray)
-                    .padding(5)
-                    .background(RoundedRectangle(cornerRadius: 10, style: .continuous).foregroundStyle(.ultraThickMaterial))
+                    .padding(10)
+                    .background(RoundedRectangle(cornerRadius: 30, style: .continuous).foregroundStyle(.ultraThickMaterial))
 
         }
     }

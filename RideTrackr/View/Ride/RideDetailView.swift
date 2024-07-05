@@ -9,23 +9,6 @@ import SwiftUI
 import Charts
 import MapKit
 
-class ImageGenerator: ObservableObject {
-    @Published var generatedImage: Image?
-    
-    func generateSharingImage(ride: Ride, displayScale: CGFloat) async {
-        await MainActor.run {
-            let view = RideShareView(ride: ride)
-            let renderer = ImageRenderer(content: view)
-            
-            renderer.scale = displayScale
-            
-            if let uiImage = renderer.uiImage {
-                self.generatedImage = Image(uiImage: uiImage)
-            }
-        }
-    }
-}
-
 struct RideDetailView: View {
 
     // MARK: - Properties
@@ -34,29 +17,7 @@ struct RideDetailView: View {
     @Environment(\.displayScale) private var displayScale: CGFloat
     @ObservedObject var trendManager: TrendManager = .shared
     @AppStorage("distanceUnit") private var distanceUnit: DistanceUnit = .Metric
-
-    @MainActor
-    private func generateSharingImage() -> Image {
-        let view = RideShareView(ride: ride)
-        let renderer = ImageRenderer(content: view)
-        
-        renderer.scale = displayScale
-        
-        // Use DispatchQueue to ensure the view has updated
-        var resultImage: Image?
-        DispatchQueue.main.async {
-            if let uiImage = renderer.uiImage {
-                resultImage = Image(uiImage: uiImage)
-            }
-        }
-        
-        // Wait for the image to be generated
-        while resultImage == nil {
-            RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.1))
-        }
-        
-        return resultImage ?? Image(uiImage: UIImage())
-    }
+    @State private var isGeneratingImage = true
 
     // MARK: - Body
     var body: some View {
@@ -67,41 +28,8 @@ struct RideDetailView: View {
                 VStack(alignment: .leading) {
 
                     // map
-                    ZStack {
-
-                        if let location = ride.routeData.first {
-
-                            Rectangle()
-                                .fill(.secondary)
-                                .mask(RoundedRectangle(cornerRadius: 30, style: .continuous))
-                                .blur(radius: 15)
-                                .padding()
-
-                            MapSnapshotView(location: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude), route: ride.routeData.map({ CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude) }))
-                                .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
-                                .padding()
-                                .frame(height: 300)
-
-                            if let _ = ride.temperature {
-                                VStack {
-                                    Spacer()
-                                    HStack {
-                                        Spacer()
-                                        TemperatureView(temperature: ride.temperatureString).padding().padding(.top)
-                                    }
-                                }
-                            }
-
-                        } else {
-                            HStack {
-                                Spacer()
-                                Text("No route data found")
-                                    .bold()
-                                    .padding(.top)
-                                Spacer()
-                            }
-                        }
-                    }
+                    LargeMapPreviewView(routeData: ride.routeData, temperatureString: ride.temperatureString, effortScore: 5)
+                        .padding()
 
                     // ride preview
                     LargeRidePreview(ride: ride, showDate: false, queryingHealthKit: .constant(false))
@@ -149,16 +77,23 @@ struct RideDetailView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
             ToolbarItem {
+                Group {
+                    if isGeneratingImage {
+                        ProgressView()
+                    }
+                    if let generatedImage = imageGenerator.generatedImage {
+                        ShareLink(item: generatedImage, preview: SharePreview("", image: generatedImage))
+                    }
+                }
+            }
+        } .onAppear {
+            Task {
+                await imageGenerator.generateSharingImage(ride: ride, displayScale: displayScale)
 
-                ShareLink(item: generateSharingImage(), preview: SharePreview("Ride Data", image: generateSharingImage()))
+                isGeneratingImage = false
 
             }
         }
-            .onAppear {
-                Task {
-                    await imageGenerator.generateSharingImage(ride: ride, displayScale: displayScale)
-                }
-            }
     }
 }
 
@@ -173,9 +108,7 @@ struct ChartCardView: View {
     @Binding var average: Double
     @State var rightText: String
 
-
     var body: some View {
-
 
         VStack {
             // title
@@ -193,10 +126,7 @@ struct ChartCardView: View {
                     .shadow(radius: 4, x: 2, y: 2)
 
                 VStack {
-//                    let max = samples.max { sample1, sample2 in
-//                        sample1.max > sample2.max
-//                    }?.max ?? 0
-//
+
                     // chart
                     Chart(samples) { sample in
 
@@ -214,23 +144,8 @@ struct ChartCardView: View {
                             .foregroundStyle(color.opacity(0.1).gradient)
                             .interpolationMethod(.catmullRom)
                     }
-//                    .chartYScale (domain: 0...(max + 100))
 
                         .padding()
-
-
-//                        .onAppear {
-//                            for (index,_) in samples.enumerated() {
-////                                withAnimation(.interactiveSpring(response: 0.8,
-////                                                                 dampingFraction: 0.8,
-////                                                                 blendDuration: 0.8).delay(Double(index) * 0.05)) {
-////                                    samples[index].animate = true
-////                                }
-//                                withAnimation(.easeInOut(duration:1)) {
-//                                    samples[index].animate = true
-//                                }
-//                            }
-//                        }
 
                     // min max caption
                     HStack {
@@ -253,10 +168,7 @@ struct ChartCardView: View {
             content
                 .opacity(phase.isIdentity ? 1.0 : 0.3)
                 .scaleEffect(phase.isIdentity ? 1.0 : 0.3)
-
         }
-
-
     }
 }
 
@@ -277,6 +189,25 @@ struct AnimationModifier: ViewModifier {
     }
 }
 
+class ImageGenerator: ObservableObject {
+    @Published var generatedImage: Image?
+
+    func generateSharingImage(ride: Ride, displayScale: CGFloat) async {
+        await MainActor.run {
+            let view = RideShareView(ride: ride)
+            let renderer = ImageRenderer(content: view)
+
+            renderer.scale = displayScale
+
+            // Give the view time to fully render
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                if let uiImage = renderer.uiImage {
+                    self.generatedImage = Image(uiImage: uiImage)
+                }
+            }
+        }
+    }
+}
 
 // MARK: - Previews
 struct RideDetailView_Previews: PreviewProvider {
@@ -285,7 +216,7 @@ struct RideDetailView_Previews: PreviewProvider {
 
     static var previews: some View {
 
-        RideDetailView(ride: PreviewRide).environmentObject(TrendManager())
+        RideDetailView(ride: PreviewRide)
 //        RideDetailView(ride: PreviewRideNoRouteData).environmentObject(TrendManager())
 //        ChartCardView(samples: PreviewRide.hrSamples, title: "Heart Rate", unit: "BPM", color: .red, average: 167, rightText: "AVG")
     }

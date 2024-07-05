@@ -45,6 +45,8 @@ final class HKManager: ObservableObject {
         do {
 
             let workouts = try await fetchCyclingWorkouts(numRides: numRides, getAllRides: getAllRides)
+            
+//            try await fetchEffortScore(for: workouts.first!)
 
             // iterare through the returned workouts
             for workout in workouts {
@@ -154,6 +156,19 @@ final class HKManager: ObservableObject {
             // Execute the query
             healthStore.execute(query)
         }
+    }
+    
+    func fetchEffortScore(for workout: HKWorkout) async throws  {
+        
+//        let anchor = HKQueryAnchor(fromValue: 0)
+//        
+//        let predicate = HKQuery.predicateForWorkoutEffortSamplesRelated(workout: workout, activity: .none)
+//        
+//        let query = HKWorkoutEffortRelationshipQueryDescriptor(predicate: predicate, anchor: anchor, option: .default)
+//        
+//        let results = try await query.result(for: healthStore)
+//        
+//        print(results)
     }
 
     /// Fetches the route the user took on the given workout

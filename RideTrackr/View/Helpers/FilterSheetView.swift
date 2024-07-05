@@ -18,7 +18,7 @@ struct FilterSheetView: View {
 
         NavigationStack {
 
-            VStack {
+            LazyVStack {
                 
                 HStack {
                     

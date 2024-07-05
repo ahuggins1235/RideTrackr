@@ -30,7 +30,7 @@ struct RideRowView: View {
 
                 // Map
 //                if let firstLocation = ride.routeData.first {
-//                    MapSnapshotView(location: CLLocationCoordinate2D(latitude: firstLocation.latitude, longitude: firstLocation.longitude), route: ride.routeData.map({ CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude) }))
+//                    SmallMapPreviewView(location: CLLocationCoordinate2D(latitude: firstLocation.latitude, longitude: firstLocation.longitude), route: ride.routeData.map({ CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude) }))
 //                        .clipShape(Circle())
 //                        .padding(.vertical, 5)
 //                        .padding(.horizontal, 8)

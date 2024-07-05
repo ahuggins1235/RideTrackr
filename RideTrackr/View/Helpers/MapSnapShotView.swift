@@ -9,7 +9,7 @@ import SwiftUI
 import MapKit
 
 @MainActor
-struct MapSnapshotView: View {
+struct SmallMapPreviewView: View {
     let location: CLLocationCoordinate2D
     var span: CLLocationDegrees = 0.01
     let route: [CLLocationCoordinate2D]

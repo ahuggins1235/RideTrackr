@@ -58,7 +58,7 @@ final class NavigationManager: ObservableObject {
     
     public static var shared = NavigationManager()
     
-    @Published var selectedTab = ApplicationTab.Home
+    @Published var selectedTab = ApplicationTab.RideList
     @Published var selectedTrendsTab = TrendType.HeartRate
     @Published var rideListNavPath = NavigationPath()
 

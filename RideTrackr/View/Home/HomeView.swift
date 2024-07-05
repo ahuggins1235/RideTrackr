@@ -56,13 +56,13 @@ struct HomeView: View {
                         if let recentRide = dataManager.rides.first {
 
                             NavigationLink(value: recentRide) {
-                                LargeRidePreview(ride: Binding(get: { recentRide }), queryingHealthKit: $healthManager.queryingHealthKit)
+                                LargeRidePreview(ride: recentRide, queryingHealthKit: $healthManager.queryingHealthKit)
 
 //                                    .matchedTransitionSource(id: "preview", in: namespace)
                             }.foregroundStyle(Color.primary)
 
                         } else {
-                            LargeRidePreview(ride: Binding(get: { Ride() }), queryingHealthKit: $healthManager.queryingHealthKit)
+                            LargeRidePreview(ride: Ride(), queryingHealthKit: $healthManager.queryingHealthKit)
                         }
                     }
                         .padding(.top)

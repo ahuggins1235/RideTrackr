@@ -50,7 +50,7 @@ class DataManager: ObservableObject {
     /// - Returns: An array of ``Ride`` objects that represent all the rides stored in the application
     func getAllRides() -> [Ride] {
 
-        let query = "SELECT * FROM Rides"
+        let query = "SELECT * FROM Rides ORDER BY rideDate DESC"
 
         var rides = [Ride]()
 
@@ -104,51 +104,6 @@ class DataManager: ObservableObject {
 
     }
 
-    func updateOrInsertRide(_ ride: Ride) {
-
-        let sqlQuery = """
-            BEGIN TRANSACTION;
-            
-            -- Step 1: Update existing record if rideDate matches
-            UPDATE Rides
-            SET
-                heartRate = ?,
-                speed = ?,
-                distance = ?,
-                activeEnergy = ?,
-                altitudeGained = ?,
-                duration = ?,
-                temperature = ?,
-                routeData = ?,
-                hrSamples = ?,
-                altitdueSamples = ?,
-                speedSamples = ?
-            WHERE rideDate = ?;
-            
-            -- Step 2: Insert new record if no rows were updated
-            INSERT INTO Rides (id, heartRate, speed, distance, activeEnergy, altitudeGained, rideDate, duration, temperature, routeData, hrSamples, altitdueSamples, speedSamples)
-            SELECT ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
-            WHERE changes() = 0;
-            
-            COMMIT;
-            """
-        
-        do {
-            
-            try db.executeQuery(sqlQuery, values: ride.getDBValues())
-            
-            if let index = self.rides.firstIndex(where: { $0.rideDate == ride.rideDate }) {
-                self.rides[index] = ride
-            } else {
-                self.rides.append(ride)
-            }
-            
-        } catch {
-            fatalError("Error updating database \(error)")
-        }
-
-    }
-
     // MARK: - Helpers
     
     /// Reads the database schema file and returns the database schema string
@@ -169,7 +124,6 @@ class DataManager: ObservableObject {
         }
         
         return schemaString
-//        return "CREATE TABLE IF NOT EXISTS \"Rides\" (\"id\"    TEXT,\"heartRate\"    NUMERIC,\"speed\"    NUMERIC,\"distance\"    NUMERIC,\"activeEnergy\"    NUMERIC,\"altitudeGained\"    NUMERIC,\"rideDate\"    TEXT,\"duration\"    NUMERIC,\"temperature\"    NUMERIC,\"routeData\"    BLOB,\"hrSamples\"    BLOB,\"altitudeSamples\"    BLOB,\"speedSamples\" BLOB,PRIMARY KEY(\"id\"))"
     }
 
     
@@ -210,13 +164,11 @@ class DataManager: ObservableObject {
         
         // 2. empty rides array
         self.rides.removeAll()
-        print(rides.count)
+        
         // 3. get all rides again
         DispatchQueue.main.async {
             Task {
-                
-                
-                
+   
                 let syncedRides = await HKManager.shared.getRides(getAllRides: true)
                 
                 // 4. reinsert all rides

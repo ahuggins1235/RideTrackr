@@ -36,8 +36,8 @@
 		498657B62C339A8F00EEF59F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 498657B52C339A8F00EEF59F /* LaunchScreen.storyboard */; };
 		498657BA2C33BFFA00EEF59F /* TrendPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498657B92C33BFFA00EEF59F /* TrendPreviewView.swift */; };
 		498657BC2C33F80A00EEF59F /* DateIntervalPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498657BB2C33F80A00EEF59F /* DateIntervalPickerView.swift */; };
-		498657BE2C352A5700EEF59F /* DateFilterPresetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498657BD2C352A5700EEF59F /* DateFilterPresetView.swift */; };
-		498657C02C3535E200EEF59F /* DateFilterSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498657BF2C3535E200EEF59F /* DateFilterSheetView.swift */; };
+		498657BE2C352A5700EEF59F /* DateFilterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498657BD2C352A5700EEF59F /* DateFilterButton.swift */; };
+		498657C02C3535E200EEF59F /* FilterSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498657BF2C3535E200EEF59F /* FilterSheetView.swift */; };
 		49932F5C2AF1FD3700A45D14 /* RecentRidesCardList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49932F5B2AF1FD3700A45D14 /* RecentRidesCardList.swift */; };
 		49E63A0B2B05DEF1005451D1 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E63A0A2B05DEF1005451D1 /* DataManager.swift */; };
 		49E63A0D2B0610CB005451D1 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E63A0C2B0610CB005451D1 /* NotificationManager.swift */; };
@@ -79,7 +79,7 @@
 		490726192A69042D0009817F /* RideTrackrUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideTrackrUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		490726282A69045F0009817F /* RideTrackrTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideTrackrTabView.swift; sourceTree = "<group>"; };
 		4907262A2A6904710009817F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
-		4907262C2A6904800009817F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		4907262C2A6904800009817F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; usesTabs = 0; };
 		4907262F2A6907B40009817F /* HomeStatCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeStatCardView.swift; sourceTree = "<group>"; };
 		490726312A690E000009817F /* LargeRidePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeRidePreview.swift; sourceTree = "<group>"; };
 		490726332A6912660009817F /* Ride.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ride.swift; sourceTree = "<group>"; };
@@ -99,8 +99,8 @@
 		498657B52C339A8F00EEF59F /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		498657B92C33BFFA00EEF59F /* TrendPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendPreviewView.swift; sourceTree = "<group>"; };
 		498657BB2C33F80A00EEF59F /* DateIntervalPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateIntervalPickerView.swift; sourceTree = "<group>"; };
-		498657BD2C352A5700EEF59F /* DateFilterPresetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFilterPresetView.swift; sourceTree = "<group>"; };
-		498657BF2C3535E200EEF59F /* DateFilterSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFilterSheetView.swift; sourceTree = "<group>"; };
+		498657BD2C352A5700EEF59F /* DateFilterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFilterButton.swift; sourceTree = "<group>"; };
+		498657BF2C3535E200EEF59F /* FilterSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSheetView.swift; sourceTree = "<group>"; };
 		49932F5B2AF1FD3700A45D14 /* RecentRidesCardList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentRidesCardList.swift; sourceTree = "<group>"; };
 		49E63A0A2B05DEF1005451D1 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		49E63A0C2B0610CB005451D1 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
@@ -266,8 +266,8 @@
 				49188F4C2AFB680A000C1E68 /* MapSnapShotView.swift */,
 				49188F4E2AFB6AEE000C1E68 /* TemperatureView.swift */,
 				498657BB2C33F80A00EEF59F /* DateIntervalPickerView.swift */,
-				498657BD2C352A5700EEF59F /* DateFilterPresetView.swift */,
-				498657BF2C3535E200EEF59F /* DateFilterSheetView.swift */,
+				498657BD2C352A5700EEF59F /* DateFilterButton.swift */,
+				498657BF2C3535E200EEF59F /* FilterSheetView.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -471,7 +471,7 @@
 				498657BA2C33BFFA00EEF59F /* TrendPreviewView.swift in Sources */,
 				490725FF2A69042A0009817F /* ContentView.swift in Sources */,
 				490725FD2A69042A0009817F /* RideTrackrApp.swift in Sources */,
-				498657BE2C352A5700EEF59F /* DateFilterPresetView.swift in Sources */,
+				498657BE2C352A5700EEF59F /* DateFilterButton.swift in Sources */,
 				4925C2092A74FE9D00761FDA /* RideRowView.swift in Sources */,
 				49188F4F2AFB6AEE000C1E68 /* TemperatureView.swift in Sources */,
 				492124952AE9027500889575 /* Extensions.swift in Sources */,
@@ -480,7 +480,7 @@
 				49E63A0B2B05DEF1005451D1 /* DataManager.swift in Sources */,
 				490726302A6907B40009817F /* HomeStatCardView.swift in Sources */,
 				494DAA8C2C25768D001E0D4B /* StatSample.swift in Sources */,
-				498657C02C3535E200EEF59F /* DateFilterSheetView.swift in Sources */,
+				498657C02C3535E200EEF59F /* FilterSheetView.swift in Sources */,
 				49E71F462AC1515A00900477 /* TrendManager.swift in Sources */,
 				49E71F442AC1509E00900477 /* TrendType.swift in Sources */,
 			);

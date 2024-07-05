@@ -7,46 +7,40 @@
 
 import SwiftUI
 
-struct DateFilterSheetView: View {
+struct FilterSheetView: View {
 
     @Binding var showFilterSheet: Bool
     @Binding var filterEnabled: Bool
     @Binding var dateFilter: DateInterval
-    @State private var selectedFilter: DateFilter?
+    @Binding var sortOrder: SortOrder
 
     var body: some View {
 
         NavigationStack {
 
             VStack {
+                
+                HStack {
+                    
+                    Text("Sort By:")
+                    Spacer()
+                    Picker("Sort By", selection: $sortOrder) {
+                        
+                        ForEach(SortOrder.allCases) { sort in
+                            Text(sort.rawValue).tag(sort.rawValue)
+                        }
+                    }
+                }
+                .padding(.top)
+                .padding(.leading)
 
-                Toggle("Filter By Date", isOn: $filterEnabled)
+                Toggle("Custom Date Range:", isOn: $filterEnabled)
                     .padding()
 
 
                 if filterEnabled {
                     DateIntervalPickerView(startDate: $dateFilter.start, endDate: $dateFilter.end)
-                        .transition(.opacity.combined(with: .asymmetric(insertion: .push(from: .bottom), removal: .move(edge: .bottom))))
-                    
-                    ScrollView(.horizontal) {
-                        HStack {
-                            ForEach(DateFilter.allCases) { filter in
-                                DateFilterPresetView(
-                                    text: filter.rawValue,
-                                    isSelected: filter == selectedFilter
-                                )
-                                    .padding(.vertical)
-                                    .onTapGesture {
-                                        withAnimation(.snappy(duration: 0.2)) {
-                                            selectedFilter = (selectedFilter == filter) ? nil : filter
-                                            dateFilter = selectedFilter?.interval ?? DateInterval()
-                                        }
-                                    }
-                            }
-                        }
-                        .padding()
-                    }.scrollIndicators(.hidden)
-                        .transition(.opacity.combined(with: .asymmetric(insertion: .push(from: .bottom), removal: .move(edge: .bottom))))
+                        .transition(.opacity)
                 }
 
                 Spacer()
@@ -63,10 +57,11 @@ struct DateFilterSheetView: View {
                         dateFilter.end = Date()
 
                         filterEnabled = false
+                        sortOrder = .date
                     }
                 }
             }
-                .animation(.interactiveSpring(duration: 0.2), value: filterEnabled)
+                .animation(.interactiveSpring(duration: 0.5), value: filterEnabled)
         }
     }
 }
@@ -76,8 +71,9 @@ struct DateFilterSheetView: View {
     @Previewable @State var showFilterSheet: Bool = true
     @Previewable @State var filterEnabled: Bool = false
     @Previewable @State var dateFilter: DateInterval = DateInterval()
+    @Previewable @State var sortOrder: SortOrder = .date
 
-    DateFilterSheetView(showFilterSheet: $showFilterSheet, filterEnabled: $filterEnabled, dateFilter: $dateFilter)
+    FilterSheetView(showFilterSheet: $showFilterSheet, filterEnabled: $filterEnabled, dateFilter: $dateFilter, sortOrder: $sortOrder)
 }
 
 enum DateFilter: String, CaseIterable, Identifiable {
@@ -109,4 +105,14 @@ enum DateFilter: String, CaseIterable, Identifiable {
             return DateInterval(start: startDate, end: Date())
         }
     }
+}
+
+enum SortOrder: String, CaseIterable, Identifiable {
+    
+    case date = "Date"
+    case distance = "Distance"
+    case energy = "Energy"
+    case duration = "Duration"
+    
+    var id: SortOrder { self }
 }

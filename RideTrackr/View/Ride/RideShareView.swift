@@ -10,33 +10,34 @@ import MapKit
 
 @MainActor
 struct RideShareView: View {
+    @State private var ride: Ride
+    @State private var isReady = false
     
-//    @EnvironmentObject var trendManager: TrendManager
-    
-    @State var ride: Ride
+    init(ride: Ride) {
+        _ride = State(initialValue: ride)
+    }
     
     var body: some View {
-        
         VStack {
-            
             Text(ride.dateString)
                 .font(.title3)
                 .bold()
                 .padding(.top)
             
-//            MapSnapshotView(location: ride.routeData.first!.coordinate, route: ride.routeData.map({ $0.coordinate }))
-            
-            // ride preview
-            LargeRidePreview(ride: $ride, showDate: false, queryingHealthKit: .constant(false)).environmentObject(TrendManager())
-            
-
-                
+            if isReady {
+                LargeRidePreview(ride: ride, showDate: false, queryingHealthKit: .constant(false))
+            }
         }
-        .frame(height: 200)
-        
+        .frame(width: 300, height: 400) // Set a fixed size
+        .onAppear {
+            // Simulate data loading
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                isReady = true
+            }
+        }
     }
 }
 
 #Preview {
-    RideShareView(ride: PreviewRide).environmentObject(TrendManager())
+    RideShareView(ride: PreviewRide)
 }

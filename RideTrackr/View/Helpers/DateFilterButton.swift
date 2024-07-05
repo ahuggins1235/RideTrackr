@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DateFilterPresetView: View {
+struct DateFilterButton: View {
 
     var text: String
     var isSelected: Bool
@@ -16,13 +16,13 @@ struct DateFilterPresetView: View {
 
         Text(text)
             .foregroundStyle(isSelected ? .white : .primary)
-            .padding()
+            .padding(10)
             .bold()
-            .font(.callout)
+            .font(.caption)
             .background {
                 
             Capsule()
-                .fill(isSelected ? Color.accentColor : Color.cardBackground)
+                    .fill(isSelected ? Color.accentColor : Color.cardBackground)
                 .stroke(Color.accentColor, lineWidth: 2)
         }
     }
@@ -33,6 +33,6 @@ struct DateFilterPresetView: View {
     @Previewable @State var preivewIsSelected: Bool = true
     @Previewable @State var preivewNotSelected: Bool = false
 
-    DateFilterPresetView(text: "Last Week", isSelected: false)
-    DateFilterPresetView(text: "Last Month",isSelected: true)
+    DateFilterButton(text: "Last Week", isSelected: false)
+    DateFilterButton(text: "Last Month",isSelected: true)
 }

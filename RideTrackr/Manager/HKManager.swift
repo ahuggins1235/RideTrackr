@@ -236,8 +236,9 @@ final class HKManager: ObservableObject {
         let heartRateType = HKObjectType.quantityType(forIdentifier: .heartRate)!
         let workoutType = HKObjectType.workoutType()
         let workoutRouteType = HKSeriesType.workoutRoute()
+        let effortType = HKObjectType.quantityType(forIdentifier: .estimatedWorkoutEffortScore)!
 
-        healthStore.requestAuthorization(toShare: nil, read: [heartRateType, workoutType, workoutRouteType]) { (success, error) in
+        healthStore.requestAuthorization(toShare: nil, read: [heartRateType, workoutType, workoutRouteType, effortType]) { (success, error) in
             if !success {
                 
                 print("Error requesting authorization")

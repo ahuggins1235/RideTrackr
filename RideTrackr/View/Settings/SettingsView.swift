@@ -38,6 +38,15 @@ struct SettingsView: View {
                     Text("Cadence or speed")
                 }
                 
+                Section("Appearance") {
+                    Picker("Theme", selection: $settingsManager.theme) {
+                        
+                        ForEach(ColorSchemeChoice.allCases) { theme in
+                            Text(theme.rawValue).tag(theme.rawValue)
+                        }
+                    }
+                }
+                
                 Section("Data") {
                     
                     Button("Resync Data With Apple Health") {

@@ -9,10 +9,27 @@ import SwiftUI
 import Charts
 import MapKit
 
+class ImageGenerator: ObservableObject {
+    @Published var generatedImage: Image?
+    
+    func generateSharingImage(ride: Ride, displayScale: CGFloat) async {
+        await MainActor.run {
+            let view = RideShareView(ride: ride)
+            let renderer = ImageRenderer(content: view)
+            
+            renderer.scale = displayScale
+            
+            if let uiImage = renderer.uiImage {
+                self.generatedImage = Image(uiImage: uiImage)
+            }
+        }
+    }
+}
 
 struct RideDetailView: View {
 
     // MARK: - Properties
+    @StateObject private var imageGenerator = ImageGenerator()
     @State var ride: Ride = Ride()
     @Environment(\.displayScale) private var displayScale: CGFloat
     @ObservedObject var trendManager: TrendManager = .shared
@@ -20,16 +37,25 @@ struct RideDetailView: View {
 
     @MainActor
     private func generateSharingImage() -> Image {
-
-        let renderer = ImageRenderer(content: RideShareView(ride: ride))
-
+        let view = RideShareView(ride: ride)
+        let renderer = ImageRenderer(content: view)
+        
         renderer.scale = displayScale
-
-        guard let image = renderer.uiImage else {
-            return Image(uiImage: UIImage())
+        
+        // Use DispatchQueue to ensure the view has updated
+        var resultImage: Image?
+        DispatchQueue.main.async {
+            if let uiImage = renderer.uiImage {
+                resultImage = Image(uiImage: uiImage)
+            }
         }
-
-        return Image(uiImage: image)
+        
+        // Wait for the image to be generated
+        while resultImage == nil {
+            RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.1))
+        }
+        
+        return resultImage ?? Image(uiImage: UIImage())
     }
 
     // MARK: - Body
@@ -42,20 +68,20 @@ struct RideDetailView: View {
 
                     // map
                     ZStack {
-                        
-                         if let location = ride.routeData.first {
-                        
-                        Rectangle()
-                            .fill(.secondary)
-                            .mask(RoundedRectangle(cornerRadius: 30, style: .continuous))
-                            .blur(radius: 15)
-                            .padding()
 
-                            MapSnapshotView(location: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude), route: ride.routeData.map({ CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude) }) )
+                        if let location = ride.routeData.first {
+
+                            Rectangle()
+                                .fill(.secondary)
+                                .mask(RoundedRectangle(cornerRadius: 30, style: .continuous))
+                                .blur(radius: 15)
+                                .padding()
+
+                            MapSnapshotView(location: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude), route: ride.routeData.map({ CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude) }))
                                 .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
                                 .padding()
                                 .frame(height: 300)
-                            
+
                             if let _ = ride.temperature {
                                 VStack {
                                     Spacer()
@@ -65,7 +91,7 @@ struct RideDetailView: View {
                                     }
                                 }
                             }
-                            
+
                         } else {
                             HStack {
                                 Spacer()
@@ -78,47 +104,47 @@ struct RideDetailView: View {
                     }
 
                     // ride preview
-                    LargeRidePreview(ride: $ride, showDate: false, queryingHealthKit: .constant(false))
+                    LargeRidePreview(ride: ride, showDate: false, queryingHealthKit: .constant(false))
                         .padding()
-                    
+
                     if ride.hrSamples.count != 0 {
-                        
+
                         ChartCardView(samples: $ride.hrSamples,
-                                      title: "Heart Rate",
-                                      unit: .constant("BPM"),
-                                      color: .heartRate,
-                                      average: .constant(ride.heartRate.rounded()),
-                                      rightText: "AVG"
+                            title: "Heart Rate",
+                            unit: .constant("BPM"),
+                            color: .heartRate,
+                            average: .constant(ride.heartRate.rounded()),
+                            rightText: "AVG"
                         ).padding(.bottom)
-                        
+
                     }
-                    
+
                     if ride.speedSamples.count != 0 {
-                        
-                        ChartCardView(samples: Binding(get: { ride.speedSamples.map({ stat in StatSample(date: stat.date, min: stat.min * distanceUnit.distanceConversion , max: stat.max * distanceUnit.distanceConversion  ) } ) } ),
-                                      title: "Speed",
-                                      unit: Binding(get: { "\(distanceUnit.speedAbr)" }),
-                                      color: .speed,
-                                      average: Binding(get: { (ride.speed * distanceUnit.distanceConversion).rounded() } ),
-                                      rightText: "AVG"
+
+                        ChartCardView(samples: Binding(get: { ride.speedSamples.map({ stat in StatSample(date: stat.date, min: stat.min * distanceUnit.distanceConversion, max: stat.max * distanceUnit.distanceConversion) }) }),
+                            title: "Speed",
+                            unit: Binding(get: { "\(distanceUnit.speedAbr)" }),
+                            color: .speed,
+                            average: Binding(get: { (ride.speed * distanceUnit.distanceConversion).rounded() }),
+                            rightText: "AVG"
                         ).padding(.bottom)
-                        
+
                     }
 
                     if ride.altitdueSamples.count != 0 {
-                        
-                        ChartCardView(samples: Binding(get: { ride.altitdueSamples.map({ stat in StatSample(date: stat.date, min: stat.min * distanceUnit.smallDistanceConversion , max: stat.max * distanceUnit.smallDistanceConversion  ) } ) } ) ,
-                                      title: "Altitude",
-                                      unit: Binding(get: { "\(distanceUnit.smallDistanceAbr)" }),
-                                      color: .altitude,
-                                      average: Binding(get: { (ride.altitudeGained * distanceUnit.smallDistanceConversion).rounded() } ),
-                                      rightText: "GAIN"
+
+                        ChartCardView(samples: Binding(get: { ride.altitdueSamples.map({ stat in StatSample(date: stat.date, min: stat.min * distanceUnit.smallDistanceConversion, max: stat.max * distanceUnit.smallDistanceConversion) }) }),
+                            title: "Altitude",
+                            unit: Binding(get: { "\(distanceUnit.smallDistanceAbr)" }),
+                            color: .altitude,
+                            average: Binding(get: { (ride.altitudeGained * distanceUnit.smallDistanceConversion).rounded() }),
+                            rightText: "GAIN"
                         ).padding(.bottom)
                     }
                 }
             }
         }
-        
+
             .navigationTitle(ride.dateString)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -128,6 +154,11 @@ struct RideDetailView: View {
 
             }
         }
+            .onAppear {
+                Task {
+                    await imageGenerator.generateSharingImage(ride: ride, displayScale: displayScale)
+                }
+            }
     }
 }
 
@@ -165,7 +196,7 @@ struct ChartCardView: View {
 //                    let max = samples.max { sample1, sample2 in
 //                        sample1.max > sample2.max
 //                    }?.max ?? 0
-//                    
+//
                     // chart
                     Chart(samples) { sample in
 
@@ -186,7 +217,7 @@ struct ChartCardView: View {
 //                    .chartYScale (domain: 0...(max + 100))
 
                         .padding()
-                        
+
 
 //                        .onAppear {
 //                            for (index,_) in samples.enumerated() {
@@ -217,28 +248,28 @@ struct ChartCardView: View {
                 }
             }.padding(.horizontal)
         }
-        .scrollTransition(.animated(.interactiveSpring(response: 0.8, dampingFraction: 0.75, blendDuration: 0.8)).threshold(.visible(0.3))) { content, phase in
-            
+            .scrollTransition(.animated(.interactiveSpring(response: 0.8, dampingFraction: 0.75, blendDuration: 0.8)).threshold(.visible(0.3))) { content, phase in
+
             content
                 .opacity(phase.isIdentity ? 1.0 : 0.3)
                 .scaleEffect(phase.isIdentity ? 1.0 : 0.3)
-            
+
         }
 
 
     }
 }
 
-struct AnimationModifier : ViewModifier{
-    let positionOffset : Double
+struct AnimationModifier: ViewModifier {
+    let positionOffset: Double
     let height = UIScreen.main.bounds.height
-    
+
     func body(content: Content) -> some View {
         GeometryReader { geometry in
             let position = geometry.frame(in: CoordinateSpace.global).midY
             ZStack {
                 Color.clear
-                if height >= (position + positionOffset)  {
+                if height >= (position + positionOffset) {
                     content
                 }
             }
@@ -253,7 +284,7 @@ struct RideDetailView_Previews: PreviewProvider {
     @Namespace static var namespace
 
     static var previews: some View {
-        
+
         RideDetailView(ride: PreviewRide).environmentObject(TrendManager())
 //        RideDetailView(ride: PreviewRideNoRouteData).environmentObject(TrendManager())
 //        ChartCardView(samples: PreviewRide.hrSamples, title: "Heart Rate", unit: "BPM", color: .red, average: 167, rightText: "AVG")

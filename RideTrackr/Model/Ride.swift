@@ -114,6 +114,11 @@ struct Ride: Identifiable, Hashable, Sendable, Decodable {
 
                 workoutAlitudeGained = workoutElevation.doubleValue(for: HKUnit.meter())
             }
+//            print(workout.startDate.description)
+//            workoutMetadata.keys.forEach({ key in print(key) })
+//            if let effortRating = workoutMetadata["HKAverageMETs"] as? HKQuantity {
+//                print(effortRating)
+//            }
 
             if let quantityTemperature = workoutMetadata[HKMetadataKeyWeatherTemperature] as? HKQuantity {
                 self.temperature = quantityTemperature.doubleValue(for: HKUnit.degreeCelsius())

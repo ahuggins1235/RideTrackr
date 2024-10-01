@@ -41,7 +41,6 @@ class DataManager: ObservableObject {
         self.db = db
         
         self.rides = getAllRides()
-
     }
 
     // MARK: - DB Queries
@@ -60,13 +59,12 @@ class DataManager: ObservableObject {
             while result.next() {
                 if let ride = Ride(from: result) {
                     rides.append(ride)
+//                    print(ride.humidity)
                 }
             }
-
         } catch {
             fatalError("Problem getting rides: \(error.localizedDescription)")
         }
-
         return rides
     }
     
@@ -77,11 +75,12 @@ class DataManager: ObservableObject {
         
         // check if the ride is already in the rides list
         if self.rides.contains(where: { exsistingRide in exsistingRide.rideDate.formatted() == ride.rideDate.formatted()} ) {
+            self.rides.sort { $0.rideDate > $1.rideDate }
             return
         }
         
         let sqlQuery = """
-        INSERT INTO Rides("id","heartRate","speed","distance","activeEnergy","altitudeGained","rideDate","duration","temperature","routeData","hrSamples","altitdueSamples","speedSamples") VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?);
+        INSERT INTO Rides("id","heartRate","speed","distance","activeEnergy","altitudeGained","rideDate","duration","temperature","humidity","effortScore","routeData","hrSamples","altitdueSamples","speedSamples") VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
         """
 
         do {
@@ -100,7 +99,10 @@ class DataManager: ObservableObject {
         } catch {
             fatalError("Error encoding data: \(error)")
         }
-
+        
+        DispatchQueue.main.async {
+            self.rides.sort { $0.rideDate > $1.rideDate }
+        }
 
     }
 

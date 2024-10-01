@@ -37,7 +37,6 @@ struct FilterSheetView: View {
                 Toggle("Custom Date Range:", isOn: $filterEnabled)
                     .padding()
 
-
                 if filterEnabled {
                     DateIntervalPickerView(startDate: $dateFilter.start, endDate: $dateFilter.end)
                         .transition(.opacity)

@@ -16,7 +16,7 @@ struct TrendPreviewView: View {
     var body: some View {
         LazyVGrid(columns: Array(repeating: GridItem(spacing: 20), count: 2)) {
             
-            HomeStatCardView(
+            TrendCardView(
                 bgColor: .heartRate,
                 title: "Average Heart Rate",
                 icon: "heart.fill",
@@ -27,7 +27,7 @@ struct TrendPreviewView: View {
                 navigationManager.selectedTab = .Trends
             }
             
-            HomeStatCardView(
+            TrendCardView(
                 bgColor: .speed,
                 title: "Average Speed",
                 icon: "speedometer",
@@ -38,7 +38,7 @@ struct TrendPreviewView: View {
                 navigationManager.selectedTab = .Trends
             }
             
-            HomeStatCardView(
+            TrendCardView(
                 bgColor: .distance,
                 title: "Average Distance",
                 icon: "figure.outdoor.cycle",
@@ -49,7 +49,7 @@ struct TrendPreviewView: View {
                 navigationManager.selectedTab = .Trends
             }
             
-            HomeStatCardView(
+            TrendCardView(
                 bgColor: .energy,
                 title: "Average Active Energy",
                 icon: "flame.fill",
@@ -66,5 +66,5 @@ struct TrendPreviewView: View {
 }
 
 #Preview {
-    TrendPreviewView()
+    TrendPreviewView(trendManager: PreviewTrendManager())
 }

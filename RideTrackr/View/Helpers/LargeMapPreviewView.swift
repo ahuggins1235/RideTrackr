@@ -11,8 +11,10 @@ import MapKit
 struct LargeMapPreviewView: View {
     var routeData: [PersistentLocation]
     var temperatureString: String?
-    var effortScore: Int?
-
+    var effortScore: Double?
+    
+    
+    
     var body: some View {
 
         ZStack {
@@ -33,9 +35,15 @@ struct LargeMapPreviewView: View {
                                 .shadow(radius: 5)
                         }
                     }
-
-                    MapPolyline(coordinates: routeData.map({ $0.toCLLocationCoordinate2D() }), contourStyle: .geodesic)
-                        .stroke(Color.accentColor, lineWidth: 5)
+                    
+                    ForEach(0..<routeData.count - 1, id: \.self) { index in
+                        MapPolyline(coordinates: [routeData[index].toCLLocationCoordinate2D(), routeData[index + 1].toCLLocationCoordinate2D()])
+                            .stroke(Color(UIColor(red: 1.0, green: 0.8, blue: 0.3, alpha: 1)), lineWidth: 5)
+                                                
+                    }
+                    
+//                    MapPolyline(coordinates: routeData.map({ $0.toCLLocationCoordinate2D() }), contourStyle: .geodesic)
+//                        .stroke(Color.accentColor, lineWidth: 5)
 
 
                     if let last = routeData.last {
@@ -52,12 +60,14 @@ struct LargeMapPreviewView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
 
                 if let effortScore = effortScore {
-                    VStack {
-                        HStack {
+                    if effortScore > 0 {
+                        VStack {
+                            HStack {
+                                Spacer()
+                                EffortScoreView(score: effortScore)
+                            }
                             Spacer()
-                            EffortScoreView(score: effortScore)
                         }
-                        Spacer()
                     }
                 }
 
@@ -81,6 +91,17 @@ struct LargeMapPreviewView: View {
                     Spacer()
                 }
             }
+        }
+    }
+    
+    func colorForIntensity(_ intensity: Double) -> Color {
+        switch intensity {
+            case 0...50:
+                return .green
+            case 51...80:
+                return .yellow
+            default:
+                return .red
         }
     }
 }

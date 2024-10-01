@@ -23,8 +23,13 @@ struct RideListView: View {
     @State private var selectedDetent: PresentationDetent = .fraction(0.25)
     @State private var selectedFilter: DateFilter?
     @State private var selectedSort: SortOrder = .date
+    @Namespace var animation
 
     private var filteredRides: [Ride] {
+        
+        if healthManager.queryingHealthKit {
+            return previewRideArray
+        }
         
         var sortedRides: [Ride] = []
         
@@ -69,7 +74,8 @@ struct RideListView: View {
         NavigationStack(path: $navigationManager.rideListNavPath) {
 
             VStack(spacing: 0) {
-
+                
+                // MARK: - Date filters
                 ScrollView(.horizontal) {
                     HStack {
                         ForEach(DateFilter.allCases) { filter in
@@ -98,6 +104,7 @@ struct RideListView: View {
                 
                 Divider()
                 
+                // MARK: - Main list
                 ScrollView {
                     LazyVStack {
                         if filteredRides.isEmpty {
@@ -114,6 +121,8 @@ struct RideListView: View {
                                 }
                             }
                             .id(ride.id)
+                            .redacted(if: healthManager.queryingHealthKit)
+                            .shimmer(.defaultConfig, isLoading: healthManager.queryingHealthKit)
                         }
                     }
                         .padding(.top)
@@ -128,15 +137,6 @@ struct RideListView: View {
                     .navigationDestination(for: Ride.self) { ride in
                     RideDetailView(ride: ride)
                 }
-
-//                if healthManager.queryingHealthKit {
-//                    RoundedRectangle(cornerRadius: 15)
-//                        .fill(.background)
-//                        .padding([.horizontal, .bottom])
-//
-//                    ProgressView("Loading")
-//                        .ignoresSafeArea()
-//                }
             }
             // MARK: - Filter sheet
             .sheet(isPresented: $showFilterSheet) {
@@ -157,10 +157,6 @@ struct RideListView: View {
                     } label: {
                         Label("Sorting", systemImage: "arrow.up.arrow.down")
                     }
-                }
-
-                    ToolbarItemGroup(placement: .bottomBar) {
-//                        Text("sdflkj")
                 }
             }
                 .toolbarBackground(.cardBackground, for: .navigationBar)

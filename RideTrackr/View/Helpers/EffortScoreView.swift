@@ -10,13 +10,13 @@ import PolyKit
 
 struct EffortScoreView: View {
 
-    public let score: Int
+    public let score: Double
     @State var animate = false
 
     var body: some View {
         ZStack {
 
-            Text(String(score))
+            Text(String(Int(score)))
                 .font(.largeTitle)
                 .fontDesign(.rounded)
                 .bold()
@@ -24,7 +24,7 @@ struct EffortScoreView: View {
                 .padding()
                 .background {
 
-                    Polygon(count: score + 3, relativeCornerRadius: 0.2)
+                    Polygon(count: Int(score) + 3, relativeCornerRadius: 0.2)
                     .fill(.purple.gradient)
                     .stroke(Color.white, lineWidth: 5)
                     .rotationEffect(Angle(degrees: animate ? 0 : 30))

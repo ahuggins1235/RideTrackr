@@ -28,8 +28,9 @@ struct RideDetailView: View {
                 VStack(alignment: .leading) {
 
                     // map
-                    LargeMapPreviewView(routeData: ride.routeData, temperatureString: ride.temperatureString, effortScore: 5)
+                    LargeMapPreviewView(routeData: ride.routeData, temperatureString: ride.temperatureString, effortScore: ride.effortScore)
                         .padding()
+                    
 
                     // ride preview
                     LargeRidePreview(ride: ride, showDate: false, queryingHealthKit: .constant(false))
@@ -211,8 +212,6 @@ class ImageGenerator: ObservableObject {
 
 // MARK: - Previews
 struct RideDetailView_Previews: PreviewProvider {
-
-    @Namespace static var namespace
 
     static var previews: some View {
 

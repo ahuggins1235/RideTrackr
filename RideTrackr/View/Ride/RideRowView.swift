@@ -14,7 +14,6 @@ struct RideRowView: View {
     //MARK:  - properties
     @State var ride: Ride
 
-
     // MARK: - body
     var body: some View {
 
@@ -22,21 +21,21 @@ struct RideRowView: View {
 
             RoundedRectangle(cornerRadius: 15)
                 .fill(.cardBackground)
-//                .shadow(radius: 7, x: 2, y: 2)
             .padding(.horizontal)
-
 
             HStack {
 
                 // Map
-//                if let firstLocation = ride.routeData.first {
-//                    SmallMapPreviewView(location: CLLocationCoordinate2D(latitude: firstLocation.latitude, longitude: firstLocation.longitude), route: ride.routeData.map({ CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude) }))
-//                        .clipShape(Circle())
-//                        .padding(.vertical, 5)
-//                        .padding(.horizontal, 8)
-//                        .frame(width: 100, height: 100)
-//                        .shadow(radius: 3)
-//                } else {
+                if let firstLocation = ride.routeData.first {
+                    SmallMapPreviewView(location: CLLocationCoordinate2D(latitude: firstLocation.latitude, longitude: firstLocation.longitude), route: ride.routeData.map({ CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude) }))
+                        .clipShape(Circle())
+                        .padding(.vertical, 5)
+                        .padding(.horizontal, 8)
+                        .frame(width: 100, height: 100)
+                        .shadow(radius: 3)
+                    
+                    
+                } else {
 
                     Circle()
                         .padding(.vertical, 5)
@@ -51,7 +50,8 @@ struct RideRowView: View {
                             .font(.caption)
                             .padding()
                     )
-//                }
+                }
+                    
 
                 VStack {
 
@@ -78,8 +78,6 @@ struct RideRowView: View {
                         Text(ride.shortDateString)
                             .font(.headline)
                             .foregroundColor(.primary)
-
-
                     }
                         .foregroundStyle(.accent)
                         .padding([.trailing, .top, .bottom])

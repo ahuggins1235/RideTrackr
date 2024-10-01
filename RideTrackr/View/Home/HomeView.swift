@@ -34,7 +34,9 @@ struct HomeView: View {
 
                     // MARK: - stat views
                     TrendPreviewView()
-
+                        .redacted(if: healthManager.queryingHealthKit)
+                        .shimmer(.defaultConfig, isLoading: healthManager.queryingHealthKit)
+                        
 
                     // MARK: - recent ride preview
                     VStack(alignment: .leading) {
@@ -55,37 +57,35 @@ struct HomeView: View {
 
                         if let recentRide = dataManager.rides.first {
 
-                            NavigationLink(value: recentRide) {
-                                LargeRidePreview(ride: recentRide, queryingHealthKit: $healthManager.queryingHealthKit)
+                                NavigationLink(value: recentRide) {
+                                    LargeRidePreview(ride: recentRide, queryingHealthKit: $healthManager.queryingHealthKit)
+                                        .redacted(if: healthManager.queryingHealthKit)
+                                        .shimmer(ShimmerConfig.defaultConfig, isLoading: healthManager.queryingHealthKit)
+                                    
+                                }.foregroundStyle(Color.primary)
 
-//                                    .matchedTransitionSource(id: "preview", in: namespace)
-                            }.foregroundStyle(Color.primary)
-
-                        } else {
-                            LargeRidePreview(ride: Ride(), queryingHealthKit: $healthManager.queryingHealthKit)
                         }
-                    }
+                    } 
                         .padding(.top)
 
                     // MARK: - recent ride cards
                     RecentRidesCardList()
                         .frame(height: 300)
+                        .redacted(if: healthManager.queryingHealthKit)
+                        .shimmer(.defaultConfig, isLoading: healthManager.queryingHealthKit)
 
                 }.padding(.horizontal)
-                .navigationTitle(greetingString)
+                    .navigationTitle(greetingString)
             }
-            .navigationDestination(for: Ride.self) { ride in
-                RideDetailView(ride: ride)
+                .navigationDestination(for: Ride.self) { ride in
+                    RideDetailView(ride: ride)
             }
-            
-            .refreshable {
-//                healthManager.queryingHealthKit = true
+
+                .refreshable {
+
                 withAnimation {
                     dataManager.refreshRides()
                 }
-                    
-//                healthManager.queryingHealthKit = false
-                
             }
         }
     }
@@ -109,6 +109,6 @@ func GetGreetingString() -> String {
 
 // MARK: - Previews
 #Preview("Home View") {
-    HomeView()
+    HomeView(trendManager: PreviewTrendManager())
 }
 

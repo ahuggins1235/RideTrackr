@@ -54,6 +54,8 @@ struct RecentRidesCardList: View {
                                 RideCardPreview(ride: ride).padding(.horizontal).tag(ride.id)
                                     .foregroundStyle(Color.primary)
                                     .containerRelativeFrame(.vertical)
+                                    .redacted(if: healthManager.queryingHealthKit)
+                                    .shimmer(ShimmerConfig.defaultConfig, isLoading: healthManager.queryingHealthKit)
                             }
                         }
                     }.tabViewStyle(.page(indexDisplayMode: .never))

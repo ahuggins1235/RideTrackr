@@ -28,7 +28,7 @@ struct RideDetailView: View {
                 VStack(alignment: .leading) {
 
                     // map
-                    LargeMapPreviewView(routeData: ride.routeData, temperatureString: ride.temperatureString, effortScore: ride.effortScore)
+                    LargeMapPreviewView(routeData: ride.routeData, temperatureString: ride.temperatureString, effortScore: ride.effortScore, ride: ride)
                         .padding()
                     
 

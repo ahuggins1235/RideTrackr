@@ -361,6 +361,7 @@ let PreviewRide = Ride(
     altitudeGained: 13.7,
     rideDate: Date(),
     temperature: 23,
+    effortScore: 8,
     hrSamples: [
         StatSample(date: Date(), min: 70.0, max: 90.0),
         StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),

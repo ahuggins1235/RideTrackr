@@ -294,8 +294,8 @@
             filePath = "RideTrackr/Manager/DataManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "138"
-            endingLineNumber = "138"
+            startingLineNumber = "137"
+            endingLineNumber = "137"
             landmarkName = "refreshRides()"
             landmarkType = "7">
          </BreakpointContent>
@@ -310,8 +310,8 @@
             filePath = "RideTrackr/Manager/HKManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "211"
-            endingLineNumber = "211"
+            startingLineNumber = "216"
+            endingLineNumber = "216"
             landmarkName = "HKManager"
             landmarkType = "3">
          </BreakpointContent>
@@ -326,8 +326,8 @@
             filePath = "RideTrackr/Manager/HKManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "186"
-            endingLineNumber = "186"
+            startingLineNumber = "191"
+            endingLineNumber = "191"
             landmarkName = "fetchWorkoutEffortSamples(for:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -342,9 +342,9 @@
             filePath = "RideTrackr/Manager/HKManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "64"
-            endingLineNumber = "64"
-            landmarkName = "getRides(numRides:getAllRides:)"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
+            landmarkName = "getRides(numRides:getAllRides:startDate:endDate:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -358,9 +358,9 @@
             filePath = "RideTrackr/Manager/HKManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "65"
-            endingLineNumber = "65"
-            landmarkName = "getRides(numRides:getAllRides:)"
+            startingLineNumber = "63"
+            endingLineNumber = "63"
+            landmarkName = "getRides(numRides:getAllRides:startDate:endDate:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -374,8 +374,8 @@
             filePath = "RideTrackr/Manager/HKManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "195"
-            endingLineNumber = "195"
+            startingLineNumber = "200"
+            endingLineNumber = "200"
             landmarkName = "fetchWorkoutEffortSamples(for:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -406,9 +406,9 @@
             filePath = "RideTrackr/Manager/HKManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "72"
-            endingLineNumber = "72"
-            landmarkName = "getRides(numRides:getAllRides:)"
+            startingLineNumber = "70"
+            endingLineNumber = "70"
+            landmarkName = "getRides(numRides:getAllRides:startDate:endDate:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -422,9 +422,9 @@
             filePath = "RideTrackr/Manager/HKManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "81"
-            endingLineNumber = "81"
-            landmarkName = "getRides(numRides:getAllRides:)"
+            startingLineNumber = "79"
+            endingLineNumber = "79"
+            landmarkName = "getRides(numRides:getAllRides:startDate:endDate:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

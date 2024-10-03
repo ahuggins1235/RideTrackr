@@ -59,7 +59,6 @@ class DataManager: ObservableObject {
             while result.next() {
                 if let ride = Ride(from: result) {
                     rides.append(ride)
-//                    print(ride.humidity)
                 }
             }
         } catch {
@@ -135,10 +134,11 @@ class DataManager: ObservableObject {
         DispatchQueue.main.async {
             Task{
                 HKManager.shared.queryingHealthKit = true
-                let syncedRides = await HKManager.shared.getRides(numRides: 5)
+//                let syncedRides = await HKManager.shared.getRides(numRides: 5)
+                let syncedRides = await HKManager.shared.getRides(getAllRides: true, startDate: .startOfWeekMonday, endDate: .now)
                 
                 for ride in syncedRides {
-                    
+                    print(ride.rideDate.formatted())
                     self.insertRide(ride)
                 }
                 

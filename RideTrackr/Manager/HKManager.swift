@@ -39,15 +39,13 @@ final class HKManager: ObservableObject {
     /// Gets a list of rides the user has recorded
     /// - Parameter numRides: How many rides to get
     /// - Returns: An array of ``Ride`` objects that represent some of the rides the user has been on
-    func getRides(numRides: Int = 1, getAllRides: Bool = false) async -> [Ride] {
+    func getRides(numRides: Int = 1, getAllRides: Bool = false, startDate: Date? = nil, endDate: Date? = nil) async -> [Ride] {
 
         var rides: [Ride] = []
 
         do {
 
-            let workouts = try await fetchCyclingWorkouts(numRides: numRides, getAllRides: getAllRides)
-
-//            try await fetchEffortScore(for: workouts.first!)
+            let workouts = try await fetchCyclingWorkouts(numRides: numRides, getAllRides: getAllRides, startDate: startDate, endDate: endDate)
 
             // iterare through the returned workouts
             for workout in workouts {
@@ -95,16 +93,23 @@ final class HKManager: ObservableObject {
     /// Queries health kit for an array of cycling workouts
     /// - Parameter numRides: how many workouts to collect
     /// - Returns: an array of ``HKWorkout``
-    func fetchCyclingWorkouts(numRides: Int = 1, getAllRides: Bool = false) async throws -> [HKWorkout] {
-        
-        
+    func fetchCyclingWorkouts(numRides: Int = 1, getAllRides: Bool = false, startDate: Date? = nil, endDate: Date? = nil) async throws -> [HKWorkout] {
         
         // Define the workout type
         let workoutType = HKObjectType.workoutType()
 
         // Create a predicate to only fetch cycling workouts
-        let predicate = HKQuery.predicateForWorkouts(with: .cycling)
-
+        let workoutPredicate = HKQuery.predicateForWorkouts(with: .cycling)
+        
+        var predicateArray = [workoutPredicate]
+        
+        if let startDate = startDate {
+            let datePredicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: .strictEndDate)
+            predicateArray.append(datePredicate)
+        }
+        
+        let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicateArray)
+        
         // Define the sort descriptor to sort workouts by end date
         let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)
 

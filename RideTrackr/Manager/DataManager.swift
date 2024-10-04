@@ -178,7 +178,6 @@ class DataManager: ObservableObject {
                     
                     self.insertRide(ride)
                 }
-                
                 HKManager.shared.queryingHealthKit = false
             }
         }

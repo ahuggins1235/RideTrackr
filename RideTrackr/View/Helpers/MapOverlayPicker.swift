@@ -103,14 +103,14 @@ enum MapOverlayType: String, CaseIterable, Identifiable {
 
     var icon: AnyView {
         switch self {
+            case .None:
+                return AnyView(Label("Default", systemImage: "point.bottomleft.forward.to.point.topright.scurvepath.fill"))
         case .HeartRate:
             return AnyView(Label("Heart Rate", systemImage: "heart.fill").labelStyle(.titleAndIcon))
         case .Speed:
             return AnyView(Label("Speed", systemImage: "speedometer").labelStyle(.titleAndIcon))
         case .Altitude:
             return AnyView(Label("Altitude", systemImage: "mountain.2.circle").labelStyle(.titleAndIcon))
-        case .None:
-            return AnyView(Label("Default", systemImage: "point.bottomleft.forward.to.point.topright.scurvepath.fill"))
         }
     }
 

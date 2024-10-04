@@ -30,7 +30,6 @@ final class HKManager: ObservableObject {
     // MARK: - Init
     init() {
         requestAuthorization()
-
     }
 
     // MARK: - HK Queries
@@ -94,41 +93,51 @@ final class HKManager: ObservableObject {
     /// - Parameter numRides: how many workouts to collect
     /// - Returns: an array of ``HKWorkout``
     func fetchCyclingWorkouts(numRides: Int = 1, getAllRides: Bool = false, startDate: Date? = nil, endDate: Date? = nil) async throws -> [HKWorkout] {
-        
-        // Define the workout type
         let workoutType = HKObjectType.workoutType()
-
-        // Create a predicate to only fetch cycling workouts
         let workoutPredicate = HKQuery.predicateForWorkouts(with: .cycling)
         
         var predicateArray = [workoutPredicate]
         
+        // Use a slightly earlier end date to account for processing time
+        let queryEndDate = endDate ?? Date()
+        let adjustedEndDate = queryEndDate.addingTimeInterval(60) // Add 1 minute buffer
+        
         if let startDate = startDate {
-            let datePredicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: .strictEndDate)
+            let datePredicate = HKQuery.predicateForSamples(
+                withStart: startDate,
+                end: adjustedEndDate,
+                options: .strictEndDate
+            )
             predicateArray.append(datePredicate)
         }
         
         let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicateArray)
-        
-        // Define the sort descriptor to sort workouts by end date
         let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)
-
-        // Create a Task to handle the async query
+        
         return try await withCheckedThrowingContinuation { continuation in
-            let query = HKSampleQuery(sampleType: workoutType, predicate: predicate, limit: getAllRides ? HKObjectQueryNoLimit : numRides, sortDescriptors: [sortDescriptor]) { (query, samples, error) in
+            let query = HKSampleQuery(
+                sampleType: workoutType,
+                predicate: predicate,
+                limit: getAllRides ? HKObjectQueryNoLimit : numRides,
+                sortDescriptors: [sortDescriptor]
+            ) { (query, samples, error) in
                 if let error = error {
                     continuation.resume(throwing: error)
                 } else if let samples = samples as? [HKWorkout] {
                     continuation.resume(returning: samples)
                 } else {
-                    continuation.resume(throwing: NSError(domain: "com.example", code: 1, userInfo: [NSLocalizedDescriptionKey: "Unable to fetch workouts"]))
+                    continuation.resume(throwing: NSError(
+                        domain: "com.example",
+                        code: 1,
+                        userInfo: [NSLocalizedDescriptionKey: "Unable to fetch workouts"]
+                    ))
                 }
             }
-
-            // Execute the query
+            
             healthStore.execute(query)
         }
     }
+
 
     /// Fetch all of the heart rate samples that were recorded during the user's workout
     /// - Parameters:
@@ -172,6 +181,10 @@ final class HKManager: ObservableObject {
         }
     }
 
+    
+    /// Fetches the apple workout effort score of a given workout
+    /// - Parameter workout: The workout to get the score for
+    /// - Returns: A double that reflects the workout effiort score (0 if the workout doesn't have an effort score recorded)
     func fetchWorkoutEffortSamples(for workout: HKWorkout) async throws -> Double? {
         let workoutEffortScoreType = HKObjectType.quantityType(forIdentifier: .estimatedWorkoutEffortScore)!
 
@@ -205,30 +218,7 @@ final class HKManager: ObservableObject {
             healthStore.execute(effortQuery)
         }
     }
-//    func fetchWorkoutEffortSamples(for workout: HKWorkout) -> Int? {
-//        let workoutEffortScoreType = HKObjectType.quantityType(forIdentifier: .estimatedWorkoutEffortScore)
-//
-//        // Create the predicate for effort samples related to the workout
-//        let effortPredicate = HKQuery.predicateForWorkoutEffortSamplesRelated(workout: workout, activity: nil)
-//
-//        // Create the query
-//        let effortQuery = HKSampleQuery(sampleType: workoutEffortScoreType!, predicate: effortPredicate, limit: 0, sortDescriptors: nil) { (query, results, error) in
-//
-//            guard let effortSamples = results as? [HKQuantitySample] else {
-//                print("No effort samples found or error: \(error?.localizedDescription ?? "Unknown error")")
-//                return
-//            }
-//
-//            // Process the effort samples
-//            for sample in effortSamples {
-//                print("Effort Score: \(sample.quantity.doubleValue(for: HKUnit.appleEffortScore()))")
-//
-//            }
-//        }
-//
-//        // Execute the query
-//        healthStore.execute(effortQuery)
-//    }
+
 
     /// Fetches the route the user took on the given workout
     /// - Parameters:

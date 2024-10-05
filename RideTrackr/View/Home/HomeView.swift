@@ -55,10 +55,10 @@ struct HomeView: View {
                                 .foregroundStyle(.accent)
                         }
 
-                        if let recentRide = dataManager.rides.first {
+                        if dataManager.rides.count > 0 {
 
-                                NavigationLink(value: recentRide) {
-                                    LargeRidePreview(ride: recentRide, queryingHealthKit: $healthManager.queryingHealthKit)
+                            NavigationLink(value: dataManager.rides.first!) {
+                                LargeRidePreview(ride: $dataManager.rides.first!, queryingHealthKit: $healthManager.queryingHealthKit)
                                         .redacted(if: healthManager.queryingHealthKit)
                                         .shimmer(ShimmerConfig.defaultConfig, isLoading: healthManager.queryingHealthKit)
                                     

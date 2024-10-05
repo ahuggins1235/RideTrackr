@@ -10,7 +10,7 @@ import MapKit
 
 @MainActor
 struct RideShareView: View {
-    let ride: Ride
+    @State var ride: Ride
     
     var body: some View {
         LazyVStack {
@@ -21,7 +21,7 @@ struct RideShareView: View {
 //            
 //
             
-            LargeRidePreview(ride: ride, showDate: true, queryingHealthKit: .constant(false))
+            LargeRidePreview(ride: $ride, showDate: true, queryingHealthKit: .constant(false))
                 .padding()
 //                .frame(height: 250)
         }

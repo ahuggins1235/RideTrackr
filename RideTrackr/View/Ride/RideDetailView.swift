@@ -33,7 +33,7 @@ struct RideDetailView: View {
                     
 
                     // ride preview
-                    LargeRidePreview(ride: ride, showDate: false, queryingHealthKit: .constant(false))
+                    LargeRidePreview(ride: $ride, showDate: false, queryingHealthKit: .constant(false))
                         .padding()
 
                     if ride.hrSamples.count != 0 {

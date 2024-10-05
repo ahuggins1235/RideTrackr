@@ -11,7 +11,7 @@ struct LargeRidePreview: View {
 
     // MARK: - Properties
     @ObservedObject var trendManager: TrendManager = .shared
-    @State var ride: Ride
+    @Binding var ride: Ride
     @State var showDate = true
     @Binding var queryingHealthKit: Bool
 
@@ -57,7 +57,7 @@ struct LargeRidePreview: View {
 //MARK: - Previews
 #Preview {
     @Previewable @State var previewRide = PreviewRide
-    return LargeRidePreview(ride: previewRide, queryingHealthKit: .constant(false)).environmentObject(TrendManager())
+    return LargeRidePreview(ride: $previewRide, queryingHealthKit: .constant(false))
 }
 
 #Preview {

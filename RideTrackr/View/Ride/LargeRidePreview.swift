@@ -22,18 +22,21 @@ struct LargeRidePreview: View {
             // MARK: - Background
             RoundedRectangle(cornerRadius: 15)
                 .fill(.cardBackground)
-                .shadow(radius: 4, x: 2, y: 2)
+//                .shadow(radius: 4, x: 2, y: 2)
 
             // MARK: - Body
             ZStack {
 
-                VStack(alignment: .leading) {
+                VStack(alignment: .leading, spacing: 0) {
 
                     if showDate {
                         Text(ride.dateString)
                             .font(.caption)
                             .foregroundStyle(.secondary)
-                            .padding()
+                            .padding(.horizontal)
+//                            .background(.red)
+                            .padding(.top, 10)
+                            .padding(.bottom, 1)
                     }
 
                     LazyVGrid(columns: Array(repeating: GridItem(spacing: 8), count: 2)) {
@@ -45,7 +48,8 @@ struct LargeRidePreview: View {
                         RideStatCardView(color: .altitude, title: "Altitude Gained", displayString: Binding(get: { ride.alitudeString }), trendAverage: Binding(get: { 0.0 }), data: Binding(get: { 0.0 }), queryingHealthKit: queryingHealthKit, showDifference: false)
 
                     }
-                        .padding(10)
+                    .padding([.top, .horizontal], 10)
+                    .padding(.bottom, 2)
                     Spacer()
                 }
             }

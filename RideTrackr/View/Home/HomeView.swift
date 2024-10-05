@@ -87,6 +87,7 @@ struct HomeView: View {
                     dataManager.refreshRides()
                 }
             }
+                .background(Color(uiColor: .systemGroupedBackground))
         }
     }
 }
@@ -110,5 +111,9 @@ func GetGreetingString() -> String {
 // MARK: - Previews
 #Preview("Home View") {
     HomeView(trendManager: PreviewTrendManager())
+        .onAppear {
+            HKManager.shared.queryingHealthKit = false
+            DataManager.shared.rides = previewRideArray
+        }
 }
 

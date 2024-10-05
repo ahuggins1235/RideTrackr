@@ -76,7 +76,7 @@ struct RecentRidesCardList: View {
                         }
                     }.background {
                         Capsule()
-                            .foregroundStyle(.ultraThinMaterial)
+                            .foregroundStyle(.white)
 
                     }
                     // set the idicator to the second ride
@@ -115,7 +115,7 @@ struct RideCardPreview: View {
 
             Color.cardBackground
                 .clipShape(RoundedRectangle(cornerRadius: 15, style: .continuous))
-                .shadow(radius: 4, x: 2, y: 2)
+//                .shadow(radius: 4, x: 2, y: 2)
 
             HStack {
                 VStack(alignment: .center, spacing: 10) {

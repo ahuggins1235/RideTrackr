@@ -72,6 +72,7 @@ struct RideDetailView: View {
                     }
                 }
             }
+            .background(Color(uiColor: .systemGroupedBackground))
         }
 
             .navigationTitle(ride.dateString)
@@ -124,7 +125,7 @@ struct ChartCardView: View {
                 // background
                 Color(.cardBackground)
                     .clipShape(RoundedRectangle(cornerRadius: 15))
-                    .shadow(radius: 4, x: 2, y: 2)
+//                    .shadow(radius: 4, x: 2, y: 2)
 
                 VStack {
 

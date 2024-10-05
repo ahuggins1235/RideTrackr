@@ -141,7 +141,6 @@ class TrendManager: ObservableObject {
 }
 
 
-
 /// A struct representing a single data point for a trend over time.
 struct TrendItem: Identifiable {
 

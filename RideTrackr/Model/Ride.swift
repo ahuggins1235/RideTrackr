@@ -440,6 +440,7 @@ let previewRideArray: [Ride] = [
         duration: 1000,
         altitudeGained: 13.7,
         rideDate: Date(),
+        effortScore: 8,
         hrSamples: [
             StatSample(date: Date(), min: 70.0, max: 90.0),
             StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
@@ -484,6 +485,7 @@ let previewRideArray: [Ride] = [
         duration: 780,
         altitudeGained: 10.2,
         rideDate: Date().addingTimeInterval(-86400),
+        effortScore: 8,
         hrSamples: [
             StatSample(date: Date().addingTimeInterval(-86400), min: 68.0, max: 88.0),
             StatSample(date: Date().addingTimeInterval(-86340), min: 73.0, max: 93.0),
@@ -528,6 +530,7 @@ let previewRideArray: [Ride] = [
         duration: 1250,
         altitudeGained: 15.3,
         rideDate: Date().addingTimeInterval(-172800),
+        effortScore: 8,
         hrSamples: [
             StatSample(date: Date().addingTimeInterval(-172800), min: 72.0, max: 92.0),
             StatSample(date: Date().addingTimeInterval(-172740), min: 78.0, max: 98.0),
@@ -572,6 +575,7 @@ let previewRideArray: [Ride] = [
         duration: 620,
         altitudeGained: 8.1,
         rideDate: Date().addingTimeInterval(-2592000),
+        effortScore: 8,
         hrSamples: [
             StatSample(date: Date().addingTimeInterval(-259200), min: 67.0, max: 87.0),
             StatSample(date: Date().addingTimeInterval(-259140), min: 72.0, max: 92.0),
@@ -616,6 +620,7 @@ let previewRideArray: [Ride] = [
         duration: 1000,
         altitudeGained: 13.7,
         rideDate: Date(),
+        effortScore: 8,
         hrSamples: [
             StatSample(date: Date(), min: 70.0, max: 90.0),
             StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),

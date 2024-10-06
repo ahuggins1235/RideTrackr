@@ -49,16 +49,26 @@ struct SettingsView: View {
                 
                 Section("Data") {
                     
-                    Button("Resync Data With Apple Health") {
-                        showResyncAlert.toggle()
-                    }
-                    .alert("Resync With Apple Health", isPresented: $showResyncAlert) {
-                        Button("Cancel", role: .cancel) {}
-                        Button("Sync") {
-                            DataManager.shared.reyncData()
+                    HStack {
+                        Button("Resync Data With Apple Health") {
+                            if HKManager.shared.queryingHealthKit { return }
+                            showResyncAlert.toggle()
                         }
-                    } message: {
-                        Text("This will reset RideTrackr's database and resync it with Apple Health. Are you sure?")
+                        .alert("Resync With Apple Health", isPresented: $showResyncAlert) {
+                            Button("Cancel", role: .cancel) {}
+                            Button("Sync") {
+                                DataManager.shared.reyncData()
+                            }
+                        } message: {
+                            Text("This will reset RideTrackr's database and resync it with Apple Health. Are you sure?")
+                        }
+                        
+                        Spacer()
+                        
+                        if HKManager.shared.queryingHealthKit {
+                            ProgressView()
+                        }
+                        
                     }
                 }
             }.navigationTitle("Settings")

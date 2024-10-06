@@ -134,11 +134,11 @@ class DataManager: ObservableObject {
         DispatchQueue.main.async {
             Task{
                 HKManager.shared.queryingHealthKit = true
-//                let syncedRides = await HKManager.shared.getRides(numRides: 5)
+
                 let syncedRides = await HKManager.shared.getRides(getAllRides: true, startDate: .startOfWeekMonday, endDate: .now)
                 
                 for ride in syncedRides {
-                    print(ride.rideDate.formatted())
+                    
                     self.insertRide(ride)
                 }
                 
@@ -185,6 +185,11 @@ class DataManager: ObservableObject {
 }
 
 class PreviewDataManager: DataManager {
+    
+    init () {
+        super.init()
+        self.rides = previewRideArray
+    }
     
     override func getAllRides() -> [Ride] {
         return previewRideArray

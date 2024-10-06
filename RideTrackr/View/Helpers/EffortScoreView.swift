@@ -12,7 +12,7 @@ struct EffortScoreView: View {
 
     public let score: Double
     @State var animate = false
-    @State var showTip = true
+    @State var showTip = false
 
     var body: some View {
         ZStack {

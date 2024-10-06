@@ -16,6 +16,7 @@ struct RecentRidesCardList: View {
     @ObservedObject var dataManager: DataManager = .shared
     @ObservedObject var navigationManager: NavigationManager = .shared
     @State var currentRide = UUID()
+    @State var recentRides: [Ride] = []
 
     var body: some View {
 
@@ -42,15 +43,15 @@ struct RecentRidesCardList: View {
 
                 }.offset(y: 15)
                 // MARK: - Tabview
-
+                
                 if dataManager.rides.count >= 2 {
-
+                    
                     TabView(selection: $currentRide.animation()) {
-
-                        ForEach(dataManager.rides.prefix(5).dropFirst()) { ride in
-
+                        
+                        ForEach(recentRides) { ride in
+                            
                             NavigationLink(value: ride) {
-
+                                
                                 RideCardPreview(ride: ride).padding(.horizontal).tag(ride.id)
                                     .foregroundStyle(Color.primary)
                                     .containerRelativeFrame(.vertical)
@@ -58,26 +59,28 @@ struct RecentRidesCardList: View {
                                     .shimmer(ShimmerConfig.defaultConfig, isLoading: healthManager.queryingHealthKit)
                             }
                         }
-                    }.tabViewStyle(.page(indexDisplayMode: .never))
-
+                    }
+                    .tabViewStyle(.page(indexDisplayMode: .never))
+                    
+                    
                     // MARK: - page indicator
                     HStack(spacing: -5) {
-
-                        ForEach(dataManager.rides.prefix(5).dropFirst()) { ride in
-
+                        
+                        ForEach(recentRides) { ride in
+                            
                             Circle().foregroundStyle(ride.id == currentRide ? Color.primary : Color.secondary)
                                 .frame(height: ride.id == currentRide ? 10 : 7)
                                 .padding(7)
                                 .onTapGesture {
-                                withAnimation {
-                                    currentRide = ride.id
+                                    withAnimation {
+                                        currentRide = ride.id
+                                    }
                                 }
-                            }
                         }
                     }.background {
                         Capsule()
                             .foregroundStyle(.white)
-
+                        
                     }
                     // set the idicator to the second ride
                     .onAppear {
@@ -90,14 +93,33 @@ struct RecentRidesCardList: View {
                     Text("No recent rides found")
                         .padding()
                 }
-
-            }.padding(.vertical)
-                .navigationDestination(for: Ride.self) { ride in
+            }
+            .padding(.vertical)
+            
+            .navigationDestination(for: Ride.self) { ride in
                 RideDetailView(ride: ride)
+            }
+            .onAppear {
+                getRides()
+            }
+            .onChange(of: dataManager.rides) { _, _ in
+                getRides()
+            }
+            .onChange(of: healthManager.queryingHealthKit) { oldValue, newValue in
+                getRides().self
             }
         }
     }
 
+    func getRides() {
+
+        recentRides.removeAll()
+        
+        let rides = healthManager.queryingHealthKit ? previewRideArray.prefix(5).dropFirst() : dataManager.rides.prefix(5).dropFirst()
+        for ride in rides {
+            recentRides.append(ride)
+        }
+    }
 }
 
 
@@ -115,7 +137,6 @@ struct RideCardPreview: View {
 
             Color.cardBackground
                 .clipShape(RoundedRectangle(cornerRadius: 15, style: .continuous))
-//                .shadow(radius: 4, x: 2, y: 2)
 
             HStack {
                 VStack(alignment: .center, spacing: 10) {

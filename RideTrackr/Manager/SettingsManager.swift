@@ -16,7 +16,7 @@ class SettingsManager: ObservableObject {
     
     @AppStorage("distanceUnit") var distanceUnit: DistanceUnit = Locale.current.measurementSystem == Locale.MeasurementSystem.metric ? DistanceUnit.Metric : DistanceUnit.Imperial
     @AppStorage("energyUnit") var energyUnit: EnergyUnit = Locale.current.measurementSystem == Locale.MeasurementSystem.metric ? EnergyUnit.Kilojule : EnergyUnit.Calorie
-
+    @AppStorage("theme") var theme: ColorSchemeChoice = .System
 }
 
 
@@ -111,4 +111,13 @@ enum EnergyUnit: String, CaseIterable, Identifiable {
                 return "cal"
         }
     }
+}
+
+enum ColorSchemeChoice: String, CaseIterable, Identifiable {
+    
+    case Light = "Light"
+    case Dark = "Dark"
+    case System = "System"
+    
+    var id: ColorSchemeChoice { self }
 }

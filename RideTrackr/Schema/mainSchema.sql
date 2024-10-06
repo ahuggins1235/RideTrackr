@@ -8,6 +8,8 @@ CREATE TABLE IF NOT EXISTS "Rides" (
 "rideDate"    TEXT,
 "duration"    NUMERIC,
 "temperature"    NUMERIC,
+"humidity" NUMERIC,
+"effortScore" NUMERIC,
 "routeData"    BLOB,
 "hrSamples"    BLOB,
 "altitdueSamples"    BLOB,

@@ -41,7 +41,6 @@ class DataManager: ObservableObject {
         self.db = db
         
         self.rides = getAllRides()
-
     }
 
     // MARK: - DB Queries
@@ -50,7 +49,7 @@ class DataManager: ObservableObject {
     /// - Returns: An array of ``Ride`` objects that represent all the rides stored in the application
     func getAllRides() -> [Ride] {
 
-        let query = "SELECT * FROM Rides"
+        let query = "SELECT * FROM Rides ORDER BY rideDate DESC"
 
         var rides = [Ride]()
 
@@ -62,11 +61,9 @@ class DataManager: ObservableObject {
                     rides.append(ride)
                 }
             }
-
         } catch {
             fatalError("Problem getting rides: \(error.localizedDescription)")
         }
-
         return rides
     }
     
@@ -77,11 +74,12 @@ class DataManager: ObservableObject {
         
         // check if the ride is already in the rides list
         if self.rides.contains(where: { exsistingRide in exsistingRide.rideDate.formatted() == ride.rideDate.formatted()} ) {
+            self.rides.sort { $0.rideDate > $1.rideDate }
             return
         }
         
         let sqlQuery = """
-        INSERT INTO Rides("id","heartRate","speed","distance","activeEnergy","altitudeGained","rideDate","duration","temperature","routeData","hrSamples","altitdueSamples","speedSamples") VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?);
+        INSERT INTO Rides("id","heartRate","speed","distance","activeEnergy","altitudeGained","rideDate","duration","temperature","humidity","effortScore","routeData","hrSamples","altitdueSamples","speedSamples") VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
         """
 
         do {
@@ -100,51 +98,9 @@ class DataManager: ObservableObject {
         } catch {
             fatalError("Error encoding data: \(error)")
         }
-
-
-    }
-
-    func updateOrInsertRide(_ ride: Ride) {
-
-        let sqlQuery = """
-            BEGIN TRANSACTION;
-            
-            -- Step 1: Update existing record if rideDate matches
-            UPDATE Rides
-            SET
-                heartRate = ?,
-                speed = ?,
-                distance = ?,
-                activeEnergy = ?,
-                altitudeGained = ?,
-                duration = ?,
-                temperature = ?,
-                routeData = ?,
-                hrSamples = ?,
-                altitdueSamples = ?,
-                speedSamples = ?
-            WHERE rideDate = ?;
-            
-            -- Step 2: Insert new record if no rows were updated
-            INSERT INTO Rides (id, heartRate, speed, distance, activeEnergy, altitudeGained, rideDate, duration, temperature, routeData, hrSamples, altitdueSamples, speedSamples)
-            SELECT ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
-            WHERE changes() = 0;
-            
-            COMMIT;
-            """
         
-        do {
-            
-            try db.executeQuery(sqlQuery, values: ride.getDBValues())
-            
-            if let index = self.rides.firstIndex(where: { $0.rideDate == ride.rideDate }) {
-                self.rides[index] = ride
-            } else {
-                self.rides.append(ride)
-            }
-            
-        } catch {
-            fatalError("Error updating database \(error)")
+        DispatchQueue.main.async {
+            self.rides.sort { $0.rideDate > $1.rideDate }
         }
 
     }
@@ -169,7 +125,6 @@ class DataManager: ObservableObject {
         }
         
         return schemaString
-//        return "CREATE TABLE IF NOT EXISTS \"Rides\" (\"id\"    TEXT,\"heartRate\"    NUMERIC,\"speed\"    NUMERIC,\"distance\"    NUMERIC,\"activeEnergy\"    NUMERIC,\"altitudeGained\"    NUMERIC,\"rideDate\"    TEXT,\"duration\"    NUMERIC,\"temperature\"    NUMERIC,\"routeData\"    BLOB,\"hrSamples\"    BLOB,\"altitudeSamples\"    BLOB,\"speedSamples\" BLOB,PRIMARY KEY(\"id\"))"
     }
 
     
@@ -179,7 +134,8 @@ class DataManager: ObservableObject {
         DispatchQueue.main.async {
             Task{
                 HKManager.shared.queryingHealthKit = true
-                let syncedRides = await HKManager.shared.getRides(numRides: 5)
+
+                let syncedRides = await HKManager.shared.getRides(getAllRides: true, startDate: .startOfWeekMonday, endDate: .now)
                 
                 for ride in syncedRides {
                     
@@ -210,13 +166,11 @@ class DataManager: ObservableObject {
         
         // 2. empty rides array
         self.rides.removeAll()
-        print(rides.count)
+        
         // 3. get all rides again
         DispatchQueue.main.async {
             Task {
-                
-                
-                
+   
                 let syncedRides = await HKManager.shared.getRides(getAllRides: true)
                 
                 // 4. reinsert all rides
@@ -224,7 +178,6 @@ class DataManager: ObservableObject {
                     
                     self.insertRide(ride)
                 }
-                
                 HKManager.shared.queryingHealthKit = false
             }
         }
@@ -232,6 +185,11 @@ class DataManager: ObservableObject {
 }
 
 class PreviewDataManager: DataManager {
+    
+    init () {
+        super.init()
+        self.rides = previewRideArray
+    }
     
     override func getAllRides() -> [Ride] {
         return previewRideArray

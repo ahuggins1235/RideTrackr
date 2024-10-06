@@ -15,53 +15,42 @@ struct LargeRidePreview: View {
     @State var showDate = true
     @Binding var queryingHealthKit: Bool
 
- 
+
     var body: some View {
 
         ZStack {
             // MARK: - Background
             RoundedRectangle(cornerRadius: 15)
                 .fill(.cardBackground)
-                .shadow(radius: 4, x: 2, y: 2)
+//                .shadow(radius: 4, x: 2, y: 2)
 
             // MARK: - Body
             ZStack {
 
-
-                VStack(alignment: .leading) {
+                VStack(alignment: .leading, spacing: 0) {
 
                     if showDate {
                         Text(ride.dateString)
                             .font(.caption)
                             .foregroundStyle(.secondary)
-                            .padding()
+                            .padding(.horizontal)
+//                            .background(.red)
+                            .padding(.top, 10)
+                            .padding(.bottom, 1)
                     }
 
                     LazyVGrid(columns: Array(repeating: GridItem(spacing: 8), count: 2)) {
-                        RideStatCardView(color: .heartRate, title: "Avg. Heart Rate", displayString: Binding(get: { ride.heartRateString }), trendAverage: Binding(get: { trendManager.currentAverageHeartRate }), data: $ride.heartRate)
-                        RideStatCardView(color: .speed, title: "Avg. Speed", displayString: Binding(get: { ride.speedString }), trendAverage: Binding(get: { trendManager.currentAverageSpeed }), data: $ride.speed)
-                        RideStatCardView(color: .distance, title: "Distance", displayString: Binding(get: { ride.distanceString }), trendAverage: Binding(get: { trendManager.currentAverageDistance }), data: $ride.distance)
-                        RideStatCardView(color: .energy, title: "Active Energy", displayString: Binding(get: { ride.activeEnergyString }), trendAverage: Binding(get: { trendManager.currentAverageEnergy }), data: $ride.activeEnergy)
-                        RideStatCardView(color: .duration, title: "Duration", displayString: Binding(get: { ride.durationString }), trendAverage: Binding(get: { 0.0 }), data: Binding(get: { 0.0 }), showDifference: false)
-                        RideStatCardView(color: .altitude, title: "Altitude Gained", displayString: Binding(get: { ride.alitudeString }), trendAverage: Binding(get: { 0.0 }), data: Binding(get: { 0.0 }), showDifference: false)
+                        RideStatCardView(color: .heartRate, title: "Avg. Heart Rate", displayString: Binding(get: { ride.heartRateString }), trendAverage: Binding(get: { trendManager.currentAverageHeartRate }), data: $ride.heartRate, queryingHealthKit: queryingHealthKit, showDifference: !queryingHealthKit)
+                        RideStatCardView(color: .speed, title: "Avg. Speed", displayString: Binding(get: { ride.speedString }), trendAverage: Binding(get: { trendManager.currentAverageSpeed }), data: $ride.speed, queryingHealthKit: queryingHealthKit, showDifference: !queryingHealthKit)
+                        RideStatCardView(color: .distance, title: "Distance", displayString: Binding(get: { ride.distanceString }), trendAverage: Binding(get: { trendManager.currentAverageDistance }), data: $ride.distance, queryingHealthKit: queryingHealthKit, showDifference: !queryingHealthKit)
+                        RideStatCardView(color: .energy, title: "Active Energy", displayString: Binding(get: { ride.activeEnergyString }), trendAverage: Binding(get: { trendManager.currentAverageEnergy }), data: $ride.activeEnergy, queryingHealthKit: queryingHealthKit, showDifference: !queryingHealthKit)
+                        RideStatCardView(color: .duration, title: "Duration", displayString: Binding(get: { ride.durationString }), trendAverage: Binding(get: { 0.0 }), data: Binding(get: { 0.0 }), queryingHealthKit: queryingHealthKit, showDifference: false)
+                        RideStatCardView(color: .altitude, title: "Altitude Gained", displayString: Binding(get: { ride.alitudeString }), trendAverage: Binding(get: { 0.0 }), data: Binding(get: { 0.0 }), queryingHealthKit: queryingHealthKit, showDifference: false)
 
                     }
-                        .padding(10)
-
+                    .padding([.top, .horizontal], 10)
+                    .padding(.bottom, 2)
                     Spacer()
-
-                }
-                    .overlay {
-                    ZStack {
-                        if queryingHealthKit {
-
-                            RoundedRectangle(cornerRadius: 15)
-                                .fill(.ultraThinMaterial)
-
-                            ProgressView("Loading")
-                                .ignoresSafeArea()
-                        }
-                    }
                 }
             }
         }
@@ -72,7 +61,7 @@ struct LargeRidePreview: View {
 //MARK: - Previews
 #Preview {
     @Previewable @State var previewRide = PreviewRide
-    return LargeRidePreview(ride: $previewRide, queryingHealthKit: .constant(false)).environmentObject(TrendManager())
+    return LargeRidePreview(ride: $previewRide, queryingHealthKit: .constant(false))
 }
 
 #Preview {
@@ -88,6 +77,7 @@ struct RideStatCardView: View {
     @Binding var displayString: String
     @Binding var trendAverage: Double
     @Binding var data: Double
+    @State var queryingHealthKit: Bool
 
     @State private var animateArrow = false
 
@@ -121,7 +111,6 @@ struct RideStatCardView: View {
                     }
                 }
                     .foregroundStyle(color)
-
                     .font(.footnote)
                     .bold()
                     .onAppear {

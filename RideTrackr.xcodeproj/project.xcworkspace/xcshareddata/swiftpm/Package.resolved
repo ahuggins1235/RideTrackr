@@ -1,5 +1,5 @@
 {
-  "originHash" : "000a41d26f435692c0bb42fd4e4ac190492338809a6787505ea8e9b2826c0976",
+  "originHash" : "fc81fd920146e7d2d31ca70b5f778fc51486ae91541a606e9314caec5dbda9c7",
   "pins" : [
     {
       "identity" : "fmdb",
@@ -8,6 +8,15 @@
       "state" : {
         "revision" : "4cd6276ee24a1d90fe521b130608858b5a1e36f4",
         "version" : "2.7.11"
+      }
+    },
+    {
+      "identity" : "polykit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/heestand-xyz/PolyKit.git",
+      "state" : {
+        "revision" : "4d84c4469daf5e9ee4d1768dd3018d6b985ee868",
+        "version" : "2.2.0"
       }
     }
   ],

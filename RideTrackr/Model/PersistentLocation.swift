@@ -32,4 +32,8 @@ struct PersistentLocation: Identifiable, Hashable, Codable {
     func toCLLocation() -> CLLocation {
         return CLLocation(coordinate: CLLocationCoordinate2D(latitude: self.latitude, longitude: self.longitude), altitude: 0, horizontalAccuracy: 0, verticalAccuracy: 0, timestamp: self.timeStamp)
     }
+    
+    func toCLLocationCoordinate2D() -> CLLocationCoordinate2D {
+        return CLLocationCoordinate2D(latitude: self.latitude, longitude: self.longitude)
+    }
 }

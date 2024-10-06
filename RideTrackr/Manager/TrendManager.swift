@@ -82,7 +82,6 @@ class TrendManager: ObservableObject {
         let average = sum / Double(filteredList.count)
         
         return average
-        
     }
     
     /// Calculates how a given trend type has changed over the given time frame and returns a percentage that reflects that
@@ -142,7 +141,6 @@ class TrendManager: ObservableObject {
 }
 
 
-
 /// A struct representing a single data point for a trend over time.
 struct TrendItem: Identifiable {
 
@@ -155,3 +153,17 @@ struct TrendItem: Identifiable {
     var animate: Bool = false
 }
 
+class PreviewTrendManager: TrendManager {
+    
+    override init() {
+        
+        let sampleTrendItem = TrendItem(value: 100, date: Date(), animate: false)
+        
+        super.init()
+        
+        self.heartRateTrends = [sampleTrendItem]
+        self.distanceTrends = [sampleTrendItem]
+        self.speedTrends = [sampleTrendItem]
+        self.energyTrends = [sampleTrendItem]
+    }
+}

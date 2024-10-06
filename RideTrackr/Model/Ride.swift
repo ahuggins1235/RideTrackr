@@ -33,6 +33,10 @@ struct Ride: Identifiable, Hashable, Sendable, Decodable {
     var duration: TimeInterval = 0
     /// the temperature recorded during this ride
     var temperature: Double? = 0
+    /// the humidity recorded during this ride
+    var humidity: Double? = 0
+    // the apple effort score recorded for this ride
+    var effortScore: Double? = 0
     /// the location data of the route of this ride
     var routeData: [PersistentLocation] = []
     /// the heart rate data recorded for this ride
@@ -54,6 +58,7 @@ struct Ride: Identifiable, Hashable, Sendable, Decodable {
         altitudeGained: Double = 0,
         rideDate: Date = Date(),
         temperature: Double = 0,
+        effortScore: Double = 0,
         hrSamples: [StatSample] = [],
         routeData: [PersistentLocation] = [],
         altitdueSamples: [StatSample] = [],
@@ -68,6 +73,7 @@ struct Ride: Identifiable, Hashable, Sendable, Decodable {
         self.altitudeGained = altitudeGained
         self.rideDate = rideDate
         self.temperature = temperature
+        self.effortScore = effortScore
         self.hrSamples = hrSamples
         self.routeData = routeData
         self.altitdueSamples = altitdueSamples
@@ -75,8 +81,10 @@ struct Ride: Identifiable, Hashable, Sendable, Decodable {
     }
 
     /// use this to create a new ride from an hkworkout
-    init(workout: HKWorkout,
+    init (
+        workout: HKWorkout,
         averageHeartRate: Double,
+        effortScore: Double?,
         hrSamples: [StatSample] = [],
         routeData: [PersistentLocation] = [],
         altitdueSamples: [StatSample] = [],
@@ -111,8 +119,11 @@ struct Ride: Identifiable, Hashable, Sendable, Decodable {
 
             // workout elevation gained
             if let workoutElevation = workoutMetadata["HKElevationAscended"] as? HKQuantity {
-
                 workoutAlitudeGained = workoutElevation.doubleValue(for: HKUnit.meter())
+            }
+
+            if let humidity = workoutMetadata[HKMetadataKeyWeatherHumidity] as? HKQuantity {
+                self.humidity = humidity.doubleValue(for: HKUnit.percent())
             }
 
             if let quantityTemperature = workoutMetadata[HKMetadataKeyWeatherTemperature] as? HKQuantity {
@@ -135,6 +146,7 @@ struct Ride: Identifiable, Hashable, Sendable, Decodable {
         self.routeData = routeData
         self.altitdueSamples = altitdueSamples
         self.speedSamples = speedSamples
+        self.effortScore = effortScore
 
     }
 
@@ -149,6 +161,7 @@ struct Ride: Identifiable, Hashable, Sendable, Decodable {
             self.distance = result.double(forColumn: "distance")
             self.activeEnergy = result.double(forColumn: "activeEnergy")
             self.altitudeGained = result.double(forColumn: "altitudeGained")
+            self.effortScore = result.double(forColumn: "effortScore")
             if let test = result.string(forColumn: "rideDate") {
                 if let timestamp = Double(test) {
                     let date = Date(timeIntervalSince1970: timestamp)
@@ -210,7 +223,9 @@ struct Ride: Identifiable, Hashable, Sendable, Decodable {
                 self.altitudeGained,
                 self.rideDate,
                 self.duration,
-                self.temperature!,
+                self.temperature ?? 0,
+                self.humidity ?? 0,
+                self.effortScore ?? 0,
                 routeDataBlob,
                 hrSamplesBlob,
                 altitudeSamplesBlob,
@@ -338,6 +353,7 @@ let PreviewRide = Ride(
     altitudeGained: 13.7,
     rideDate: Date(),
     temperature: 23,
+    effortScore: 8,
     hrSamples: [
         StatSample(date: Date(), min: 70.0, max: 90.0),
         StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
@@ -416,6 +432,363 @@ let PreviewRideNoRouteData = Ride(
 )
 
 let previewRideArray: [Ride] = [
+    Ride(
+        heartRate: 167.2,
+        speed: 14.11111,
+        distance: 7.9,
+        activeEnergy: 1082,
+        duration: 1000,
+        altitudeGained: 13.7,
+        rideDate: Date(),
+        effortScore: 8,
+        hrSamples: [
+            StatSample(date: Date(), min: 70.0, max: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+        ],
+        routeData: [
+            PersistentLocation(latitude: 37.7749, longitude: -122.4194, timeStamp: Date().addingTimeInterval(60)),
+            PersistentLocation(latitude: 37.7739, longitude: -122.4222, timeStamp: Date().addingTimeInterval(120)),
+            PersistentLocation(latitude: 37.7729, longitude: -122.4250, timeStamp: Date().addingTimeInterval(180))
+        ],
+        altitdueSamples: [
+            StatSample(date: Date(), min: 70.0, max: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+        ],
+        speedSamples: [
+            StatSample(date: Date(), min: 70.0, max: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+        ]
+    ),
+    Ride(
+        heartRate: 155.8,
+        speed: 12.55,
+        distance: 6.3,
+        activeEnergy: 920,
+        duration: 780,
+        altitudeGained: 10.2,
+        rideDate: Date().addingTimeInterval(-86400),
+        effortScore: 8,
+        hrSamples: [
+            StatSample(date: Date().addingTimeInterval(-86400), min: 68.0, max: 88.0),
+            StatSample(date: Date().addingTimeInterval(-86340), min: 73.0, max: 93.0),
+            StatSample(date: Date().addingTimeInterval(-86280), min: 78.0, max: 98.0),
+            StatSample(date: Date().addingTimeInterval(-86220), min: 70.0, max: 90.0),
+            StatSample(date: Date().addingTimeInterval(-86160), min: 75.0, max: 95.0),
+            StatSample(date: Date().addingTimeInterval(-86100), min: 82.0, max: 100.0),
+            StatSample(date: Date().addingTimeInterval(-86040), min: 85.0, max: 103.0),
+            StatSample(date: Date().addingTimeInterval(-85980), min: 77.0, max: 97.0)
+        ],
+        routeData: [
+            PersistentLocation(latitude: 37.7749, longitude: -122.4194, timeStamp: Date().addingTimeInterval(60)),
+            PersistentLocation(latitude: 37.7739, longitude: -122.4222, timeStamp: Date().addingTimeInterval(120)),
+            PersistentLocation(latitude: 37.7729, longitude: -122.4250, timeStamp: Date().addingTimeInterval(180))
+        ],
+        altitdueSamples: [
+            StatSample(date: Date(), min: 70.0, max: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+        ],
+        speedSamples: [
+            StatSample(date: Date(), min: 70.0, max: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+        ]
+    ),
+    Ride(
+        heartRate: 177.5,
+        speed: 16.82,
+        distance: 9.4,
+        activeEnergy: 1320,
+        duration: 1250,
+        altitudeGained: 15.3,
+        rideDate: Date().addingTimeInterval(-172800),
+        effortScore: 8,
+        hrSamples: [
+            StatSample(date: Date().addingTimeInterval(-172800), min: 72.0, max: 92.0),
+            StatSample(date: Date().addingTimeInterval(-172740), min: 78.0, max: 98.0),
+            StatSample(date: Date().addingTimeInterval(-172680), min: 83.0, max: 103.0),
+            StatSample(date: Date().addingTimeInterval(-172620), min: 75.0, max: 95.0),
+            StatSample(date: Date().addingTimeInterval(-172560), min: 80.0, max: 100.0),
+            StatSample(date: Date().addingTimeInterval(-172500), min: 87.0, max: 106.0),
+            StatSample(date: Date().addingTimeInterval(-172440), min: 90.0, max: 109.0),
+            StatSample(date: Date().addingTimeInterval(-172380), min: 82.0, max: 102.0)
+        ],
+        routeData: [
+            PersistentLocation(latitude: 37.7749, longitude: -122.4194, timeStamp: Date().addingTimeInterval(60)),
+            PersistentLocation(latitude: 37.7739, longitude: -122.4222, timeStamp: Date().addingTimeInterval(120)),
+            PersistentLocation(latitude: 37.7729, longitude: -122.4250, timeStamp: Date().addingTimeInterval(180))
+        ],
+        altitdueSamples: [
+            StatSample(date: Date(), min: 70.0, max: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+        ],
+        speedSamples: [
+            StatSample(date: Date(), min: 70.0, max: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+        ]
+    ),
+    Ride(
+        heartRate: 142.6,
+        speed: 10.25,
+        distance: 5.7,
+        activeEnergy: 780,
+        duration: 620,
+        altitudeGained: 8.1,
+        rideDate: Date().addingTimeInterval(-2592000),
+        effortScore: 8,
+        hrSamples: [
+            StatSample(date: Date().addingTimeInterval(-259200), min: 67.0, max: 87.0),
+            StatSample(date: Date().addingTimeInterval(-259140), min: 72.0, max: 92.0),
+            StatSample(date: Date().addingTimeInterval(-259080), min: 77.0, max: 97.0),
+            StatSample(date: Date().addingTimeInterval(-259020), min: 69.0, max: 89.0),
+            StatSample(date: Date().addingTimeInterval(-258960), min: 74.0, max: 94.0),
+            StatSample(date: Date().addingTimeInterval(-258900), min: 81.0, max: 101.0),
+            StatSample(date: Date().addingTimeInterval(-258840), min: 84.0, max: 104.0),
+            StatSample(date: Date().addingTimeInterval(-258780), min: 76.0, max: 96.0)
+        ],
+        routeData: [
+            PersistentLocation(latitude: 37.7749, longitude: -122.4194, timeStamp: Date().addingTimeInterval(60)),
+            PersistentLocation(latitude: 37.7739, longitude: -122.4222, timeStamp: Date().addingTimeInterval(120)),
+            PersistentLocation(latitude: 37.7729, longitude: -122.4250, timeStamp: Date().addingTimeInterval(180))
+        ],
+        altitdueSamples: [
+            StatSample(date: Date(), min: 70.0, max: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+        ],
+        speedSamples: [
+            StatSample(date: Date(), min: 70.0, max: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+        ]
+    ),
+    Ride(
+        heartRate: 167.2,
+        speed: 14.11111,
+        distance: 7.9,
+        activeEnergy: 1082,
+        duration: 1000,
+        altitudeGained: 13.7,
+        rideDate: Date(),
+        effortScore: 8,
+        hrSamples: [
+            StatSample(date: Date(), min: 70.0, max: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+        ],
+        routeData: [
+            PersistentLocation(latitude: 37.7749, longitude: -122.4194, timeStamp: Date().addingTimeInterval(60)),
+            PersistentLocation(latitude: 37.7739, longitude: -122.4222, timeStamp: Date().addingTimeInterval(120)),
+            PersistentLocation(latitude: 37.7729, longitude: -122.4250, timeStamp: Date().addingTimeInterval(180))
+        ],
+        altitdueSamples: [
+            StatSample(date: Date(), min: 70.0, max: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+        ],
+        speedSamples: [
+            StatSample(date: Date(), min: 70.0, max: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+        ]
+    ),
+    Ride(
+        heartRate: 155.8,
+        speed: 12.55,
+        distance: 6.3,
+        activeEnergy: 920,
+        duration: 780,
+        altitudeGained: 10.2,
+        rideDate: Date().addingTimeInterval(-86400),
+        hrSamples: [
+            StatSample(date: Date().addingTimeInterval(-86400), min: 68.0, max: 88.0),
+            StatSample(date: Date().addingTimeInterval(-86340), min: 73.0, max: 93.0),
+            StatSample(date: Date().addingTimeInterval(-86280), min: 78.0, max: 98.0),
+            StatSample(date: Date().addingTimeInterval(-86220), min: 70.0, max: 90.0),
+            StatSample(date: Date().addingTimeInterval(-86160), min: 75.0, max: 95.0),
+            StatSample(date: Date().addingTimeInterval(-86100), min: 82.0, max: 100.0),
+            StatSample(date: Date().addingTimeInterval(-86040), min: 85.0, max: 103.0),
+            StatSample(date: Date().addingTimeInterval(-85980), min: 77.0, max: 97.0)
+        ],
+        routeData: [
+            PersistentLocation(latitude: 37.7749, longitude: -122.4194, timeStamp: Date().addingTimeInterval(60)),
+            PersistentLocation(latitude: 37.7739, longitude: -122.4222, timeStamp: Date().addingTimeInterval(120)),
+            PersistentLocation(latitude: 37.7729, longitude: -122.4250, timeStamp: Date().addingTimeInterval(180))
+        ],
+        altitdueSamples: [
+            StatSample(date: Date(), min: 70.0, max: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+        ],
+        speedSamples: [
+            StatSample(date: Date(), min: 70.0, max: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+        ]
+    ),
+    Ride(
+        heartRate: 177.5,
+        speed: 16.82,
+        distance: 9.4,
+        activeEnergy: 1320,
+        duration: 1250,
+        altitudeGained: 15.3,
+        rideDate: Date().addingTimeInterval(-172800),
+        hrSamples: [
+            StatSample(date: Date().addingTimeInterval(-172800), min: 72.0, max: 92.0),
+            StatSample(date: Date().addingTimeInterval(-172740), min: 78.0, max: 98.0),
+            StatSample(date: Date().addingTimeInterval(-172680), min: 83.0, max: 103.0),
+            StatSample(date: Date().addingTimeInterval(-172620), min: 75.0, max: 95.0),
+            StatSample(date: Date().addingTimeInterval(-172560), min: 80.0, max: 100.0),
+            StatSample(date: Date().addingTimeInterval(-172500), min: 87.0, max: 106.0),
+            StatSample(date: Date().addingTimeInterval(-172440), min: 90.0, max: 109.0),
+            StatSample(date: Date().addingTimeInterval(-172380), min: 82.0, max: 102.0)
+        ],
+        routeData: [
+            PersistentLocation(latitude: 37.7749, longitude: -122.4194, timeStamp: Date().addingTimeInterval(60)),
+            PersistentLocation(latitude: 37.7739, longitude: -122.4222, timeStamp: Date().addingTimeInterval(120)),
+            PersistentLocation(latitude: 37.7729, longitude: -122.4250, timeStamp: Date().addingTimeInterval(180))
+        ],
+        altitdueSamples: [
+            StatSample(date: Date(), min: 70.0, max: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+        ],
+        speedSamples: [
+            StatSample(date: Date(), min: 70.0, max: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+        ]
+    ),
+    Ride(
+        heartRate: 142.6,
+        speed: 10.25,
+        distance: 5.7,
+        activeEnergy: 780,
+        duration: 620,
+        altitudeGained: 8.1,
+        rideDate: Date().addingTimeInterval(-2592000),
+        hrSamples: [
+            StatSample(date: Date().addingTimeInterval(-259200), min: 67.0, max: 87.0),
+            StatSample(date: Date().addingTimeInterval(-259140), min: 72.0, max: 92.0),
+            StatSample(date: Date().addingTimeInterval(-259080), min: 77.0, max: 97.0),
+            StatSample(date: Date().addingTimeInterval(-259020), min: 69.0, max: 89.0),
+            StatSample(date: Date().addingTimeInterval(-258960), min: 74.0, max: 94.0),
+            StatSample(date: Date().addingTimeInterval(-258900), min: 81.0, max: 101.0),
+            StatSample(date: Date().addingTimeInterval(-258840), min: 84.0, max: 104.0),
+            StatSample(date: Date().addingTimeInterval(-258780), min: 76.0, max: 96.0)
+        ],
+        routeData: [
+            PersistentLocation(latitude: 37.7749, longitude: -122.4194, timeStamp: Date().addingTimeInterval(60)),
+            PersistentLocation(latitude: 37.7739, longitude: -122.4222, timeStamp: Date().addingTimeInterval(120)),
+            PersistentLocation(latitude: 37.7729, longitude: -122.4250, timeStamp: Date().addingTimeInterval(180))
+        ],
+        altitdueSamples: [
+            StatSample(date: Date(), min: 70.0, max: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+        ],
+        speedSamples: [
+            StatSample(date: Date(), min: 70.0, max: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+        ]
+    ),
     Ride(
         heartRate: 167.2,
         speed: 14.11111,
@@ -593,4 +966,3 @@ let previewRideArray: [Ride] = [
         ]
     )
 ]
-

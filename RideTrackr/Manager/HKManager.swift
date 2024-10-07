@@ -21,7 +21,9 @@ final class HKManager: ObservableObject {
     @Published var alertMessage = ""
     /// Whether or not a healthkit query is running
     @Published var queryingHealthKit = false
-
+    @Published var restingHeartRate: Double?
+    @Published var userAge: Int?
+    
     // MARK: - private properties
     private let healthStore = HKHealthStore()
     private let sampleInterval = DateComponents(second: 15)
@@ -30,6 +32,19 @@ final class HKManager: ObservableObject {
     // MARK: - Init
     init() {
         requestAuthorization()
+        
+        self.userAge = getUserAge()
+        
+        Task {
+            do {
+                
+                
+                let restingHeartRate = try await fetchAverageRestingHeartRate(from: .oneMonthAgo)
+                await MainActor.run {
+                    self.restingHeartRate = restingHeartRate
+                }
+            }
+        }
     }
 
     // MARK: - HK Queries
@@ -59,13 +74,13 @@ final class HKManager: ObservableObject {
 
                 // get workoutroute
                 if let locations = try await fetchWorkoutRoute(workout: workout) {
-                    
+
                     // get effort score
                     let effortScore = try await fetchWorkoutEffortSamples(for: workout)
 
 
                     let (speedData, altitdueData) = calculateSpeedAndAltitude(locations: locations)
-                    
+
                     let ride = Ride(workout: workout,
                         averageHeartRate: averageHR,
                         effortScore: effortScore,
@@ -95,13 +110,13 @@ final class HKManager: ObservableObject {
     func fetchCyclingWorkouts(numRides: Int = 1, getAllRides: Bool = false, startDate: Date? = nil, endDate: Date? = nil) async throws -> [HKWorkout] {
         let workoutType = HKObjectType.workoutType()
         let workoutPredicate = HKQuery.predicateForWorkouts(with: .cycling)
-        
+
         var predicateArray = [workoutPredicate]
-        
+
         // Use a slightly earlier end date to account for processing time
         let queryEndDate = endDate ?? Date()
         let adjustedEndDate = queryEndDate.addingTimeInterval(60) // Add 1 minute buffer
-        
+
         if let startDate = startDate {
             let datePredicate = HKQuery.predicateForSamples(
                 withStart: startDate,
@@ -110,10 +125,10 @@ final class HKManager: ObservableObject {
             )
             predicateArray.append(datePredicate)
         }
-        
+
         let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicateArray)
         let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)
-        
+
         return try await withCheckedThrowingContinuation { continuation in
             let query = HKSampleQuery(
                 sampleType: workoutType,
@@ -130,10 +145,10 @@ final class HKManager: ObservableObject {
                         domain: "com.example",
                         code: 1,
                         userInfo: [NSLocalizedDescriptionKey: "Unable to fetch workouts"]
-                    ))
+                        ))
                 }
             }
-            
+
             healthStore.execute(query)
         }
     }
@@ -181,7 +196,7 @@ final class HKManager: ObservableObject {
         }
     }
 
-    
+
     /// Fetches the apple workout effort score of a given workout
     /// - Parameter workout: The workout to get the score for
     /// - Returns: A double that reflects the workout effiort score (0 if the workout doesn't have an effort score recorded)
@@ -303,12 +318,17 @@ final class HKManager: ObservableObject {
         }
 
         let heartRateType = HKObjectType.quantityType(forIdentifier: .heartRate)!
+        let restingHeartRateType = HKObjectType.quantityType(forIdentifier: .restingHeartRate)!
         let workoutType = HKObjectType.workoutType()
         let workoutRouteType = HKSeriesType.workoutRoute()
         let effortType = HKObjectType.quantityType(forIdentifier: .estimatedWorkoutEffortScore)!
+        let ageType = HKCharacteristicType(.dateOfBirth)
+        
+        let authorisationTypes: Set<HKObjectType> = [heartRateType, workoutType, workoutRouteType, effortType, restingHeartRateType, ageType]
 
+        
         // Request authorization
-        healthStore.requestAuthorization(toShare: nil, read: [heartRateType, workoutType, workoutRouteType, effortType]) { (success, error) in
+        healthStore.requestAuthorization(toShare: nil, read:  authorisationTypes) { (success, error) in
 
             DispatchQueue.main.async {
                 if success {
@@ -325,6 +345,41 @@ final class HKManager: ObservableObject {
                     }
                 }
             }
+        }
+    }
+
+    func fetchAverageRestingHeartRate(from startDate: Date, to endDate: Date = Date()) async throws -> Double {
+        
+        requestAuthorization()
+        
+        let restingHRType = HKQuantityType.quantityType(forIdentifier: .restingHeartRate)!
+
+        let predicate = HKQuery.predicateForSamples(
+            withStart: startDate,
+            end: endDate
+        )
+
+        return try await withCheckedThrowingContinuation { continuation in
+            let statisticsQuery = HKStatisticsQuery(
+                quantityType: restingHRType,
+                quantitySamplePredicate: predicate,
+                options: .discreteAverage
+            ) { query, statistics, error in
+                if let error = error {
+                    continuation.resume(throwing: error)
+                    return
+                }
+
+                guard let average = statistics?.averageQuantity() else {
+                    continuation.resume(throwing: error!)
+                    return
+                }
+
+                let heartRate = average.doubleValue(for: HKUnit.count().unitDivided(by: .minute()))
+                continuation.resume(returning: heartRate)
+            }
+
+            healthStore.execute(statisticsQuery)
         }
     }
 
@@ -362,5 +417,25 @@ final class HKManager: ObservableObject {
             }
         }
         return (speedData, altitdueData)
+    }
+    
+    func getUserAge() -> Int? {
+        do {
+            // Get date of birth from HealthKit
+            let birthdayComponents = try healthStore.dateOfBirthComponents()
+            
+            // Calculate age
+            let today = Calendar.current.dateComponents([.year], from: Date())
+            
+            guard let birthYear = birthdayComponents.year,
+                  let currentYear = today.year else {
+                return nil
+            }
+            
+            return currentYear - birthYear
+        } catch {
+            print("Error: \(error.localizedDescription)")
+            return nil
+        }
     }
 }

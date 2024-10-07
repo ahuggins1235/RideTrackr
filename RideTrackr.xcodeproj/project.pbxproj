@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		49022C122A6FCADA00E61F31 /* RideDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49022C112A6FCADA00E61F31 /* RideDetailView.swift */; };
+		4905ACAE2CB3904300DBE2F9 /* HeartRateZoneManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4905ACAD2CB3904300DBE2F9 /* HeartRateZoneManager.swift */; };
 		490725FD2A69042A0009817F /* RideTrackrApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490725FC2A69042A0009817F /* RideTrackrApp.swift */; };
 		490725FF2A69042A0009817F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490725FE2A69042A0009817F /* ContentView.swift */; };
 		490726012A69042D0009817F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 490726002A69042D0009817F /* Assets.xcassets */; };
@@ -72,6 +73,7 @@
 
 /* Begin PBXFileReference section */
 		49022C112A6FCADA00E61F31 /* RideDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideDetailView.swift; sourceTree = "<group>"; };
+		4905ACAD2CB3904300DBE2F9 /* HeartRateZoneManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateZoneManager.swift; sourceTree = "<group>"; };
 		490725F92A69042A0009817F /* RideTrackr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RideTrackr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		490725FC2A69042A0009817F /* RideTrackrApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideTrackrApp.swift; sourceTree = "<group>"; };
 		490725FE2A69042A0009817F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -267,6 +269,7 @@
 				49E63A0C2B0610CB005451D1 /* NotificationManager.swift */,
 				4921249B2AE9E73800889575 /* SettingsManager.swift */,
 				49E71F452AC1515A00900477 /* TrendManager.swift */,
+				4905ACAD2CB3904300DBE2F9 /* HeartRateZoneManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -496,6 +499,7 @@
 				498657BA2C33BFFA00EEF59F /* TrendPreviewView.swift in Sources */,
 				490725FF2A69042A0009817F /* ContentView.swift in Sources */,
 				490741E02C37EBF000C07C24 /* LargeMapPreviewView.swift in Sources */,
+				4905ACAE2CB3904300DBE2F9 /* HeartRateZoneManager.swift in Sources */,
 				496074282C3A62C6006E9E80 /* ShimmerEffect.swift in Sources */,
 				490725FD2A69042A0009817F /* RideTrackrApp.swift in Sources */,
 				498657BE2C352A5700EEF59F /* DateFilterButton.swift in Sources */,

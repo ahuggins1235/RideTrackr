@@ -27,6 +27,7 @@ struct LargeMapPreviewView: View {
                 .frame(height: 300)
 
             if let _ = routeData.first {
+                
                 // MARK: - Map
                 Map(interactionModes: []) {
                     if let first = routeData.first {
@@ -41,10 +42,6 @@ struct LargeMapPreviewView: View {
                         MapPolyline(coordinates: [routeData[index].toCLLocationCoordinate2D(), routeData[index + 1].toCLLocationCoordinate2D()])
                             .stroke(colorForIntensity(index: index), lineWidth: 5)
                     }
-
-//                    MapPolyline(coordinates: routeData.map({ $0.toCLLocationCoordinate2D() }), contourStyle: .geodesic)
-//                        .stroke(Color.accentColor, lineWidth: 5)
-
 
                     if let last = routeData.last {
                         Annotation("", coordinate: last.toCLLocationCoordinate2D()) {
@@ -62,10 +59,13 @@ struct LargeMapPreviewView: View {
                 // MARK: - Top Controls
 
                 VStack {
+                    
                     HStack {
                         MapOverlayPicker(selectedOverlay: $selectedOverlay)
+//                            .frame(alignment: .top)
                             
                         Spacer()
+                        
                         if let effortScore = effortScore {
                             if effortScore > 0 {
                                 EffortScoreView(score: effortScore)
@@ -77,8 +77,6 @@ struct LargeMapPreviewView: View {
                     Spacer()
                 }
 
-
-
                 // MARK: - Temperature
                 if let temperature = temperatureString {
                     VStack {
@@ -87,8 +85,6 @@ struct LargeMapPreviewView: View {
                             Spacer()
                             TemperatureView(temperature: temperature)
                                 .padding()
-                                
-//                                .padding(5)
                         }
                     }
                 }
@@ -109,13 +105,21 @@ struct LargeMapPreviewView: View {
 
         // if the selected overlay is none just return the accent colour
         if selectedOverlay == .None { return selectedOverlay.iconColor }
-
+        
+        if selectedOverlay == .HeartRateZone {
+            let heartRate = ride.hrSamples[index]
+            let zone = HeartRateZoneManager.shared.getZone(heartRate: heartRate.max)
+            return zone.colour
+        }
+        
         // get the appropriate sample list
         let selectedSampleList: [StatSample]
 
         switch selectedOverlay {
         case .HeartRate:
             selectedSampleList = ride.hrSamples
+        case .HeartRateZone:
+                selectedSampleList = ride.hrSamples
         case .Speed:
             selectedSampleList = ride.speedSamples
         case .Altitude:

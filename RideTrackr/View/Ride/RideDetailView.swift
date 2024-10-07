@@ -16,8 +16,13 @@ struct RideDetailView: View {
     @State var ride: Ride = Ride()
     @Environment(\.displayScale) private var displayScale: CGFloat
     @ObservedObject var trendManager: TrendManager = .shared
+    @ObservedObject var healthManager: HKManager = .shared
     @AppStorage("distanceUnit") private var distanceUnit: DistanceUnit = .Metric
     @State private var isGeneratingImage = true
+    
+    private var heartRateZones: [HeartRateZone: TimeInterval] {
+        return HeartRateZoneManager.shared.calculateZoneDurations(samples: ride.hrSamples)
+    }
 
     // MARK: - Body
     var body: some View {
@@ -69,6 +74,18 @@ struct RideDetailView: View {
                             average: Binding(get: { (ride.altitudeGained * distanceUnit.smallDistanceConversion).rounded() }),
                             rightText: "GAIN"
                         ).padding(.bottom)
+                    }
+                    
+                    if let restingHeartRate = healthManager.restingHeartRate {
+                        ForEach(HeartRateZone.allCases) { zone in
+                            if let duration = heartRateZones[zone] {
+                                HStack {
+                                    Text(zone.description)
+                                    Spacer()
+                                    Text(HeartRateZoneManager.formatDuration(duration))
+                                }.foregroundStyle(zone.colour)
+                            }
+                        }
                     }
                 }
             }

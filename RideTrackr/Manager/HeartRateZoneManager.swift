@@ -20,10 +20,6 @@ class HeartRateZoneManager: ObservableObject {
 
     init() {
         self.maxHeartRate = 220.0 - Double(HKManager.shared.userAge ?? 20)
-//        self.maxHeartRate =  207 - (0.7 * Double(HKManager.shared.userAge ?? 20))
-        print(self.maxHeartRate)
-        print(HKManager.shared.restingHeartRate)
-
     }
 
     // Get zone for a specific heart rate

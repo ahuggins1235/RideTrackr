@@ -13,7 +13,8 @@ struct MapOverlayPicker: View {
     @State var expanded: Bool = false
 
     var body: some View {
-        VStack (alignment: .leading, spacing: 10) {
+        ZStack(alignment: .leading) {
+            // Main button area
             HStack {
                 if selectedOverlay != .None || expanded {
                     selectedOverlay.icon
@@ -23,57 +24,53 @@ struct MapOverlayPicker: View {
                         .labelStyle(.iconOnly)
                         .foregroundStyle(.accent)
                 }
-   
+                
                 Label("Drop Down Arrow", systemImage: "chevron.down")
                     .rotationEffect(Angle(degrees: expanded ? -180 : 0))
                     .labelStyle(.iconOnly)
                     .foregroundStyle(.secondary)
-                    
                 
             }
-
-            if expanded {
-                
-                ForEach(MapOverlayType.allCases) { overlay in
-                    
-                    if overlay != selectedOverlay {
-                        
-                        Button(action: {
-                            withAnimation {
-                                selectedOverlay = overlay
-                                expanded.toggle()
-                            }
-                        }) {
-                            overlay.icon
-                                .foregroundStyle(overlay.iconColor)
-                                .labelStyle(.titleAndIcon)
-                        }
-                        .transition(.asymmetric(
-                            insertion: .move(edge: .bottom).combined(with: .opacity),
-                            removal: .move(edge: .top).combined(with: .opacity)
-                        ))
-                    }
-                }
-            }
-        }
-        .onTapGesture {
-            withAnimation {
-                expanded.toggle()
-            }
-        }
-            .contentTransition(.symbolEffect(.replace))
+            .frame(alignment: .leading)
             .padding(9)
             .background(.ultraThickMaterial)
             .clipShape(RoundedRectangle(cornerRadius: 20))
-            .bold()
-    }
-
-    func cycleSelectedSampleType() {
-        let allCases = MapOverlayType.allCases
-        if let currentIndex = allCases.firstIndex(of: selectedOverlay) {
-            let nextIndex = allCases.index(after: currentIndex)
-            selectedOverlay = nextIndex == allCases.endIndex ? allCases.first! : allCases[nextIndex]
+            .onTapGesture {
+                withAnimation {
+                    expanded.toggle()
+                }
+            }
+            
+            // Dropdown content
+            if expanded {
+                VStack(alignment: .leading, spacing: 15) {
+                    ForEach(MapOverlayType.allCases) { overlay in
+                        if overlay != selectedOverlay {
+                            Button(action: {
+                                withAnimation {
+                                    selectedOverlay = overlay
+                                    expanded.toggle()
+                                }
+                            }) {
+                                overlay.icon
+                                    .foregroundStyle(overlay.iconColor)
+                                    .labelStyle(.titleAndIcon)
+                            }
+                        }
+                    }
+                }
+//                .frame(minWidth: .zero, alignment: .leading)
+                .padding(9)
+                .background(.ultraThickMaterial)
+                .clipShape(RoundedRectangle(cornerRadius: 20))
+                .offset(y: 100) // Adjust this value based on your header height
+                .transition(.asymmetric(
+                    insertion: .opacity.combined(with: .move(edge: .bottom)),
+                    removal: .opacity.combined(with: .move(edge: .bottom))
+                ))
+            }
         }
+        .bold()
     }
 }
 
@@ -95,6 +92,7 @@ struct StateWrapper: View {
 /// Which kind of overaly the user selects
 enum MapOverlayType: String, CaseIterable, Identifiable {
     case HeartRate = "Heart Rate"
+    case HeartRateZone = "Heart Rate Zones"
     case Speed = "Speed"
     case Altitude = "Altitude"
     case None = "None"
@@ -103,10 +101,12 @@ enum MapOverlayType: String, CaseIterable, Identifiable {
 
     var icon: AnyView {
         switch self {
-            case .None:
-                return AnyView(Label("Default", systemImage: "point.bottomleft.forward.to.point.topright.scurvepath.fill"))
+        case .None:
+            return AnyView(Label("Default", systemImage: "point.bottomleft.forward.to.point.topright.scurvepath.fill"))
         case .HeartRate:
             return AnyView(Label("Heart Rate", systemImage: "heart.fill").labelStyle(.titleAndIcon))
+            case .HeartRateZone:
+                return AnyView(Label("Heart Rate Zones", systemImage: "heart.text.square").labelStyle(.titleAndIcon))
         case .Speed:
             return AnyView(Label("Speed", systemImage: "speedometer").labelStyle(.titleAndIcon))
         case .Altitude:
@@ -118,6 +118,8 @@ enum MapOverlayType: String, CaseIterable, Identifiable {
         switch self {
         case .HeartRate:
             return .heartRate
+        case .HeartRateZone:
+            return .green
         case .Speed:
             return .speed
         case .Altitude:
@@ -130,7 +132,9 @@ enum MapOverlayType: String, CaseIterable, Identifiable {
     var minColor: Color {
         switch self {
         case .HeartRate:
-            return Color(hex: "#2B45FA                    ")
+            return Color(hex: "#2B45FA")
+            case .HeartRateZone:
+                return .orange
         case .Speed:
             return Color(hex: "#2D40FA")
         case .Altitude:
@@ -144,6 +148,8 @@ enum MapOverlayType: String, CaseIterable, Identifiable {
         switch self {
         case .HeartRate:
             return Color(hex: "#FF0010")
+            case .HeartRateZone:
+                return .orange
         case .Speed:
             return Color(hex: "#FACC2C")
         case .Altitude:
@@ -153,74 +159,3 @@ enum MapOverlayType: String, CaseIterable, Identifiable {
         }
     }
 }
-
-
-//var body: some  View {
-//    VStack {
-//        
-//        VStack(spacing: 0) {
-//            // selected item
-//            Button(action: {
-//                withAnimation {
-//                    showDropdown.toggle()
-//                }
-//            }, label: {
-//                HStack(spacing: nil) {
-//                    Text(options[selectedOptionIndex])
-//                    Spacer()
-//                    Image(systemName: "chevron.down")
-//                        .rotationEffect(.degrees((showDropdown ?  -180 : 0)))
-//                }
-//            })
-//            .padding(.horizontal, 20)
-//            .frame(width: menuWdith, height: buttonHeight, alignment: .leading)
-//            
-//            
-//            // selection menu
-//            if (showDropdown) {
-//                let scrollViewHeight: CGFloat  = options.count > maxItemDisplayed ? (buttonHeight*CGFloat(maxItemDisplayed)) : (buttonHeight*CGFloat(options.count))
-//                ScrollView {
-//                    LazyVStack(spacing: 0) {
-//                        ForEach(0..<options.count, id: \.self) { index in
-//                            Button(action: {
-//                                withAnimation {
-//                                    selectedOptionIndex = index
-//                                    showDropdown.toggle()
-//                                }
-//                                
-//                            }, label: {
-//                                HStack {
-//                                    Text(options[index])
-//                                    Spacer()
-//                                    if (index == selectedOptionIndex) {
-//                                        Image(systemName: "checkmark.circle.fill")
-//                                        
-//                                    }
-//                                }
-//                                
-//                            })
-//                            .padding(.horizontal, 20)
-//                            .frame(width: menuWdith, height: buttonHeight, alignment: .leading)
-//                            
-//                        }
-//                    }
-//                    .scrollTargetLayout()
-//                }
-//                .scrollPosition(id: $scrollPosition)
-//                .scrollDisabled(options.count <=  3)
-//                .frame(height: scrollViewHeight)
-//                .onAppear {
-//                    scrollPosition = selectedOptionIndex
-//                }
-//                
-//            }
-//            
-//        }
-//        .foregroundStyle(Color.white)
-//        .background(RoundedRectangle(cornerRadius: 16).fill(Color.black))
-//        
-//    }
-//    .frame(width: menuWdith, height: buttonHeight, alignment: .top)
-//    .zIndex(100)
-//    
-//}

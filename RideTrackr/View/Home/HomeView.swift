@@ -71,7 +71,7 @@ struct HomeView: View {
                                 .shimmer(.defaultConfig, isLoading: true)
                         }
                     }
-                        .padding(.top)
+                        .padding(.top)                                                                                                
                     if !healthManager.queryingHealthKit {
                         
                         

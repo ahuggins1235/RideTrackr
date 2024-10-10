@@ -11,11 +11,13 @@ struct CollapseView<Content>: View where Content: View {
     
     @State private var content: () -> Content
     @State private var expanded: Bool = false
+    @State var scrollProxy: ScrollViewProxy
     private var Title: String
     
-    init(_ title: String, @ViewBuilder content: @escaping () -> Content) {
+    init(_ title: String, proxy: ScrollViewProxy, @ViewBuilder content: @escaping () -> Content) {
         self.content = content
         self.Title = title
+        self.scrollProxy = proxy
     }
     
     var body: some View {
@@ -36,7 +38,11 @@ struct CollapseView<Content>: View where Content: View {
             .onTapGesture {
                 withAnimation {
                     expanded.toggle()
-//                    value.scrollTo(0, anchor: .top)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        withAnimation {
+                            scrollProxy.scrollTo(Title, anchor: .top)
+                        }
+                    }
                 }
             }
             
@@ -45,6 +51,7 @@ struct CollapseView<Content>: View where Content: View {
             
             if expanded {
                 content()
+                    .id(Title)
             }
         }
     }

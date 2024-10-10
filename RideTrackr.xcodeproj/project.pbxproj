@@ -54,6 +54,7 @@
 		49F26F932CB4F73600BDA227 /* HeartRateZoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F26F922CB4F73600BDA227 /* HeartRateZoneView.swift */; };
 		49F26FB12CB6566600BDA227 /* RideMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F26FB02CB6566600BDA227 /* RideMapView.swift */; };
 		49F26FBE2CB7564500BDA227 /* CollapseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F26FBD2CB7564500BDA227 /* CollapseView.swift */; };
+		49F26FC02CB75BDA00BDA227 /* RideGraphsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F26FBF2CB75BDA00BDA227 /* RideGraphsView.swift */; };
 		49FDA2C92C311A7E008D61F8 /* PersistentLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FDA2C82C311A7E008D61F8 /* PersistentLocation.swift */; };
 /* End PBXBuildFile section */
 
@@ -125,6 +126,7 @@
 		49F26F922CB4F73600BDA227 /* HeartRateZoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateZoneView.swift; sourceTree = "<group>"; };
 		49F26FB02CB6566600BDA227 /* RideMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideMapView.swift; sourceTree = "<group>"; };
 		49F26FBD2CB7564500BDA227 /* CollapseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapseView.swift; sourceTree = "<group>"; };
+		49F26FBF2CB75BDA00BDA227 /* RideGraphsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideGraphsView.swift; sourceTree = "<group>"; };
 		49FDA2C82C311A7E008D61F8 /* PersistentLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentLocation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -165,6 +167,7 @@
 				494B24402ABFD49800B05739 /* RideShareView.swift */,
 				49F26F922CB4F73600BDA227 /* HeartRateZoneView.swift */,
 				49F26FB02CB6566600BDA227 /* RideMapView.swift */,
+				49F26FBF2CB75BDA00BDA227 /* RideGraphsView.swift */,
 			);
 			path = Ride;
 			sourceTree = "<group>";
@@ -491,6 +494,7 @@
 				494B24412ABFD49800B05739 /* RideShareView.swift in Sources */,
 				49932F5C2AF1FD3700A45D14 /* RecentRidesCardList.swift in Sources */,
 				49E71F402AC1374200900477 /* TrendsTabView.swift in Sources */,
+				49F26FC02CB75BDA00BDA227 /* RideGraphsView.swift in Sources */,
 				4925C20B2A75128900761FDA /* RideListView.swift in Sources */,
 				49313AEB2C1AB27C00AA5789 /* HKManager.swift in Sources */,
 				49188F4D2AFB680A000C1E68 /* MapSnapShotView.swift in Sources */,

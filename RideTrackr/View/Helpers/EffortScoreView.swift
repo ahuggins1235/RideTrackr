@@ -69,9 +69,10 @@ struct EffortScoreView: View {
                     Divider()
                     
                     Text("Your effort score measures the intensity of your ride based on factors such as heart rate and duration.")
+                        .multilineTextAlignment(.leading)
                         .font(.callout)
                 }
-
+                .foregroundStyle(.primary)
                     .frame(width: 175, height: 150)
                     .padding(10)
                     .background(.ultraThickMaterial)

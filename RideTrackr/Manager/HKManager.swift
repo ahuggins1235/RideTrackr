@@ -68,7 +68,7 @@ final class HKManager: ObservableObject {
                 let hrSamples = try await fetchHeartRateSamples(for: workout, interval: sampleInterval)
 
                 // calculate the average heart rate of this workout
-                let sumHRSamples = hrSamples.reduce(0.0) { $0 + (($1.min + $1.max) / 2) }
+                let sumHRSamples = hrSamples.reduce(0.0) { $0 + $1.value }
                 let averageHR = sumHRSamples / Double(hrSamples.count)
 
 
@@ -181,7 +181,7 @@ final class HKManager: ObservableObject {
                         if let quantity = statistics.averageQuantity() {
                             let heartRateUnit = HKUnit(from: "count/min")
                             let averageHeartRate = quantity.doubleValue(for: heartRateUnit)
-                            let sample = StatSample(date: statistics.startDate, min: averageHeartRate, max: averageHeartRate)
+                            let sample = StatSample(date: statistics.startDate, value: averageHeartRate)
                             samples.append(sample)
                         }
                     }
@@ -346,11 +346,17 @@ final class HKManager: ObservableObject {
                 }
             }
         }
+        
+//        if self.userAge == nil || self.userAge == 0 {
+//            self.userAge = getUserAge()
+//        }
+        
+//        if DataManager.shared.rides.count < 5 {
+//            DataManager.shared.reyncData()
+//        }
     }
 
     func fetchAverageRestingHeartRate(from startDate: Date, to endDate: Date = Date()) async throws -> Double {
-        
-        requestAuthorization()
         
         let restingHRType = HKQuantityType.quantityType(forIdentifier: .restingHeartRate)!
 
@@ -394,7 +400,7 @@ final class HKManager: ObservableObject {
         // get alituide data
         for location in locations {
 
-            let altitudeSample = StatSample(date: location.timestamp, min: location.altitude, max: location.altitude)
+            let altitudeSample = StatSample(date: location.timestamp, value: location.altitude)
             altitdueData.append(altitudeSample)
         }
 
@@ -412,7 +418,7 @@ final class HKManager: ObservableObject {
                 // calculate average speed
                 let averageSpeed = (distance / timeInterval) * 3.6
 
-                let speedSample = StatSample(date: locations[i].timestamp, min: averageSpeed, max: averageSpeed)
+                let speedSample = StatSample(date: locations[i].timestamp, value: averageSpeed)
                 speedData.append(speedSample)
             }
         }

@@ -12,8 +12,10 @@ struct LargeMapPreviewView: View {
     var routeData: [PersistentLocation]
     var temperatureString: String?
     var effortScore: Double?
-    @State var selectedOverlay: MapOverlayType = .None
+    @Binding var selectedOverlay: MapOverlayType
     @State var ride: Ride
+    @Binding var selectedZone: HeartRateZone?
+    
 
 
     var body: some View {
@@ -55,39 +57,40 @@ struct LargeMapPreviewView: View {
                     .frame(height: 300)
                     .mapStyle(.standard(elevation: .realistic))
                     .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
-
-                // MARK: - Top Controls
-
-                VStack {
-                    
-                    HStack {
-                        MapOverlayPicker(selectedOverlay: $selectedOverlay)
-//                            .frame(alignment: .top)
+                // MARK: - Overlay
+                    .overlay {
+                        VStack {
+                            HStack {
+                                MapOverlayPicker(selectedOverlay: $selectedOverlay, selectedZone: $selectedZone)
+                                
+                                
+                                Spacer()
+                                
+                                if let effortScore = effortScore {
+                                    if effortScore > 0 {
+                                        EffortScoreView(score: effortScore)
+                                            .foregroundStyle(.primary)
+                                    }
+                                }
+                            }
+                            .frame(height: 50)
+                            .padding()
                             
-                        Spacer()
-                        
-                        if let effortScore = effortScore {
-                            if effortScore > 0 {
-                                EffortScoreView(score: effortScore)
+                            if let temperature = temperatureString {
+                                VStack {
+                                    Spacer()
+                                    HStack {
+                                        Spacer()
+                                        TemperatureView(temperature: temperature)
+                                            .padding()
+                                    }
+                                }
                             }
                         }
                     }
-                    .frame(height: 50)
-                        .padding()
-                    Spacer()
-                }
 
                 // MARK: - Temperature
-                if let temperature = temperatureString {
-                    VStack {
-                        Spacer()
-                        HStack {
-                            Spacer()
-                            TemperatureView(temperature: temperature)
-                                .padding()
-                        }
-                    }
-                }
+                
             } else {
                 HStack {
                     Spacer()
@@ -102,13 +105,23 @@ struct LargeMapPreviewView: View {
 
     // MARK: - Functions
     func colorForIntensity(index: Int) -> Color {
+        
+        if let selectedZone = selectedZone {
+            DispatchQueue.main.async {
+                selectedOverlay = .HeartRateZone
+            }
 
+            let heartRate = ride.hrSamples[index]
+            let zone = HeartRateZoneManager.shared.getZone(heartRate: heartRate.value)
+            return zone == selectedZone ? zone.colour : .gray
+        }
+        
         // if the selected overlay is none just return the accent colour
         if selectedOverlay == .None { return selectedOverlay.iconColor }
         
         if selectedOverlay == .HeartRateZone {
             let heartRate = ride.hrSamples[index]
-            let zone = HeartRateZoneManager.shared.getZone(heartRate: heartRate.max)
+            let zone = HeartRateZoneManager.shared.getZone(heartRate: heartRate.value)
             return zone.colour
         }
         
@@ -129,14 +142,14 @@ struct LargeMapPreviewView: View {
         }
 
         // get the min and max values of the list
-        let minValue = selectedSampleList.min(by: { $0.min < $1.min })?.min ?? 0
-        let maxValue = selectedSampleList.max(by: { $0.max < $1.max })?.max ?? 0
+        let minValue = selectedSampleList.min(by: { $0.value < $1.value })?.value ?? 0
+        let maxValue = selectedSampleList.max(by: { $0.value < $1.value })?.value ?? 0
 
         // get the current sample
         let currentSample = selectedSampleList[index]
 
 //        let proportion = (currentSample.max - minValue) / (maxValue - minValue)
-        let proportion = normalize(currentSample.max, minValue: minValue, maxValue: maxValue, scalingMode: .exponential(base: 2))
+        let proportion = normalize(currentSample.value, minValue: minValue, maxValue: maxValue, scalingMode: .exponential(base: 2))
 
         return Color.interpolate(from: selectedOverlay.minColor, to: selectedOverlay.maxColor, proportion: proportion)
 
@@ -171,7 +184,9 @@ struct LargeMapPreviewView: View {
 }
 
 #Preview {
-    LargeMapPreviewView(routeData: PreviewRide.routeData, temperatureString: PreviewRide.temperatureString, effortScore: 0, ride: PreviewRide)
+    @Previewable @State var selectedZone: HeartRateZone?
+    @Previewable @State var selectedOverlay: MapOverlayType = .None
+    LargeMapPreviewView(routeData: PreviewRide.routeData, temperatureString: PreviewRide.temperatureString, effortScore: 0, selectedOverlay: $selectedOverlay, ride: PreviewRide, selectedZone: $selectedZone)
 }
 
 enum ScalingMode {

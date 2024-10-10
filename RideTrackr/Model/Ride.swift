@@ -355,14 +355,14 @@ let PreviewRide = Ride(
     temperature: 23,
     effortScore: 8,
     hrSamples: [
-        StatSample(date: Date(), min: 70.0, max: 90.0),
-        StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
-        StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
-        StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
-        StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
-        StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
-        StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
-        StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+        StatSample(date: Date(), value: 90.0),
+        StatSample(date: Date().addingTimeInterval(60), value: 95.0),
+        StatSample(date: Date().addingTimeInterval(120), value: 100.0),
+        StatSample(date: Date().addingTimeInterval(180), value: 92.0),
+        StatSample(date: Date().addingTimeInterval(240), value: 96.0),
+        StatSample(date: Date().addingTimeInterval(300), value: 102.0),
+        StatSample(date: Date().addingTimeInterval(360), value: 105.0),
+        StatSample(date: Date().addingTimeInterval(420), value: 94.0)
     ],
     routeData: [
         PersistentLocation(latitude: 37.7749, longitude: -122.4194, timeStamp: Date().addingTimeInterval(60)),
@@ -370,24 +370,24 @@ let PreviewRide = Ride(
         PersistentLocation(latitude: 37.7729, longitude: -122.4250, timeStamp: Date().addingTimeInterval(180))
     ],
     altitdueSamples: [
-        StatSample(date: Date(), min: 70.0, max: 90.0),
-        StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
-        StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
-        StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
-        StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
-        StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
-        StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
-        StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+        StatSample(date: Date(), value: 90.0),
+        StatSample(date: Date().addingTimeInterval(60), value: 95.0),
+        StatSample(date: Date().addingTimeInterval(120), value: 100.0),
+        StatSample(date: Date().addingTimeInterval(180), value: 92.0),
+        StatSample(date: Date().addingTimeInterval(240), value: 96.0),
+        StatSample(date: Date().addingTimeInterval(300), value: 102.0),
+        StatSample(date: Date().addingTimeInterval(360), value: 105.0),
+        StatSample(date: Date().addingTimeInterval(420), value: 94.0)
     ],
     speedSamples: [
-        StatSample(date: Date(), min: 70.0, max: 90.0),
-        StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
-        StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
-        StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
-        StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
-        StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
-        StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
-        StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+        StatSample(date: Date(), value: 90.0),
+        StatSample(date: Date().addingTimeInterval(60), value: 95.0),
+        StatSample(date: Date().addingTimeInterval(120), value: 100.0),
+        StatSample(date: Date().addingTimeInterval(180), value: 92.0),
+        StatSample(date: Date().addingTimeInterval(240), value: 96.0),
+        StatSample(date: Date().addingTimeInterval(300), value: 102.0),
+        StatSample(date: Date().addingTimeInterval(360), value: 105.0),
+        StatSample(date: Date().addingTimeInterval(420), value: 94.0)
     ]
 )
 
@@ -400,34 +400,39 @@ let PreviewRideNoRouteData = Ride(
     altitudeGained: 13.7,
     rideDate: Date(),
     hrSamples: [
-        StatSample(date: Date(), min: 70.0, max: 90.0),
-        StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
-        StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
-        StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
-        StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
-        StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
-        StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
-        StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+        StatSample(date: Date(), value: 90.0),
+        StatSample(date: Date().addingTimeInterval(60), value: 95.0),
+        StatSample(date: Date().addingTimeInterval(120), value: 100.0),
+        StatSample(date: Date().addingTimeInterval(180), value: 92.0),
+        StatSample(date: Date().addingTimeInterval(240), value: 96.0),
+        StatSample(date: Date().addingTimeInterval(300), value: 102.0),
+        StatSample(date: Date().addingTimeInterval(360), value: 105.0),
+        StatSample(date: Date().addingTimeInterval(420), value: 94.0)
+    ],
+    routeData: [
+        PersistentLocation(latitude: 37.7749, longitude: -122.4194, timeStamp: Date().addingTimeInterval(60)),
+        PersistentLocation(latitude: 37.7739, longitude: -122.4222, timeStamp: Date().addingTimeInterval(120)),
+        PersistentLocation(latitude: 37.7729, longitude: -122.4250, timeStamp: Date().addingTimeInterval(180))
     ],
     altitdueSamples: [
-        StatSample(date: Date(), min: 70.0, max: 90.0),
-        StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
-        StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
-        StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
-        StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
-        StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
-        StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
-        StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+        StatSample(date: Date(), value: 90.0),
+        StatSample(date: Date().addingTimeInterval(60), value: 95.0),
+        StatSample(date: Date().addingTimeInterval(120), value: 100.0),
+        StatSample(date: Date().addingTimeInterval(180), value: 92.0),
+        StatSample(date: Date().addingTimeInterval(240), value: 96.0),
+        StatSample(date: Date().addingTimeInterval(300), value: 102.0),
+        StatSample(date: Date().addingTimeInterval(360), value: 105.0),
+        StatSample(date: Date().addingTimeInterval(420), value: 94.0)
     ],
     speedSamples: [
-        StatSample(date: Date(), min: 70.0, max: 90.0),
-        StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
-        StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
-        StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
-        StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
-        StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
-        StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
-        StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+        StatSample(date: Date(), value: 90.0),
+        StatSample(date: Date().addingTimeInterval(60), value: 95.0),
+        StatSample(date: Date().addingTimeInterval(120), value: 100.0),
+        StatSample(date: Date().addingTimeInterval(180), value: 92.0),
+        StatSample(date: Date().addingTimeInterval(240), value: 96.0),
+        StatSample(date: Date().addingTimeInterval(300), value: 102.0),
+        StatSample(date: Date().addingTimeInterval(360), value: 105.0),
+        StatSample(date: Date().addingTimeInterval(420), value: 94.0)
     ]
 )
 
@@ -442,14 +447,14 @@ let previewRideArray: [Ride] = [
         rideDate: Date(),
         effortScore: 8,
         hrSamples: [
-            StatSample(date: Date(), min: 70.0, max: 90.0),
-            StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
-            StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
-            StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
-            StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
-            StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
-            StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
-            StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+            StatSample(date: Date(), value: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), value: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), value: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), value: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), value: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), value: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), value: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), value: 94.0)
         ],
         routeData: [
             PersistentLocation(latitude: 37.7749, longitude: -122.4194, timeStamp: Date().addingTimeInterval(60)),
@@ -457,24 +462,24 @@ let previewRideArray: [Ride] = [
             PersistentLocation(latitude: 37.7729, longitude: -122.4250, timeStamp: Date().addingTimeInterval(180))
         ],
         altitdueSamples: [
-            StatSample(date: Date(), min: 70.0, max: 90.0),
-            StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
-            StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
-            StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
-            StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
-            StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
-            StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
-            StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+            StatSample(date: Date(), value: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), value: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), value: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), value: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), value: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), value: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), value: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), value: 94.0)
         ],
         speedSamples: [
-            StatSample(date: Date(), min: 70.0, max: 90.0),
-            StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
-            StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
-            StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
-            StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
-            StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
-            StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
-            StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+            StatSample(date: Date(), value: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), value: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), value: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), value: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), value: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), value: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), value: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), value: 94.0)
         ]
     ),
     Ride(
@@ -487,14 +492,14 @@ let previewRideArray: [Ride] = [
         rideDate: Date().addingTimeInterval(-86400),
         effortScore: 8,
         hrSamples: [
-            StatSample(date: Date().addingTimeInterval(-86400), min: 68.0, max: 88.0),
-            StatSample(date: Date().addingTimeInterval(-86340), min: 73.0, max: 93.0),
-            StatSample(date: Date().addingTimeInterval(-86280), min: 78.0, max: 98.0),
-            StatSample(date: Date().addingTimeInterval(-86220), min: 70.0, max: 90.0),
-            StatSample(date: Date().addingTimeInterval(-86160), min: 75.0, max: 95.0),
-            StatSample(date: Date().addingTimeInterval(-86100), min: 82.0, max: 100.0),
-            StatSample(date: Date().addingTimeInterval(-86040), min: 85.0, max: 103.0),
-            StatSample(date: Date().addingTimeInterval(-85980), min: 77.0, max: 97.0)
+            StatSample(date: Date(), value: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), value: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), value: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), value: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), value: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), value: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), value: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), value: 94.0)
         ],
         routeData: [
             PersistentLocation(latitude: 37.7749, longitude: -122.4194, timeStamp: Date().addingTimeInterval(60)),
@@ -502,24 +507,24 @@ let previewRideArray: [Ride] = [
             PersistentLocation(latitude: 37.7729, longitude: -122.4250, timeStamp: Date().addingTimeInterval(180))
         ],
         altitdueSamples: [
-            StatSample(date: Date(), min: 70.0, max: 90.0),
-            StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
-            StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
-            StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
-            StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
-            StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
-            StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
-            StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+            StatSample(date: Date(), value: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), value: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), value: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), value: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), value: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), value: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), value: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), value: 94.0)
         ],
         speedSamples: [
-            StatSample(date: Date(), min: 70.0, max: 90.0),
-            StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
-            StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
-            StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
-            StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
-            StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
-            StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
-            StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+            StatSample(date: Date(), value: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), value: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), value: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), value: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), value: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), value: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), value: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), value: 94.0)
         ]
     ),
     Ride(
@@ -532,14 +537,14 @@ let previewRideArray: [Ride] = [
         rideDate: Date().addingTimeInterval(-172800),
         effortScore: 8,
         hrSamples: [
-            StatSample(date: Date().addingTimeInterval(-172800), min: 72.0, max: 92.0),
-            StatSample(date: Date().addingTimeInterval(-172740), min: 78.0, max: 98.0),
-            StatSample(date: Date().addingTimeInterval(-172680), min: 83.0, max: 103.0),
-            StatSample(date: Date().addingTimeInterval(-172620), min: 75.0, max: 95.0),
-            StatSample(date: Date().addingTimeInterval(-172560), min: 80.0, max: 100.0),
-            StatSample(date: Date().addingTimeInterval(-172500), min: 87.0, max: 106.0),
-            StatSample(date: Date().addingTimeInterval(-172440), min: 90.0, max: 109.0),
-            StatSample(date: Date().addingTimeInterval(-172380), min: 82.0, max: 102.0)
+            StatSample(date: Date(), value: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), value: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), value: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), value: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), value: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), value: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), value: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), value: 94.0)
         ],
         routeData: [
             PersistentLocation(latitude: 37.7749, longitude: -122.4194, timeStamp: Date().addingTimeInterval(60)),
@@ -547,24 +552,24 @@ let previewRideArray: [Ride] = [
             PersistentLocation(latitude: 37.7729, longitude: -122.4250, timeStamp: Date().addingTimeInterval(180))
         ],
         altitdueSamples: [
-            StatSample(date: Date(), min: 70.0, max: 90.0),
-            StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
-            StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
-            StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
-            StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
-            StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
-            StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
-            StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+            StatSample(date: Date(), value: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), value: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), value: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), value: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), value: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), value: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), value: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), value: 94.0)
         ],
         speedSamples: [
-            StatSample(date: Date(), min: 70.0, max: 90.0),
-            StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
-            StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
-            StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
-            StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
-            StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
-            StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
-            StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+            StatSample(date: Date(), value: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), value: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), value: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), value: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), value: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), value: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), value: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), value: 94.0)
         ]
     ),
     Ride(
@@ -577,14 +582,14 @@ let previewRideArray: [Ride] = [
         rideDate: Date().addingTimeInterval(-2592000),
         effortScore: 8,
         hrSamples: [
-            StatSample(date: Date().addingTimeInterval(-259200), min: 67.0, max: 87.0),
-            StatSample(date: Date().addingTimeInterval(-259140), min: 72.0, max: 92.0),
-            StatSample(date: Date().addingTimeInterval(-259080), min: 77.0, max: 97.0),
-            StatSample(date: Date().addingTimeInterval(-259020), min: 69.0, max: 89.0),
-            StatSample(date: Date().addingTimeInterval(-258960), min: 74.0, max: 94.0),
-            StatSample(date: Date().addingTimeInterval(-258900), min: 81.0, max: 101.0),
-            StatSample(date: Date().addingTimeInterval(-258840), min: 84.0, max: 104.0),
-            StatSample(date: Date().addingTimeInterval(-258780), min: 76.0, max: 96.0)
+            StatSample(date: Date(), value: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), value: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), value: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), value: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), value: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), value: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), value: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), value: 94.0)
         ],
         routeData: [
             PersistentLocation(latitude: 37.7749, longitude: -122.4194, timeStamp: Date().addingTimeInterval(60)),
@@ -592,24 +597,24 @@ let previewRideArray: [Ride] = [
             PersistentLocation(latitude: 37.7729, longitude: -122.4250, timeStamp: Date().addingTimeInterval(180))
         ],
         altitdueSamples: [
-            StatSample(date: Date(), min: 70.0, max: 90.0),
-            StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
-            StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
-            StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
-            StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
-            StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
-            StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
-            StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+            StatSample(date: Date(), value: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), value: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), value: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), value: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), value: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), value: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), value: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), value: 94.0)
         ],
         speedSamples: [
-            StatSample(date: Date(), min: 70.0, max: 90.0),
-            StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
-            StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
-            StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
-            StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
-            StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
-            StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
-            StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+            StatSample(date: Date(), value: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), value: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), value: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), value: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), value: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), value: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), value: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), value: 94.0)
         ]
     ),
     Ride(
@@ -622,14 +627,14 @@ let previewRideArray: [Ride] = [
         rideDate: Date(),
         effortScore: 8,
         hrSamples: [
-            StatSample(date: Date(), min: 70.0, max: 90.0),
-            StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
-            StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
-            StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
-            StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
-            StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
-            StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
-            StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+            StatSample(date: Date(), value: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), value: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), value: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), value: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), value: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), value: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), value: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), value: 94.0)
         ],
         routeData: [
             PersistentLocation(latitude: 37.7749, longitude: -122.4194, timeStamp: Date().addingTimeInterval(60)),
@@ -637,24 +642,24 @@ let previewRideArray: [Ride] = [
             PersistentLocation(latitude: 37.7729, longitude: -122.4250, timeStamp: Date().addingTimeInterval(180))
         ],
         altitdueSamples: [
-            StatSample(date: Date(), min: 70.0, max: 90.0),
-            StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
-            StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
-            StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
-            StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
-            StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
-            StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
-            StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+            StatSample(date: Date(), value: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), value: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), value: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), value: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), value: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), value: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), value: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), value: 94.0)
         ],
         speedSamples: [
-            StatSample(date: Date(), min: 70.0, max: 90.0),
-            StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
-            StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
-            StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
-            StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
-            StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
-            StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
-            StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+            StatSample(date: Date(), value: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), value: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), value: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), value: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), value: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), value: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), value: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), value: 94.0)
         ]
     ),
     Ride(
@@ -666,14 +671,14 @@ let previewRideArray: [Ride] = [
         altitudeGained: 10.2,
         rideDate: Date().addingTimeInterval(-86400),
         hrSamples: [
-            StatSample(date: Date().addingTimeInterval(-86400), min: 68.0, max: 88.0),
-            StatSample(date: Date().addingTimeInterval(-86340), min: 73.0, max: 93.0),
-            StatSample(date: Date().addingTimeInterval(-86280), min: 78.0, max: 98.0),
-            StatSample(date: Date().addingTimeInterval(-86220), min: 70.0, max: 90.0),
-            StatSample(date: Date().addingTimeInterval(-86160), min: 75.0, max: 95.0),
-            StatSample(date: Date().addingTimeInterval(-86100), min: 82.0, max: 100.0),
-            StatSample(date: Date().addingTimeInterval(-86040), min: 85.0, max: 103.0),
-            StatSample(date: Date().addingTimeInterval(-85980), min: 77.0, max: 97.0)
+            StatSample(date: Date(), value: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), value: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), value: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), value: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), value: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), value: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), value: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), value: 94.0)
         ],
         routeData: [
             PersistentLocation(latitude: 37.7749, longitude: -122.4194, timeStamp: Date().addingTimeInterval(60)),
@@ -681,24 +686,24 @@ let previewRideArray: [Ride] = [
             PersistentLocation(latitude: 37.7729, longitude: -122.4250, timeStamp: Date().addingTimeInterval(180))
         ],
         altitdueSamples: [
-            StatSample(date: Date(), min: 70.0, max: 90.0),
-            StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
-            StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
-            StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
-            StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
-            StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
-            StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
-            StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+            StatSample(date: Date(), value: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), value: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), value: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), value: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), value: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), value: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), value: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), value: 94.0)
         ],
         speedSamples: [
-            StatSample(date: Date(), min: 70.0, max: 90.0),
-            StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
-            StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
-            StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
-            StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
-            StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
-            StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
-            StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+            StatSample(date: Date(), value: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), value: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), value: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), value: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), value: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), value: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), value: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), value: 94.0)
         ]
     ),
     Ride(
@@ -710,14 +715,14 @@ let previewRideArray: [Ride] = [
         altitudeGained: 15.3,
         rideDate: Date().addingTimeInterval(-172800),
         hrSamples: [
-            StatSample(date: Date().addingTimeInterval(-172800), min: 72.0, max: 92.0),
-            StatSample(date: Date().addingTimeInterval(-172740), min: 78.0, max: 98.0),
-            StatSample(date: Date().addingTimeInterval(-172680), min: 83.0, max: 103.0),
-            StatSample(date: Date().addingTimeInterval(-172620), min: 75.0, max: 95.0),
-            StatSample(date: Date().addingTimeInterval(-172560), min: 80.0, max: 100.0),
-            StatSample(date: Date().addingTimeInterval(-172500), min: 87.0, max: 106.0),
-            StatSample(date: Date().addingTimeInterval(-172440), min: 90.0, max: 109.0),
-            StatSample(date: Date().addingTimeInterval(-172380), min: 82.0, max: 102.0)
+            StatSample(date: Date(), value: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), value: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), value: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), value: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), value: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), value: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), value: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), value: 94.0)
         ],
         routeData: [
             PersistentLocation(latitude: 37.7749, longitude: -122.4194, timeStamp: Date().addingTimeInterval(60)),
@@ -725,24 +730,24 @@ let previewRideArray: [Ride] = [
             PersistentLocation(latitude: 37.7729, longitude: -122.4250, timeStamp: Date().addingTimeInterval(180))
         ],
         altitdueSamples: [
-            StatSample(date: Date(), min: 70.0, max: 90.0),
-            StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
-            StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
-            StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
-            StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
-            StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
-            StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
-            StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+            StatSample(date: Date(), value: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), value: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), value: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), value: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), value: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), value: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), value: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), value: 94.0)
         ],
         speedSamples: [
-            StatSample(date: Date(), min: 70.0, max: 90.0),
-            StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
-            StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
-            StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
-            StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
-            StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
-            StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
-            StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+            StatSample(date: Date(), value: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), value: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), value: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), value: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), value: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), value: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), value: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), value: 94.0)
         ]
     ),
     Ride(
@@ -754,14 +759,14 @@ let previewRideArray: [Ride] = [
         altitudeGained: 8.1,
         rideDate: Date().addingTimeInterval(-2592000),
         hrSamples: [
-            StatSample(date: Date().addingTimeInterval(-259200), min: 67.0, max: 87.0),
-            StatSample(date: Date().addingTimeInterval(-259140), min: 72.0, max: 92.0),
-            StatSample(date: Date().addingTimeInterval(-259080), min: 77.0, max: 97.0),
-            StatSample(date: Date().addingTimeInterval(-259020), min: 69.0, max: 89.0),
-            StatSample(date: Date().addingTimeInterval(-258960), min: 74.0, max: 94.0),
-            StatSample(date: Date().addingTimeInterval(-258900), min: 81.0, max: 101.0),
-            StatSample(date: Date().addingTimeInterval(-258840), min: 84.0, max: 104.0),
-            StatSample(date: Date().addingTimeInterval(-258780), min: 76.0, max: 96.0)
+            StatSample(date: Date(), value: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), value: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), value: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), value: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), value: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), value: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), value: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), value: 94.0)
         ],
         routeData: [
             PersistentLocation(latitude: 37.7749, longitude: -122.4194, timeStamp: Date().addingTimeInterval(60)),
@@ -769,24 +774,24 @@ let previewRideArray: [Ride] = [
             PersistentLocation(latitude: 37.7729, longitude: -122.4250, timeStamp: Date().addingTimeInterval(180))
         ],
         altitdueSamples: [
-            StatSample(date: Date(), min: 70.0, max: 90.0),
-            StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
-            StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
-            StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
-            StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
-            StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
-            StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
-            StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+            StatSample(date: Date(), value: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), value: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), value: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), value: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), value: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), value: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), value: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), value: 94.0)
         ],
         speedSamples: [
-            StatSample(date: Date(), min: 70.0, max: 90.0),
-            StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
-            StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
-            StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
-            StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
-            StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
-            StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
-            StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+            StatSample(date: Date(), value: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), value: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), value: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), value: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), value: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), value: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), value: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), value: 94.0)
         ]
     ),
     Ride(
@@ -798,14 +803,14 @@ let previewRideArray: [Ride] = [
         altitudeGained: 13.7,
         rideDate: Date(),
         hrSamples: [
-            StatSample(date: Date(), min: 70.0, max: 90.0),
-            StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
-            StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
-            StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
-            StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
-            StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
-            StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
-            StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+            StatSample(date: Date(), value: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), value: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), value: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), value: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), value: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), value: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), value: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), value: 94.0)
         ],
         routeData: [
             PersistentLocation(latitude: 37.7749, longitude: -122.4194, timeStamp: Date().addingTimeInterval(60)),
@@ -813,24 +818,24 @@ let previewRideArray: [Ride] = [
             PersistentLocation(latitude: 37.7729, longitude: -122.4250, timeStamp: Date().addingTimeInterval(180))
         ],
         altitdueSamples: [
-            StatSample(date: Date(), min: 70.0, max: 90.0),
-            StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
-            StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
-            StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
-            StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
-            StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
-            StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
-            StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+            StatSample(date: Date(), value: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), value: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), value: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), value: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), value: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), value: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), value: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), value: 94.0)
         ],
         speedSamples: [
-            StatSample(date: Date(), min: 70.0, max: 90.0),
-            StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
-            StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
-            StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
-            StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
-            StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
-            StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
-            StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+            StatSample(date: Date(), value: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), value: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), value: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), value: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), value: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), value: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), value: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), value: 94.0)
         ]
     ),
     Ride(
@@ -842,14 +847,14 @@ let previewRideArray: [Ride] = [
         altitudeGained: 10.2,
         rideDate: Date().addingTimeInterval(-86400),
         hrSamples: [
-            StatSample(date: Date().addingTimeInterval(-86400), min: 68.0, max: 88.0),
-            StatSample(date: Date().addingTimeInterval(-86340), min: 73.0, max: 93.0),
-            StatSample(date: Date().addingTimeInterval(-86280), min: 78.0, max: 98.0),
-            StatSample(date: Date().addingTimeInterval(-86220), min: 70.0, max: 90.0),
-            StatSample(date: Date().addingTimeInterval(-86160), min: 75.0, max: 95.0),
-            StatSample(date: Date().addingTimeInterval(-86100), min: 82.0, max: 100.0),
-            StatSample(date: Date().addingTimeInterval(-86040), min: 85.0, max: 103.0),
-            StatSample(date: Date().addingTimeInterval(-85980), min: 77.0, max: 97.0)
+            StatSample(date: Date(), value: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), value: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), value: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), value: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), value: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), value: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), value: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), value: 94.0)
         ],
         routeData: [
             PersistentLocation(latitude: 37.7749, longitude: -122.4194, timeStamp: Date().addingTimeInterval(60)),
@@ -857,24 +862,24 @@ let previewRideArray: [Ride] = [
             PersistentLocation(latitude: 37.7729, longitude: -122.4250, timeStamp: Date().addingTimeInterval(180))
         ],
         altitdueSamples: [
-            StatSample(date: Date(), min: 70.0, max: 90.0),
-            StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
-            StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
-            StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
-            StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
-            StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
-            StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
-            StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+            StatSample(date: Date(), value: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), value: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), value: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), value: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), value: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), value: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), value: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), value: 94.0)
         ],
         speedSamples: [
-            StatSample(date: Date(), min: 70.0, max: 90.0),
-            StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
-            StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
-            StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
-            StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
-            StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
-            StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
-            StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+            StatSample(date: Date(), value: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), value: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), value: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), value: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), value: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), value: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), value: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), value: 94.0)
         ]
     ),
     Ride(
@@ -886,14 +891,14 @@ let previewRideArray: [Ride] = [
         altitudeGained: 15.3,
         rideDate: Date().addingTimeInterval(-172800),
         hrSamples: [
-            StatSample(date: Date().addingTimeInterval(-172800), min: 72.0, max: 92.0),
-            StatSample(date: Date().addingTimeInterval(-172740), min: 78.0, max: 98.0),
-            StatSample(date: Date().addingTimeInterval(-172680), min: 83.0, max: 103.0),
-            StatSample(date: Date().addingTimeInterval(-172620), min: 75.0, max: 95.0),
-            StatSample(date: Date().addingTimeInterval(-172560), min: 80.0, max: 100.0),
-            StatSample(date: Date().addingTimeInterval(-172500), min: 87.0, max: 106.0),
-            StatSample(date: Date().addingTimeInterval(-172440), min: 90.0, max: 109.0),
-            StatSample(date: Date().addingTimeInterval(-172380), min: 82.0, max: 102.0)
+            StatSample(date: Date(), value: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), value: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), value: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), value: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), value: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), value: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), value: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), value: 94.0)
         ],
         routeData: [
             PersistentLocation(latitude: 37.7749, longitude: -122.4194, timeStamp: Date().addingTimeInterval(60)),
@@ -901,24 +906,24 @@ let previewRideArray: [Ride] = [
             PersistentLocation(latitude: 37.7729, longitude: -122.4250, timeStamp: Date().addingTimeInterval(180))
         ],
         altitdueSamples: [
-            StatSample(date: Date(), min: 70.0, max: 90.0),
-            StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
-            StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
-            StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
-            StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
-            StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
-            StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
-            StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+            StatSample(date: Date(), value: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), value: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), value: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), value: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), value: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), value: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), value: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), value: 94.0)
         ],
         speedSamples: [
-            StatSample(date: Date(), min: 70.0, max: 90.0),
-            StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
-            StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
-            StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
-            StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
-            StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
-            StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
-            StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+            StatSample(date: Date(), value: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), value: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), value: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), value: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), value: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), value: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), value: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), value: 94.0)
         ]
     ),
     Ride(
@@ -930,14 +935,14 @@ let previewRideArray: [Ride] = [
         altitudeGained: 8.1,
         rideDate: Date().addingTimeInterval(-2592000),
         hrSamples: [
-            StatSample(date: Date().addingTimeInterval(-259200), min: 67.0, max: 87.0),
-            StatSample(date: Date().addingTimeInterval(-259140), min: 72.0, max: 92.0),
-            StatSample(date: Date().addingTimeInterval(-259080), min: 77.0, max: 97.0),
-            StatSample(date: Date().addingTimeInterval(-259020), min: 69.0, max: 89.0),
-            StatSample(date: Date().addingTimeInterval(-258960), min: 74.0, max: 94.0),
-            StatSample(date: Date().addingTimeInterval(-258900), min: 81.0, max: 101.0),
-            StatSample(date: Date().addingTimeInterval(-258840), min: 84.0, max: 104.0),
-            StatSample(date: Date().addingTimeInterval(-258780), min: 76.0, max: 96.0)
+            StatSample(date: Date(), value: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), value: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), value: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), value: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), value: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), value: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), value: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), value: 94.0)
         ],
         routeData: [
             PersistentLocation(latitude: 37.7749, longitude: -122.4194, timeStamp: Date().addingTimeInterval(60)),
@@ -945,24 +950,24 @@ let previewRideArray: [Ride] = [
             PersistentLocation(latitude: 37.7729, longitude: -122.4250, timeStamp: Date().addingTimeInterval(180))
         ],
         altitdueSamples: [
-            StatSample(date: Date(), min: 70.0, max: 90.0),
-            StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
-            StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
-            StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
-            StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
-            StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
-            StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
-            StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+            StatSample(date: Date(), value: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), value: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), value: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), value: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), value: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), value: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), value: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), value: 94.0)
         ],
         speedSamples: [
-            StatSample(date: Date(), min: 70.0, max: 90.0),
-            StatSample(date: Date().addingTimeInterval(60), min: 75.0, max: 95.0),
-            StatSample(date: Date().addingTimeInterval(120), min: 80.0, max: 100.0),
-            StatSample(date: Date().addingTimeInterval(180), min: 72.0, max: 92.0),
-            StatSample(date: Date().addingTimeInterval(240), min: 78.0, max: 96.0),
-            StatSample(date: Date().addingTimeInterval(300), min: 85.0, max: 102.0),
-            StatSample(date: Date().addingTimeInterval(360), min: 88.0, max: 105.0),
-            StatSample(date: Date().addingTimeInterval(420), min: 76.0, max: 94.0)
+            StatSample(date: Date(), value: 90.0),
+            StatSample(date: Date().addingTimeInterval(60), value: 95.0),
+            StatSample(date: Date().addingTimeInterval(120), value: 100.0),
+            StatSample(date: Date().addingTimeInterval(180), value: 92.0),
+            StatSample(date: Date().addingTimeInterval(240), value: 96.0),
+            StatSample(date: Date().addingTimeInterval(300), value: 102.0),
+            StatSample(date: Date().addingTimeInterval(360), value: 105.0),
+            StatSample(date: Date().addingTimeInterval(420), value: 94.0)
         ]
     )
 ]

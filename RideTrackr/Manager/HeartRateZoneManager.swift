@@ -75,7 +75,7 @@ class HeartRateZoneManager: ObservableObject {
             }
             
             // Determine zone based on max heart rate and add duration
-            let zone = getZone(heartRate: sample.max, restingHR: restingHR)
+            let zone = getZone(heartRate: sample.value, restingHR: restingHR)
             zoneDurations[zone] = (zoneDurations[zone] ?? 0) + duration
         }
         
@@ -116,6 +116,18 @@ enum HeartRateZone: Int, CaseIterable, Identifiable {
             case .veryHard: return "Very Hard"
         }
     }
+    
+    var longDescription: Text {
+        switch self {
+                
+                case .veryLight: return Text("**Zone 1 (50-60% MHR)** – Recovery/Easy: Ideal for warm-ups, cool-downs, and active recovery.")
+                case .light: return Text("**Zone 2 (60-70% MHR)** – Fat Burn: Builds endurance and burns fat efficiently.")
+                case .moderate: return Text("**Zone 3 (70-80% MHR)** – Aerobic: Improves cardiovascular fitness and overall stamina.")
+                case .hard: return Text("**Zone 4 (80-90% MHR)** – Threshold: Increases speed and performance, challenging the body’s limits.")
+                case .veryHard: return Text("**Zone 5 (90-100% MHR)** – Max Effort: Used for short bursts of intense training to boost power and anaerobic capacity.")
+        }
+    }
+    
     var colour: Color {
         switch self {
             case .veryLight:

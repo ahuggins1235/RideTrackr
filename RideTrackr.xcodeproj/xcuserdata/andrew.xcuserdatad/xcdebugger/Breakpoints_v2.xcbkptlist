@@ -5,22 +5,6 @@
    version = "2.0">
    <Breakpoints>
       <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "CAB09394-8903-4FEC-B8B2-8CDAD7AF89E0"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "RideTrackr/View/Ride/RideDetailView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "150"
-            endingLineNumber = "150"
-            landmarkName = "body"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.SymbolicBreakpoint">
          <BreakpointContent
             uuid = "943EFE25-29C2-4A9F-BBA8-713C402A8BA2"
@@ -416,8 +400,8 @@
             filePath = "RideTrackr/Manager/HKManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "379"
-            endingLineNumber = "379"
+            startingLineNumber = "385"
+            endingLineNumber = "385"
             landmarkName = "fetchAverageRestingHeartRate(from:to:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -432,8 +416,8 @@
             filePath = "RideTrackr/Manager/HKManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "357"
-            endingLineNumber = "357"
+            startingLineNumber = "363"
+            endingLineNumber = "363"
             landmarkName = "fetchAverageRestingHeartRate(from:to:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -448,8 +432,8 @@
             filePath = "RideTrackr/Manager/HKManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "369"
-            endingLineNumber = "369"
+            startingLineNumber = "375"
+            endingLineNumber = "375"
             landmarkName = "fetchAverageRestingHeartRate(from:to:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -480,8 +464,8 @@
             filePath = "RideTrackr/Manager/HKManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "373"
-            endingLineNumber = "373"
+            startingLineNumber = "379"
+            endingLineNumber = "379"
             landmarkName = "fetchAverageRestingHeartRate(from:to:)"
             landmarkType = "7">
          </BreakpointContent>

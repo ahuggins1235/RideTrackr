@@ -77,10 +77,10 @@ struct FilterSheetView: View {
 
 enum DateFilter: String, CaseIterable, Identifiable {
 
-    case week = "Last Week"
-    case oneMonth = "Last Month"
+    case week = "This Week"
+    case oneMonth = "This Month"
     case threeMonths = "Three Months"
-    case year = "Last Year"
+    case year = "This Year"
 
     var id: DateFilter { self }
 

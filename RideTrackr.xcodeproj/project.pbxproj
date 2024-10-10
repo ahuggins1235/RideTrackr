@@ -51,6 +51,9 @@
 		49E71F422AC146C200900477 /* TrendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E71F412AC146C200900477 /* TrendView.swift */; };
 		49E71F442AC1509E00900477 /* TrendType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E71F432AC1509E00900477 /* TrendType.swift */; };
 		49E71F462AC1515A00900477 /* TrendManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E71F452AC1515A00900477 /* TrendManager.swift */; };
+		49F26F932CB4F73600BDA227 /* HeartRateZoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F26F922CB4F73600BDA227 /* HeartRateZoneView.swift */; };
+		49F26FB12CB6566600BDA227 /* RideMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F26FB02CB6566600BDA227 /* RideMapView.swift */; };
+		49F26FBE2CB7564500BDA227 /* CollapseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F26FBD2CB7564500BDA227 /* CollapseView.swift */; };
 		49FDA2C92C311A7E008D61F8 /* PersistentLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FDA2C82C311A7E008D61F8 /* PersistentLocation.swift */; };
 /* End PBXBuildFile section */
 
@@ -119,6 +122,9 @@
 		49E71F412AC146C200900477 /* TrendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendView.swift; sourceTree = "<group>"; };
 		49E71F432AC1509E00900477 /* TrendType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendType.swift; sourceTree = "<group>"; };
 		49E71F452AC1515A00900477 /* TrendManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendManager.swift; sourceTree = "<group>"; };
+		49F26F922CB4F73600BDA227 /* HeartRateZoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateZoneView.swift; sourceTree = "<group>"; };
+		49F26FB02CB6566600BDA227 /* RideMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideMapView.swift; sourceTree = "<group>"; };
+		49F26FBD2CB7564500BDA227 /* CollapseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapseView.swift; sourceTree = "<group>"; };
 		49FDA2C82C311A7E008D61F8 /* PersistentLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentLocation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -157,6 +163,8 @@
 				4925C20A2A75128900761FDA /* RideListView.swift */,
 				490726312A690E000009817F /* LargeRidePreview.swift */,
 				494B24402ABFD49800B05739 /* RideShareView.swift */,
+				49F26F922CB4F73600BDA227 /* HeartRateZoneView.swift */,
+				49F26FB02CB6566600BDA227 /* RideMapView.swift */,
 			);
 			path = Ride;
 			sourceTree = "<group>";
@@ -186,7 +194,7 @@
 			isa = PBXGroup;
 			children = (
 				490726002A69042D0009817F /* Assets.xcassets */,
-				492124932AE9026700889575 /* Extensions */,
+				492124932AE9026700889575 /* Helpers */,
 				494F67062AF3760D001163B3 /* Info.plist */,
 				490726352A6951830009817F /* Manager */,
 				490726272A69043D0009817F /* Model */,
@@ -293,16 +301,17 @@
 				490741DD2C37D04200C07C24 /* EffortScoreView.swift */,
 				490741DF2C37EBF000C07C24 /* LargeMapPreviewView.swift */,
 				4931A6B22CACED330016E2C7 /* MapOverlayPicker.swift */,
+				49F26FBD2CB7564500BDA227 /* CollapseView.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		492124932AE9026700889575 /* Extensions */ = {
+		492124932AE9026700889575 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
 				492124942AE9027500889575 /* Extensions.swift */,
 			);
-			path = Extensions;
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		492124962AE9E11100889575 /* Settings */ = {
@@ -488,6 +497,7 @@
 				49E63A0D2B0610CB005451D1 /* NotificationManager.swift in Sources */,
 				490726322A690E000009817F /* LargeRidePreview.swift in Sources */,
 				49022C122A6FCADA00E61F31 /* RideDetailView.swift in Sources */,
+				49F26FB12CB6566600BDA227 /* RideMapView.swift in Sources */,
 				49FDA2C92C311A7E008D61F8 /* PersistentLocation.swift in Sources */,
 				498657BC2C33F80A00EEF59F /* DateIntervalPickerView.swift in Sources */,
 				49E71F422AC146C200900477 /* TrendView.swift in Sources */,
@@ -497,6 +507,7 @@
 				490726292A69045F0009817F /* RideTrackrTabView.swift in Sources */,
 				4907262B2A6904710009817F /* HomeView.swift in Sources */,
 				498657BA2C33BFFA00EEF59F /* TrendPreviewView.swift in Sources */,
+				49F26F932CB4F73600BDA227 /* HeartRateZoneView.swift in Sources */,
 				490725FF2A69042A0009817F /* ContentView.swift in Sources */,
 				490741E02C37EBF000C07C24 /* LargeMapPreviewView.swift in Sources */,
 				4905ACAE2CB3904300DBE2F9 /* HeartRateZoneManager.swift in Sources */,
@@ -514,6 +525,7 @@
 				494DAA8C2C25768D001E0D4B /* StatSample.swift in Sources */,
 				498657C02C3535E200EEF59F /* FilterSheetView.swift in Sources */,
 				49E71F462AC1515A00900477 /* TrendManager.swift in Sources */,
+				49F26FBE2CB7564500BDA227 /* CollapseView.swift in Sources */,
 				49E71F442AC1509E00900477 /* TrendType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

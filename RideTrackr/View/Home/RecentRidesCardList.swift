@@ -78,8 +78,7 @@ struct RecentRidesCardList: View {
                                 }
                         }
                     }.background {
-                        Capsule()
-                            .foregroundStyle(.white)
+                        Color.cardBackground.clipShape(Capsule())
                         
                     }
                     // set the idicator to the second ride

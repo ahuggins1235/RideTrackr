@@ -15,15 +15,15 @@ struct StatSample: Identifiable, Codable {
     let date: Date
     
     /// the minimum value recorded during the sample
-    let min: Double
+//    let min/*: Double*/
     
     /// the maximuim value recored during the sample
-    let max: Double
+    let value: Double
     
-    init(id: UUID = UUID(), date: Date, min: Double, max: Double) {
+    init(id: UUID = UUID(), date: Date, value: Double) {
         self.id = id
         self.date = date
-        self.min = min
-        self.max = max
+//        self.min = min
+        self.value = value
     }
 }

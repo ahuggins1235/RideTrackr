@@ -11,6 +11,7 @@ struct MapOverlayPicker: View {
 
     @Binding var selectedOverlay: MapOverlayType
     @State var expanded: Bool = false
+    @Binding var selectedZone: HeartRateZone?
 
     var body: some View {
         ZStack(alignment: .leading) {
@@ -49,6 +50,9 @@ struct MapOverlayPicker: View {
                             Button(action: {
                                 withAnimation {
                                     selectedOverlay = overlay
+                                    if overlay != .HeartRateZone {
+                                        selectedZone = nil
+                                    }
                                     expanded.toggle()
                                 }
                             }) {
@@ -81,9 +85,9 @@ struct MapOverlayPicker: View {
 
 struct StateWrapper: View {
     @State private var selectedSampleType: MapOverlayType = .None
-
+    @State private var selectedZone: HeartRateZone?
     var body: some View {
-        MapOverlayPicker(selectedOverlay: $selectedSampleType)
+        MapOverlayPicker(selectedOverlay: $selectedSampleType, selectedZone: $selectedZone)
     }
 }
 

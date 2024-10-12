@@ -16,7 +16,14 @@ struct RecentRidesCardList: View {
     @ObservedObject var dataManager: DataManager = .shared
     @ObservedObject var navigationManager: NavigationManager = .shared
     @State var currentRide = UUID()
-    @State var recentRides: [Ride] = []
+    var recentRides: [Ride] {
+        let rideSlice = healthManager.queryingHealthKit ? previewRideArray.prefix(5).dropFirst() : dataManager.rides.prefix(5).dropFirst()
+        var rides: [Ride] = []
+        for ride in rideSlice {
+            rides.append(ride)
+        }
+        return rides
+    }
 
     var body: some View {
 
@@ -44,7 +51,7 @@ struct RecentRidesCardList: View {
                 }.offset(y: 15)
                 // MARK: - Tabview
                 
-                if dataManager.rides.count >= 2 {
+                if recentRides.count >= 2 {
                     
                     TabView(selection: $currentRide.animation()) {
                         
@@ -99,25 +106,25 @@ struct RecentRidesCardList: View {
                 RideDetailView(ride: ride)
             }
             .onAppear {
-                getRides()
+//                getRides()
             }
             .onChange(of: dataManager.rides) { _, _ in
-                getRides()
+//                getRides()
             }
             .onChange(of: healthManager.queryingHealthKit) { oldValue, newValue in
-                getRides().self
+//                getRides()
             }
         }
     }
 
     func getRides() {
 
-        recentRides.removeAll()
-        
-        let rides = healthManager.queryingHealthKit ? previewRideArray.prefix(5).dropFirst() : dataManager.rides.prefix(5).dropFirst()
-        for ride in rides {
-            recentRides.append(ride)
-        }
+//        recentRides.removeAll()
+//        
+//        let rides = healthManager.queryingHealthKit ? previewRideArray.prefix(5).dropFirst() : dataManager.rides.prefix(5).dropFirst()
+//        for ride in rides {
+//            recentRides.append(ride)
+//        }
     }
 }
 

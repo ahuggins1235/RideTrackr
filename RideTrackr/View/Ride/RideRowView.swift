@@ -7,6 +7,7 @@
 
 import SwiftUI
 import MapKit
+import PolyKit
 
 @MainActor
 struct RideRowView: View {
@@ -21,7 +22,7 @@ struct RideRowView: View {
 
             RoundedRectangle(cornerRadius: 15)
                 .fill(.cardBackground)
-            .padding(.horizontal)
+                .padding(.horizontal)
 
             HStack {
 
@@ -33,8 +34,8 @@ struct RideRowView: View {
                         .padding(.horizontal, 8)
                         .frame(width: 100, height: 100)
                         .shadow(radius: 3)
-                    
-                    
+
+
                 } else {
 
                     Circle()
@@ -44,6 +45,7 @@ struct RideRowView: View {
                         .shadow(radius: 3)
                         .foregroundStyle(.ultraThinMaterial)
                         .overlay (
+                            
                         Text("No route data found")
                             .multilineTextAlignment(.center)
                             .bold()
@@ -51,16 +53,40 @@ struct RideRowView: View {
                             .padding()
                     )
                 }
-                    
+
 
                 VStack {
 
                     // small details
-                    HStack {
+                    HStack(alignment: .top) {
 
                         Text(ride.activeEnergyString)
                         Text(ride.durationString)
                         Spacer()
+                        
+                        if let effortScore = ride.effortScore {
+                            if effortScore > 0 {
+                                
+                                ZStack {
+                                    Text(String(Int(effortScore)))
+                                        .font(.footnote)
+                                        .fontDesign(.rounded)
+                                        .foregroundStyle(.white)
+                                        .bold()
+                                        .padding(7)
+                                        .background {
+
+                                        Polygon(count: Int(effortScore) + 3, relativeCornerRadius: 0.2)
+                                            .fill(.effort.gradient)
+                                            .stroke(Color.white, lineWidth: 3)
+                                            .shadow(color: .purple, radius: 30)
+                                    }
+                                }
+                                    .padding(.trailing)
+                                    .padding(.top, -7)
+                                    .padding(.bottom, -15)
+                            }
+                        }
                     }
                         .foregroundColor(.secondary)
                         .font(.caption)
@@ -91,5 +117,5 @@ struct RideRowView: View {
 
 // MARK: - previews
 #Preview {
-    RideRowView(ride: PreviewRideNoRouteData)
+    RideRowView(ride: PreviewRide)
 }

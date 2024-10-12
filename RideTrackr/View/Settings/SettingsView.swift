@@ -34,8 +34,6 @@ struct SettingsView: View {
                             Text("\(unit.rawValue)  (\(unit.abr))").tag(unit.rawValue)
                         }
                     }
-                    
-                    Text("Cadence or speed")
                 }
                 
                 Section("Appearance") {

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -45,6 +45,28 @@
 		498657BE2C352A5700EEF59F /* DateFilterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498657BD2C352A5700EEF59F /* DateFilterButton.swift */; };
 		498657C02C3535E200EEF59F /* FilterSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498657BF2C3535E200EEF59F /* FilterSheetView.swift */; };
 		49932F5C2AF1FD3700A45D14 /* RecentRidesCardList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49932F5B2AF1FD3700A45D14 /* RecentRidesCardList.swift */; };
+		49A1D4EE2CBA4687007D37BA /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49A1D4ED2CBA4687007D37BA /* WidgetKit.framework */; };
+		49A1D4F02CBA4687007D37BA /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49A1D4EF2CBA4687007D37BA /* SwiftUI.framework */; };
+		49A1D4FB2CBA4689007D37BA /* RideTrackrWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 49A1D4EC2CBA4687007D37BA /* RideTrackrWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		49A1D5022CBA4A4F007D37BA /* StatSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494DAA8B2C25768D001E0D4B /* StatSample.swift */; };
+		49A1D5032CBA4A59007D37BA /* Ride.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490726332A6912660009817F /* Ride.swift */; };
+		49A1D5042CBA4A63007D37BA /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E63A0A2B05DEF1005451D1 /* DataManager.swift */; };
+		49A1D5062CBA4B20007D37BA /* PolyKit in Frameworks */ = {isa = PBXBuildFile; productRef = 49A1D5052CBA4B20007D37BA /* PolyKit */; };
+		49A1D5082CBA4B36007D37BA /* FMDB in Frameworks */ = {isa = PBXBuildFile; productRef = 49A1D5072CBA4B36007D37BA /* FMDB */; };
+		49A1D5092CBA4B71007D37BA /* HKManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49313AEA2C1AB27C00AA5789 /* HKManager.swift */; };
+		49A1D50A2CBA4B71007D37BA /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4921249B2AE9E73800889575 /* SettingsManager.swift */; };
+		49A1D50B2CBA4B71007D37BA /* HeartRateZoneManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4905ACAD2CB3904300DBE2F9 /* HeartRateZoneManager.swift */; };
+		49A1D50D2CBA4B71007D37BA /* TrendManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E71F452AC1515A00900477 /* TrendManager.swift */; };
+		49A1D50E2CBA4B71007D37BA /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E63A0C2B0610CB005451D1 /* NotificationManager.swift */; };
+		49A1D50F2CBA4B80007D37BA /* PersistentLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FDA2C82C311A7E008D61F8 /* PersistentLocation.swift */; };
+		49A1D5102CBA4B80007D37BA /* TrendType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E71F432AC1509E00900477 /* TrendType.swift */; };
+		49A1D5112CBA4CC5007D37BA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 490726002A69042D0009817F /* Assets.xcassets */; };
+		49A1D5122CBA4CE9007D37BA /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492124942AE9027500889575 /* Extensions.swift */; };
+		49A1D5132CBA4D3F007D37BA /* TrendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E71F412AC146C200900477 /* TrendView.swift */; };
+		49A1D5152CBA4D83007D37BA /* StatDifferenceArrow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A1D5142CBA4D83007D37BA /* StatDifferenceArrow.swift */; };
+		49A1D5162CBA4DB4007D37BA /* StatDifferenceArrow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A1D5142CBA4D83007D37BA /* StatDifferenceArrow.swift */; };
+		49A1D5222CBA7334007D37BA /* LabelStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A1D5212CBA732A007D37BA /* LabelStyles.swift */; };
+		49A1D5232CBA7334007D37BA /* LabelStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A1D5212CBA732A007D37BA /* LabelStyles.swift */; };
 		49E63A0B2B05DEF1005451D1 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E63A0A2B05DEF1005451D1 /* DataManager.swift */; };
 		49E63A0D2B0610CB005451D1 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E63A0C2B0610CB005451D1 /* NotificationManager.swift */; };
 		49E71F402AC1374200900477 /* TrendsTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E71F3F2AC1374200900477 /* TrendsTabView.swift */; };
@@ -73,7 +95,28 @@
 			remoteGlobalIDString = 490725F82A69042A0009817F;
 			remoteInfo = RideTrackr;
 		};
+		49A1D4F92CBA4689007D37BA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 490725F12A69042A0009817F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 49A1D4EB2CBA4687007D37BA;
+			remoteInfo = RideTrackrWidgetExtension;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		49A1D4FC2CBA4689007D37BA /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				49A1D4FB2CBA4689007D37BA /* RideTrackrWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		49022C112A6FCADA00E61F31 /* RideDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideDetailView.swift; sourceTree = "<group>"; };
@@ -117,6 +160,11 @@
 		498657BD2C352A5700EEF59F /* DateFilterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFilterButton.swift; sourceTree = "<group>"; };
 		498657BF2C3535E200EEF59F /* FilterSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSheetView.swift; sourceTree = "<group>"; };
 		49932F5B2AF1FD3700A45D14 /* RecentRidesCardList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentRidesCardList.swift; sourceTree = "<group>"; };
+		49A1D4EC2CBA4687007D37BA /* RideTrackrWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = RideTrackrWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		49A1D4ED2CBA4687007D37BA /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		49A1D4EF2CBA4687007D37BA /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		49A1D5142CBA4D83007D37BA /* StatDifferenceArrow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatDifferenceArrow.swift; sourceTree = "<group>"; };
+		49A1D5212CBA732A007D37BA /* LabelStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelStyles.swift; sourceTree = "<group>"; };
 		49E63A0A2B05DEF1005451D1 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		49E63A0C2B0610CB005451D1 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		49E71F3F2AC1374200900477 /* TrendsTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsTabView.swift; sourceTree = "<group>"; };
@@ -129,6 +177,20 @@
 		49F26FBF2CB75BDA00BDA227 /* RideGraphsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideGraphsView.swift; sourceTree = "<group>"; };
 		49FDA2C82C311A7E008D61F8 /* PersistentLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentLocation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		49A1D4FF2CBA4689007D37BA /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 49A1D4EB2CBA4687007D37BA /* RideTrackrWidgetExtension */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		49A1D4F12CBA4687007D37BA /* RideTrackrWidget */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (49A1D4FF2CBA4689007D37BA /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = RideTrackrWidget; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		490725F62A69042A0009817F /* Frameworks */ = {
@@ -151,6 +213,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49A1D4E92CBA4687007D37BA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49A1D5062CBA4B20007D37BA /* PolyKit in Frameworks */,
+				49A1D5082CBA4B36007D37BA /* FMDB in Frameworks */,
+				49A1D4F02CBA4687007D37BA /* SwiftUI.framework in Frameworks */,
+				49A1D4EE2CBA4687007D37BA /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -178,6 +251,7 @@
 				490725FB2A69042A0009817F /* RideTrackr */,
 				4907260C2A69042D0009817F /* RideTrackrTests */,
 				490726162A69042D0009817F /* RideTrackrUITests */,
+				49A1D4F12CBA4687007D37BA /* RideTrackrWidget */,
 				490725FA2A69042A0009817F /* Products */,
 				490741E22C38239A00C07C24 /* Frameworks */,
 			);
@@ -189,6 +263,7 @@
 				490725F92A69042A0009817F /* RideTrackr.app */,
 				490726092A69042D0009817F /* RideTrackrTests.xctest */,
 				490726132A69042D0009817F /* RideTrackrUITests.xctest */,
+				49A1D4EC2CBA4687007D37BA /* RideTrackrWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -288,6 +363,8 @@
 		490741E22C38239A00C07C24 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				49A1D4ED2CBA4687007D37BA /* WidgetKit.framework */,
+				49A1D4EF2CBA4687007D37BA /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -295,6 +372,7 @@
 		49188F4B2AFB67E1000C1E68 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				49A1D5142CBA4D83007D37BA /* StatDifferenceArrow.swift */,
 				496074272C3A62BE006E9E80 /* ShimmerEffect.swift */,
 				49188F4C2AFB680A000C1E68 /* MapSnapShotView.swift */,
 				49188F4E2AFB6AEE000C1E68 /* TemperatureView.swift */,
@@ -312,6 +390,7 @@
 		492124932AE9026700889575 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				49A1D5212CBA732A007D37BA /* LabelStyles.swift */,
 				492124942AE9027500889575 /* Extensions.swift */,
 			);
 			path = Helpers;
@@ -361,10 +440,12 @@
 				490725F52A69042A0009817F /* Sources */,
 				490725F62A69042A0009817F /* Frameworks */,
 				490725F72A69042A0009817F /* Resources */,
+				49A1D4FC2CBA4689007D37BA /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				49A1D4FA2CBA4689007D37BA /* PBXTargetDependency */,
 			);
 			name = RideTrackr;
 			packageProductDependencies = (
@@ -411,6 +492,30 @@
 			productReference = 490726132A69042D0009817F /* RideTrackrUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		49A1D4EB2CBA4687007D37BA /* RideTrackrWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 49A1D5002CBA4689007D37BA /* Build configuration list for PBXNativeTarget "RideTrackrWidgetExtension" */;
+			buildPhases = (
+				49A1D4E82CBA4687007D37BA /* Sources */,
+				49A1D4E92CBA4687007D37BA /* Frameworks */,
+				49A1D4EA2CBA4687007D37BA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				49A1D4F12CBA4687007D37BA /* RideTrackrWidget */,
+			);
+			name = RideTrackrWidgetExtension;
+			packageProductDependencies = (
+				49A1D5052CBA4B20007D37BA /* PolyKit */,
+				49A1D5072CBA4B36007D37BA /* FMDB */,
+			);
+			productName = RideTrackrWidgetExtension;
+			productReference = 49A1D4EC2CBA4687007D37BA /* RideTrackrWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -418,7 +523,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1500;
+				LastSwiftUpdateCheck = 1600;
 				LastUpgradeCheck = 1600;
 				TargetAttributes = {
 					490725F82A69042A0009817F = {
@@ -431,6 +536,9 @@
 					490726122A69042D0009817F = {
 						CreatedOnToolsVersion = 15.0;
 						TestTargetID = 490725F82A69042A0009817F;
+					};
+					49A1D4EB2CBA4687007D37BA = {
+						CreatedOnToolsVersion = 16.0;
 					};
 				};
 			};
@@ -454,6 +562,7 @@
 				490725F82A69042A0009817F /* RideTrackr */,
 				490726082A69042D0009817F /* RideTrackrTests */,
 				490726122A69042D0009817F /* RideTrackrUITests */,
+				49A1D4EB2CBA4687007D37BA /* RideTrackrWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -481,6 +590,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49A1D4EA2CBA4687007D37BA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49A1D5112CBA4CC5007D37BA /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -513,6 +630,7 @@
 				498657BA2C33BFFA00EEF59F /* TrendPreviewView.swift in Sources */,
 				49F26F932CB4F73600BDA227 /* HeartRateZoneView.swift in Sources */,
 				490725FF2A69042A0009817F /* ContentView.swift in Sources */,
+				49A1D5232CBA7334007D37BA /* LabelStyles.swift in Sources */,
 				490741E02C37EBF000C07C24 /* LargeMapPreviewView.swift in Sources */,
 				4905ACAE2CB3904300DBE2F9 /* HeartRateZoneManager.swift in Sources */,
 				496074282C3A62C6006E9E80 /* ShimmerEffect.swift in Sources */,
@@ -526,6 +644,7 @@
 				49E63A0B2B05DEF1005451D1 /* DataManager.swift in Sources */,
 				490726302A6907B40009817F /* TrendCardView.swift in Sources */,
 				4931A6B32CACED330016E2C7 /* MapOverlayPicker.swift in Sources */,
+				49A1D5152CBA4D83007D37BA /* StatDifferenceArrow.swift in Sources */,
 				494DAA8C2C25768D001E0D4B /* StatSample.swift in Sources */,
 				498657C02C3535E200EEF59F /* FilterSheetView.swift in Sources */,
 				49E71F462AC1515A00900477 /* TrendManager.swift in Sources */,
@@ -551,6 +670,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		49A1D4E82CBA4687007D37BA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49A1D5092CBA4B71007D37BA /* HKManager.swift in Sources */,
+				49A1D50A2CBA4B71007D37BA /* SettingsManager.swift in Sources */,
+				49A1D50F2CBA4B80007D37BA /* PersistentLocation.swift in Sources */,
+				49A1D5102CBA4B80007D37BA /* TrendType.swift in Sources */,
+				49A1D5162CBA4DB4007D37BA /* StatDifferenceArrow.swift in Sources */,
+				49A1D50B2CBA4B71007D37BA /* HeartRateZoneManager.swift in Sources */,
+				49A1D50D2CBA4B71007D37BA /* TrendManager.swift in Sources */,
+				49A1D50E2CBA4B71007D37BA /* NotificationManager.swift in Sources */,
+				49A1D5122CBA4CE9007D37BA /* Extensions.swift in Sources */,
+				49A1D5042CBA4A63007D37BA /* DataManager.swift in Sources */,
+				49A1D5032CBA4A59007D37BA /* Ride.swift in Sources */,
+				49A1D5222CBA7334007D37BA /* LabelStyles.swift in Sources */,
+				49A1D5022CBA4A4F007D37BA /* StatSample.swift in Sources */,
+				49A1D5132CBA4D3F007D37BA /* TrendView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -563,6 +703,11 @@
 			isa = PBXTargetDependency;
 			target = 490725F82A69042A0009817F /* RideTrackr */;
 			targetProxy = 490726142A69042D0009817F /* PBXContainerItemProxy */;
+		};
+		49A1D4FA2CBA4689007D37BA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 49A1D4EB2CBA4687007D37BA /* RideTrackrWidgetExtension */;
+			targetProxy = 49A1D4F92CBA4689007D37BA /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -832,6 +977,64 @@
 			};
 			name = Release;
 		};
+		49A1D4FD2CBA4689007D37BA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7PY92KZXV9;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = RideTrackrWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = RideTrackrWidget;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Please allow access to allow use of widgets";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Andrew-Huggins.RideTrackr.RideTrackrWidget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		49A1D4FE2CBA4689007D37BA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7PY92KZXV9;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = RideTrackrWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = RideTrackrWidget;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Please allow access to allow use of widgets";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Andrew-Huggins.RideTrackr.RideTrackrWidget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -871,6 +1074,15 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		49A1D5002CBA4689007D37BA /* Build configuration list for PBXNativeTarget "RideTrackrWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				49A1D4FD2CBA4689007D37BA /* Debug */,
+				49A1D4FE2CBA4689007D37BA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
@@ -899,6 +1111,16 @@
 			productName = PolyKit;
 		};
 		494DAA852C255D78001E0D4B /* FMDB */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 494DAA842C255D11001E0D4B /* XCRemoteSwiftPackageReference "fmdb" */;
+			productName = FMDB;
+		};
+		49A1D5052CBA4B20007D37BA /* PolyKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 490741E12C3822D600C07C24 /* XCRemoteSwiftPackageReference "PolyKit" */;
+			productName = PolyKit;
+		};
+		49A1D5072CBA4B36007D37BA /* FMDB */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 494DAA842C255D11001E0D4B /* XCRemoteSwiftPackageReference "fmdb" */;
 			productName = FMDB;

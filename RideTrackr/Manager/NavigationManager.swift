@@ -61,5 +61,6 @@ final class NavigationManager: ObservableObject {
     @Published var selectedTab = ApplicationTab.Home
     @Published var selectedTrendsTab = TrendType.HeartRate
     @Published var rideListNavPath = NavigationPath()
+    @Published var homeNavPath = NavigationPath()
 
 }

@@ -17,47 +17,48 @@ struct ContentView: View {
     @State var showAlert: Bool = true
 
     var body: some View {
-
         VStack {
 
-//            if !healthManager.queryingHealthKit {
-                RideTrackrTabView()
-
-//            } else {
-//                ZStack {
-//
-//                    Rectangle()
-//                        .fill(.appIconColour.gradient)
-//                        .ignoresSafeArea()
-//
-//                    VStack(spacing: 100) {
-//
-//                        Image("AppIconBike")
-//                            .resizable()
-//                            .frame(width: 242.4, height: 138.6)
-//                            .clipShape(RoundedRectangle(cornerRadius: 15, style: .continuous))
-//                            .shadow(radius: 10)
-//
-//                        ProgressView {
-//                            Text("Loading data from Apple Health...")
-//                                .bold()
-//                        }
-//                            .foregroundStyle(.white)
-//                    }
-//                        .foregroundStyle(.primary)
-//                }
-//            }
+            RideTrackrTabView()
         }
-            .onAppear {
+        .onAppear {
             withAnimation {
                 initalise()
             }
+        }
+            .onOpenURL { url in
+            let dateFormatter = DateFormatter()
+
+            // Set the date format to match the string
+            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
+
+            guard
+            url.scheme == "ridetrackr",
+                url.host == "ride",
+                let date = dateFormatter.date(from: url.pathComponents[1])
+                else {
+                print("issue with url")
+                return
+            }
+//            print(DataManager.shared.rides.first!.rideDate.timeIntervalSince1970)
+//            print(date.timeIntervalSince1970)
+
+
+            if let ride = DataManager.shared.rides.first(where: { abs($0.rideDate.timeIntervalSince(date)) < 1 }) {
+                NavigationManager.shared.homeNavPath.append(ride)
+
+                
+            } else {
+                print("Error finding ride")
+            }
+                
+                
         }
     }
 
     func initalise() {
         Task {
-            dataManager.refreshRides()
+//            dataManager.refreshRides()
 
             for ride in dataManager.rides {
                 trendManager.distanceTrends.append(TrendItem(value: ride.distance, date: ride.rideDate))

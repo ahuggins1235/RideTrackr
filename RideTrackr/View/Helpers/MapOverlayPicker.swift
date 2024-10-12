@@ -63,7 +63,6 @@ struct MapOverlayPicker: View {
                         }
                     }
                 }
-//                .frame(minWidth: .zero, alignment: .leading)
                 .padding(9)
                 .background(.ultraThickMaterial)
                 .clipShape(RoundedRectangle(cornerRadius: 20))

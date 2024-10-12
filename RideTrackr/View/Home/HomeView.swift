@@ -27,7 +27,7 @@ struct HomeView: View {
 
     // MARK: - body
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $navigationManager.homeNavPath) {
 
             ScrollView {
                 VStack(alignment: .leading) {

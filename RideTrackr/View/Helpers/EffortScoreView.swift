@@ -26,7 +26,7 @@ struct EffortScoreView: View {
                 .background {
 
                 Polygon(count: Int(score) + 3, relativeCornerRadius: 0.2)
-                    .fill(.purple.gradient)
+                    .fill(.effort.gradient)
                     .stroke(Color.white, lineWidth: 5)
                     .rotationEffect(Angle(degrees: animate ? 0 : 30))
                     .shadow(color: .purple, radius: 30)

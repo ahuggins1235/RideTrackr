@@ -11,11 +11,9 @@ import FMDB
 class DataManager: ObservableObject {
 
     private let db: FMDatabase
-
     public static let shared = DataManager()
-
     @Published var rides = [Ride]()
-
+    	
     init(fileName: String = "rides") {
 
         // get filepath of the SQlite DB file

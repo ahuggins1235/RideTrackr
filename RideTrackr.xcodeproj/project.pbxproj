@@ -38,6 +38,7 @@
 		494DAA862C255D78001E0D4B /* FMDB in Frameworks */ = {isa = PBXBuildFile; productRef = 494DAA852C255D78001E0D4B /* FMDB */; };
 		494DAA8A2C256F8D001E0D4B /* mainSchema.sql in Resources */ = {isa = PBXBuildFile; fileRef = 494DAA892C256F86001E0D4B /* mainSchema.sql */; };
 		494DAA8C2C25768D001E0D4B /* StatSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494DAA8B2C25768D001E0D4B /* StatSample.swift */; };
+		495CD9032CBF727A007FF8F7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495CD9022CBF7270007FF8F7 /* AppDelegate.swift */; };
 		496074282C3A62C6006E9E80 /* ShimmerEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496074272C3A62BE006E9E80 /* ShimmerEffect.swift */; };
 		498657B62C339A8F00EEF59F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 498657B52C339A8F00EEF59F /* LaunchScreen.storyboard */; };
 		498657BA2C33BFFA00EEF59F /* TrendPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498657B92C33BFFA00EEF59F /* TrendPreviewView.swift */; };
@@ -153,6 +154,7 @@
 		494DAA892C256F86001E0D4B /* mainSchema.sql */ = {isa = PBXFileReference; lastKnownFileType = text; path = mainSchema.sql; sourceTree = "<group>"; };
 		494DAA8B2C25768D001E0D4B /* StatSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatSample.swift; sourceTree = "<group>"; };
 		494F67062AF3760D001163B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		495CD9022CBF7270007FF8F7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		496074272C3A62BE006E9E80 /* ShimmerEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmerEffect.swift; sourceTree = "<group>"; };
 		498657B52C339A8F00EEF59F /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		498657B92C33BFFA00EEF59F /* TrendPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendPreviewView.swift; sourceTree = "<group>"; };
@@ -233,14 +235,8 @@
 		49022C102A6FCA0500E61F31 /* Ride */ = {
 			isa = PBXGroup;
 			children = (
-				49022C112A6FCADA00E61F31 /* RideDetailView.swift */,
-				4925C2082A74FE9D00761FDA /* RideRowView.swift */,
-				4925C20A2A75128900761FDA /* RideListView.swift */,
-				490726312A690E000009817F /* LargeRidePreview.swift */,
-				494B24402ABFD49800B05739 /* RideShareView.swift */,
-				49F26F922CB4F73600BDA227 /* HeartRateZoneView.swift */,
-				49F26FB02CB6566600BDA227 /* RideMapView.swift */,
-				49F26FBF2CB75BDA00BDA227 /* RideGraphsView.swift */,
+				495CD8FE2CBF7010007FF8F7 /* Ride Detail */,
+				495CD8FF2CBF7018007FF8F7 /* Ride LIst View */,
 			);
 			path = Ride;
 			sourceTree = "<group>";
@@ -248,12 +244,12 @@
 		490725F02A69042A0009817F = {
 			isa = PBXGroup;
 			children = (
+				490741E22C38239A00C07C24 /* Frameworks */,
+				490725FA2A69042A0009817F /* Products */,
 				490725FB2A69042A0009817F /* RideTrackr */,
 				4907260C2A69042D0009817F /* RideTrackrTests */,
 				490726162A69042D0009817F /* RideTrackrUITests */,
 				49A1D4F12CBA4687007D37BA /* RideTrackrWidget */,
-				490725FA2A69042A0009817F /* Products */,
-				490741E22C38239A00C07C24 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -271,6 +267,7 @@
 		490725FB2A69042A0009817F /* RideTrackr */ = {
 			isa = PBXGroup;
 			children = (
+				495CD9022CBF7270007FF8F7 /* AppDelegate.swift */,
 				490726002A69042D0009817F /* Assets.xcassets */,
 				492124932AE9026700889575 /* Helpers */,
 				494F67062AF3760D001163B3 /* Info.plist */,
@@ -350,12 +347,12 @@
 			isa = PBXGroup;
 			children = (
 				49E63A0A2B05DEF1005451D1 /* DataManager.swift */,
+				4905ACAD2CB3904300DBE2F9 /* HeartRateZoneManager.swift */,
 				49313AEA2C1AB27C00AA5789 /* HKManager.swift */,
 				4925C20E2A75130000761FDA /* NavigationManager.swift */,
 				49E63A0C2B0610CB005451D1 /* NotificationManager.swift */,
 				4921249B2AE9E73800889575 /* SettingsManager.swift */,
 				49E71F452AC1515A00900477 /* TrendManager.swift */,
-				4905ACAD2CB3904300DBE2F9 /* HeartRateZoneManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -375,14 +372,6 @@
 				49A1D5142CBA4D83007D37BA /* StatDifferenceArrow.swift */,
 				496074272C3A62BE006E9E80 /* ShimmerEffect.swift */,
 				49188F4C2AFB680A000C1E68 /* MapSnapShotView.swift */,
-				49188F4E2AFB6AEE000C1E68 /* TemperatureView.swift */,
-				498657BB2C33F80A00EEF59F /* DateIntervalPickerView.swift */,
-				498657BD2C352A5700EEF59F /* DateFilterButton.swift */,
-				498657BF2C3535E200EEF59F /* FilterSheetView.swift */,
-				490741DD2C37D04200C07C24 /* EffortScoreView.swift */,
-				490741DF2C37EBF000C07C24 /* LargeMapPreviewView.swift */,
-				4931A6B22CACED330016E2C7 /* MapOverlayPicker.swift */,
-				49F26FBD2CB7564500BDA227 /* CollapseView.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -410,6 +399,52 @@
 				494DAA892C256F86001E0D4B /* mainSchema.sql */,
 			);
 			path = Schema;
+			sourceTree = "<group>";
+		};
+		495CD8FE2CBF7010007FF8F7 /* Ride Detail */ = {
+			isa = PBXGroup;
+			children = (
+				49F26F922CB4F73600BDA227 /* HeartRateZoneView.swift */,
+				490726312A690E000009817F /* LargeRidePreview.swift */,
+				49022C112A6FCADA00E61F31 /* RideDetailView.swift */,
+				49F26FBF2CB75BDA00BDA227 /* RideGraphsView.swift */,
+				495CD9002CBF7093007FF8F7 /* Helpers */,
+				495CD9012CBF70EF007FF8F7 /* Map */,
+			);
+			path = "Ride Detail";
+			sourceTree = "<group>";
+		};
+		495CD8FF2CBF7018007FF8F7 /* Ride LIst View */ = {
+			isa = PBXGroup;
+			children = (
+				498657BD2C352A5700EEF59F /* DateFilterButton.swift */,
+				498657BB2C33F80A00EEF59F /* DateIntervalPickerView.swift */,
+				498657BF2C3535E200EEF59F /* FilterSheetView.swift */,
+				4925C20A2A75128900761FDA /* RideListView.swift */,
+				4925C2082A74FE9D00761FDA /* RideRowView.swift */,
+			);
+			path = "Ride LIst View";
+			sourceTree = "<group>";
+		};
+		495CD9002CBF7093007FF8F7 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				49F26FBD2CB7564500BDA227 /* CollapseView.swift */,
+				490741DD2C37D04200C07C24 /* EffortScoreView.swift */,
+				494B24402ABFD49800B05739 /* RideShareView.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		495CD9012CBF70EF007FF8F7 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				490741DF2C37EBF000C07C24 /* LargeMapPreviewView.swift */,
+				4931A6B22CACED330016E2C7 /* MapOverlayPicker.swift */,
+				49F26FB02CB6566600BDA227 /* RideMapView.swift */,
+				49188F4E2AFB6AEE000C1E68 /* TemperatureView.swift */,
+			);
+			path = Map;
 			sourceTree = "<group>";
 		};
 		49E71F3E2AC1372C00900477 /* Trend */ = {
@@ -639,6 +674,7 @@
 				4925C2092A74FE9D00761FDA /* RideRowView.swift in Sources */,
 				49188F4F2AFB6AEE000C1E68 /* TemperatureView.swift in Sources */,
 				492124952AE9027500889575 /* Extensions.swift in Sources */,
+				495CD9032CBF727A007FF8F7 /* AppDelegate.swift in Sources */,
 				4925C20F2A75130000761FDA /* NavigationManager.swift in Sources */,
 				4921249C2AE9E73800889575 /* SettingsManager.swift in Sources */,
 				49E63A0B2B05DEF1005451D1 /* DataManager.swift in Sources */,

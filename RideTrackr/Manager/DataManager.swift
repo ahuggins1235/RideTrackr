@@ -7,6 +7,7 @@
 
 import Foundation
 import FMDB
+import WidgetKit
 
 class DataManager: ObservableObject {
 
@@ -100,7 +101,47 @@ class DataManager: ObservableObject {
         DispatchQueue.main.async {
             self.rides.sort { $0.rideDate > $1.rideDate }
         }
-
+    }
+    
+    public func updateRide(_ ride: Ride) async -> Ride {
+        
+        let updatedRide = await HKManager.shared.getRides(numRides: 1, startDate: ride.rideDate.addingTimeInterval(-60), endDate: .now).first!
+        
+        let index = self.rides.firstIndex(where: { abs($0.rideDate.timeIntervalSince(updatedRide.rideDate)) < 1 })!
+        
+        let sqlQuery = """
+        UPDATE Rides
+        SET 
+        heartRate = ?,
+        speed = ?,
+        distance = ?,
+        activeEnergy = ?,
+        altitudeGained = ?,
+        duration = ?,
+        temperature = ?,
+        humidity = ?,
+        effortScore = ?,
+        routeData = ?,
+        hrSamples = ?,
+        altitdueSamples = ?,
+        speedSamples = ?
+        WHERE rideDate = ?
+        """
+        
+        do {
+            try db.executeUpdate(sqlQuery, values: updatedRide.getDBValues())
+            
+            DispatchQueue.main.async {
+                
+                self.rides[index] = updatedRide
+                
+            }
+            
+        } catch {
+            fatalError("Error encoding data: \(error)")
+        }
+        
+        return updatedRide
     }
 
     // MARK: - Helpers
@@ -124,9 +165,8 @@ class DataManager: ObservableObject {
         
         return schemaString
     }
-
     
-    ///
+    /// checks the healthstore for new rides that have happened in the last week
     public func refreshRides() {
         
         DispatchQueue.main.async {
@@ -141,6 +181,7 @@ class DataManager: ObservableObject {
                 }
                 
                 HKManager.shared.queryingHealthKit = false
+                WidgetCenter.shared.reloadAllTimelines()
             }
         }
     }
@@ -177,9 +218,11 @@ class DataManager: ObservableObject {
                     self.insertRide(ride)
                 }
                 HKManager.shared.queryingHealthKit = false
+                WidgetCenter.shared.reloadAllTimelines()
             }
         }
     }
+    
 }
 
 class PreviewDataManager: DataManager {

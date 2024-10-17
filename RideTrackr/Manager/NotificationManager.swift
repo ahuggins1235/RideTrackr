@@ -35,15 +35,17 @@ final class NotificationManager: ObservableObject, @unchecked Sendable {
         }
     }
 
-    func sendNotificaiton() {
+    func sendNotification(ride: Ride) {
         if !permissionGranted {
             return
         }
 
         let notificationContent = UNMutableNotificationContent()
         notificationContent.title = "New Workout Added"
-        notificationContent.subtitle = "A new workout has been added to your HealthStore."
-
+        notificationContent.subtitle = "A new workout has been added to your HealthStore. Energy Burned: \(ride.activeEnergy)."
+        
+        let notificationLink = "ridetrackr://ride/\(ride.rideDate)"
+        notificationContent.userInfo = ["deeplink": notificationLink]
 
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
 

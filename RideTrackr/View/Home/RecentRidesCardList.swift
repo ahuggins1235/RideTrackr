@@ -19,7 +19,7 @@ struct RecentRidesCardList: View {
     var recentRides: [Ride] {
         let rideSlice = healthManager.queryingHealthKit ? previewRideArray.prefix(5).dropFirst() : dataManager.rides.prefix(5).dropFirst()
         var rides: [Ride] = []
-        for ride in rideSlice {
+for ride in rideSlice {
             rides.append(ride)
         }
         return rides
@@ -167,10 +167,12 @@ struct RideCardPreview: View {
 
                 }
                     .padding(.leading)
-
-                SmallMapPreviewView(location: CLLocationCoordinate2D(latitude: ride.routeData.first!.latitude, longitude: ride.routeData.first!.longitude), route: ride.routeData.map({ CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude) }))
-                    .clipShape(RoundedRectangle(cornerRadius: 15, style: .continuous))
-                    .padding()
+                
+                if let _ = ride.routeData.first {
+                    SmallMapPreviewView(location: CLLocationCoordinate2D(latitude: ride.routeData.first!.latitude, longitude: ride.routeData.first!.longitude), route: ride.routeData.map({ CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude) }))
+                        .clipShape(RoundedRectangle(cornerRadius: 15, style: .continuous))
+                        .padding()
+                }
             }
         }
             .frame(height: 175)

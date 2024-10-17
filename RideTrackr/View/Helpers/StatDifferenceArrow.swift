@@ -41,7 +41,8 @@ struct StatDifferenceArrow: View {
                 }
 
             }
-        }.foregroundStyle(color)
+        }
+        .foregroundStyle(color)
 
     }
 }

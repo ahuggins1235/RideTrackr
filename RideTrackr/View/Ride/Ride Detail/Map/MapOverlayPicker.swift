@@ -12,6 +12,10 @@ struct MapOverlayPicker: View {
     @Binding var selectedOverlay: MapOverlayType
     @State var expanded: Bool = false
     @Binding var selectedZone: HeartRateZone?
+    @Binding var keyHigh: Double?
+    @Binding var keyLow: Double?
+    @Binding var colHigh: Color?
+    @Binding var colLow: Color?
 
     var body: some View {
         ZStack(alignment: .leading) {
@@ -41,14 +45,36 @@ struct MapOverlayPicker: View {
                     expanded.toggle()
                 }
             }
+            // MARK: - Key
+
+            if !expanded && selectedOverlay != .None && selectedOverlay != .HeartRateZone {
+                    
+                    if let keyHigh = keyHigh, let keyLow = keyLow {
+                        HStack {
+                            Text("\(Int(keyLow))")
+                            
+                            Capsule()
+                                .fill(LinearGradient(colors: [colLow!, colHigh!], startPoint: .leading, endPoint: .trailing))
+                            
+                            Text("\(Int(keyHigh))")
+                        }
+                        .frame(width: 120, height: 10)
+                        .padding()
+                        .background(.ultraThickMaterial)
+                        .clipShape(Capsule())
+                        .offset(y: 48)
+                        .transition(.opacity)
+                    }
+                }
             
-            // Dropdown content
+            //MARK: - Dropdown content
             if expanded {
                 VStack(alignment: .leading, spacing: 15) {
                     ForEach(MapOverlayType.allCases) { overlay in
                         if overlay != selectedOverlay {
                             Button(action: {
                                 withAnimation {
+                                    
                                     selectedOverlay = overlay
                                     if overlay != .HeartRateZone {
                                         selectedZone = nil
@@ -86,7 +112,14 @@ struct StateWrapper: View {
     @State private var selectedSampleType: MapOverlayType = .None
     @State private var selectedZone: HeartRateZone?
     var body: some View {
-        MapOverlayPicker(selectedOverlay: $selectedSampleType, selectedZone: $selectedZone)
+        MapOverlayPicker(
+            selectedOverlay: $selectedSampleType,
+            selectedZone: $selectedZone,
+            keyHigh: .constant(25),
+            keyLow: .constant(15),
+            colHigh: .constant(.red),
+            colLow: .constant(.blue)
+        )
     }
 }
 

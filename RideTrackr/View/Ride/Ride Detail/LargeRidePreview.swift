@@ -101,10 +101,12 @@ struct RideStatCardView: View {
                     if showDifference && !trendAverage.isNaN {
 
                         Text(String(format: "%.1f", GetDifferenceFromAverage(trendAverage, data)) + "%").lineLimit(1, reservesSpace: true)
+                            .contentTransition(.numericText())
 
                         StatDifferenceArrow(color: color,
                             data: Binding(get: { GetDifferenceFromAverage(trendAverage, data) })
                         )
+                        .contentTransition(.interpolate)
                             .opacity(animateArrow ? 1 : 0)
                             .offset(y: animateArrow ? 0 : 10)
                             .padding(.horizontal, -7)

@@ -24,7 +24,7 @@ class TrendManager: ObservableObject {
     /// An array of `TrendItem` objects representing the user's energy trends over time.
     @Published var energyTrends: [TrendItem] = []
     /// the current trends timeframe that the user is viewing
-    @AppStorage("timeFrame") var timeFrame: TrendTimeFrame = .Month
+    @AppStorage("timeFrame") var timeFrame: TrendTimeFrame = .SevenDays
     
     
     /// Represents the current rolling average heart rate of the user.
@@ -70,8 +70,8 @@ class TrendManager: ObservableObject {
         }
         
         // filter the list so that it only contains values within the current timeframe
-//        let filteredList = list.filter { $0.date > timeFrame.dateOffset }
-        let filteredList = list
+        let filteredList = list.filter { $0.date > timeFrame.dateOffset }
+//        let filteredList = list
         
         // calculate the sum of the list
         let sum = filteredList.reduce(0) { (currentSum, nextNumber) in

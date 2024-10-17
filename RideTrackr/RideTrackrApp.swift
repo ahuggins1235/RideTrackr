@@ -14,11 +14,14 @@ import CoreData
 struct RideTrackrApp: App {
     
     @ObservedObject private var settingsManager: SettingsManager = .shared
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .preferredColorScheme( settingsManager.theme == .System ? .none : ( settingsManager.theme == .Dark ? .dark : .light ) )
+            
+                ContentView()
+                    .preferredColorScheme( settingsManager.theme == .System ? .none : ( settingsManager.theme == .Dark ? .dark : .light ) )
+            
         }
     }
 }

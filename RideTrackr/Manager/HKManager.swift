@@ -32,6 +32,7 @@ final class HKManager: ObservableObject {
     // MARK: - Init
     init() {
         requestAuthorization()
+        enableBackgroundDelivery()
         
         self.userAge = getUserAge()
         
@@ -71,13 +72,11 @@ final class HKManager: ObservableObject {
                 let sumHRSamples = hrSamples.reduce(0.0) { $0 + $1.value }
                 let averageHR = sumHRSamples / Double(hrSamples.count)
 
+                // get effort score
+                let effortScore = try await fetchWorkoutEffortSamples(for: workout)
 
                 // get workoutroute
                 if let locations = try await fetchWorkoutRoute(workout: workout) {
-
-                    // get effort score
-                    let effortScore = try await fetchWorkoutEffortSamples(for: workout)
-
 
                     let (speedData, altitdueData) = calculateSpeedAndAltitude(locations: locations)
 
@@ -354,6 +353,42 @@ final class HKManager: ObservableObject {
 //        if DataManager.shared.rides.count < 5 {
 //            DataManager.shared.reyncData()
 //        }
+    }
+    
+    func enableBackgroundDelivery() {
+        let cyclingType = HKObjectType.workoutType()
+        
+        let query = HKObserverQuery(sampleType: cyclingType, predicate: nil) { (query, completionHandler, error) in
+            if let error = error {
+                print("Error observing HealthKit data: \(error.localizedDescription)")
+                return
+            }
+            
+            Task {
+                
+                if let oldRideDate = DataManager.shared.rides.first?.rideDate {
+                    
+                    let newRide = await self.getRides(numRides: 1).first!
+                    if !(abs(newRide.rideDate.timeIntervalSince(oldRideDate)) < 1) {
+                        NotificationManager.shared.sendNotification(ride: newRide)
+                        DataManager.shared.refreshRides()
+                    }
+                    
+                }
+                
+            }
+            completionHandler()
+        }
+        
+        healthStore.execute(query)
+        
+        healthStore.enableBackgroundDelivery(for: cyclingType, frequency: .immediate) { (success, error) in
+            if success {
+                print("Background delivery enabled for cycling workouts")
+            } else if let error = error {
+                print("Error enabling background delivery: \(error.localizedDescription)")
+            }
+        }
     }
 
     func fetchAverageRestingHeartRate(from startDate: Date, to endDate: Date = Date()) async throws -> Double {

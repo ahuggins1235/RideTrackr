@@ -15,12 +15,13 @@ struct RideTrackrTabView: View {
     // MARK: - Body
     var body: some View {
         
-        TabView(selection: $navigationManager.selectedTab) {
-            
-            ForEach(ApplicationTab.allCases) { applicationTab in
-                applicationTab.destination.tabItem { applicationTab.label }.tag(applicationTab.rawValue)
+            TabView(selection: $navigationManager.selectedTab) {
+                
+                ForEach(ApplicationTab.allCases) { applicationTab in
+                    applicationTab.destination.tabItem { applicationTab.label }.tag(applicationTab.rawValue)
+                }
             }
-        }
+        
     }
 }
 

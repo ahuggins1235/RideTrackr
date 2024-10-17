@@ -147,7 +147,6 @@ struct Ride: Identifiable, Hashable, Sendable, Decodable {
         self.altitdueSamples = altitdueSamples
         self.speedSamples = speedSamples
         self.effortScore = effortScore
-
     }
 
     /// used for creating  a ride from an ``FMResultSet``

@@ -14,6 +14,10 @@ struct RideMapView: View {
     @Binding var selectedZone: HeartRateZone?
     @Binding var selectedOverlay: MapOverlayType
     @Environment(\.dismiss) private var dismiss
+    @Binding var keyHigh: Double?
+    @Binding var keyLow: Double?
+    @Binding var colHigh: Color?
+    @Binding var colLow: Color?
 
     var body: some View {
 
@@ -42,34 +46,61 @@ struct RideMapView: View {
 
 
         }
-        .mapControlVisibility(.hidden)
+            .mapControlVisibility(.hidden)
             .overlay {
-                VStack {
-                    HStack(alignment: .top) {
-                        MapOverlayPicker(selectedOverlay: $selectedOverlay, selectedZone: $selectedZone)
-                        Spacer()
-                        Button {
-                            dismiss()
-                        } label: {
-                            Label("Close", systemImage: "xmark")
-                                .labelStyle(.iconOnly)
-                                .padding(7)
-                                .background(.ultraThickMaterial)
-                                .clipShape(Circle())
-                            
-                        }
+            VStack {
+                HStack(alignment: .top) {
+                    MapOverlayPicker(selectedOverlay: $selectedOverlay, selectedZone: $selectedZone, keyHigh: $keyHigh, keyLow: $keyLow, colHigh: $colHigh, colLow: $colLow)
+                    Spacer()
+                    Button {
+                        dismiss()
+                    } label: {
+                        Label("Close", systemImage: "xmark")
+                            .labelStyle(.iconOnly)
+                            .padding(7)
+                            .background(.ultraThickMaterial)
+                            .clipShape(Circle())
+
+                    }
                         .bold()
                         .foregroundStyle(.secondary)
-                        
-                    }
+
+                }
                     .padding()
                     .padding(.top, 50)
-                    Spacer()
-                }
+                Spacer()
+            }
 
         }
             .ignoresSafeArea()
+            .onChange(of: selectedOverlay) { _, _ in
+                
+                // get the appropriate sample list
+                let selectedSampleList: [StatSample]
+                
+                switch selectedOverlay {
+                    case .HeartRate:
+                        selectedSampleList = ride.hrSamples
+                    case .HeartRateZone:
+                        selectedSampleList = ride.hrSamples
+                    case .Speed:
+                        selectedSampleList = ride.speedSamples
+                    case .Altitude:
+                        selectedSampleList = ride.altitdueSamples
+                    case .None:
+                        selectedSampleList = ride.hrSamples
+                }
+                
+                // get the min and max values of the list
+                let minValue = selectedSampleList.min(by: { $0.value < $1.value })?.value ?? 0
+                let maxValue = selectedSampleList.max(by: { $0.value < $1.value })?.value ?? 0
+                
+                keyLow = minValue
+                keyHigh = maxValue
+                colLow = selectedOverlay.minColor
+                colHigh = selectedOverlay.maxColor
 
+        }
     }
 
     func colorForIntensity(index: Int) -> Color {
@@ -157,5 +188,13 @@ struct RideMapView: View {
 #Preview {
     @Previewable @State var selectedZone: HeartRateZone?
     @Previewable @State var selectedOverlay: MapOverlayType = .None
-    RideMapView(ride: PreviewRide, selectedZone: $selectedZone, selectedOverlay: $selectedOverlay)
+    RideMapView(
+        ride: PreviewRide,
+        selectedZone: $selectedZone,
+        selectedOverlay: $selectedOverlay,
+        keyHigh: .constant(25),
+        keyLow: .constant(15),
+        colHigh: .constant(.red),
+        colLow: .constant(.blue)
+    )
 }

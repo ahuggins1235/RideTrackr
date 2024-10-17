@@ -41,7 +41,9 @@ struct TrendCardView: View {
                         .redacted(reason: .placeholder)
                 }
                 
-            }.foregroundStyle(.white)
+            }
+            .contentTransition(.numericText())
+            .foregroundStyle(.white)
                 .padding()
         }
     }

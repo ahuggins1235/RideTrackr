@@ -25,7 +25,8 @@ struct RideGraphsView: View {
                     color: .heartRate,
                     samples: $ride.hrSamples,
                     unit: .constant("BPM"),
-                    average: .constant(ride.heartRate.rounded())
+                    average: .constant(ride.heartRate.rounded()),
+                    icon: "heart.fill"
                 ).padding(.bottom)
                 
             }
@@ -38,7 +39,8 @@ struct RideGraphsView: View {
                     color: .speed,
                     samples: Binding(get: { ride.speedSamples.map({ stat in StatSample(date: stat.date, value: stat.value * distanceUnit.distanceConversion) }) }),
                     unit: Binding(get: { "\(distanceUnit.speedAbr)" }),
-                    average: Binding(get: { (ride.speed * distanceUnit.distanceConversion).rounded() })
+                    average: Binding(get: { (ride.speed * distanceUnit.distanceConversion).rounded() }),
+                    icon: "speedometer"
                 ).padding(.bottom)
                 
             }
@@ -51,7 +53,8 @@ struct RideGraphsView: View {
                     color: .altitude,
                     samples: Binding(get: { ride.altitdueSamples.map({ stat in StatSample(date: stat.date, value: stat.value * distanceUnit.smallDistanceConversion) }) }),
                     unit: Binding(get: { "\(distanceUnit.smallDistanceAbr)" }),
-                    average: Binding(get: { (ride.altitudeGained * distanceUnit.smallDistanceConversion).rounded() })
+                    average: Binding(get: { (ride.altitudeGained * distanceUnit.smallDistanceConversion).rounded() }),
+                    icon: "mountain.2"
                 ).padding(.bottom)
             }
         }
@@ -78,17 +81,26 @@ struct ChartCardView: View {
     @Binding var samples: [StatSample]
     @Binding var unit: String
     @Binding var average: Double
+    var icon: String?
     
     var body: some View {
         
         VStack(alignment: .leading) {
-            
-            Text(title)
-                .font(.headline)
-                .bold()
-                .padding(.leading)
-                .padding(.top)
-                .padding(.bottom, -15)
+            HStack {
+                Text(title)
+                    .font(.headline)
+                    .bold()
+                    
+                    
+                Spacer()
+                if let icon = icon {
+                    Image(systemName: icon)
+                }
+            }
+            .foregroundStyle(color)
+            .padding(.horizontal)
+            .padding(.top)
+            .padding(.bottom, -10)
             
             
             // chart

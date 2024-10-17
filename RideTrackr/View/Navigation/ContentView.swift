@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import WidgetKit
 
 @MainActor
 struct ContentView: View {
@@ -15,44 +16,57 @@ struct ContentView: View {
     @ObservedObject var dataManager: DataManager = DataManager.shared
     @ObservedObject var trendManager: TrendManager = TrendManager.shared
     @State var showAlert: Bool = true
+    @State var selectedRide: Ride?
+    @State var presentSheet: Bool = false
 
     var body: some View {
+
         VStack {
 
             RideTrackrTabView()
         }
-        .onAppear {
+        .onReceive(NotificationCenter.default.publisher(for: .init("HandleDeeplink"))) { notification in
+            if let url = notification.object as? URL {
+                handleDeepLink(url: url)
+            }
+        }
+        .sheet(item: $selectedRide) { ride in
+            NavigationStack {
+                
+                    RideDetailView(ride: ride)
+                
+                
+            }
+        }
+
+            .onAppear {
             withAnimation {
                 initalise()
             }
         }
             .onOpenURL { url in
-            let dateFormatter = DateFormatter()
-
-            // Set the date format to match the string
-            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
-
-            guard
+                
+                handleDeepLink(url: url)
+        }
+    }
+    
+    private func handleDeepLink(url: URL) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
+        
+        guard
             url.scheme == "ridetrackr",
-                url.host == "ride",
-                let date = dateFormatter.date(from: url.pathComponents[1])
-                else {
-                print("issue with url")
-                return
-            }
-//            print(DataManager.shared.rides.first!.rideDate.timeIntervalSince1970)
-//            print(date.timeIntervalSince1970)
-
-
-            if let ride = DataManager.shared.rides.first(where: { abs($0.rideDate.timeIntervalSince(date)) < 1 }) {
-                NavigationManager.shared.homeNavPath.append(ride)
-
-                
-            } else {
-                print("Error finding ride")
-            }
-                
-                
+            url.host == "ride",
+            let date = dateFormatter.date(from: url.pathComponents[1])
+        else {
+            print("Issue with URL")
+            return
+        }
+        
+        if let ride = DataManager.shared.rides.first(where: { abs($0.rideDate.timeIntervalSince(date)) < 1 }) {
+            selectedRide = ride
+        } else {
+            print("Error finding ride")
         }
     }
 
@@ -67,6 +81,8 @@ struct ContentView: View {
                 trendManager.speedTrends.append(TrendItem(value: ride.speed, date: ride.rideDate))
 
             }
+
+            WidgetCenter.shared.reloadAllTimelines()
         }
     }
 }

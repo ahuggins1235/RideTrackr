@@ -21,6 +21,11 @@ struct RideDetailView: View {
     @State private var selectedZone: HeartRateZone?
     @State private var selectedOverlay: MapOverlayType = .None
     @Namespace private var namespace
+    @State var keyHigh: Double?
+    @State var keyLow: Double?
+    @State var colHigh: Color?
+    @State var colLow: Color?
+
     
 
     private var heartRateZones: [HeartRateZone: TimeInterval] {
@@ -40,13 +45,32 @@ struct RideDetailView: View {
 
                         NavigationLink {
                             
-                            RideMapView(ride: ride, selectedZone: $selectedZone, selectedOverlay: $selectedOverlay)
+                            RideMapView(
+                                ride: ride,
+                                selectedZone: $selectedZone,
+                                selectedOverlay: $selectedOverlay,
+                                keyHigh: $keyHigh,
+                                keyLow: $keyLow,
+                                colHigh: $colHigh,
+                                colLow: $colLow
+                            )
                                 .toolbar(.hidden, for: .navigationBar)
                                 .toolbar(.hidden, for: .tabBar)
                                 .navigationTransition(.zoom(sourceID: "zoom", in: namespace))
                         } label: {
                             // map
-                            LargeMapPreviewView(routeData: ride.routeData, temperatureString: ride.temperatureString, effortScore: ride.effortScore, selectedOverlay: $selectedOverlay, ride: ride, selectedZone: $selectedZone)
+                            LargeMapPreviewView(
+                                routeData: ride.routeData,
+                                temperatureString: ride.temperatureString,
+                                effortScore: ride.effortScore,
+                                selectedOverlay: $selectedOverlay,
+                                ride: ride,
+                                selectedZone: $selectedZone,
+                                keyHigh: $keyHigh,
+                                keyLow: $keyLow,
+                                colHigh: $colHigh,
+                                colLow: $colLow
+                            )
                                 .padding(.vertical, 20)
                                 .padding()
                                 .matchedTransitionSource(id: "zoom", in: namespace)
@@ -76,7 +100,6 @@ struct RideDetailView: View {
                     .background(Color(uiColor: .systemGroupedBackground))
             }
         }
-
             .navigationTitle(ride.dateString)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -92,10 +115,15 @@ struct RideDetailView: View {
             }
         } .onAppear {
             Task {
+                
+                if ride.routeData.isEmpty {
+                    self.ride = await DataManager.shared.updateRide(ride)
+                }
+
                 await imageGenerator.generateSharingImage(ride: ride, displayScale: displayScale)
 
                 isGeneratingImage = false
-
+                
             }
         }
     }

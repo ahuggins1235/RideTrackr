@@ -15,7 +15,10 @@ struct LargeMapPreviewView: View {
     @Binding var selectedOverlay: MapOverlayType
     @State var ride: Ride
     @Binding var selectedZone: HeartRateZone?
-    
+    @Binding var keyHigh: Double?
+    @Binding var keyLow: Double?
+    @Binding var colHigh: Color?
+    @Binding var colLow: Color?
 
 
     var body: some View {
@@ -31,7 +34,7 @@ struct LargeMapPreviewView: View {
             if let _ = routeData.first {
                 
                 // MARK: - Map
-                Map(interactionModes: []) {
+                Map(interactionModes: [.pan, .zoom]) {
                     if let first = routeData.first {
                         Annotation("", coordinate: first.toCLLocationCoordinate2D()) {
                             Circle()
@@ -61,7 +64,7 @@ struct LargeMapPreviewView: View {
                     .overlay {
                         VStack {
                             HStack {
-                                MapOverlayPicker(selectedOverlay: $selectedOverlay, selectedZone: $selectedZone)
+                                MapOverlayPicker(selectedOverlay: $selectedOverlay, selectedZone: $selectedZone, keyHigh: $keyHigh, keyLow: $keyLow, colHigh: $colHigh, colLow: $colLow)
                                 
                                 
                                 Spacer()
@@ -100,6 +103,34 @@ struct LargeMapPreviewView: View {
                     Spacer()
                 }
             }
+        }
+        .onChange(of: selectedOverlay) { _, _ in
+            
+            // get the appropriate sample list
+            let selectedSampleList: [StatSample]
+            
+            switch selectedOverlay {
+                case .HeartRate:
+                    selectedSampleList = ride.hrSamples
+                case .HeartRateZone:
+                    selectedSampleList = ride.hrSamples
+                case .Speed:
+                    selectedSampleList = ride.speedSamples
+                case .Altitude:
+                    selectedSampleList = ride.altitdueSamples
+                case .None:
+                    selectedSampleList = ride.hrSamples
+            }
+            
+            // get the min and max values of the list
+            let minValue = selectedSampleList.min(by: { $0.value < $1.value })?.value ?? 0
+            let maxValue = selectedSampleList.max(by: { $0.value < $1.value })?.value ?? 0
+            
+            keyLow = minValue
+            keyHigh = maxValue
+            colLow = selectedOverlay.minColor
+            colHigh = selectedOverlay.maxColor
+            
         }
     }
 
@@ -144,6 +175,7 @@ struct LargeMapPreviewView: View {
         // get the min and max values of the list
         let minValue = selectedSampleList.min(by: { $0.value < $1.value })?.value ?? 0
         let maxValue = selectedSampleList.max(by: { $0.value < $1.value })?.value ?? 0
+ 
 
         // get the current sample
         let currentSample = selectedSampleList[index]
@@ -186,7 +218,18 @@ struct LargeMapPreviewView: View {
 #Preview {
     @Previewable @State var selectedZone: HeartRateZone?
     @Previewable @State var selectedOverlay: MapOverlayType = .None
-    LargeMapPreviewView(routeData: PreviewRide.routeData, temperatureString: PreviewRide.temperatureString, effortScore: 0, selectedOverlay: $selectedOverlay, ride: PreviewRide, selectedZone: $selectedZone)
+    LargeMapPreviewView(
+        routeData: PreviewRide.routeData,
+        temperatureString: PreviewRide.temperatureString,
+        effortScore: 0,
+        selectedOverlay: $selectedOverlay,
+        ride: PreviewRide,
+        selectedZone: $selectedZone,
+        keyHigh: .constant(25),
+        keyLow: .constant(15),
+        colHigh: .constant(.red),
+        colLow: .constant(.blue)
+    )
 }
 
 enum ScalingMode {

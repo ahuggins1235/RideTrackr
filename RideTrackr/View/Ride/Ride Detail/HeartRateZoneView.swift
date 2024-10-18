@@ -119,6 +119,12 @@ struct HeartRateZoneView: View {
             .onChange(of: showInfoSheet) { _, _ in
             print(showInfoSheet)
         }
+            .scrollTransition(.animated(.interactiveSpring(response: 0.8, dampingFraction: 0.75, blendDuration: 0.8)).threshold(.visible(0.3))) { content, phase in
+                
+                content
+                    .opacity(phase.isIdentity ? 1.0 : 0.3)
+                    .scaleEffect(phase.isIdentity ? 1.0 : 0.3)
+            }
     }
 }
 

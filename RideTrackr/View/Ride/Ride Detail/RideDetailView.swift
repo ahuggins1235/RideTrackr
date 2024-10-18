@@ -116,10 +116,10 @@ struct RideDetailView: View {
         } .onAppear {
             Task {
                 
-                if ride.routeData.isEmpty {
+                if ride.routeData.isEmpty || ride.effortScore == 0 {
                     self.ride = await DataManager.shared.updateRide(ride)
                 }
-
+                
                 await imageGenerator.generateSharingImage(ride: ride, displayScale: displayScale)
 
                 isGeneratingImage = false

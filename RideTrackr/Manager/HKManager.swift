@@ -200,7 +200,7 @@ final class HKManager: ObservableObject {
     /// - Parameter workout: The workout to get the score for
     /// - Returns: A double that reflects the workout effiort score (0 if the workout doesn't have an effort score recorded)
     func fetchWorkoutEffortSamples(for workout: HKWorkout) async throws -> Double? {
-        let workoutEffortScoreType = HKObjectType.quantityType(forIdentifier: .estimatedWorkoutEffortScore)!
+        let workoutEffortScoreType = HKObjectType.quantityType(forIdentifier: .workoutEffortScore)!
 
         // Create the predicate for effort samples related to the workout
         let effortPredicate = HKQuery.predicateForWorkoutEffortSamplesRelated(workout: workout, activity: nil)
@@ -320,7 +320,7 @@ final class HKManager: ObservableObject {
         let restingHeartRateType = HKObjectType.quantityType(forIdentifier: .restingHeartRate)!
         let workoutType = HKObjectType.workoutType()
         let workoutRouteType = HKSeriesType.workoutRoute()
-        let effortType = HKObjectType.quantityType(forIdentifier: .estimatedWorkoutEffortScore)!
+        let effortType = HKObjectType.quantityType(forIdentifier: .workoutEffortScore)!
         let ageType = HKCharacteristicType(.dateOfBirth)
         
         let authorisationTypes: Set<HKObjectType> = [heartRateType, workoutType, workoutRouteType, effortType, restingHeartRateType, ageType]

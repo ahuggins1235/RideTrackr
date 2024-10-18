@@ -58,7 +58,7 @@ struct SettingsView: View {
                                 DataManager.shared.reyncData()
                             }
                         } message: {
-                            Text("This will reset RideTrackr's database and resync it with Apple Health. Are you sure?")
+                            Text("This will reset RideTrackr's database and resync it with Apple Health (and take a moment). Are you sure?")
                         }
                         
                         Spacer()

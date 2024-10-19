@@ -169,6 +169,7 @@ struct Ride: Identifiable, Hashable, Sendable, Decodable {
             }
             self.duration = result.double(forColumn: "duration")
             self.temperature = result.double(forColumn: "temperature")
+            self.humidity = result.double(forColumn: "humidity")
 
             if let routeData = result.data(forColumn: "routeData") {
                 let decodedRouteData = try! JSONDecoder().decode([PersistentLocation].self, from: routeData)

@@ -323,6 +323,7 @@ final class HKManager: ObservableObject {
         let effortType = HKObjectType.quantityType(forIdentifier: .workoutEffortScore)!
         let ageType = HKCharacteristicType(.dateOfBirth)
         
+        
         let authorisationTypes: Set<HKObjectType> = [heartRateType, workoutType, workoutRouteType, effortType, restingHeartRateType, ageType]
 
         

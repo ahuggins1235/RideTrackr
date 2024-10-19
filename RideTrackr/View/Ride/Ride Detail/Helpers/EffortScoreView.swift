@@ -33,6 +33,7 @@ struct EffortScoreView: View {
                     .brightness(animate ? 0 : 0.3)
             }
         }
+        .sensoryFeedback(.success, trigger: showTip)
         .onTapGesture {
             
             // First animation - reverse to initial state
@@ -83,7 +84,7 @@ struct EffortScoreView: View {
             }
         }
             .onTapGesture {
-                withAnimation{
+                withAnimation(.easeInOut) {
                     showTip.toggle()
                 }
             }

@@ -84,7 +84,7 @@ struct LargeMapPreviewView: View {
                                     Spacer()
                                     HStack {
                                         Spacer()
-                                        TemperatureView(temperature: temperature)
+                                        TemperatureView(temperature: temperature, humidity: ride.humidity)
                                             .padding()
                                     }
                                 }

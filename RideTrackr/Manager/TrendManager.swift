@@ -24,7 +24,7 @@ class TrendManager: ObservableObject {
     /// An array of `TrendItem` objects representing the user's energy trends over time.
     @Published var energyTrends: [TrendItem] = []
     /// the current trends timeframe that the user is viewing
-    @AppStorage("timeFrame") var timeFrame: TrendTimeFrame = .SevenDays
+    @AppStorage("timeFrame") var timeFrame: TimeFrame = .SevenDays
     
     
     /// Represents the current rolling average heart rate of the user.
@@ -89,7 +89,7 @@ class TrendManager: ObservableObject {
     ///     - trendType: the type of stat to draw data from
     ///     - timeFrame: the time frame to narrow down the change from
     /// - Returns: how much the trend has changed expressed as  percentage of the overal whole
-    func calculateTrendChange(trendType: TrendType, timeFrame: TrendTimeFrame) -> Double {
+    func calculateTrendChange(trendType: TrendType, timeFrame: TimeFrame) -> Double {
         
         var list: [TrendItem]
         

@@ -87,14 +87,14 @@ struct RideDetailView: View {
                                     .id("graphs")
                             }
 
-                        if let _ = healthManager.restingHeartRate {
+//                        if let _ = healthManager.restingHeartRate {
 
                             CollapseView("Heart Rate Zones", proxy: value) {
 
                                 HeartRateZoneView(hrSamples: ride.hrSamples, rideDuration: ride.duration, selectedZone: $selectedZone)
                                     .padding(.top, -10)
                             }
-                        }
+//                        }
                     }
                 }
                     .background(Color(uiColor: .systemGroupedBackground))

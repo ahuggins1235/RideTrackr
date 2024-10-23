@@ -78,12 +78,10 @@ struct TrendPreviewView: View {
 
 struct TimeFramePicker: View {
 
-    @Binding var timeFrame: TrendTimeFrame
+    @Binding var timeFrame: TimeFrame
     @State var expanded: Bool = false
 
     var body: some View {
-
-//        ZStack {
 
         HStack {
 
@@ -95,16 +93,9 @@ struct TimeFramePicker: View {
                 .foregroundStyle(.secondary)
 
         }
-//        .frame(width: 150)
             .bold()
             .frame(alignment: .leading)
             .padding(9)
-//            .background {
-//                RoundedRectangle(cornerRadius: 20, style: .continuous)
-//                    .fill(.ultraThinMaterial)
-////                    .stroke(Color.accentColor, lineWidth: 2)
-//            }
-            
             .onTapGesture {
             withAnimation {
                 expanded.toggle()
@@ -114,7 +105,7 @@ struct TimeFramePicker: View {
             if expanded {
 
                 VStack(alignment: .leading, spacing: 10) {
-                    ForEach(TrendTimeFrame.allCases) { timeFrame in
+                    ForEach(TimeFrame.allCases) { timeFrame in
                         VStack {
                             Text(timeFrame.rawValue)
                                 .onTapGesture {

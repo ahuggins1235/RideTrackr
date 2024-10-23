@@ -14,7 +14,7 @@ struct TrendView: View {
     // MARK: - properties
     @State var statType: TrendType
     @ObservedObject var trendManager: TrendManager = .shared
-    @State var timeFrame = TrendTimeFrame.Month
+    @State var timeFrame = TimeFrame.Month
 
     private var trendData: [TrendItem] {
         switch statType {
@@ -60,7 +60,7 @@ struct TrendView: View {
                 }
 
                 Picker("Time Frame", selection: $timeFrame.animation(.interactiveSpring)) {
-                    ForEach(TrendTimeFrame.allCases) { timeFrame in
+                    ForEach(TimeFrame.allCases) { timeFrame in
                         Text(timeFrame.rawValue).tag(timeFrame)
                     }
                 }
@@ -110,28 +110,7 @@ struct trendChartView: View {
     }
 }
 
-enum TrendTimeFrame: String, CaseIterable, Identifiable {
-    case SevenDays = "7 Days"
-    case Month = "Month"
-    case Year = "Year"
 
-    var id: TrendTimeFrame { self }
-
-    var dateOffset: Date {
-
-        let calendar = Calendar.current
-
-        switch self {
-        case .SevenDays:
-            return calendar.date(byAdding: .day, value: -7, to: Date())!
-        case .Month:
-            return calendar.date(byAdding: .month, value: -1, to: Date())!
-        case .Year:
-            return calendar.date(byAdding: .year, value: -1, to: Date())!
-        }
-
-    }
-}
 
 // MARK: - Previews
 #Preview {

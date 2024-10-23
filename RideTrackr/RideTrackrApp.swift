@@ -14,15 +14,20 @@ struct RideTrackrApp: App {
     
     @ObservedObject private var settingsManager: SettingsManager = .shared
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    @Environment(\.colorScheme) var colorScheme: ColorScheme
+    @AppStorage("firstLaunch") var firstLaunch: Bool = true
+    
     
     var body: some Scene {
         WindowGroup {
             
-            ContentView()
-                .preferredColorScheme( settingsManager.theme == .System ? .none : ( settingsManager.theme == .Dark ? .dark : .light ) )
-            //                .preferredColorScheme( getColourScheme() )
-            
+            if firstLaunch {
+                OnBoardingView().transition(.slide)
+            } else {
+                
+                ContentView()
+                    .preferredColorScheme( settingsManager.theme == .System ? .none : ( settingsManager.theme == .Dark ? .dark : .light ) )
+            }
         }
     }
 }
+

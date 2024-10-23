@@ -168,13 +168,13 @@ class DataManager: ObservableObject {
     
     /// checks the healthstore for new rides that have happened in the last week
     public func refreshRides() {
+        HKManager.shared.queryingHealthKit = true
         
         DispatchQueue.main.async {
             Task{
-                HKManager.shared.queryingHealthKit = true
 
-                let syncedRides = await HKManager.shared.getRides(getAllRides: true, startDate: .startOfWeekMonday, endDate: .now)
-                
+                let syncedRides = await HKManager.shared.getRides(getAllRides: true, startDate: .sevenDaysAgo, endDate: .now)
+                print(syncedRides.count)
                 for ride in syncedRides {
                     
                     self.insertRide(ride)
@@ -188,7 +188,7 @@ class DataManager: ObservableObject {
     
     /// empties the database and rides array, resyncs with healthkit, and reinserts all rides back into the database
     public func reyncData() {
-        
+        print("Refreshing rides")
         HKManager.shared.queryingHealthKit = true
         
         // 1. empty database
@@ -211,6 +211,7 @@ class DataManager: ObservableObject {
             Task {
    
                 let syncedRides = await HKManager.shared.getRides(getAllRides: true)
+                print(syncedRides.count)
                 
                 // 4. reinsert all rides
                 for ride in syncedRides {

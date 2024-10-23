@@ -41,27 +41,27 @@ struct HomeView: View {
                     // MARK: - recent ride preview
                     VStack(alignment: .leading) {
 
-                        HStack(alignment: .bottom) {
-                            Text("Your Last Ride")
-                                .font(.headline)
-                                .bold()
-                                .foregroundStyle(.accent)
-
-                            Spacer()
-
-                            Text("Show more...")
-                                .font(.subheadline)
-                                .fontWeight(.medium)
-                                .foregroundStyle(.accent)
-                        }
-
                         if dataManager.rides.count > 0 {
 
                             NavigationLink(value: dataManager.rides.first!) {
-                                LargeRidePreview(ride: $dataManager.rides.first!, queryingHealthKit: $healthManager.queryingHealthKit)
-                                    .redacted(if: healthManager.queryingHealthKit)
-                                    .shimmer(ShimmerConfig.defaultConfig, isLoading: healthManager.queryingHealthKit)
-
+                                VStack {
+                                    HStack(alignment: .bottom) {
+                                        Text("Your Last Ride")
+                                            .font(.headline)
+                                            .bold()
+                                        
+                                        Spacer()
+                                        
+                                        Text("Show more...")
+                                            .font(.subheadline)
+                                            .fontWeight(.medium)
+                                    }
+//                                    .foregroundStyle(.secondary)
+                                    
+                                    LargeRidePreview(ride: $dataManager.rides.first!, queryingHealthKit: $healthManager.queryingHealthKit)
+                                        .redacted(if: healthManager.queryingHealthKit)
+                                        .shimmer(ShimmerConfig.defaultConfig, isLoading: healthManager.queryingHealthKit)
+                                }
                             }.foregroundStyle(Color.primary)
 
                         } else {
@@ -86,19 +86,22 @@ struct HomeView: View {
                                 Text("Recent Rides")
                                     .font(.headline)
                                     .bold()
-                                    .foregroundStyle(.accent)
+//                                    .foregroundStyle(.accent)
                                 
                                 Spacer()
                                 
                                 Text("Show more...")
                                     .font(.subheadline)
                                     .fontWeight(.medium)
-                                    .foregroundStyle(.accent)
-                                    .onTapGesture {
-                                        navigationManager.selectedTab = .RideList
-                                    }
+//                                    .foregroundStyle(.accent)
+                                    
                                 
-                            }.offset(y: 15)
+                            }
+//                            .foregroundStyle(.secondary)
+                            .offset(y: 15)
+                            .onTapGesture {
+                                navigationManager.selectedTab = .RideList
+                            }
                             
                             RideCardPreview(ride: PreviewRide).padding()
                                 .redacted(reason: .placeholder)

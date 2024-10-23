@@ -47,10 +47,6 @@ struct SmallRideWidget: View {
                     Image(systemName: "flame.fill")
                     Text(entry.ride.activeEnergyString)
                 }.foregroundStyle(.energy)
-//                Label(entry.ride.heartRateString, systemImage: "heart.fill").foregroundStyle(.heartRate)
-//                Label(entry.ride.speedString, systemImage: "speedometer").foregroundStyle(.speed)
-//                Label(entry.ride.distanceString, systemImage: "figure.outdoor.cycle").foregroundStyle(.distance)
-//                Label(entry.ride.activeEnergyString, systemImage: "flame.fill").foregroundStyle(.energy)
                 Spacer()
             }
             .foregroundStyle(.white)

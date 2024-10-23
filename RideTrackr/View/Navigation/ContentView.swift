@@ -73,6 +73,17 @@ struct ContentView: View {
     func initalise() {
         Task {
 //            dataManager.refreshRides()
+            
+//            if firstLaunch {
+//                HKManager.shared.requestAuthorization()
+//                DataManager.shared.reyncData()
+//                firstLaunch = false
+//                print(firstLaunch)
+//            }
+            
+//            if dataManager.rides.count <= 5 {
+//                dataManager.reyncData()
+//            }
 
             for ride in dataManager.rides {
                 trendManager.distanceTrends.append(TrendItem(value: ride.distance, date: ride.rideDate))

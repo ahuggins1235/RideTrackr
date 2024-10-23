@@ -12,7 +12,7 @@ import Combine
 import SwiftUI
 
 
-final class HKManager: ObservableObject {
+class HKManager: ObservableObject {
 
     // MARK: - public properties
     public static let shared = HKManager()
@@ -23,6 +23,8 @@ final class HKManager: ObservableObject {
     @Published var queryingHealthKit = false
     @Published var restingHeartRate: Double?
     @Published var userAge: Int?
+    @Published var fetchedRides: Double?
+    @Published var resyncProgress: Double = 0
     
     // MARK: - private properties
     private let healthStore = HKHealthStore()
@@ -32,18 +34,18 @@ final class HKManager: ObservableObject {
     // MARK: - Init
     init() {
         requestAuthorization()
-        enableBackgroundDelivery()
         
+        enableBackgroundDelivery()
         self.userAge = getUserAge()
         
         Task {
             do {
-                
-                
                 let restingHeartRate = try await fetchAverageRestingHeartRate(from: .oneMonthAgo)
                 await MainActor.run {
                     self.restingHeartRate = restingHeartRate
                 }
+            } catch {
+                print("Error fetching resting heart rate: \(error.localizedDescription)")
             }
         }
     }
@@ -55,13 +57,18 @@ final class HKManager: ObservableObject {
     /// - Parameter numRides: How many rides to get
     /// - Returns: An array of ``Ride`` objects that represent some of the rides the user has been on
     func getRides(numRides: Int = 1, getAllRides: Bool = false, startDate: Date? = nil, endDate: Date? = nil) async -> [Ride] {
-
+        
         var rides: [Ride] = []
 
         do {
 
             let workouts = try await fetchCyclingWorkouts(numRides: numRides, getAllRides: getAllRides, startDate: startDate, endDate: endDate)
-
+            
+            DispatchQueue.main.async {
+                self.fetchedRides = Double(workouts.count)
+                self.resyncProgress = 0
+            }
+            
             // iterare through the returned workouts
             for workout in workouts {
 
@@ -90,6 +97,10 @@ final class HKManager: ObservableObject {
                     )
 
                     rides.append(ride)
+                    
+                    DispatchQueue.main.async {
+                        self.resyncProgress += 1
+                    }
                 }
             }
         } catch {
@@ -309,7 +320,7 @@ final class HKManager: ObservableObject {
     // MARK: - Helpers
 
     /// attemps to attain authorisation from the user to access their health data
-    private func requestAuthorization() {
+    func requestAuthorization() {
         // Ensure HealthKit is available on this device
         guard HKHealthStore.isHealthDataAvailable() else {
             print("HealthKit is not available on this device.")
@@ -325,30 +336,40 @@ final class HKManager: ObservableObject {
         
         
         let authorisationTypes: Set<HKObjectType> = [heartRateType, workoutType, workoutRouteType, effortType, restingHeartRateType, ageType]
-
-        
-        // Request authorization
-        healthStore.requestAuthorization(toShare: nil, read:  authorisationTypes) { (success, error) in
-
-            DispatchQueue.main.async {
-                if success {
-                    print("HealthKit authorization request was successful.")
-                } else {
-                    if let error = error {
-                        print("Error requesting HealthKit authorization: \(error.localizedDescription)")
-                        self.alertMessage = "Error requesting HealthKit authorization: \(error.localizedDescription)"
-                        self.showAlert = true
-                    } else {
-                        print("HealthKit authorization was not granted.")
-                        self.alertMessage = "HealthKit authorization was not granted."
-                        self.showAlert = true
-                    }
-                }
+        Task {
+            do {
+                try await healthStore.requestAuthorization(toShare: [], read: authorisationTypes)
+                print("HealthKit authorization request was successful")
+            } catch {
+                print("Error requesting HealthKit authorization: \(error.localizedDescription)")
             }
         }
+        // Request authorization
+//        healthStore.requestAuthorization(toShare: nil, read:  authorisationTypes)
+//        { (success, error) in
+//
+//            DispatchQueue.main.async {
+//                if success {
+//                    print("HealthKit authorization request was successful.")
+//                } else {
+//                    if let error = error {
+//                        print("Error requesting HealthKit authorization: \(error.localizedDescription)")
+//                        self.alertMessage = "Error requesting HealthKit authorization: \(error.localizedDescription)"
+//                        self.showAlert = true
+//                    } else {
+//                        print("HealthKit authorization was not granted.")
+//                        self.alertMessage = "HealthKit authorization was not granted."
+//                        self.showAlert = true
+//                    }
+//                }
+//            }
+//        }
         
 //        if self.userAge == nil || self.userAge == 0 {
-//            self.userAge = getUserAge()
+        DispatchQueue.main.async {
+            
+            self.userAge = self.getUserAge()
+        }
 //        }
         
 //        if DataManager.shared.rides.count < 5 {
@@ -480,4 +501,16 @@ final class HKManager: ObservableObject {
             return nil
         }
     }
+}
+
+class PreviewHKManager: HKManager {
+    
+    override init () {
+        super.init()
+        self.fetchedRides = 10
+        self.resyncProgress = 9
+        self.queryingHealthKit = true
+    }
+
+    
 }

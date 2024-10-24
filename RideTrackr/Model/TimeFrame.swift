@@ -28,4 +28,15 @@ enum TimeFrame: String, CaseIterable, Identifiable {
         }
 
     }
+    
+    var futureLabel: String {
+        switch self {
+            case .SevenDays:
+                return "Week"
+            case .Month:
+                return "Month"
+            case .Year:
+                return "Year"
+        }
+    }
 }

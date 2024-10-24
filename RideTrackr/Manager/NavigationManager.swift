@@ -14,6 +14,7 @@ enum ApplicationTab: String, CaseIterable, Identifiable {
     
     case Home = "Home"
     case RideList = "Ride List"
+    case Goals = "Goals"
     case Trends = "Trends"
     case Settings = "Settings"
     
@@ -28,6 +29,8 @@ enum ApplicationTab: String, CaseIterable, Identifiable {
             return AnyView(HomeView())
         case .RideList:
             return AnyView(RideListView())
+        case .Goals:
+                return AnyView(GoalView())
         case .Trends:
             return AnyView(TrendsTabView())
         case .Settings:
@@ -44,6 +47,8 @@ enum ApplicationTab: String, CaseIterable, Identifiable {
             return AnyView(Label("Home", systemImage: "house"))
         case .RideList:
             return AnyView(Label("Rides", image: "figure.cycle.square.stack"))
+            case .Goals:
+                return AnyView(Label("Goals", systemImage: "chart.bar.doc.horizontal.fill"))
         case .Trends:
             return AnyView(Label("Trends", systemImage: "chart.line.uptrend.xyaxis"))
         case .Settings:

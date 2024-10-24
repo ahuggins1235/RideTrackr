@@ -10,23 +10,73 @@ import SwiftUI
 
 struct Goal: Identifiable, Hashable, Sendable, Codable, RawRepresentable {
     
+    // MARK: - Properties
+    
     var id: UUID
     var title: String
     var target: Double
     var current: Double
-    var unit: String
-    var colour: Color
-    var icon: String
     var enabled: Bool = true
+    var goalType: GoalType
     
-    init(id: UUID, title: String, target: Double, current: Double, unit: String, colour: Color, icon: String) {
+    // MARK: - Computed Properties
+    var progress: Double {
+        current / target
+    }
+    
+    var targetDisplay: String {
+        
+        switch goalType {
+            case .Distance:
+                let conversionValue = SettingsManager.shared.distanceUnit.distanceConversion
+                
+                return "\(Int((target * conversionValue).round(to: 2)))"
+                
+            case .Energy:
+                let conversionValue = SettingsManager.shared.energyUnit.conversionValue
+                
+                return "\(Int(target * conversionValue))"
+                
+            case .Duration:
+                return "\(Int(target))"
+                
+            case .Altitude:
+                let conversionValue = SettingsManager.shared.distanceUnit.smallDistanceConversion
+                
+                return "\(Int((target * conversionValue).round(to: 1)))"
+        }
+    }
+    
+    var currentDisplay: String {
+        
+        switch goalType {
+            case .Distance:
+                let conversionValue = SettingsManager.shared.distanceUnit.distanceConversion
+                
+                return "\((current * conversionValue).round(to: 2))"
+                
+            case .Energy:
+                let conversionValue = SettingsManager.shared.energyUnit.conversionValue
+                
+                return "\(Int(current * conversionValue))"
+                
+            case .Duration:
+                return "\(Int(current))"
+                
+            case .Altitude:
+                let conversionValue = SettingsManager.shared.distanceUnit.smallDistanceConversion
+                
+                return "\((current * conversionValue).round(to: 1))"
+        }
+    }
+    
+    // MARK: - Init
+    init(id: UUID, title: String, target: Double, current: Double, goalType: GoalType) {
         self.id = id
         self.title = title
         self.target = target
         self.current = current
-        self.unit = unit
-        self.colour = colour
-        self.icon = icon
+        self.goalType = goalType
     }
     
     
@@ -46,31 +96,65 @@ struct Goal: Identifiable, Hashable, Sendable, Codable, RawRepresentable {
     }
 }
 
+// MARK: - GoalType
+enum GoalType: String, Identifiable, CaseIterable {
+    
+    case Distance = "Distance"
+    case Energy = "Energy"
+    case Duration = "Duration"
+    case Altitude = "Altitude"
+    
+    var id: GoalType { self }
+    
+    var color: Color {
+        switch self {
+            case .Distance: return .distance
+            case .Energy: return .energy
+            case .Duration: return .duration
+            case .Altitude: return .altitude
+        }
+    }
+    
+    var icon: String {
+        switch self {
+            case .Distance: return "figure.outdoor.cycle"
+            case .Energy: return "flame.fill"
+            case .Duration: return "stopwatch"
+            case .Altitude: return "mountain.2.circle"
+        }
+    }
+    
+    var unit: String {
+        switch self {
+            case .Distance: return SettingsManager.shared.distanceUnit.distAbr
+            case .Energy: return SettingsManager.shared.energyUnit.abr
+            case .Duration: return "mins"
+            case .Altitude: return SettingsManager.shared.distanceUnit.smallDistanceAbr
+        }
+    }
+    
+}
+
+// MARK: -  Default values
 extension Goal {
     
     public static var defaultDistance: Self {
         
-        let conversionValue = SettingsManager.shared.distanceUnit.distanceConversion
-        let unit = SettingsManager.shared.distanceUnit.distAbr
-        return Self.init(id: UUID(), title: "Distance", target: 100 * conversionValue, current: 0, unit: unit, colour: .distance, icon: "figure.outdoor.cycle")
+        return Self.init(id: UUID(), title: "Distance", target: GoalManager.distanceTarget, current: 0, goalType: .Distance)
     }
     
     public static var defaultEnergy: Self {
         
-        let conversionValue = SettingsManager.shared.energyUnit.conversionValue
-        let unit = SettingsManager.shared.energyUnit.abr
-        return Self.init(id: UUID(), title: "Energy", target: 5000 * conversionValue, current: 0, unit: unit, colour: .energy, icon: "flame.fill")
+        return Self.init(id: UUID(), title: "Energy", target: GoalManager.energyTarget, current: 0, goalType: .Energy)
     }
     
     public static var defaultDuration: Self {
         
-        return Self.init(id: UUID(), title: "Duration", target: 200, current: 0, unit: "mins", colour: .duration, icon: "stopwatch")
+        return Self.init(id: UUID(), title: "Duration", target: GoalManager.durationTarget, current: 100, goalType: .Duration)
     }
     
     public static var defaultAltiudeGained: Self {
         
-        let conversionValue = SettingsManager.shared.distanceUnit.smallDistanceConversion
-        let unit = SettingsManager.shared.distanceUnit.smallDistanceAbr
-        return Self.init(id: UUID(), title: "Altiude Gained", target: 50 * conversionValue, current: 0, unit: unit, colour: .altitude, icon: "mountain.2.circle")
+        return Self.init(id: UUID(), title: "Altiude Gained", target: GoalManager.altiudeTarget, current: 0, goalType: .Altitude)
     }
 }

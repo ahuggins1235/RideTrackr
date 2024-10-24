@@ -69,6 +69,15 @@
 		49A1D5162CBA4DB4007D37BA /* StatDifferenceArrow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A1D5142CBA4D83007D37BA /* StatDifferenceArrow.swift */; };
 		49A1D5222CBA7334007D37BA /* LabelStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A1D5212CBA732A007D37BA /* LabelStyles.swift */; };
 		49A1D5232CBA7334007D37BA /* LabelStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A1D5212CBA732A007D37BA /* LabelStyles.swift */; };
+		49E6165A2CC9FDE30030EA5F /* GoalGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E616592CC9FDE30030EA5F /* GoalGroupView.swift */; };
+		49E6165C2CCA072C0030EA5F /* GoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E6165B2CCA072C0030EA5F /* GoalView.swift */; };
+		49E6165E2CCA1A140030EA5F /* DateEXT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E6165D2CCA1A140030EA5F /* DateEXT.swift */; };
+		49E6165F2CCA1A140030EA5F /* DateEXT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E6165D2CCA1A140030EA5F /* DateEXT.swift */; };
+		49E616612CCA1A4D0030EA5F /* CoordinateEXT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E616602CCA1A4D0030EA5F /* CoordinateEXT.swift */; };
+		49E616622CCA1A4D0030EA5F /* CoordinateEXT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E616602CCA1A4D0030EA5F /* CoordinateEXT.swift */; };
+		49E616642CCA1A7E0030EA5F /* ColorEXT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E616632CCA1A7E0030EA5F /* ColorEXT.swift */; };
+		49E616652CCA1A7E0030EA5F /* ColorEXT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E616632CCA1A7E0030EA5F /* ColorEXT.swift */; };
+		49E616672CCA29180030EA5F /* GoalRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E616662CCA29180030EA5F /* GoalRowView.swift */; };
 		49E63A0B2B05DEF1005451D1 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E63A0A2B05DEF1005451D1 /* DataManager.swift */; };
 		49E63A0D2B0610CB005451D1 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E63A0C2B0610CB005451D1 /* NotificationManager.swift */; };
 		49E71F402AC1374200900477 /* TrendsTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E71F3F2AC1374200900477 /* TrendsTabView.swift */; };
@@ -81,6 +90,7 @@
 		49F105B72CC8F8620083368B /* GoalManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F105B52CC8F8620083368B /* GoalManager.swift */; };
 		49F105B92CC8FB0A0083368B /* TimeFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F105B82CC8FB0A0083368B /* TimeFrame.swift */; };
 		49F105BA2CC8FCD70083368B /* TimeFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F105B82CC8FB0A0083368B /* TimeFrame.swift */; };
+		49F105BD2CC9F9A40083368B /* GoalProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F105BC2CC9F9A40083368B /* GoalProgressView.swift */; };
 		49F26F932CB4F73600BDA227 /* HeartRateZoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F26F922CB4F73600BDA227 /* HeartRateZoneView.swift */; };
 		49F26FB12CB6566600BDA227 /* RideMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F26FB02CB6566600BDA227 /* RideMapView.swift */; };
 		49F26FBE2CB7564500BDA227 /* CollapseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F26FBD2CB7564500BDA227 /* CollapseView.swift */; };
@@ -175,6 +185,12 @@
 		49A1D4EF2CBA4687007D37BA /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		49A1D5142CBA4D83007D37BA /* StatDifferenceArrow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatDifferenceArrow.swift; sourceTree = "<group>"; };
 		49A1D5212CBA732A007D37BA /* LabelStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelStyles.swift; sourceTree = "<group>"; };
+		49E616592CC9FDE30030EA5F /* GoalGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalGroupView.swift; sourceTree = "<group>"; };
+		49E6165B2CCA072C0030EA5F /* GoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalView.swift; sourceTree = "<group>"; };
+		49E6165D2CCA1A140030EA5F /* DateEXT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateEXT.swift; sourceTree = "<group>"; };
+		49E616602CCA1A4D0030EA5F /* CoordinateEXT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateEXT.swift; sourceTree = "<group>"; };
+		49E616632CCA1A7E0030EA5F /* ColorEXT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorEXT.swift; sourceTree = "<group>"; };
+		49E616662CCA29180030EA5F /* GoalRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalRowView.swift; sourceTree = "<group>"; };
 		49E63A0A2B05DEF1005451D1 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		49E63A0C2B0610CB005451D1 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		49E71F3F2AC1374200900477 /* TrendsTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsTabView.swift; sourceTree = "<group>"; };
@@ -184,6 +200,7 @@
 		49F105B22CC8F61A0083368B /* Goal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Goal.swift; sourceTree = "<group>"; };
 		49F105B52CC8F8620083368B /* GoalManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalManager.swift; sourceTree = "<group>"; };
 		49F105B82CC8FB0A0083368B /* TimeFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFrame.swift; sourceTree = "<group>"; };
+		49F105BC2CC9F9A40083368B /* GoalProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalProgressView.swift; sourceTree = "<group>"; };
 		49F26F922CB4F73600BDA227 /* HeartRateZoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateZoneView.swift; sourceTree = "<group>"; };
 		49F26FB02CB6566600BDA227 /* RideMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideMapView.swift; sourceTree = "<group>"; };
 		49F26FBD2CB7564500BDA227 /* CollapseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapseView.swift; sourceTree = "<group>"; };
@@ -396,6 +413,9 @@
 			children = (
 				49A1D5212CBA732A007D37BA /* LabelStyles.swift */,
 				492124942AE9027500889575 /* Extensions.swift */,
+				49E616632CCA1A7E0030EA5F /* ColorEXT.swift */,
+				49E616602CCA1A4D0030EA5F /* CoordinateEXT.swift */,
+				49E6165D2CCA1A140030EA5F /* DateEXT.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -474,6 +494,10 @@
 		49F105BB2CC90AD20083368B /* Goal */ = {
 			isa = PBXGroup;
 			children = (
+				49F105BC2CC9F9A40083368B /* GoalProgressView.swift */,
+				49E616592CC9FDE30030EA5F /* GoalGroupView.swift */,
+				49E6165B2CCA072C0030EA5F /* GoalView.swift */,
+				49E616662CCA29180030EA5F /* GoalRowView.swift */,
 			);
 			path = Goal;
 			sourceTree = "<group>";
@@ -692,7 +716,10 @@
 				49A1D5232CBA7334007D37BA /* LabelStyles.swift in Sources */,
 				490741E02C37EBF000C07C24 /* LargeMapPreviewView.swift in Sources */,
 				4905ACAE2CB3904300DBE2F9 /* HeartRateZoneManager.swift in Sources */,
+				49E616652CCA1A7E0030EA5F /* ColorEXT.swift in Sources */,
 				49F105BA2CC8FCD70083368B /* TimeFrame.swift in Sources */,
+				49E6165C2CCA072C0030EA5F /* GoalView.swift in Sources */,
+				49E6165E2CCA1A140030EA5F /* DateEXT.swift in Sources */,
 				496074282C3A62C6006E9E80 /* ShimmerEffect.swift in Sources */,
 				490725FD2A69042A0009817F /* RideTrackrApp.swift in Sources */,
 				498657BE2C352A5700EEF59F /* DateFilterButton.swift in Sources */,
@@ -702,15 +729,19 @@
 				495CD9032CBF727A007FF8F7 /* AppDelegate.swift in Sources */,
 				4925C20F2A75130000761FDA /* NavigationManager.swift in Sources */,
 				4921249C2AE9E73800889575 /* SettingsManager.swift in Sources */,
+				49F105BD2CC9F9A40083368B /* GoalProgressView.swift in Sources */,
 				49E63A0B2B05DEF1005451D1 /* DataManager.swift in Sources */,
 				490726302A6907B40009817F /* TrendCardView.swift in Sources */,
 				4931A6B32CACED330016E2C7 /* MapOverlayPicker.swift in Sources */,
 				49A1D5152CBA4D83007D37BA /* StatDifferenceArrow.swift in Sources */,
+				49E616672CCA29180030EA5F /* GoalRowView.swift in Sources */,
 				494DAA8C2C25768D001E0D4B /* StatSample.swift in Sources */,
 				49F105B72CC8F8620083368B /* GoalManager.swift in Sources */,
 				498657C02C3535E200EEF59F /* FilterSheetView.swift in Sources */,
 				49E71F462AC1515A00900477 /* TrendManager.swift in Sources */,
 				49F26FBE2CB7564500BDA227 /* CollapseView.swift in Sources */,
+				49E6165A2CC9FDE30030EA5F /* GoalGroupView.swift in Sources */,
+				49E616622CCA1A4D0030EA5F /* CoordinateEXT.swift in Sources */,
 				49F105B42CC8F61A0083368B /* Goal.swift in Sources */,
 				49E71F442AC1509E00900477 /* TrendType.swift in Sources */,
 			);
@@ -738,12 +769,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				49A1D5092CBA4B71007D37BA /* HKManager.swift in Sources */,
+				49E616642CCA1A7E0030EA5F /* ColorEXT.swift in Sources */,
+				49E6165F2CCA1A140030EA5F /* DateEXT.swift in Sources */,
 				49F105B62CC8F8620083368B /* GoalManager.swift in Sources */,
 				49A1D50A2CBA4B71007D37BA /* SettingsManager.swift in Sources */,
 				49A1D50F2CBA4B80007D37BA /* PersistentLocation.swift in Sources */,
 				49A1D5102CBA4B80007D37BA /* TrendType.swift in Sources */,
 				49A1D5162CBA4DB4007D37BA /* StatDifferenceArrow.swift in Sources */,
 				49F105B92CC8FB0A0083368B /* TimeFrame.swift in Sources */,
+				49E616612CCA1A4D0030EA5F /* CoordinateEXT.swift in Sources */,
 				49A1D50B2CBA4B71007D37BA /* HeartRateZoneManager.swift in Sources */,
 				49A1D50D2CBA4B71007D37BA /* TrendManager.swift in Sources */,
 				49A1D50E2CBA4B71007D37BA /* NotificationManager.swift in Sources */,

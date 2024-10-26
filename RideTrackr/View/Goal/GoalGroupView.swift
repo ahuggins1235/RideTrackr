@@ -14,10 +14,18 @@ struct GoalGroupView: View {
     
     var body: some View {
         VStack(spacing: 10) {
-            GoalProgressView(goal: $goalManager.energyGoal, selectedGoal: $selectedGoal)
-            GoalProgressView(goal: $goalManager.distanceGoal, selectedGoal: $selectedGoal)
-            GoalProgressView(goal: $goalManager.altiudeGainedGoal, selectedGoal: $selectedGoal)
-            GoalProgressView(goal: $goalManager.durationGoal, selectedGoal: $selectedGoal)
+            if goalManager.energyGoal.enabled {
+                GoalProgressView(goal: $goalManager.energyGoal, selectedGoal: $selectedGoal)
+            }
+            if goalManager.distanceGoal.enabled {
+                GoalProgressView(goal: $goalManager.distanceGoal, selectedGoal: $selectedGoal)
+            }
+            if goalManager.altiudeGainedGoal.enabled {
+                GoalProgressView(goal: $goalManager.altiudeGainedGoal, selectedGoal: $selectedGoal)
+            }
+            if goalManager.durationGoal.enabled {
+                GoalProgressView(goal: $goalManager.durationGoal, selectedGoal: $selectedGoal)
+            }
         }
         .padding()
 //        .background(.cardBackground)

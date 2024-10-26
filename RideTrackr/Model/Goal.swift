@@ -80,24 +80,57 @@ struct Goal: Identifiable, Hashable, Sendable, Codable, RawRepresentable {
     }
     
     
-    //MARK: - RawRepresentable conformance
+    // MARK: - RawRepresentable Conformance
+    typealias RawValue = String
+    
     var rawValue: String {
         guard let data = try? JSONEncoder().encode(self),
-              let string = String(data: data, encoding: .utf8)
-        else { return "" }
+              let string = String(data: data, encoding: .utf8) else {
+            return "{}"
+        }
         return string
     }
     
     init?(rawValue: String) {
         guard let data = rawValue.data(using: .utf8),
-              let decoded = try? JSONDecoder().decode(Goal.self, from: data)
-        else { return nil }
-        self = decoded
+              let goal = try? JSONDecoder().decode(Goal.self, from: data) else {
+            return nil
+        }
+        self = goal
+    }
+    
+    // MARK: - Codable Conformance
+    
+    // Custom coding keys to ensure consistent encoding/decoding
+    private enum CodingKeys: String, CodingKey {
+        case id, title, target, current, enabled, goalType
+    }
+    
+    // Encode the Goal
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(title, forKey: .title)
+        try container.encode(target, forKey: .target)
+        try container.encode(current, forKey: .current)
+        try container.encode(enabled, forKey: .enabled)
+        try container.encode(goalType, forKey: .goalType)
+    }
+    
+    // Initialize Goal from decoder
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(UUID.self, forKey: .id)
+        title = try container.decode(String.self, forKey: .title)
+        target = try container.decode(Double.self, forKey: .target)
+        current = try container.decode(Double.self, forKey: .current)
+        enabled = try container.decode(Bool.self, forKey: .enabled)
+        goalType = try container.decode(GoalType.self, forKey: .goalType)
     }
 }
 
 // MARK: - GoalType
-enum GoalType: String, Identifiable, CaseIterable {
+enum GoalType: String, Identifiable, CaseIterable, Codable {
     
     case Distance = "Distance"
     case Energy = "Energy"

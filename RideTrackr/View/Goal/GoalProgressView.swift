@@ -43,7 +43,7 @@ struct GoalProgressView: View {
                         .foregroundStyle(.tertiary)
                     Capsule()
                         .foregroundStyle(foregroundColour)
-                        .frame(width: animated ? (geometry.size.width * CGFloat(goal.progress)) : 0) 
+                        .frame(width: animated ? max(min((geometry.size.width * CGFloat(goal.progress)), geometry.size.width), 20) : 0) 
                         
                 }
                     .frame(height: 20)

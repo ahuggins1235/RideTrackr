@@ -12,6 +12,7 @@ struct GoalView: View {
     @State var selectedGoal: GoalType?
     @ObservedObject var goalManager: GoalManager = .shared
     @ObservedObject var dataManager: DataManager = .shared
+    @State var showEditSheet: Bool = false
 
     var rides: [Ride] {
 
@@ -56,9 +57,10 @@ struct GoalView: View {
                     Text("This \(goalManager.goalTimeFrame.futureLabel)")
                         .padding([.leading, .top])
                         .bold()
-                        .font(.title3)
+                        .font(.title2)
                     Spacer()
                 }
+                
                 GoalGroupView(selectedGoal: $selectedGoal)
 
                 Divider()
@@ -85,11 +87,23 @@ struct GoalView: View {
                 }
             }
                 .navigationTitle("Goals")
+                .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
                 Button("Edit") {
-
+                    showEditSheet.toggle()
                 }
             }
+        }
+        .sheet(isPresented: $showEditSheet) {
+            GoalEditView(isPresented: $showEditSheet)
+                .presentationDetents([.medium])
+        }
+        
+        .onChange(of: goalManager.goalTimeFrame) { oldValue, newValue in
+            goalManager.updateProgress()
+        }
+        .onChange(of: dataManager.rides) { oldValue, newValue in
+            goalManager.updateProgress()
         }
     }
 }

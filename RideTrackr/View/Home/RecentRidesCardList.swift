@@ -51,7 +51,7 @@ struct RecentRidesCardList: View {
 
                 }
                     .offset(y: 15)
-//                .foregroundStyle(.secondary)
+                .foregroundStyle(.accent)
 
                 // MARK: - Tabview
 

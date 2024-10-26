@@ -20,7 +20,7 @@ struct GoalRowView: View {
             switch selectedGoal {
                 case .Altitude: dataString = "\(ride.altitudeGained.round(to: 1))"
                 case .Distance: dataString = "\(ride.distance.round(to: 2))"
-                case .Duration: dataString = "\(Int(ride.duration))"
+                case .Duration: dataString = "\(Int(ride.duration / 60))"
                 case .Energy: dataString = "\(Int(ride.activeEnergy))"
             }
             
@@ -43,6 +43,10 @@ struct GoalRowView: View {
                     .contentTransition(.numericText())
                     .foregroundStyle(selectedGoal.color)
                     .bold()
+            } else {
+                Text("--")
+                    .bold()
+                    .contentTransition(.numericText())
             }
         }
         .padding()

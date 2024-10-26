@@ -12,10 +12,10 @@ class GoalManager: ObservableObject {
     
     public static let shared = GoalManager()
     @AppStorage("goalTimeFrame") var goalTimeFrame: TimeFrame = .SevenDays
-    @Published var distanceGoal: Goal = .defaultDistance
-    @Published var energyGoal: Goal = .defaultEnergy
-    @Published var durationGoal: Goal = .defaultDuration
-    @Published var altiudeGainedGoal: Goal = .defaultAltiudeGained
+    @AppStorage("distanceGoal") var distanceGoal: Goal = .defaultDistance
+    @AppStorage("energyGoal") var energyGoal: Goal = .defaultEnergy
+    @AppStorage("durationGoal") var durationGoal: Goal = .defaultDuration
+    @AppStorage("altiudeGainedGoal") var altiudeGainedGoal: Goal = .defaultAltiudeGained
     
     @AppStorage("distanceTarget") static var distanceTarget: Double = 100
     @AppStorage("energyTarget") static var energyTarget: Double = 5000
@@ -23,10 +23,16 @@ class GoalManager: ObservableObject {
     @AppStorage("altiudeTarget") static var altiudeTarget: Double = 300
     
     init() {
-        getProgress()
+        updateProgress()
     }
     
-    private func getProgress() {
+    func updateProgress() {
+        
+        self.distanceGoal.current = 0
+        self.energyGoal.current = 0
+        self.durationGoal.current = 0
+        self.altiudeGainedGoal.current = 0
+        
         
         let rides = DataManager.shared.rides.filter { ride in
             

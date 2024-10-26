@@ -56,7 +56,7 @@ struct HomeView: View {
                                             .font(.subheadline)
                                             .fontWeight(.medium)
                                     }
-//                                    .foregroundStyle(.secondary)
+                                    .foregroundStyle(.accent)
                                     
                                     LargeRidePreview(ride: $dataManager.rides.first!, queryingHealthKit: $healthManager.queryingHealthKit)
                                         .redacted(if: healthManager.queryingHealthKit)
@@ -86,14 +86,14 @@ struct HomeView: View {
                                 Text("Recent Rides")
                                     .font(.headline)
                                     .bold()
-//                                    .foregroundStyle(.accent)
+                                    .foregroundStyle(.accent)
                                 
                                 Spacer()
                                 
                                 Text("Show more...")
                                     .font(.subheadline)
                                     .fontWeight(.medium)
-//                                    .foregroundStyle(.accent)
+                                    .foregroundStyle(.accent)
                                     
                                 
                             }

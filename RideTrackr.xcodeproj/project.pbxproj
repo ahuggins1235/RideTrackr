@@ -39,6 +39,8 @@
 		494DAA862C255D78001E0D4B /* FMDB in Frameworks */ = {isa = PBXBuildFile; productRef = 494DAA852C255D78001E0D4B /* FMDB */; };
 		494DAA8A2C256F8D001E0D4B /* mainSchema.sql in Resources */ = {isa = PBXBuildFile; fileRef = 494DAA892C256F86001E0D4B /* mainSchema.sql */; };
 		494DAA8C2C25768D001E0D4B /* StatSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494DAA8B2C25768D001E0D4B /* StatSample.swift */; };
+		495B36122CCCA97E00DA78FF /* GoalEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495B36112CCCA97E00DA78FF /* GoalEditView.swift */; };
+		495B36142CCCAC7300DA78FF /* GoalStepperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495B36132CCCAC7300DA78FF /* GoalStepperView.swift */; };
 		495CD9032CBF727A007FF8F7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495CD9022CBF7270007FF8F7 /* AppDelegate.swift */; };
 		496074282C3A62C6006E9E80 /* ShimmerEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496074272C3A62BE006E9E80 /* ShimmerEffect.swift */; };
 		498657B62C339A8F00EEF59F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 498657B52C339A8F00EEF59F /* LaunchScreen.storyboard */; };
@@ -172,6 +174,8 @@
 		494DAA892C256F86001E0D4B /* mainSchema.sql */ = {isa = PBXFileReference; lastKnownFileType = text; path = mainSchema.sql; sourceTree = "<group>"; };
 		494DAA8B2C25768D001E0D4B /* StatSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatSample.swift; sourceTree = "<group>"; };
 		494F67062AF3760D001163B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		495B36112CCCA97E00DA78FF /* GoalEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalEditView.swift; sourceTree = "<group>"; };
+		495B36132CCCAC7300DA78FF /* GoalStepperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalStepperView.swift; sourceTree = "<group>"; };
 		495CD9022CBF7270007FF8F7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		496074272C3A62BE006E9E80 /* ShimmerEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmerEffect.swift; sourceTree = "<group>"; };
 		498657B52C339A8F00EEF59F /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -498,6 +502,8 @@
 				49E616592CC9FDE30030EA5F /* GoalGroupView.swift */,
 				49E6165B2CCA072C0030EA5F /* GoalView.swift */,
 				49E616662CCA29180030EA5F /* GoalRowView.swift */,
+				495B36112CCCA97E00DA78FF /* GoalEditView.swift */,
+				495B36132CCCAC7300DA78FF /* GoalStepperView.swift */,
 			);
 			path = Goal;
 			sourceTree = "<group>";
@@ -723,6 +729,7 @@
 				496074282C3A62C6006E9E80 /* ShimmerEffect.swift in Sources */,
 				490725FD2A69042A0009817F /* RideTrackrApp.swift in Sources */,
 				498657BE2C352A5700EEF59F /* DateFilterButton.swift in Sources */,
+				495B36142CCCAC7300DA78FF /* GoalStepperView.swift in Sources */,
 				4925C2092A74FE9D00761FDA /* RideRowView.swift in Sources */,
 				49188F4F2AFB6AEE000C1E68 /* TemperatureView.swift in Sources */,
 				492124952AE9027500889575 /* Extensions.swift in Sources */,
@@ -738,6 +745,7 @@
 				494DAA8C2C25768D001E0D4B /* StatSample.swift in Sources */,
 				49F105B72CC8F8620083368B /* GoalManager.swift in Sources */,
 				498657C02C3535E200EEF59F /* FilterSheetView.swift in Sources */,
+				495B36122CCCA97E00DA78FF /* GoalEditView.swift in Sources */,
 				49E71F462AC1515A00900477 /* TrendManager.swift in Sources */,
 				49F26FBE2CB7564500BDA227 /* CollapseView.swift in Sources */,
 				49E6165A2CC9FDE30030EA5F /* GoalGroupView.swift in Sources */,

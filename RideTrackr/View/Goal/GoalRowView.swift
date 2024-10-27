@@ -48,6 +48,10 @@ struct GoalRowView: View {
                     .bold()
                     .contentTransition(.numericText())
             }
+            
+            Image(systemName: "chevron.right")
+                .foregroundStyle(.accent)
+                .bold()
         }
         .padding()
         .background(.cardBackground)

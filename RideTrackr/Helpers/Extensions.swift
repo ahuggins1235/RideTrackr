@@ -10,6 +10,7 @@ import SwiftUI
 import MapKit
 import HealthKit
 import SwiftData
+import Combine
 
 extension Binding {
     
@@ -42,27 +43,4 @@ extension View {
 
 extension HKWorkout {
     static let emptyWorkout = HKWorkout(activityType: .cycling, start: Date(), end: Date())
-}
-
-
-@propertyWrapper
-struct CodableAppStorage<T: Codable> {
-    private let key: String
-    private let defaultValue: T
-    
-    init(wrappedValue: T, _ key: String) {
-        self.defaultValue = wrappedValue
-        self.key = key
-    }
-    
-    var wrappedValue: T {
-        get {
-            guard let data = UserDefaults.standard.data(forKey: key) else { return defaultValue }
-            return (try? JSONDecoder().decode(T.self, from: data)) ?? defaultValue
-        }
-        set {
-            guard let data = try? JSONEncoder().encode(newValue) else { return }
-            UserDefaults.standard.set(data, forKey: key)
-        }
-    }
 }

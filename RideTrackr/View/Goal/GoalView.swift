@@ -79,17 +79,19 @@ struct GoalView: View {
                                 .foregroundStyle(.primary)
                             }
                         }
+                        .padding(.top)
                     }
-                        .padding()
+                    .padding(.horizontal)
                 }
                     .navigationDestination(for: Ride.self) { ride in
                     RideDetailView(ride: ride)
                 }
             }
+            .navigationBarTitleDisplayMode(.inline)
                 .navigationTitle("Goals")
-                .navigationBarTitleDisplayMode(.inline)
+//                .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
-                Button("Edit") {
+                Button("Edit Goals") {
                     showEditSheet.toggle()
                 }
             }

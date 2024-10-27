@@ -48,7 +48,7 @@ enum ApplicationTab: String, CaseIterable, Identifiable {
         case .RideList:
             return AnyView(Label("Rides", image: "figure.cycle.square.stack"))
             case .Goals:
-                return AnyView(Label("Goals", systemImage: "chart.bar.doc.horizontal.fill"))
+                return AnyView(Label("Goals", systemImage: "chart.bar.xaxis.ascending"))
         case .Trends:
             return AnyView(Label("Trends", systemImage: "chart.line.uptrend.xyaxis"))
         case .Settings:

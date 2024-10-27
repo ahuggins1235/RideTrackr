@@ -25,6 +25,7 @@ struct RideTrackrApp: App {
             } else {
                 
                 ContentView()
+                    .fontDesign(.rounded)
                     .preferredColorScheme( settingsManager.theme == .System ? .none : ( settingsManager.theme == .Dark ? .dark : .light ) )
             }
         }

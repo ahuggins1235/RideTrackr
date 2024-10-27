@@ -115,10 +115,6 @@ struct RideListView: View {
 
                             NavigationLink(value: ride) {
                                 RideRowView(ride: ride)
-                                    .scrollTransition { content, phase in
-                                    content
-                                        .blur(radius: phase.isIdentity ? 0 : 10)
-                                }
                             }
                             .id(ride.id)
                             .redacted(if: healthManager.queryingHealthKit)

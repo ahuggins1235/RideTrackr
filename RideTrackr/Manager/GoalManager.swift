@@ -72,3 +72,15 @@ class GoalManager: ObservableObject {
         }
     }
 }
+
+class PreviewGoalManager: GoalManager {
+    
+    override init() {
+        super.init()
+        self.altiudeGainedGoal.current = 200
+        self.energyGoal.current = 2000
+        self.distanceGoal.current = 50
+        self.durationGoal.current = 200
+    }
+    
+}

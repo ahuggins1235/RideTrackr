@@ -36,6 +36,7 @@ struct MapOverlayPicker: View {
                     .foregroundStyle(.secondary)
                 
             }
+            .sensoryFeedback(.impact, trigger: expanded)
             .frame(alignment: .leading)
             .padding(9)
             .background(.ultraThickMaterial)

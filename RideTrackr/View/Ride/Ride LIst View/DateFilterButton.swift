@@ -25,6 +25,7 @@ struct DateFilterButton: View {
                     .fill(isSelected ? Color.accentColor : Color.cardBackground)
                 .stroke(Color.accentColor, lineWidth: 2)
         }
+            .sensoryFeedback(.impact, trigger: isSelected)
     }
 }
 

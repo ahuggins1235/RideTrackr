@@ -41,6 +41,7 @@
 		494DAA8C2C25768D001E0D4B /* StatSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494DAA8B2C25768D001E0D4B /* StatSample.swift */; };
 		495B36122CCCA97E00DA78FF /* GoalEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495B36112CCCA97E00DA78FF /* GoalEditView.swift */; };
 		495B36142CCCAC7300DA78FF /* GoalStepperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495B36132CCCAC7300DA78FF /* GoalStepperView.swift */; };
+		495B36162CCDFEA800DA78FF /* GoalPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495B36152CCDFEA800DA78FF /* GoalPreviewView.swift */; };
 		495CD9032CBF727A007FF8F7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495CD9022CBF7270007FF8F7 /* AppDelegate.swift */; };
 		496074282C3A62C6006E9E80 /* ShimmerEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496074272C3A62BE006E9E80 /* ShimmerEffect.swift */; };
 		498657B62C339A8F00EEF59F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 498657B52C339A8F00EEF59F /* LaunchScreen.storyboard */; };
@@ -176,6 +177,7 @@
 		494F67062AF3760D001163B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		495B36112CCCA97E00DA78FF /* GoalEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalEditView.swift; sourceTree = "<group>"; };
 		495B36132CCCAC7300DA78FF /* GoalStepperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalStepperView.swift; sourceTree = "<group>"; };
+		495B36152CCDFEA800DA78FF /* GoalPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalPreviewView.swift; sourceTree = "<group>"; };
 		495CD9022CBF7270007FF8F7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		496074272C3A62BE006E9E80 /* ShimmerEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmerEffect.swift; sourceTree = "<group>"; };
 		498657B52C339A8F00EEF59F /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -504,6 +506,7 @@
 				49E616662CCA29180030EA5F /* GoalRowView.swift */,
 				495B36112CCCA97E00DA78FF /* GoalEditView.swift */,
 				495B36132CCCAC7300DA78FF /* GoalStepperView.swift */,
+				495B36152CCDFEA800DA78FF /* GoalPreviewView.swift */,
 			);
 			path = Goal;
 			sourceTree = "<group>";
@@ -701,6 +704,7 @@
 				49E71F402AC1374200900477 /* TrendsTabView.swift in Sources */,
 				49F26FC02CB75BDA00BDA227 /* RideGraphsView.swift in Sources */,
 				4925C20B2A75128900761FDA /* RideListView.swift in Sources */,
+				495B36162CCDFEA800DA78FF /* GoalPreviewView.swift in Sources */,
 				491E175A2CC4D0C1007627AB /* OnBoardingView.swift in Sources */,
 				49313AEB2C1AB27C00AA5789 /* HKManager.swift in Sources */,
 				49188F4D2AFB680A000C1E68 /* MapSnapShotView.swift in Sources */,

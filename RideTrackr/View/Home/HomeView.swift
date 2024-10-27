@@ -37,7 +37,6 @@ struct HomeView: View {
                         .redacted(if: healthManager.queryingHealthKit)
                         .shimmer(.defaultConfig, isLoading: healthManager.queryingHealthKit)
 
-
                     // MARK: - recent ride preview
                     VStack(alignment: .leading) {
 
@@ -71,7 +70,11 @@ struct HomeView: View {
                                 .shimmer(.defaultConfig, isLoading: true)
                         }
                     }
-                        .padding(.top)                                                                                                
+                        .padding(.top)
+                    
+                    GoalPreviewView()
+                        .padding(.top)
+                    
                     if !healthManager.queryingHealthKit {
                         
                         

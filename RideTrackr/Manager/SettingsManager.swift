@@ -21,7 +21,7 @@ class SettingsManager: ObservableObject {
 
 
 /// Represents a unit of distance.
-enum DistanceUnit: String, CaseIterable, Identifiable {
+enum DistanceUnit: String, CaseIterable, Identifiable, Codable {
     
     /// The unit for kilometers.
     case Metric = "Metric"

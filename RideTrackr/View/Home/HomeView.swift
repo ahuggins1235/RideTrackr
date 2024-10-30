@@ -74,6 +74,8 @@ struct HomeView: View {
                     
                     GoalPreviewView()
                         .padding(.top)
+                        .redacted(if: healthManager.queryingHealthKit)
+                        .shimmer(.defaultConfig, isLoading: healthManager.queryingHealthKit)
                     
                     if !healthManager.queryingHealthKit {
                         

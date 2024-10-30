@@ -15,7 +15,7 @@ enum ApplicationTab: String, CaseIterable, Identifiable {
     case Home = "Home"
     case RideList = "Ride List"
     case Goals = "Goals"
-    case Trends = "Trends"
+//    case Trends = "Trends"
     case Settings = "Settings"
     
 
@@ -31,8 +31,8 @@ enum ApplicationTab: String, CaseIterable, Identifiable {
             return AnyView(RideListView())
         case .Goals:
                 return AnyView(GoalView())
-        case .Trends:
-            return AnyView(TrendsTabView())
+//        case .Trends:
+//            return AnyView(TrendsTabView())
         case .Settings:
             return AnyView(SettingsView())
 
@@ -49,8 +49,8 @@ enum ApplicationTab: String, CaseIterable, Identifiable {
             return AnyView(Label("Rides", image: "figure.cycle.square.stack"))
             case .Goals:
                 return AnyView(Label("Goals", systemImage: "chart.bar.xaxis.ascending"))
-        case .Trends:
-            return AnyView(Label("Trends", systemImage: "chart.line.uptrend.xyaxis"))
+//        case .Trends:
+//            return AnyView(Label("Trends", systemImage: "chart.line.uptrend.xyaxis"))
         case .Settings:
             return AnyView(Label("Settings", systemImage: "gear"))
         }

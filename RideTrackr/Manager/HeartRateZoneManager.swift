@@ -100,10 +100,10 @@ class HeartRateZoneManager: ObservableObject {
 
 enum HeartRateZone: Int, CaseIterable, Identifiable {
     case veryLight = 1
-    case light
-    case moderate
-    case hard
-    case veryHard
+    case light = 2
+    case moderate = 3
+    case hard = 4
+    case veryHard = 5
     
     var id: Int { self.rawValue }
     

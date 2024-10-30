@@ -48,16 +48,39 @@ struct MapOverlayPicker: View {
             }
             // MARK: - Key
 
-            if !expanded && selectedOverlay != .None && selectedOverlay != .HeartRateZone {
+            if !expanded && selectedOverlay != .None {
+                
+                if selectedOverlay == .HeartRateZone {
+                    
+                    VStack(spacing: -5) {
+                        ForEach(HeartRateZone.allCases) { zone in
+                            Text(String(zone.rawValue))
+                                .bold()
+                                .foregroundStyle(selectedZone == zone ? zone.colour : (selectedZone == .none ? zone.colour : .secondary))
+                                .padding()
+                                .background(.ultraThickMaterial)
+                                .clipShape(Circle())
+                                .transition(.opacity)
+                                .contentShape(Circle())
+                                .onTapGesture {
+                                    selectedZone = selectedZone == zone ? .none : zone
+                                }
+                                .offset(y: 140)
+                                .sensoryFeedback(.impact, trigger: selectedZone)
+                            
+                        }
+                    }
+                    
+                } else {
                     
                     if let keyHigh = keyHigh, let keyLow = keyLow {
                         HStack {
-                            Text("\(Int(keyLow))")
+                            Text("\(Int(keyLow * getConversionValue()))")
                             
                             Capsule()
                                 .fill(LinearGradient(colors: [colLow!, colHigh!], startPoint: .leading, endPoint: .trailing))
                             
-                            Text("\(Int(keyHigh))")
+                            Text("\(Int(keyHigh * getConversionValue()))")
                         }
                         .frame(width: 120, height: 10)
                         .padding()
@@ -67,6 +90,7 @@ struct MapOverlayPicker: View {
                         .transition(.opacity)
                     }
                 }
+            }
             
             //MARK: - Dropdown content
             if expanded {
@@ -101,6 +125,21 @@ struct MapOverlayPicker: View {
             }
         }
         .bold()
+    }
+    
+    func getConversionValue() -> Double {
+        
+        let conversionValue: Double
+        
+        switch selectedOverlay {
+            case .Speed:
+                conversionValue = SettingsManager.shared.distanceUnit.distanceConversion
+            case .Altitude:
+                conversionValue = SettingsManager.shared.distanceUnit.smallDistanceConversion
+            default:
+                conversionValue = 1
+        }
+        return conversionValue
     }
 }
 

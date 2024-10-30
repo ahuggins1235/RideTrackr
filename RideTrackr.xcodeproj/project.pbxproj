@@ -72,6 +72,7 @@
 		49A1D5162CBA4DB4007D37BA /* StatDifferenceArrow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A1D5142CBA4D83007D37BA /* StatDifferenceArrow.swift */; };
 		49A1D5222CBA7334007D37BA /* LabelStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A1D5212CBA732A007D37BA /* LabelStyles.swift */; };
 		49A1D5232CBA7334007D37BA /* LabelStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A1D5212CBA732A007D37BA /* LabelStyles.swift */; };
+		49BAD1D92CD2313900FE3499 /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BAD1D82CD2313900FE3499 /* StatsView.swift */; };
 		49E6165A2CC9FDE30030EA5F /* GoalGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E616592CC9FDE30030EA5F /* GoalGroupView.swift */; };
 		49E6165C2CCA072C0030EA5F /* GoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E6165B2CCA072C0030EA5F /* GoalView.swift */; };
 		49E6165E2CCA1A140030EA5F /* DateEXT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E6165D2CCA1A140030EA5F /* DateEXT.swift */; };
@@ -191,6 +192,7 @@
 		49A1D4EF2CBA4687007D37BA /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		49A1D5142CBA4D83007D37BA /* StatDifferenceArrow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatDifferenceArrow.swift; sourceTree = "<group>"; };
 		49A1D5212CBA732A007D37BA /* LabelStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelStyles.swift; sourceTree = "<group>"; };
+		49BAD1D82CD2313900FE3499 /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
 		49E616592CC9FDE30030EA5F /* GoalGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalGroupView.swift; sourceTree = "<group>"; };
 		49E6165B2CCA072C0030EA5F /* GoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalView.swift; sourceTree = "<group>"; };
 		49E6165D2CCA1A140030EA5F /* DateEXT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateEXT.swift; sourceTree = "<group>"; };
@@ -270,7 +272,7 @@
 			isa = PBXGroup;
 			children = (
 				495CD8FE2CBF7010007FF8F7 /* Ride Detail */,
-				495CD8FF2CBF7018007FF8F7 /* Ride LIst View */,
+				495CD8FF2CBF7018007FF8F7 /* Ride List View */,
 			);
 			path = Ride;
 			sourceTree = "<group>";
@@ -430,6 +432,7 @@
 			isa = PBXGroup;
 			children = (
 				4907262C2A6904800009817F /* SettingsView.swift */,
+				49BAD1D82CD2313900FE3499 /* StatsView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -455,7 +458,7 @@
 			path = "Ride Detail";
 			sourceTree = "<group>";
 		};
-		495CD8FF2CBF7018007FF8F7 /* Ride LIst View */ = {
+		495CD8FF2CBF7018007FF8F7 /* Ride List View */ = {
 			isa = PBXGroup;
 			children = (
 				498657BD2C352A5700EEF59F /* DateFilterButton.swift */,
@@ -464,7 +467,7 @@
 				4925C20A2A75128900761FDA /* RideListView.swift */,
 				4925C2082A74FE9D00761FDA /* RideRowView.swift */,
 			);
-			path = "Ride LIst View";
+			path = "Ride List View";
 			sourceTree = "<group>";
 		};
 		495CD9002CBF7093007FF8F7 /* Helpers */ = {
@@ -731,6 +734,7 @@
 				49E6165C2CCA072C0030EA5F /* GoalView.swift in Sources */,
 				49E6165E2CCA1A140030EA5F /* DateEXT.swift in Sources */,
 				496074282C3A62C6006E9E80 /* ShimmerEffect.swift in Sources */,
+				49BAD1D92CD2313900FE3499 /* StatsView.swift in Sources */,
 				490725FD2A69042A0009817F /* RideTrackrApp.swift in Sources */,
 				498657BE2C352A5700EEF59F /* DateFilterButton.swift in Sources */,
 				495B36142CCCAC7300DA78FF /* GoalStepperView.swift in Sources */,

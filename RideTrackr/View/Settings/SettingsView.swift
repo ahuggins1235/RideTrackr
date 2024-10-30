@@ -47,6 +47,10 @@ struct SettingsView: View {
                 
                 Section("Data") {
                     
+                    NavigationLink("Stats") {
+                        StatsView()
+                    }
+                    
                     HStack {
                         Button("Resync Data With Apple Health") {
                             if HKManager.shared.queryingHealthKit { return }

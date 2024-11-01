@@ -6,7 +6,7 @@
 //
 import WidgetKit
 
-struct Provider: TimelineProvider {
+struct RideProvider: TimelineProvider {
     func placeholder(in context: Context) -> RideEntry {
         RideEntry(date: Date(), ride: PreviewRide)
     }
@@ -29,7 +29,7 @@ struct Provider: TimelineProvider {
 
         let entry: RideEntry
 
-        if let latestRide = await HKManager.shared.getRides(numRides: 1).first {
+        if let latestRide = DataManager.shared.rides.first {
             entry = RideEntry(date: .now, ride: latestRide)
         } else {
             entry = RideEntry(date: .now, ride: PreviewRide)

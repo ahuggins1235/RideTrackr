@@ -17,12 +17,11 @@ class DataManager: ObservableObject {
     	
     init(fileName: String = "rides") {
 
-        // get filepath of the SQlite DB file
-        let fileURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-            .appendingPathComponent("\(fileName).sqlite")
+        let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.AndrewHuggins.RideTrackr")
+        let dbPath = containerURL?.appendingPathComponent("\(fileName).sqlite")
 
         // create an fmdatabase from filepath
-        let db = FMDatabase(url: fileURL)
+        let db = FMDatabase(url: dbPath)
 
         // open connection to database
         guard db.open() else {
@@ -100,6 +99,7 @@ class DataManager: ObservableObject {
         
         DispatchQueue.main.async {
             self.rides.sort { $0.rideDate > $1.rideDate }
+            WidgetCenter.shared.reloadAllTimelines()
         }
     }
     

@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import WidgetKit
 
 class GoalManager: ObservableObject {
     
@@ -70,6 +71,7 @@ class GoalManager: ObservableObject {
             self.durationGoal.current += (ride.duration / 60)
             self.altiudeGainedGoal.current += ride.altitudeGained
         }
+        WidgetCenter.shared.reloadAllTimelines()
     }
 }
 

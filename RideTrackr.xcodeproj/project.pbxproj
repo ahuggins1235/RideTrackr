@@ -72,6 +72,8 @@
 		49A1D5162CBA4DB4007D37BA /* StatDifferenceArrow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A1D5142CBA4D83007D37BA /* StatDifferenceArrow.swift */; };
 		49A1D5222CBA7334007D37BA /* LabelStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A1D5212CBA732A007D37BA /* LabelStyles.swift */; };
 		49A1D5232CBA7334007D37BA /* LabelStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A1D5212CBA732A007D37BA /* LabelStyles.swift */; };
+		49B16B102CD495CA0050564E /* mainSchema.sql in Resources */ = {isa = PBXBuildFile; fileRef = 494DAA892C256F86001E0D4B /* mainSchema.sql */; };
+		49B16B172CD4AE230050564E /* GoalProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F105BC2CC9F9A40083368B /* GoalProgressView.swift */; };
 		49BAD1D92CD2313900FE3499 /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BAD1D82CD2313900FE3499 /* StatsView.swift */; };
 		49E6165A2CC9FDE30030EA5F /* GoalGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E616592CC9FDE30030EA5F /* GoalGroupView.swift */; };
 		49E6165C2CCA072C0030EA5F /* GoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E6165B2CCA072C0030EA5F /* GoalView.swift */; };
@@ -192,6 +194,7 @@
 		49A1D4EF2CBA4687007D37BA /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		49A1D5142CBA4D83007D37BA /* StatDifferenceArrow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatDifferenceArrow.swift; sourceTree = "<group>"; };
 		49A1D5212CBA732A007D37BA /* LabelStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelStyles.swift; sourceTree = "<group>"; };
+		49B16B0F2CD48F980050564E /* RideTrackrWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RideTrackrWidgetExtension.entitlements; sourceTree = "<group>"; };
 		49BAD1D82CD2313900FE3499 /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
 		49E616592CC9FDE30030EA5F /* GoalGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalGroupView.swift; sourceTree = "<group>"; };
 		49E6165B2CCA072C0030EA5F /* GoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalView.swift; sourceTree = "<group>"; };
@@ -280,6 +283,7 @@
 		490725F02A69042A0009817F = {
 			isa = PBXGroup;
 			children = (
+				49B16B0F2CD48F980050564E /* RideTrackrWidgetExtension.entitlements */,
 				490741E22C38239A00C07C24 /* Frameworks */,
 				490725FA2A69042A0009817F /* Products */,
 				490725FB2A69042A0009817F /* RideTrackr */,
@@ -692,6 +696,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				49A1D5112CBA4CC5007D37BA /* Assets.xcassets in Resources */,
+				49B16B102CD495CA0050564E /* mainSchema.sql in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -792,6 +797,7 @@
 				49A1D50F2CBA4B80007D37BA /* PersistentLocation.swift in Sources */,
 				49A1D5102CBA4B80007D37BA /* TrendType.swift in Sources */,
 				49A1D5162CBA4DB4007D37BA /* StatDifferenceArrow.swift in Sources */,
+				49B16B172CD4AE230050564E /* GoalProgressView.swift in Sources */,
 				49F105B92CC8FB0A0083368B /* TimeFrame.swift in Sources */,
 				49E616612CCA1A4D0030EA5F /* CoordinateEXT.swift in Sources */,
 				49A1D50B2CBA4B71007D37BA /* HeartRateZoneManager.swift in Sources */,
@@ -1098,6 +1104,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = RideTrackrWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7PY92KZXV9;
@@ -1127,6 +1134,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = RideTrackrWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7PY92KZXV9;

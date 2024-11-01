@@ -51,6 +51,12 @@ struct ContentView: View {
     }
     
     private func handleDeepLink(url: URL) {
+        
+        if url.host == "goal" {
+            NavigationManager.shared.selectedTab = .Goals
+            return
+        }
+        
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
         

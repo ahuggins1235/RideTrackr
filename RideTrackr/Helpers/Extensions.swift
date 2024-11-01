@@ -11,6 +11,7 @@ import MapKit
 import HealthKit
 import SwiftData
 import Combine
+import WidgetKit
 
 extension Binding {
     
@@ -44,3 +45,51 @@ extension View {
 extension HKWorkout {
     static let emptyWorkout = HKWorkout(activityType: .cycling, start: Date(), end: Date())
 }
+
+
+@propertyWrapper
+struct SharedAppStorage<T: PropertyListValue>: DynamicProperty {
+    private let key: String
+    private let defaultValue: T
+    private let container: UserDefaults
+    
+    init(wrappedValue: T, _ key: String) {
+        let groupID = "group.com.AndrewHuggins.RideTrackr"  // Replace with your App Group ID
+        guard let container = UserDefaults(suiteName: groupID) else {
+            fatalError("Failed to get shared UserDefaults container")
+        }
+        self.container = container
+        self.key = key
+        self.defaultValue = wrappedValue
+    }
+    
+    var wrappedValue: T {
+        get {
+            container.object(forKey: key) as? T ?? defaultValue
+        }
+        nonmutating set {
+            container.set(newValue, forKey: key)
+            // Trigger widget refresh
+            WidgetCenter.shared.reloadAllTimelines()
+        }
+    }
+    
+    var projectedValue: Binding<T> {
+        Binding(
+            get: { wrappedValue },
+            set: { wrappedValue = $0 }
+        )
+    }
+}
+
+// Protocol to constrain acceptable types
+protocol PropertyListValue {}
+extension String: PropertyListValue {}
+extension Int: PropertyListValue {}
+extension Double: PropertyListValue {}
+extension Bool: PropertyListValue {}
+extension Date: PropertyListValue {}
+extension Array: PropertyListValue where Element: PropertyListValue {}
+extension Dictionary: PropertyListValue where Key == String, Value: PropertyListValue {}
+extension DistanceUnit: PropertyListValue {}
+extension EnergyUnit: PropertyListValue {}

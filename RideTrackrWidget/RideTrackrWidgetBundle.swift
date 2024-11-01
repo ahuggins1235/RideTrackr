@@ -10,7 +10,10 @@ import SwiftUI
 
 @main
 struct RideTrackrWidgetBundle: WidgetBundle {
+    
+    @WidgetBundleBuilder
     var body: some Widget {
         RideTrackrWidget()
+        GoalTrackerWidget()
     }
 }

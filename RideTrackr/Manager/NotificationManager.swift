@@ -25,7 +25,7 @@ final class NotificationManager: ObservableObject, @unchecked Sendable {
 
     }
 
-    private func requestPermissions() {
+    func requestPermissions() {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert]) { success, error in
             if success {
                 self.permissionGranted = true

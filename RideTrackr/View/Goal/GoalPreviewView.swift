@@ -32,6 +32,7 @@ struct GoalPreviewView: View {
                     .fontWeight(.medium)
             }
             .foregroundStyle(.accent)
+            .unredacted()
 
             LazyVGrid(columns: grids) {
                 

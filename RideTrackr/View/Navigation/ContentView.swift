@@ -12,9 +12,10 @@ import WidgetKit
 @MainActor
 struct ContentView: View {
 
-    @ObservedObject var healthManager: HKManager = HKManager.shared
-    @ObservedObject var dataManager: DataManager = DataManager.shared
-    @ObservedObject var trendManager: TrendManager = TrendManager.shared
+    @ObservedObject var healthManager: HKManager = .shared
+    @ObservedObject var dataManager: DataManager = .shared
+    @ObservedObject var trendManager: TrendManager = .shared
+    @ObservedObject var notificationManager: NotificationManager = .shared
     @State var showAlert: Bool = true
     @State var selectedRide: Ride?
     @State var presentSheet: Bool = false
@@ -78,18 +79,6 @@ struct ContentView: View {
 
     func initalise() {
         Task {
-//            dataManager.refreshRides()
-            
-//            if firstLaunch {
-//                HKManager.shared.requestAuthorization()
-//                DataManager.shared.reyncData()
-//                firstLaunch = false
-//                print(firstLaunch)
-//            }
-            
-//            if dataManager.rides.count <= 5 {
-//                dataManager.reyncData()
-//            }
 
             for ride in dataManager.rides {
                 trendManager.distanceTrends.append(TrendItem(value: ride.distance, date: ride.rideDate))
@@ -98,6 +87,8 @@ struct ContentView: View {
                 trendManager.speedTrends.append(TrendItem(value: ride.speed, date: ride.rideDate))
 
             }
+            
+            notificationManager.requestPermissions()
 
             WidgetCenter.shared.reloadAllTimelines()
         }

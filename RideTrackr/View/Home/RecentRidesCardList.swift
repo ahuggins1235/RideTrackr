@@ -17,10 +17,10 @@ struct RecentRidesCardList: View {
     @ObservedObject var navigationManager: NavigationManager = .shared
     @State var currentRide = UUID()
     var recentRides: [Ride] {
-        
+
         let rideSlice = healthManager.queryingHealthKit ? previewRideArray.prefix(5).dropFirst() : dataManager.rides.prefix(5).dropFirst()
         var rides: [Ride] = []
-        
+
         for ride in rideSlice {
             rides.append(ride)
         }
@@ -39,7 +39,6 @@ struct RecentRidesCardList: View {
                         .font(.headline)
                         .bold()
 
-
                     Spacer()
 
                     Text("Show more...")
@@ -48,9 +47,8 @@ struct RecentRidesCardList: View {
                         .onTapGesture {
                         navigationManager.selectedTab = .RideList
                     }
-
                 }
-                    .offset(y: 15)
+//                    .offset(y: 15)
                 .foregroundStyle(.accent)
 
                 // MARK: - Tabview
@@ -63,14 +61,17 @@ struct RecentRidesCardList: View {
 
                             NavigationLink(value: ride) {
 
-                                RideCardPreview(ride: ride).padding(.horizontal).tag(ride.id)
+                                RideCardPreview(ride: ride)
+                                    .padding(.horizontal)
+                                    .tag(ride.id)
                                     .foregroundStyle(Color.primary)
-                                    .containerRelativeFrame(.vertical)
-                                    .redacted(if: healthManager.queryingHealthKit)
+//                                    .containerRelativeFrame(.vertical)
+                                .redacted(if: healthManager.queryingHealthKit)
                                     .shimmer(ShimmerConfig.defaultConfig, isLoading: healthManager.queryingHealthKit)
                             }
                         }
                     }
+                    .frame(height: 175)
                         .tabViewStyle(.page(indexDisplayMode: .never))
 
 
@@ -104,7 +105,7 @@ struct RecentRidesCardList: View {
                         .padding()
                 }
             }
-                .padding(.vertical)
+//                .padding(.vertical)
 
                 .navigationDestination(for: Ride.self) { ride in
                 RideDetailView(ride: ride)
@@ -124,43 +125,40 @@ struct RideCardPreview: View {
 
     var body: some View {
 
-        ZStack {
+        HStack {
+            VStack(alignment: .center, spacing: 10) {
 
-            Color.cardBackground
-                .clipShape(RoundedRectangle(cornerRadius: 15, style: .continuous))
+                Text(ride.dateString)
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
 
-            HStack {
-                VStack(alignment: .center, spacing: 10) {
+                VStack(spacing: 5) {
+                    Text(ride.distanceString)
+                        .foregroundStyle(.distance)
 
-                    Text(ride.dateString)
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
+                    Text(ride.activeEnergyString)
+                        .foregroundStyle(.energy)
 
-                    VStack(spacing: 5) {
-                        Text(ride.distanceString)
-                            .foregroundStyle(.distance)
+                }.bold()
+                    .font(.headline)
+                    .padding(.vertical)
 
-                        Text(ride.activeEnergyString)
-                            .foregroundStyle(.energy)
+                Text(ride.durationString)
+                    .fontWeight(.semibold)
 
-                    }.bold()
-                        .font(.headline)
-                        .padding(.vertical)
+            }
+                .padding(.leading)
 
-                    Text(ride.durationString)
-                        .fontWeight(.semibold)
-
-                }
-                    .padding(.leading)
-
-                if let _ = ride.routeData.first {
-                    SmallMapPreviewView(location: CLLocationCoordinate2D(latitude: ride.routeData.first!.latitude, longitude: ride.routeData.first!.longitude), route: ride.routeData.map({ CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude) }))
-                        .clipShape(RoundedRectangle(cornerRadius: 15, style: .continuous))
-                        .padding()
-                }
+            if let _ = ride.routeData.first {
+                SmallMapPreviewView(location: CLLocationCoordinate2D(latitude: ride.routeData.first!.latitude, longitude: ride.routeData.first!.longitude), route: ride.routeData.map({ CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude) }))
+                    .clipShape(RoundedRectangle(cornerRadius: 15, style: .continuous))
+                    .padding()
+                    .frame(height: 175)
             }
         }
-            .frame(height: 175)
+            .background(.cardBackground)
+            .clipShape(RoundedRectangle(cornerRadius: 15, style: .continuous))
+            .contentShape(Rectangle())
     }
 }
 

@@ -74,6 +74,8 @@
 		49A1D5232CBA7334007D37BA /* LabelStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A1D5212CBA732A007D37BA /* LabelStyles.swift */; };
 		49B16B102CD495CA0050564E /* mainSchema.sql in Resources */ = {isa = PBXBuildFile; fileRef = 494DAA892C256F86001E0D4B /* mainSchema.sql */; };
 		49B16B172CD4AE230050564E /* GoalProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F105BC2CC9F9A40083368B /* GoalProgressView.swift */; };
+		49B16B192CD5BFF40050564E /* RecentRidePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B16B182CD5BFF40050564E /* RecentRidePreview.swift */; };
+		49B16B1B2CD5CBEA0050564E /* RecentRidesHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B16B1A2CD5CBEA0050564E /* RecentRidesHomeView.swift */; };
 		49BAD1D92CD2313900FE3499 /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BAD1D82CD2313900FE3499 /* StatsView.swift */; };
 		49E6165A2CC9FDE30030EA5F /* GoalGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E616592CC9FDE30030EA5F /* GoalGroupView.swift */; };
 		49E6165C2CCA072C0030EA5F /* GoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E6165B2CCA072C0030EA5F /* GoalView.swift */; };
@@ -195,6 +197,8 @@
 		49A1D5142CBA4D83007D37BA /* StatDifferenceArrow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatDifferenceArrow.swift; sourceTree = "<group>"; };
 		49A1D5212CBA732A007D37BA /* LabelStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelStyles.swift; sourceTree = "<group>"; };
 		49B16B0F2CD48F980050564E /* RideTrackrWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RideTrackrWidgetExtension.entitlements; sourceTree = "<group>"; };
+		49B16B182CD5BFF40050564E /* RecentRidePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentRidePreview.swift; sourceTree = "<group>"; };
+		49B16B1A2CD5CBEA0050564E /* RecentRidesHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentRidesHomeView.swift; sourceTree = "<group>"; };
 		49BAD1D82CD2313900FE3499 /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
 		49E616592CC9FDE30030EA5F /* GoalGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalGroupView.swift; sourceTree = "<group>"; };
 		49E6165B2CCA072C0030EA5F /* GoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalView.swift; sourceTree = "<group>"; };
@@ -378,7 +382,9 @@
 		4907262E2A6907940009817F /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				49B16B182CD5BFF40050564E /* RecentRidePreview.swift */,
 				4907262A2A6904710009817F /* HomeView.swift */,
+				49B16B1A2CD5CBEA0050564E /* RecentRidesHomeView.swift */,
 				4907262F2A6907B40009817F /* TrendCardView.swift */,
 				49932F5B2AF1FD3700A45D14 /* RecentRidesCardList.swift */,
 				498657B92C33BFFA00EEF59F /* TrendPreviewView.swift */,
@@ -732,6 +738,7 @@
 				49F26F932CB4F73600BDA227 /* HeartRateZoneView.swift in Sources */,
 				490725FF2A69042A0009817F /* ContentView.swift in Sources */,
 				49A1D5232CBA7334007D37BA /* LabelStyles.swift in Sources */,
+				49B16B1B2CD5CBEA0050564E /* RecentRidesHomeView.swift in Sources */,
 				490741E02C37EBF000C07C24 /* LargeMapPreviewView.swift in Sources */,
 				4905ACAE2CB3904300DBE2F9 /* HeartRateZoneManager.swift in Sources */,
 				49E616652CCA1A7E0030EA5F /* ColorEXT.swift in Sources */,
@@ -763,6 +770,7 @@
 				49F26FBE2CB7564500BDA227 /* CollapseView.swift in Sources */,
 				49E6165A2CC9FDE30030EA5F /* GoalGroupView.swift in Sources */,
 				49E616622CCA1A4D0030EA5F /* CoordinateEXT.swift in Sources */,
+				49B16B192CD5BFF40050564E /* RecentRidePreview.swift in Sources */,
 				49F105B42CC8F61A0083368B /* Goal.swift in Sources */,
 				49E71F442AC1509E00900477 /* TrendType.swift in Sources */,
 			);

@@ -26,11 +26,12 @@ struct HomeView: View {
     }
 
     // MARK: - body
+    @MainActor
     var body: some View {
         NavigationStack(path: $navigationManager.homeNavPath) {
 
             ScrollView {
-                VStack(alignment: .leading) {
+                VStack(spacing: 20) {
 
                     // MARK: - stat views
                     TrendPreviewView()
@@ -38,89 +39,25 @@ struct HomeView: View {
                         .shimmer(.defaultConfig, isLoading: healthManager.queryingHealthKit)
 
                     // MARK: - recent ride preview
-                    VStack(alignment: .leading) {
-
-                        if dataManager.rides.count > 0 {
-
-                            NavigationLink(value: dataManager.rides.first!) {
-                                VStack {
-                                    HStack(alignment: .bottom) {
-                                        Text("Your Last Ride")
-                                            .font(.headline)
-                                            .bold()
-                                        
-                                        Spacer()
-                                        
-                                        Text("Show more...")
-                                            .font(.subheadline)
-                                            .fontWeight(.medium)
-                                    }
-                                    .foregroundStyle(.accent)
-                                    
-                                    LargeRidePreview(ride: $dataManager.rides.first!, queryingHealthKit: $healthManager.queryingHealthKit)
-                                        .redacted(if: healthManager.queryingHealthKit)
-                                        .shimmer(ShimmerConfig.defaultConfig, isLoading: healthManager.queryingHealthKit)
-                                }
-                            }.foregroundStyle(Color.primary)
-
-                        } else {
-
-                            LargeRidePreview(ride: $previewRide, queryingHealthKit: $healthManager.queryingHealthKit)
-                                .redacted(reason: .placeholder)
-                                .shimmer(.defaultConfig, isLoading: true)
-                        }
-                    }
-                        .padding(.top)
-                    
-                    GoalPreviewView()
-                        .padding(.top)
+                    RecentRidePreview()
                         .redacted(if: healthManager.queryingHealthKit)
                         .shimmer(.defaultConfig, isLoading: healthManager.queryingHealthKit)
+
+                    GoalPreviewView()
+                        .redacted(if: healthManager.queryingHealthKit)
+                        .shimmer(.defaultConfig, isLoading: healthManager.queryingHealthKit)
+
+                    RecentRidesHomeView()
                     
-                    if !healthManager.queryingHealthKit {
-                        
-                        
-                        // MARK: - recent ride cards
-                        RecentRidesCardList()
-                            .frame(height: 300)
-                            .redacted(if: healthManager.queryingHealthKit)
-                            .shimmer(.defaultConfig, isLoading: healthManager.queryingHealthKit)
-                    } else {
-                        VStack {
-                            HStack {
-                                Text("Recent Rides")
-                                    .font(.headline)
-                                    .bold()
-                                    .foregroundStyle(.accent)
-                                
-                                Spacer()
-                                
-                                Text("Show more...")
-                                    .font(.subheadline)
-                                    .fontWeight(.medium)
-                                    .foregroundStyle(.accent)
-                                    
-                                
-                            }
-//                            .foregroundStyle(.secondary)
-                            .offset(y: 15)
-                            .onTapGesture {
-                                navigationManager.selectedTab = .RideList
-                            }
-                            
-                            RideCardPreview(ride: PreviewRide).padding()
-                                .redacted(reason: .placeholder)
-                                .shimmer(.defaultConfig, isLoading: true)
-                        }
-                        
-                    }
-                }.padding(.horizontal)
-                    .navigationTitle(greetingString)
+                    Spacer()
+
+                }
+                .padding(.horizontal)
+                .navigationTitle(greetingString)
             }
                 .navigationDestination(for: Ride.self) { ride in
                 RideDetailView(ride: ride)
             }
-
                 .refreshable {
 
                 withAnimation {
@@ -150,7 +87,7 @@ func GetGreetingString() -> String {
 
 // MARK: - Previews
 #Preview("Home View") {
-    HomeView(trendManager: PreviewTrendManager())
+    HomeView(healthManager: PreviewHKManager(), dataManager: PreviewDataManager(), trendManager: PreviewTrendManager())
         .onAppear {
         HKManager.shared.queryingHealthKit = true
 //        DataManager.shared.rides = previewRideArray

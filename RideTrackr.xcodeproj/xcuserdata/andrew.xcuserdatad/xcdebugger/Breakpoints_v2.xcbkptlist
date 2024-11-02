@@ -216,25 +216,9 @@
             filePath = "RideTrackr/Manager/DataManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "210"
-            endingLineNumber = "210"
+            startingLineNumber = "228"
+            endingLineNumber = "228"
             landmarkName = "reyncData()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "BECF9435-4A80-435C-B96F-5F77C3384DA4"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "RideTrackr/Manager/DataManager.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "175"
-            endingLineNumber = "175"
-            landmarkName = "refreshRides()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -312,8 +296,8 @@
             filePath = "RideTrackr/Manager/DataManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "217"
-            endingLineNumber = "217"
+            startingLineNumber = "235"
+            endingLineNumber = "235"
             landmarkName = "reyncData()"
             landmarkType = "7">
          </BreakpointContent>

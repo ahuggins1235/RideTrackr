@@ -75,7 +75,10 @@ class TrendManager: ObservableObject {
         
         // calculate the sum of the list
         let sum = filteredList.reduce(0) { (currentSum, nextNumber) in
-            return currentSum + nextNumber.value
+            if nextNumber.value > 0 {
+                return currentSum + nextNumber.value
+            }
+            return currentSum
         }
         
         // calulate average
